@@ -1,0 +1,121 @@
+#headerBar {
+    height:50px;
+    width:100%;
+    background: $primary-color;
+    z-index:40;
+    border-bottom:1px solid $border-color
+}
+
+.appTitle {
+  color: $secondary-color;
+  font-size: 18px;
+  display: inline-block;
+}
+
+.appIcon {
+  display: inline-block;
+}
+
+// .homeButton, #currentLoc, #menuButton {
+//   border:none;
+// }
+
+#basemapDropdownContent {
+  width: 410px;
+}
+
+.basemapGrid{
+  height: 100px;
+  // width: 100px;
+}
+
+#basemapSelectorText {
+  color: $text-color;
+  font-size: 24px;
+  padding-left: 10px;
+}
+
+.basemapText {
+  line-height: 100px;
+  font-size: 18px;
+}
+
+/* Controls active basemap in both menu versions */
+.dropdown-menu li.activeButton {
+  background-color: $active-color;
+}
+
+// .dropdown-menu li.activeButton >a {
+//   color: black;
+// }
+// 
+
+#menuDropdown {
+  width: 225px;
+}
+
+.menuTopic {
+  color: $text-color;
+  font-size: 16px;
+  padding-left:10px;
+}
+
+.menuItem {
+  padding-left:25px;
+}
+
+// .activeButton {
+//     color:#474343;
+//     background-color:#fff
+// }
+
+
+// input#searchBar {
+//     padding-top:8px!important
+// }
+
+// input#searchBar.form-control {
+//     margin-top:0!important;
+//     height:40px!important
+// }
+
+.helpMenu a {
+    color: $text-color;
+}
+
+.helpMenu a:hover {
+  color:#000!important;
+  text-decoration:none
+}
+
+// .activeButton.menuItem {
+//   background-color:red;
+// }
+
+#helpImageContainer {
+    // display:inline-block
+}
+
+// .helpImage {
+//     // width:50%;
+//     float:left;
+//     display: block;
+// }
+
+.helpImage img {
+    height:30px;
+    width:auto;
+    margin-bottom: 10px;
+}
+
+.homeFindButtons {
+  margin-top: 5px;
+}
+
+.baseMapToggle {
+  padding-top: 5px;
+}
+
+.headerColorRamp {
+  height:50px;
+}

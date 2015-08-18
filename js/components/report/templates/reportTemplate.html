@@ -1,0 +1,102 @@
+<div id="reportModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header" id="reportHeader">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="assets/images/solar-app-transparent220x235.png" alt="MN Solar Logo">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-md-10 noGutter">
+                                    <h4 class="modal-title">
+                                        Minnesota Solar Suitability Location Report
+                                    </h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">
+                                            <i class="fa fa-times fa-1x"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 noGutter">
+                                    Latitude:
+                                </div>
+                                 <div class="col-md-4">
+                                    <div id="reportLat">
+                                        Lat
+                                    </div>
+                                </div>
+                                 <div class="col-md-2">
+                                    Longitude:
+                                </div>
+                                 <div class="col-md-4">
+                                    <div id="reportLng">
+                                        Lng
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row" id="siteDetailsRow">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="siteName" placeholder="Enter a site name: ">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="textarea" class="form-control" id="siteNotes" placeholder="Enter site notes: ">
+                        </div>
+                    </div>
+                    <div class="row" id="siteImagesRow">
+                        <div class="col-md-6 resultsImage">
+                            <div id="reportSolarMap-container">
+                            </div>
+                        </div>
+                        <div class="col-md-6 resultsImage">
+                            <div id="reportAerialMap-container">
+
+                                <div id="reportAngleControls" class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-danger angleDownButton">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </span>
+                                    <input type="text" class="form-control" id="reportAngleBox" value="90">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success angleUpButton">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="reportResultsRow">
+                        <div class="col-md-12">
+                            <div class="reportResults-container">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default downloadButton">Download PDF</button>
+                <!-- <button type="button" class="btn btn-default printButton">Print PDF</button> -->
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

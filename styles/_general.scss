@@ -1,0 +1,146 @@
+body {
+  font-family: $font;
+}
+
+/* Make text not selectable */
+.noselect {
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+}
+
+/* Custom button style */
+.btn-solar {
+    // args - color, background, border
+    @include button-variant($secondary-color, $primary-color, $secondary-color);
+}
+
+/* force aspect ratio - 8.5x11 */
+.letterSize{
+    @include aspect-ratio(4, 3);
+}
+/* remove 30px top/bottom margin on modal dialogs - overflow-scroll looks weird without it */
+
+.modal-dialog {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+/* remove left/right padding on rows */
+.no-gutter > [class*='col-'] {
+  padding-right:0;
+  padding-left:0;
+}
+
+.floatRight{
+  float:right;
+}
+
+
+/* Overwrite default dropdown menu*/
+.dropdown-menu > li > a {
+  color: $text-color;
+}
+
+/* Overwrite default nav link*/
+.nav > li > a {
+  color: $text-color;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.indent {
+  margin-left: 3%;
+}
+
+.noBorder {
+  border: 0 none!important;
+}
+
+ul.dropdown-menu,a.dropdown-menu {
+  background-color: $overlay;
+}
+
+/* Modals */
+.modal-dialog{
+  width:auto;
+}
+
+
+/* Reference below for clean up and proper _.scss placement */
+// helpSplash
+.closeSplash,.showReport, #closeResults, #viewReport, #emailReport, #resultsBigClose{
+    cursor:pointer
+}
+
+// bottomBar
+.imgCenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// bottomBar
+.appButton {
+  height:40px
+}
+
+// bottomBar, navBar
+.menuButton {
+  background-color: $primary-color;
+  color: $secondary-color;
+  border: none;
+}
+
+// navBar
+.iconButton {
+    padding-top:2px!important;
+    padding-bottom:3px;
+    padding-left:10px;
+    padding-right:10px
+}
+// navBar
+.iconButton img {
+    height:20px;
+    width:auto
+}
+
+// navBar
+.iconLabel {
+    font-size:12px
+}
+ 
+// // resultsSmall
+// #viewReport, #emailReport, #closeResults, #calculateButton{
+//   text-align: right !important;
+//   margin-top:3px;
+// }
+
+// resultsSmall
+// #closeResults{
+//   text-align: right !important;
+//   // margin-top:3px;
+//   margin-right:6px;
+// }
+
+// resultsSmall
+#viewReport svg, #emailReport svg, #closeResults svg{
+  padding-top:5px !important;
+}
+
+// resultsSmall
+#resultsHisto svg.chart,#sunHrHisto svg.chart {
+    max-width:100%;
+}
+
+// resultsSmall
+#resultsHisto img {
+    height:150px;
+    width:auto;
+    text-align:center;
+}

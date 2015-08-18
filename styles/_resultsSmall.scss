@@ -1,0 +1,72 @@
+#viewReport a:visited, #viewReport a:hover, #viewReport a:link, #viewReport a:active{
+    font-size: 18px;
+  color: #fff;
+  text-decoration:none;
+}
+
+#resultsSmall button a{
+    font-size: 14px;
+    color: $text-color;
+    text-decoration: none;
+}
+
+
+// #emailReport a:visited, #emailReport a:hover, #emailReport a:link, #emailReport a:active{
+//   font-size: 18px;
+//   color: #fff;
+//   text-decoration:none;
+// }
+
+.resultsDisplay {
+    display:inline-block;
+    font-size:14px;
+   /* background-color:#474343; */
+    color:#fff;
+    z-index:5;
+    padding-top:15px;
+    margin-left:50px
+}
+
+// .resultsTable {
+//     margin-left:50px
+// }
+
+.resultsButtonToolbar{
+    float:right;
+    margin-top: 3px;
+}
+
+#resultsSmall {
+    // display:none;
+    background-color:$overlay;
+    font-size:18px;
+    color:#fff;
+    z-index:299;
+    border-top:1px solid #fff;
+    height:400px;
+    width:100%;
+    position:absolute;
+    bottom: 0;
+
+    // Add top gutter to match right/left
+    padding-top:15px;
+}
+
+.resultsGeneral{
+    text-align:center;
+}
+
+#closeResults{
+    float:left;
+}
+
+.reportControls {
+    float:left;
+    width:130px;
+    margin-top:20px;
+}
+
+.resultsTables {
+    height:300px;
+    overflow:auto;
+}

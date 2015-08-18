@@ -1,0 +1,48 @@
+#reportModal {
+  width: 60%;
+  margin: auto;
+  height: auto;
+  max-height: 90%;
+}
+
+#reportHeader {
+  height:85px;
+}
+
+#reportHeader img {
+  float: left;
+  width: 62px;
+  height: 65px;
+}
+
+#reportHeader .modal-title {
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: $font;
+  padding-left: 0px;
+}
+
+#reportSolarMap-container, #reportAerialMap-container {
+  // width:200px;
+  // height: 200px;
+  // margin-left:25%;
+  // margin-right: 25%;
+  margin-top:20px;
+  position: relative;
+}
+
+#reportAngleControls {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  
+  z-index: 100;
+  width:115px;
+}
+
+#reportAngleBox {
+  width: 50px;
+  text-align: center;
+}
+

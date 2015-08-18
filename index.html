@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <title>MN Solar Suitability Analysis App</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="assets/images/favicon.ico" />
+
+  <!-- Required Esri/Dojo Stylesheets -->
+  <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+
+  <!-- App Styles -->
+  <link rel="stylesheet" type="text/css" href="assets/css/solarApp.css">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"> -->
+
+  <!-- CHANGE THIS FOR DEPLOYMENT -->
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+  <!-- External Lib Styles -->
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css"> -->
+
+  <!-- Required Libraries -->
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/underscore-min.js"></script>
+  <script src="lib/backbone.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script src="lib/d3.min.js"></script>
+  <script src="lib/d3-tip.js"></script>
+  <script src="lib/jspdf.min.js"></script>
+  <script src="lib/js.cookie.js"></script>
+</head>
+
+<body>
+
+<!-- JavaScript -->
+  <script src="//js.arcgis.com/3.13"></script>
+  <script src="//apis.google.com/js/client.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script>
+  <script type="text/javascript">
+    var pathRegex = new RegExp(/\/[^\/]+$/);
+    var locationPath = location.pathname.replace(pathRegex, '');
+
+    require({
+      packages: [
+        { name: 'app', location: locationPath + 'js/app'},
+        { name: 'components',  location:  locationPath + 'js/components'},
+        { name: 'config',  location:  locationPath + 'js/config'},
+        { name: 'lib', location: locationPath + 'lib'}
+      ]
+    },
+      ['app/main'],
+      function(main) {
+        main.startup();
+      }
+    );
+  </script>
+
+</body>
+</html>

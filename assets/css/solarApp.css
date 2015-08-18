@@ -1,0 +1,448 @@
+@charset "UTF-8";
+
+/* CSS Document */
+html,body,#mapContainer {
+    font-family:sans-serif;
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+    overflow:hidden
+}
+
+a {
+    font-family:"TrebuchetMS";
+    font-size:16px;
+    color:#ff7400
+}
+
+a:hover {
+    color:#F65D23
+}
+
+#loader {
+    display:none;
+}
+
+#smText {
+    font-family:"TrebuchetMS";
+    font-size:13px;
+    color:#fff
+}
+
+/*.basemapImage {
+    width:30px!important;
+    height:30px!important;
+    border-radius:5px!important
+}*/
+
+.basemapTitle {
+    display:none!important
+}
+
+/* NEW  */
+/* Custom container */
+.container-full {
+    margin:0 auto;
+    width:100%
+}
+
+html {
+    position:relative;
+    min-height:100%
+}
+
+body {
+/* Margin bottom by footer height */
+    margin-bottom:60px
+}
+
+
+
+.footer {
+    height:50px;
+    width:100%;
+    background-color:#474343;
+    z-index:4000;
+    color:#fff;
+    position:absolute;
+    bottom:0
+}
+
+.container {
+    width:100%
+}
+
+body {
+    width:100%;
+    background-color:#474343!important
+}
+
+#bottomBar, .bottomBar-container {
+    height:50px;
+    width:100%;
+    bottom: 0px;
+    background:#474343;
+    z-index:4000;
+    color:#fff;
+    border-top:1px solid #fff
+}
+
+.toolbarHome{
+    height:20px;
+	width:auto;
+	background-image: url('/assets/img/home_icon.png');
+	};
+	
+ul.dropdown-menu li {
+    margin-left:10px
+}
+
+.layerTitle {
+    display:inline-block;
+    margin-left:5px
+}
+
+.dropdown-accordion .panel-heading {
+    padding:0
+}
+
+.dropdown-accordion .panel-heading a {
+    display:block;
+    padding:10px 15px
+}
+
+#search {
+    z-index:50;
+    width:100%
+}
+
+#HelpMe {
+    position:absolute;
+    top:7.5px;
+    background:rgba(102,102,102,0.8);
+    width:30px;
+    height:30px;
+    z-index:50;
+    background-color:#fff;
+    font-size:18px;
+    font-weight:700;
+    font-family:TrebuchetMS,arial;
+    width:30px;
+    height:30px;
+    padding:2px;
+    border-radius:5px;
+    cursor:pointer;
+    text-align:center
+}
+
+#BasemapToggle {
+    top:8.25px;
+    z-index:50
+}
+
+.toggleLayers {
+    z-index:50;
+    color:#fff;
+    float:right
+}
+
+#layerHeader {
+    margin-left:15px
+}
+
+#layerItem {
+    margin-left:30px
+}
+
+#layerTitle {
+    float:left;
+    margin-left:20px;
+    font-weight:700
+}
+
+#layers {
+    margin-left:10px;
+    float:right
+}
+
+#layerTest1,#layerTest2,#layerTest3 {
+    position:absolute;
+    padding:20px;
+    z-index:51;
+    border:3px solid #fff;
+    border-radius:40px 40px 40px 40px;
+    background:#474343;
+    width:100px;
+    height:auto;
+    color:#fff
+}
+
+#layerTest1 {
+    padding-left:10px;
+    padding-right:10px;
+    left:675px;
+    z-index:51
+}
+
+#layerTest2 {
+    left:775px;
+    z-index:51
+}
+
+#layerTest3 {
+    left:875px;
+    z-index:51
+}
+
+#logos {
+    width:90%
+}
+
+#umnLogo {
+    margin-top:2px;
+    margin-right:10px;
+    float:right;
+    display:inline-block;
+    z-index:100;
+    max-width:40px
+}
+
+#esriLogo {
+    float:right;
+    z-index:100;
+    max-width:40px
+}
+
+#dropdownMenu {
+    width:300px;
+    float:right;
+    background-color:#474343;
+    color:#fff
+}
+
+#dropdownMenu a:hover {
+    background-color:#474343;
+    color:#fff
+}
+
+#dropdownBookmark {
+    width:300px
+}
+
+#dropdownMenuList,#dropdownBookmarkList {
+    position:absolute;
+    top:40px;
+    float:right;
+    background-color:#474343;
+    color:#fff;
+    border-top:none;
+    border-left:2px solid #fff;
+    border-right:2px solid #fff;
+    border-bottom:2px solid #fff;
+    border-top-left-radius:0;
+    border-top-right-radius:0;
+    width:300px
+}
+
+div.panel.panel-default,div.panel.panel-default a {
+    background-color:#474343;
+    color:#fff
+}
+
+;
+#bookmarkName {
+    diplay:inline-block;
+    float:left;
+    width:75%;
+    padding-left:5px
+}
+
+#bookmarkView {
+    diplay:inline-block;
+    float:right;
+    width:25%
+}
+
+.btn-block {
+    background-color:#474343;
+    color:#fff;
+    text-align:center
+}
+
+#viewButton1,#viewButton2,#viewButton3 {
+    margin-left:-10px;
+    margin-top:25%
+}
+
+/* END OF HEADER */
+
+.sideNav,#r,#SplashScreen {
+    cursor:pointer
+}
+
+#SplashScreen,.tableCanvas {
+    width:550px;
+    height:375px;
+    z-index:45;
+    top:155px;
+    font-family:"TrebuchetMS"
+}
+
+#r {
+    background-color:#474343;
+    font-size:18px;
+    color:#fff;
+    z-index:299
+}
+
+
+
+#resultsHeader, #resultsMinimized{
+    background-color:#474343;
+    width:100px;
+    position:absolute;
+    z-index: 500;
+    opacity:.7;
+    padding-left:30px;
+    padding-top: 3px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+#Capa_1, #Capa_2{
+    display:inline-block;
+    text-align: center;
+    margin: 0 auto;
+    opacity:1;
+}
+
+#resultsBig {
+	display:none;
+    height:100%;
+    width:100%;
+	font-size:18px;
+    color:#fff;
+    border-top:1px solid #fff;
+    text-align:center;
+	background-color:#474343;
+    position:absolute;
+    text-align:center;
+	z-index:500;
+}
+
+#closeBigResults{
+    float:right;
+	text-align: right !important;
+	margin-right:10px;
+	color:white;
+	cursor:pointer;
+	z-index:10;
+	
+	}
+
+.resultsTopicTitle {
+    font-size:20px;
+	padding-bottom:5px;
+    border-bottom:1px solid #fff;
+    margin-bottom:15px;
+}
+
+.x.axis text,.y.axis text {
+    font-family:sans-serif;
+    font-size:14px
+}
+
+.x.axis text {
+    margin-left:-2px
+}
+
+.carousel-indicators {
+    bottom:-50px!important
+}
+
+.carousel-inner {
+    margin-bottom:50px!important
+}
+
+# a {
+    max-width:80%
+}
+
+.chart div {
+    font:10px sans-serif;
+    background-color:#4682b4;
+    text-align:right;
+    padding:3px;
+    margin:1px;
+    color:#000;
+    z-index:1
+}
+
+.chart rect {
+    fill:#ff7400
+}
+
+.chart rect:hover {
+    fill:#ff4500
+}
+
+.chart text {
+    fill:#fff;
+    font:10px sans-serif;
+    text-anchor:end
+}
+
+.shadowCSS { 
+  box-shadow: 12px 12px 7px rgba(0,0,0,0.5); 
+  }
+  
+.shadowfilter { 
+  -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+  filter: url(shadow.svg#drop-shadow); 
+}
+
+/*  -------------------------------------------------
+
+    DEFINITELY KEEP BELOW THIS LINE
+	
+	-------------------------------------------------*/
+
+	
+.noUnderline:hover{
+text-decoration:none !important;
+}
+
+
+/* D3 customization */
+.d3-tip {
+    line-height:1;
+    font-weight:700;
+    padding:12px;
+    background:rgba(0,0,0,0.8);
+    color:#fff;
+    border-radius:2px;
+    z-index:500
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing:border-box;
+    display:inline;
+    font-size:10px;
+    width:100%;
+    line-height:1;
+    color:rgba(0,0,0,0.8);
+    content:"\25BC";
+    position:absolute;
+    text-align:center
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+    margin:-1px 0 0;
+    top:100%;
+    left:0
+}
+
+/*@keyframes bubblingG {*/

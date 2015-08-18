@@ -1,0 +1,80 @@
+<div class="appIssuesModal modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content appIssues">
+
+            <div class="modal-header" id="appIssuesHeader">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class='appTitle'>
+                                Is there an issue with the Minnesota Solar Suitability App?
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-default btn-danger closeSplash floatRight">
+                                <i class="fa fa-times fa-1x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="appIssuesBody">
+                        <span>
+                            If you are familiar with the process of reporting issues on GitHub, please visit us at <a href="<%=gitHub%>">Solar App 2.0</a>.<br/><br/> Otherwise, please use the form below to report an issue or bug.
+                        </span>
+                        <form class="form-horizontal appIssuesForm">
+
+                        <!-- Text input-->
+                            <div class="control-group">
+                                <label class="control-label" for="appIssuesName">Name:</label>
+                                <div class="controls">
+                                    <input id="appIssuesName" name="appIssuesName" type="text" placeholder="  Enter name..." class="input-xlarge" required="">
+                                </div>
+                            </div>
+
+                        <!-- Text input-->
+                            <div class="control-group">
+                                <label class="control-label" for="appIssuesEmail">Email:</label>
+                                <div class="controls">
+                                    <input id="appIssuesEmail" name="appIssuesEmail" type="text" placeholder="  Enter email..." class="input-xlarge" required="">
+                            
+                                </div>
+                            </div>
+
+                        <!-- Textarea -->
+                            <div class="control-group">
+                                <label class="control-label" for="appIssuesDescription">Description:</label>
+                                <div class="controls">                     
+                                    <textarea id="appIssuesDescription" name="appIssuesDescription" placeholder="  Issue/bug description..."></textarea>
+                                </div>
+                            </div>
+
+                        <!-- Button -->
+                            <div class="control-group">
+                                <label class="control-label" for="appIssuesSubmit"></label>
+                                <div class="controls">
+                                    <!-- <button id="appIssuesSubmit" name="appIssuesSubmit" class="btn btn-success">Submit</button> -->
+                                    <a id="appIssuesSubmit"  name="appIssuesSubmit" class="btn btn-success" role="button">
+                                        Submit
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="modal-footer">
+                <div class="container-fluid">
+                    <div class="row">
+        
+                    </div>
+                </div>
+            </div> -->
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

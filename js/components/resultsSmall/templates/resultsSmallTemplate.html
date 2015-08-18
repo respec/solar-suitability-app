@@ -1,0 +1,171 @@
+<div id="resultsSmall">  
+    <div class="container-fluid">
+
+        <!-- Controls -->
+        <!-- <div class="row">
+            <div class="col-md-1">
+                <button type="button" class="btn btn-default btn-danger" id="closeResults">
+                    <i class="fa fa-times fa-1x"></i>
+                </button>
+            </div>
+            <div class="col-md-3">
+                General
+            </div>
+            <div class="col-md-4">
+                Histograms
+            </div>
+            <div class="col-md-4">
+                Tables
+            </div>
+        </div> -->
+
+        <!-- Data -->
+
+        <div class="row">
+            <div class="col-md-1">
+                <div>
+                    <button type="button" class="btn btn-default btn-danger" id="closeResults">
+                        <i class="fa fa-times fa-1x"></i>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default btn-solar reportControls" id="calculateButton">
+                        <span id="calculateLink">Calculate</span>
+                        <i class="fa fa-calculator"></i>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default btn-solar reportControls" id="viewReport">
+                        <span id="viewReportLink">View Report</span>
+                        <i class="fa fa-print"></i>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default btn-solar reportControls" id="emailReport">
+                        <span id="emailReportLink">Email Report</span>
+                        <i class="fa fa-envelope-o"></i>
+                    </button>
+
+                    <!-- <a id="emailLink" class="btn btn-default btn-solar reportControls" role="button">
+                        Email Report <i class="fa fa-envelope-o"></i>
+                    </a> -->
+                </div>
+            </div>
+            <div class="col-md-3 resultsGeneral">
+                <div class="resultsDisplay noselect" id="results"></div>
+            </div>
+            <div class="col-md-8">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#insolationResults" aria-controls="insolationResults" role="tab" data-toggle="tab">Solar Insolation By Month (kWh)</a></li>
+                    <li role="presentation"><a href="#sunHrsResults" aria-controls="sunHrsResults" role="tab" data-toggle="tab">Sun Hours (Month)</a></li>
+                    <li role="presentation"><a href="#shadeHrsResults" aria-controls="shadeHrsResults" role="tab" data-toggle="tab">Shade Hours (Month)</a></li>
+                    <!-- <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
+                </ul>
+
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="insolationResults">
+                        <div class="row no-gutter">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="resultsDisplay noselect" id="resultsHisto"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <table class="table table-bordered table-hover table-condensed" >
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:50%">Month</th>
+                                                    <th style="width:50%">Value</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-11 resultsTables">
+                                        <table class="table table-bordered table-hover table-condensed" id="insolationTable">
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="sunHrsResults">
+                        <div class="row no-gutter">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="resultsDisplay noselect" id="sunHrHisto"></div>
+                            </div>
+                            <div class="col-md-5 resultsTables">
+                                <table class="table table-bordered table-hover table-condensed" id="sunHoursTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="shadeHrsResults">
+                        <div class="row no-gutter">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                shadeHrs here eventually
+                                <!-- <div class="resultsDisplay noselect" id="sunHrHisto"></div> -->
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-hover table-condensed" >
+                                            <thead>
+                                                <tr>
+                                                    <th>Month</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="height: 300px; overflow:auto">
+                                        <table class="table table-bordered table-hover table-condensed" id="shadeHoursTable">
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                    <!-- <div role="tabpanel" class="tab-pane" id="settings"></div> -->
+                </div>
+            </div>
+            <!-- <div class="col-md-4">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Insolation (Month)</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Sun Hours (Month)</a></li>
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Shade Hours (Month)</a></li>
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <div class="resultsDisplay noselect" id="resultsHisto"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <div class="resultsDisplay noselect" id="sunHrHisto"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="messages">MSG</div>
+                    <!-- <div role="tabpanel" class="tab-pane" id="settings"></div> --
+                </div>
+            </div> -->
+        </div>  <!-- ROW END -->
+    </div> <!-- CONTAINER END --> 
+</div> <!-- END ResultsSmall -->

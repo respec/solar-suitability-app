@@ -1,0 +1,50 @@
+.appIssuesModal {
+  width: 40%;
+  height: auto;
+  max-height: 75%;
+  margin: auto;
+}
+
+.appIssues {
+  background-color:$overlay;
+  color: $text-color;
+}
+
+.appIssuesBody {
+
+}
+
+.appIssuesForm {
+  width:75%;
+  background-color: #fff;
+  border-radius: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:20px;
+  padding-top:20px;
+  padding-bottom: 20px;
+  
+}
+
+.appIssuesForm .control-group{
+  color: #000;
+  padding-left:30px;
+  padding-right:30px;
+}
+
+#appIssuesName, #appIssuesEmail, #appIssuesDescription {
+  width:100%;
+  margin-left: 15px;
+}
+
+#appIssuesDescription {
+  height:200px;
+}
+
+#appIssuesSubmit {
+  margin-left: 15px;
+}
+
+.appIssuesFooter {
+
+}

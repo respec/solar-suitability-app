@@ -1,0 +1,25 @@
+#calculator {
+    // display:none;
+    background-color: $overlay;
+    font-size:18px;
+    color:#fff;
+    z-index:299;
+    border-top:1px solid $border-color;
+    border-left: 1px solid $border-color;
+    height:300px;
+    width:400px;
+    position:absolute;
+    /*top:213px;*/
+    bottom: 350px;
+    // text-align:center;
+    right:0px;
+    display: none;
+}
+
+.calculatorTitle {
+    margin-top: 5px;
+}
+
+#closeCalculator {
+    margin-top: 5px;
+}

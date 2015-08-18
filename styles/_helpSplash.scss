@@ -1,0 +1,80 @@
+.appHelpModal {
+  width: 60%;
+  height: auto;
+  max-height: 75%;
+  margin: auto;
+}
+
+// .appHelpModal .modal-dialog {
+//   margin-top: 0px;
+//   margin-bottom: 0px;
+// }
+
+.appHelp {
+  background-color:$overlay;
+  color: $text-color;
+}
+
+.appHelpBody {
+
+}
+
+.appHelpFooter {
+
+}
+
+.closeSplash {
+
+}
+
+.dontShowText {
+  margin-right: 15px;
+}
+
+// #colorRamp {
+//     display:block;
+//     margin-left:25%;
+//     margin-right:25%;
+//     width:auto;
+//     height:70px
+// }
+
+// #colorRamp img {
+//     width:auto;
+//     display:relative;
+//     top:-10px;
+//     height:100%;
+//     display:block;
+//     margin:auto
+// }
+
+// #helpScreen{
+//     // display:none;
+//     position:absolute;
+//     padding-top:5px;
+//     padding-left:60px;
+//     padding-right:20px;
+//     padding-bottom:5px;
+//     height:322px;
+//     z-index:101;
+//     font-family:TrebuchetMS,arial;
+//     color:#fff;
+//     border-top:3px solid #fff;
+//     border-right:3px solid #fff;
+//     border-bottom:3px solid #fff;
+//     border-radius:0 40px 40px 0;
+//     background:#474343;
+//     line-height:30px
+// }
+
+#website {
+    position:relative;
+    z-index:55;
+    max-width:200px;
+    font-family:"TrebuchetMS";
+    float:right;
+    text-align:right;
+    vertical-align:bottom;
+    font-size:15px;
+    color:#fff
+}
