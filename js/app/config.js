@@ -29,7 +29,7 @@ define(['esri/symbols/PictureMarkerSymbol'],
       
       applicationTitle: 'MN Solar Suitability Analysis App',
       apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
-      gitHub: 'https://github.com/cmartin616/SolarApp2.0',
+      gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
       emailAddress: 'test@testing.com',
       appDomain: 'http://solar.maps.umn.edu/app',
