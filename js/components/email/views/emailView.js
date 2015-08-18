@@ -39,7 +39,9 @@ define([
       },
 
       initComponents: function() {
-
+        $('.closeSplash').on('click', function(){
+          $('.emailModal').modal('hide');
+        });
       }
 
     });
