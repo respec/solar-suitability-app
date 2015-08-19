@@ -6257,7 +6257,7 @@ ul.dropdown-menu, a.dropdown-menu {
   z-index: 100 !important; }
 
 .dataIssuesModal {
-  width: 60%;
+  width: 40%;
   height: auto;
   max-height: 75%;
   margin: auto; }
@@ -6265,6 +6265,31 @@ ul.dropdown-menu, a.dropdown-menu {
 .dataIssues {
   background-color: rgba(0, 0, 0, 0.85);
   color: #fff; }
+
+.dataIssuesForm {
+  width: 75%;
+  background-color: #fff;
+  border-radius: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px; }
+
+.dataIssuesForm .control-group {
+  color: #000;
+  padding-left: 30px;
+  padding-right: 30px; }
+
+#dataIssuesName, #dataIssuesEmail, #dataIssuesDescription, #dataIssuesLocation {
+  width: 100%;
+  margin-left: 15px; }
+
+#dataIssuesDescription {
+  height: 200px; }
+
+#dataIssuesSubmit {
+  margin-left: 15px; }
 
 .appIssuesModal {
   width: 40%;
