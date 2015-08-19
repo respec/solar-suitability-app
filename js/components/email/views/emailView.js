@@ -40,6 +40,14 @@ define([
 
       initComponents: function() {
 
+        $('.closeSplash').on('click', function(){
+          $('.emailModal').modal('hide');
+        });
+
+        $('.emailSubmit').on('click', function(){
+          var emailLink = emailController.buildEmailLink();
+        });
+        
       }
 
     });
