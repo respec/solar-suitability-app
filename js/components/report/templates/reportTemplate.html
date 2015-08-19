@@ -5,15 +5,59 @@
             <div class="modal-header" id="reportHeader">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <img src="assets/images/solar-app-transparent220x235.png" alt="MN Solar Logo">
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-11">
                             <div class="row">
                                 <div class="col-md-10 noGutter">
-                                    <h4 class="modal-title">
-                                        Minnesota Solar Suitability Location Report
-                                    </h4>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn editTitle" data-toggle="modal" data-target=".editTitleModal" aria-label="Edit">
+                                                <span aria-hidden="true">
+                                                    <i class="fa fa-pencil"></i>
+                                                </span>
+                                            </button>
+
+
+                                            <div class="modal fade editTitleModal" tabindex="-1" role="dialog" aria-labelledby="editTitleModal">
+                                                <div class="modal-dialog modal-sm">
+                                                    <div class="modal-header">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-md-11">
+                                                                    Enter a new site title:
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <button type="button" class="btn btn-default btn-danger closeSplash floatRight">
+                                                                        <i class="fa fa-times fa-1x"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <input type="text" class="form-control" id="siteTitle" value="Minnesota Solar Suitability Location Report ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h4 class="modal-title reportSiteTitle">
+                                                <!-- <input type="text" class="form-control" id="siteTitle" value="Minnesota Solar Suitability Location Report "> -->
+                                                Minnesota Solar Suitability Location Report
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    
+                                    
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -23,7 +67,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-2 noGutter">
                                     Latitude:
                                 </div>
@@ -40,7 +84,7 @@
                                         Lng
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -48,15 +92,85 @@
 
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row" id="siteDetailsRow">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="siteName" placeholder="Enter a site name: ">
+                    <div class="row" id="siteImagesRow">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4 resultsImage">
+                            <div id="reportSolarMap-container">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <input type="textarea" class="form-control" id="siteNotes" placeholder="Enter site notes: ">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4 resultsImage">
+                            <div id="reportAerialMap-container">
+
+                                <div id="reportAngleControls" class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-danger angleDownButton">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </span>
+                                    <input type="text" class="form-control" id="reportAngleBox" value="90">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success angleUpButton">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 reportHeading">
+                            Site Details:
                         </div>
                     </div>
-                    <div class="row" id="siteImagesRow">
+
+                    
+
+                    <div class="row" id="siteDetailsRow">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="siteName" class="col-md-3 control-label">Site Name:</label>
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="siteName" placeholder="Enter a site name: ">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="siteNotes" class="col-md-3 control-label">Site Notes:</label>
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="siteNotes" placeholder="Enter site notes: ">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 reportHeading">
+                            Site Results:
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            Latitude:
+                        </div>
+                         <div class="col-md-4">
+                            <div id="reportLat">
+                                Lat
+                            </div>
+                        </div>
+                         <div class="col-md-2">
+                            Longitude:
+                        </div>
+                         <div class="col-md-4">
+                            <div id="reportLng">
+                                Lng
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row" id="siteImagesRow">
                         <div class="col-md-6 resultsImage">
                             <div id="reportSolarMap-container">
                             </div>
@@ -79,12 +193,18 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="row" id="reportResultsRow">
                         <div class="col-md-12">
                             <div class="reportResults-container">
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 reportHeading">
+                            More Information:
                         </div>
                     </div>
 
