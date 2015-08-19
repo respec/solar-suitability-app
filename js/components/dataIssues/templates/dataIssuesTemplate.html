@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-md-11">
                             <div class='appTitle'>
-                                DATA ISSUES
+                                Is there an issue with the Minnesota Solar Suitability data?
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -22,18 +22,66 @@
             <div class="modal-body">
                 <div class="container-fluid">
                   <div class="dataIssuesBody">
-                      Data issues form here
+                      <span>
+                            If you are familiar with the process of reporting issues on GitHub, please visit us at <a href="<%=gitHub%>">Solar App 2.0</a>.<br/><br/> Otherwise, please use the form below to report an issue or bug.
+                        </span>
+                        <form class="form-horizontal dataIssuesForm">
+
+                        <!-- Text input-->
+                            <div class="control-group">
+                                <label class="control-label" for="dataIssuesName">Name:</label>
+                                <div class="controls">
+                                    <input id="dataIssuesName" name="dataIssuesName" type="text" placeholder="  Enter name..." class="input-xlarge" required="">
+                                </div>
+                            </div>
+
+                        <!-- Text input-->
+                            <div class="control-group">
+                                <label class="control-label" for="dataIssuesEmail">Email:</label>
+                                <div class="controls">
+                                    <input id="dataIssuesEmail" name="dataIssuesEmail" type="text" placeholder="  Enter email..." class="input-xlarge" required="">
+                            
+                                </div>
+                            </div>
+
+                        <!-- Textarea -->
+                            <div class="control-group">
+                                <label class="control-label" for="dataIssuesLocation">General Location:</label>
+                                <div class="controls">                     
+                                    <textarea id="dataIssuesLocation" name="dataIssuesDescription" placeholder="  General location..."></textarea>
+                                </div>
+                            </div>
+
+                        <!-- Textarea -->
+                            <div class="control-group">
+                                <label class="control-label" for="dataIssuesDescription">Description:</label>
+                                <div class="controls">                     
+                                    <textarea id="dataIssuesDescription" name="dataIssuesDescription" placeholder="  Data issue(s) description..."></textarea>
+                                </div>
+                            </div>
+
+                        <!-- Button -->
+                            <div class="control-group">
+                                <label class="control-label" for="dataIssuesSubmit"></label>
+                                <div class="controls">
+                                    <!-- <button id="dataIssuesSubmit" name="dataIssuesSubmit" class="btn btn-success">Submit</button> -->
+                                    <a id="dataIssuesSubmit"  name="dataIssuesSubmit" class="btn btn-success" role="button">
+                                        Submit
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
                 <div class="container-fluid">
                     <div class="row">
         
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
