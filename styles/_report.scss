@@ -1,3 +1,8 @@
+// .editTitle {
+//   height:65px;
+//   line-height: 65px;
+// }
+
 #reportModal {
   width: 60%;
   margin: auto;
@@ -44,5 +49,16 @@
 #reportAngleBox {
   width: 50px;
   text-align: center;
+}
+
+#siteImagesRow {
+  margin-bottom: 30px;
+}
+
+.reportHeading {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: $font;
+  margin-bottom: 15px;
 }
 

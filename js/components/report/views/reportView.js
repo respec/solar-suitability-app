@@ -24,7 +24,11 @@ define([
   ) {
     var report = Backbone.View.extend({
 
-      events: {},
+      events: {
+        'click .editTitle': 'editTitle',
+        'click .closeSplash': 'hideEditTitleModal',
+        'change #siteTitle': 'setSiteTitle'
+      },
 
       initialize: function() {
         this.render();
@@ -111,6 +115,18 @@ define([
         //   zoom: 13
         //     // extent: new Extent(this.config.extent)
         // });
+      },
+
+      editTitle: function() {
+        $('#siteTitle').val($('.reportSiteTitle').text());
+      },
+
+      setSiteTitle: function() {
+        $('.reportSiteTitle').text($('#siteTitle').val());
+      },
+
+      hideEditTitleModal: function() {
+        $('.editTitleModal').modal('hide');
       }
 
     });
