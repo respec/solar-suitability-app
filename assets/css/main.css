@@ -6301,39 +6301,4 @@ ul.dropdown-menu, a.dropdown-menu {
 #appIssuesSubmit {
   margin-left: 15px; }
 
-.emailModal {
-  width: 40%;
-  height: auto;
-  max-height: 75%;
-  margin: auto; }
-
-.email {
-  background-color: rgba(0, 0, 0, 0.85);
-  color: #fff; }
-
-.emailForm {
-  width: 75%;
-  background-color: #fff;
-  border-radius: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px; }
-
-.emailForm .control-group {
-  color: #000;
-  padding-left: 30px;
-  padding-right: 30px; }
-
-#emailName, #emailEmail, #emailDescription {
-  width: 100%;
-  margin-left: 15px; }
-
-#emailDescription {
-  height: 200px; }
-
-#emailSubmit {
-  margin-left: 15px; }
-
 /*# sourceMappingURL=main.css.map */

@@ -57,7 +57,7 @@ define([
         });
 
         $('#emailReport').on('click', function(){
-          $('.emailModal').modal('show');
+          $('#emailReport').modal('show');
         });
 
         // Old methods for report/email
