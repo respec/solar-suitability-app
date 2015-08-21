@@ -70,6 +70,14 @@ define([
         solarQuery.returnM = false;
         solarQuery.f = 'pjson';
 
+        //setup lidar collect date query
+        var lcQueryTask = new QueryTask(config.countyLidarUrl);
+        var lcQuery = new Query();
+        lcQuery.returnGeometry = false;
+        lcQuery.outFields = ['lidar_coll'];
+        lcQuery.geometry = e.mapPoint;
+
+
         //setup bare earth county layer query
         var BEquery = new Query();
         var BEQueryTask = new QueryTask(config.bareEarthCountyUrl);
@@ -208,6 +216,13 @@ define([
                 resultsDiv.html(resultsDiv.html() + result);
                 point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
                 var resultsiFrameURL = '/report.php?z=' + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
+              
+                lcQueryTask.execute(lcQuery, function(results) {
+                  console.log(results.features[0].attributes.lidar_coll);
+                  var lidar_collect = results.features[0].attributes.lidar_coll;
+                  $('#collect').html(lidar_collect);
+                });
+
               });
             }, function(err){
               console.log('Solar Query Task error');
