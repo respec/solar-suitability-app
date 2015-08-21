@@ -23,7 +23,9 @@ define([
     'esri/layers/ArcGISImageServiceLayer',
     'esri/layers/ImageServiceParameters',
     'esri/layers/RasterFunction',
-    'esri/map'
+    'esri/map',
+    'esri/geometry/Point',
+    'esri/geometry/webMercatorUtils'
 
   ],
 
@@ -35,7 +37,7 @@ define([
 
     helpSplashController, query,
 
-    esriBasemaps, esriConfig, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map
+    esriBasemaps, esriConfig, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
   ) {
 
@@ -220,16 +222,44 @@ define([
         helpSplashController.checkDontShow();
 
         /* Enable tool tips */
-        // $('[data-toggle="tooltip"]').tooltip();
+        // $('[data-toggle='tooltip']').tooltip();
 
         this.mapController();
+
+        
       },
 
       mapController: function() {
+        var self = this;
         app.map.resize();
         app.map.on('click', function(e) {
           query.pixelQuery(e);
         });
+        app.map.on('load', function(){
+          self.checkUrlParams();
+        });
+        
+      },
+
+      checkUrlParams: function(){
+        function getParameterByName(name) {
+          name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+          var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
+            results = regex.exec(location.search);
+          return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        var lng = parseFloat(getParameterByName('long'));
+        var lat = parseFloat(getParameterByName('lat'));
+
+        if (lng && lat){
+          app.map.centerAndZoom([lng, lat], 15);
+          var point = new Point (lng, lat, app.map.spatialReference);
+          var mp = webMercatorUtils.geographicToWebMercator(point);
+          var pseudoEventPt = {mapPoint: mp};
+          query.pixelQuery(pseudoEventPt);
+        }
+
       }
 
     };
