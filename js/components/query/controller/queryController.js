@@ -235,7 +235,7 @@ define([
 
         var point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
 
-        var queryTask = new QueryTask(config.solarImageryUrl);
+        var queryTask = new QueryTask(config.dsmImageryUrl);
 
         //initialize query
         var tileQuery = new Query();
@@ -253,19 +253,19 @@ define([
         var self = this;
         // Create geoprocessing tool
         var gp = new esri.tasks.Geoprocessor(config.gpTool);
-        
+        console.log(config.gpTool);
         var params = {
           'PointX': point.x,
           'PointY': point.y,
           'File_Name': tile
         };
-
-        gp.execute({}, lang.hitch(self, self.displayResults));
+        console.log(params);
+        gp.execute(params, lang.hitch(self, self.displayResults));
         // , self.displayResults);
       },
 
       displayResults: function(results) {
-        
+        console.log(results);
         //empty div so histo doesn't duplicate
         $('#resultsHisto').html('');
         $('#sunHrHisto').html('');
@@ -344,6 +344,8 @@ define([
         solarObj.sunHrList = sunHrList;
         solarObj.insolList = insolList;
         solarObj.months = months;
+
+        console.log(sunHrList);
 
         var nearestLat = Math.round(app.query.latLngPt.y);
         // console.log(sunHours[nearestLat]);
