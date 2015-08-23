@@ -40,6 +40,16 @@ define([
 
       initComponents: function() {
 
+        $('.closeSplash').on('click', function(){
+          $('.emailModal').modal('hide');
+        });
+
+        $('.emailSubmit').on('click', function(){
+          var emailLink = emailController.buildEmailLink();
+
+          $.post(config.appDomain + "/api/email.php", {to: 'andywalz@gmail.com',from: 'solarp@umn.edu',subject: 'test123',msg: '<b>hello<b> world'});
+        });
+        
       }
 
     });
