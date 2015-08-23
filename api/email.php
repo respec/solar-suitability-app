@@ -1,6 +1,6 @@
 <?php include ("function_library.php"); 
 
-if($_REQUEST['to'] != "") {
+if($_POST['skey'] == "Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq") {
 
 	//$to = "solarp@umn.edu";
 	$to = $_POST['to'];//"andywalz@gmail.com";
@@ -8,8 +8,8 @@ if($_REQUEST['to'] != "") {
 	$subject = $_POST['subject'];//"Bad Data Notification";
 	//$body = "<br>This location may need to be reprocessed: <a href='http://solar.maps.umn.edu/app/index.html?lat=" . $_REQUEST['lat'] . "&long=" . htmlentities($_REQUEST['long']) ."'>" . $_REQUEST['lat'] . ", " . $_REQUEST['long'] . "</a><br><br>" . $_REQUEST['notes']. "<br><br>Submitted by: ".$_REQUEST['name']." - ".$_REQUEST['email']."<br><br>";
 	$body = $_POST['body'];//"Test 123"
-	//$replytoaddress = $_REQUEST['email'];
-	//$fromname = $_REQUEST['name'];
+	$replytoaddress = $_REQUEST['from_email'];
+	$fromname = $_REQUEST['from_name'];
 
 	$result = send_email($to, $to_name, $body, $subject, $fromaddress="mnsolarsuitability@gmail.com", $fromname, $replytoaddress);	
 	
@@ -21,7 +21,8 @@ if($_REQUEST['to'] != "") {
 		$msg = "There was an error sending your report. Please try again.";
 	}
 }
-
-return true;
+$sJson = json_encode( $result, 1 );
+header( 'Content-Type: application/json' );
+echo $sJson;
 
 ?>

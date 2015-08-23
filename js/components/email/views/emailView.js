@@ -47,7 +47,7 @@ define([
         $('.emailSubmit').on('click', function(){
           var emailLink = emailController.buildEmailLink();
 
-          $.post(config.appDomain + "/api/email.php", {to: 'andywalz@gmail.com',from: 'solarp@umn.edu',subject: 'test123',msg: '<b>hello<b> world'});
+          $.post("api/email.php", {to: 'andywalz@gmail.com',to_name:"Billy",from:"andy.walz@flatrockgeo.com", from_name:"Andy", subject: 'test123',body: '<b>hello<b> world',skey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'});
         });
         
       }
