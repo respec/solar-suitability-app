@@ -32,7 +32,7 @@ define(['esri/symbols/PictureMarkerSymbol'],
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
       emailAddress: 'test@testing.com',
-      appDomain: 'http://solar.maps.umn.edu/app',
+      appDomain: 'http://solar.maps.umn.edu/solar-suitability-app',
 
       // Esri Basemap Urls
       imagery: 'http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer',
