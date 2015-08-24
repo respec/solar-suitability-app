@@ -12,14 +12,7 @@ if($_POST['skey'] == "Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq") {
 	$fromname = $_REQUEST['from_name'];
 
 	$result = send_email($to, $to_name, $body, $subject, $fromaddress="mnsolarsuitability@gmail.com", $fromname, $replytoaddress);	
-	
-	if($result) {
-	//echo "Email Sent Successfully.";
-		//header( "Location: /app" );
-		$msg = "Your report was sent successfully. We'll do our best to fix the data asap.";
-	} else {
-		$msg = "There was an error sending your report. Please try again.";
-	}
+
 }
 $sJson = json_encode( $result, 1 );
 header( 'Content-Type: application/json' );

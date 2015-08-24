@@ -46,8 +46,19 @@ define([
 
         $('.emailSubmit').on('click', function(){
           var emailLink = emailController.buildEmailLink();
+          var emailData = {
+                              to: $('#emailEmail').val(),
+                              to_name: $('#emailName').val(),
+                              from:"solarp@umn.edu", 
+                              from_name:"MN Solar Suitability App", 
+                              subject: 'Solar Suitability Report',
+                              body: '<p>A Solar Suitability Analysis Report has been shared with you. Click the link below to view:</p><p><a href="' + emailLink + '">' + emailLink + '</a>',
+                              skey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
+                            };
 
-          $.post("api/email.php", {to: 'andywalz@gmail.com',to_name:"Billy",from:"andy.walz@flatrockgeo.com", from_name:"Andy", subject: 'test123',body: '<b>hello<b> world',skey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'});
+          $.post("api/email.php", emailData, function(data){
+            $('.emailModal').modal('hide');
+          });
         });
         
       }
