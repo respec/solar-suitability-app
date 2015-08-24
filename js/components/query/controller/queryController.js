@@ -147,7 +147,7 @@ define([
                 break;
               }
 
-              result = '<div><strong>INSOLATION (kWh/m<sup>2</sup>)</strong></div><div class="resultsDisplay" style="display:block">Total per Year: ' + y.toFixed(2) + warning + '<br>Avg per Day: ' + v.toFixed(2) + ' <div class="valueHelp" style="display:inline-block;">(' + quality + ')</div>' + warning + warningMsg + '</div>';
+              result = '<div class="resultHeader">INSOLATION (kWh/m<sup>2</sup>)</div><div>Total per Year: ' + y.toFixed(2) + warning + '<br>Avg per Day: ' + v.toFixed(2) + ' <span class="valueHelp">(' + quality + ')</span>' + warning + warningMsg + '</div>';
 
               // Store returned solar values
               app.query.totalPerYear = y;
@@ -209,8 +209,8 @@ define([
                   getStarted = '<p>Get Started: <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=" + zip + "&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a></p>';
                 }
 
-                result = '<div style="margin-top:5px;"><strong>UTILITY SERVICE PROVIDER</strong></div><div class="resultsDisplay">' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';
-                result = result + '</p><p><a href="http://www.dsireusa.org/solar/incentives/index.cfm?re=1&ee=1&spv=1&st=0&srp=0&state=MN" target="_blank">MN Incentives/Policies for Solar</a></p>' + getStarted + '<p>Report bad data <a href="/bad_data_handler.php?x=' + mp.x + '&y=' + mp.y + ' target="_blank">here</a>.</p><br>Source data collect: <span id="collect"><span>.</p>';
+                result = '<div class="resultHeader"><strong>UTILITY SERVICE PROVIDER</strong></div><div>' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';
+                result = result + '</p><p><a href="http://www.dsireusa.org/solar/incentives/index.cfm?re=1&ee=1&spv=1&st=0&srp=0&state=MN" target="_blank">MN Incentives/Policies for Solar</a></p>' + getStarted + '<div>Report bad data <a href="/bad_data_handler.php?x=' + mp.x + '&y=' + mp.y + ' target="_blank">here</a>.</div><div class="resultHeader">SOURCE DATA (<a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>):</div><div id="collect"><div>.</p>';
 
                 var resultsDiv = $('#results');
                 resultsDiv.html(resultsDiv.html() + result);
@@ -405,7 +405,7 @@ define([
         this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
 
         // create Sun Hrs histo
-        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', 'Sun Hours By Month', 2, -40);
+        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
 
         // store results
         app.solarObj = solarObj;

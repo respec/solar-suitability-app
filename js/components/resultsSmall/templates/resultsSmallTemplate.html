@@ -23,17 +23,15 @@
 
         <div class="row">
             <div class="col-md-1">
-                <div>
-                    <button type="button" class="btn btn-default btn-danger" id="closeResults">
-                        <i class="fa fa-times fa-1x"></i>
-                    </button>
-                </div>
+                
+                <!--
                 <div>
                     <button type="button" class="btn btn-default btn-solar reportControls" id="calculateButton">
                         <span id="calculateLink">Calculate</span>
                         <i class="fa fa-calculator"></i>
                     </button>
                 </div>
+                -->
                 <div>
                     <button type="button" class="btn btn-default btn-solar reportControls" id="viewReport">
                         <span id="viewReportLink">View Report</span>
@@ -54,12 +52,13 @@
             <div class="col-md-3 resultsGeneral">
                 <div class="resultsDisplay noselect" id="results"></div>
             </div>
+
+            <!-- Tab Interface
             <div class="col-md-8">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#insolationResults" aria-controls="insolationResults" role="tab" data-toggle="tab">Solar Insolation By Month (kWh)</a></li>
                     <li role="presentation"><a href="#sunHrsResults" aria-controls="sunHrsResults" role="tab" data-toggle="tab">Sun Hours (Month)</a></li>
                     <li role="presentation"><a href="#shadeHrsResults" aria-controls="shadeHrsResults" role="tab" data-toggle="tab">Shade Hours (Month)</a></li>
-                    <!-- <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
                 </ul>
 
                 <div class="tab-content">
@@ -118,7 +117,7 @@
                             <div class="col-md-1"></div>
                             <div class="col-md-5">
                                 shadeHrs here eventually
-                                <!-- <div class="resultsDisplay noselect" id="sunHrHisto"></div> -->
+                                
                             </div>
                             <div class="col-md-5">
                                 <div class="row">
@@ -144,28 +143,23 @@
                             <div class="col-md-1"></div>
                         </div>
                     </div>
-                    <!-- <div role="tabpanel" class="tab-pane" id="settings"></div> -->
+                    
                 </div>
             </div>
-            <!-- <div class="col-md-4">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Insolation (Month)</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Sun Hours (Month)</a></li>
-                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Shade Hours (Month)</a></li>
-                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-                </ul>
-
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="home">
-                        <div class="resultsDisplay noselect" id="resultsHisto"></div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="profile">
-                        <div class="resultsDisplay noselect" id="sunHrHisto"></div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="messages">MSG</div>
-                    <!-- <div role="tabpanel" class="tab-pane" id="settings"></div> --
-                </div>
-            </div> -->
+            -->
+             <div class="col-md-4">
+                <div class="chartTitle">Insolation (kWh/m<sup>2</sup>) By Month</div>
+                <div class="resultsDisplay noselect" id="resultsHisto"></div>
+            </div> 
+            <div class="col-md-4">
+            
+                    <button type="button" class="btn btn-default pull-right" id="closeResults">
+                        <i class="fa fa-times fa-1x"></i>
+                    </button>
+                       
+                <div class="chartTitle">Sun Hours By Month</div>
+                <div class="resultsDisplay noselect" id="sunHrHisto"></div>
+            </div> 
         </div>  <!-- ROW END -->
     </div> <!-- CONTAINER END --> 
 </div> <!-- END ResultsSmall -->
