@@ -47,12 +47,12 @@ define([
         $('.emailSubmit').on('click', function(){
           var emailLink = emailController.buildEmailLink();
           var emailData = {
-                              to: $('#emailEmail').val(),
-                              to_name: $('#emailName').val(),
-                              from:"solarp@umn.edu", 
-                              from_name:"MN Solar Suitability App", 
+                              to: $('#recipEmail').val(),
+                              to_name: '',
+                              from: $('#emailEmail').val(), 
+                              from_name: $('#emailName').val(), 
                               subject: 'Solar Suitability Report',
-                              body: '<p>A Solar Suitability Analysis Report has been shared with you. Click the link below to view:</p><p><a href="' + emailLink + '">' + emailLink + '</a>',
+                              body: '<p>A Solar Suitability Analysis Report has been shared with you. Click the link below to view:</p><p><a href="' + emailLink + '">' + emailLink + '</a></p><p>' + $('#customMsg').val() + '</p>',
                               skey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
                             };
 
