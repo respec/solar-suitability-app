@@ -242,18 +242,21 @@ define([
       },
 
       checkUrlParams: function(){
+
         function getParameterByName(name) {
           name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+          
           var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
-            results = regex.exec(location.search);
-          return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            results = regex.exec(decodeURIComponent(unescape(location.search)));
+          
+          return results === null ? '' : results[1].replace(/\+/g, ' ');
         }
 
         var lng = parseFloat(getParameterByName('long'));
         var lat = parseFloat(getParameterByName('lat'));
-
+        
         if (lng && lat){
-          app.map.centerAndZoom([lng, lat], 15);
+          app.map.centerAndZoom([lng, lat - 0.0003], 19);
           var point = new Point (lng, lat, app.map.spatialReference);
           var mp = webMercatorUtils.geographicToWebMercator(point);
           var pseudoEventPt = {mapPoint: mp};
