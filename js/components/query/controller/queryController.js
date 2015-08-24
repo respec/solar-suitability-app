@@ -221,6 +221,7 @@ define([
                   console.log(results.features[0].attributes.lidar_coll);
                   var lidar_collect = results.features[0].attributes.lidar_coll;
                   $('#collect').html(lidar_collect);
+                  app.query.collectDate = lidar_collect;
                 });
 
               });
@@ -281,6 +282,8 @@ define([
 
       displayResults: function(results) {
         console.log(results);
+        
+        app.query.results = results;
         //empty div so histo doesn't duplicate
         $('#resultsHisto').html('');
         $('#sunHrHisto').html('');

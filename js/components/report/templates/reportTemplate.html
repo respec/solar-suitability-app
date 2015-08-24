@@ -24,21 +24,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-2 noGutter">
-                                    Latitude:
-                                </div>
-                                 <div class="col-md-4">
-                                    <div id="reportLat">
-                                        Lat
-                                    </div>
-                                </div>
-                                 <div class="col-md-2">
-                                    Longitude:
-                                </div>
-                                 <div class="col-md-4">
-                                    <div id="reportLng">
-                                        Lng
-                                    </div>
+                                <div class="col-md-12 noGutter">
+                                    Latitude: <span id="reportLat">Lat</span>&nbsp;&nbsp; Longitude: <span id="reportLng">Lng</span>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +35,9 @@
 
             <div class="modal-body">
                 <div class="container-fluid">
+                    <!--
                     <div class="row" id="siteDetailsRow">
+
                         <div class="col-md-6">
                             <input type="text" class="form-control" id="siteName" placeholder="Enter a site name: ">
                         </div>
@@ -56,6 +45,7 @@
                             <input type="textarea" class="form-control" id="siteNotes" placeholder="Enter site notes: ">
                         </div>
                     </div>
+                    -->
                     <div class="row" id="siteImagesRow">
                         <div class="col-md-6 resultsImage">
                             <div id="reportSolarMap-container">
@@ -63,7 +53,7 @@
                         </div>
                         <div class="col-md-6 resultsImage">
                             <div id="reportAerialMap-container">
-
+                                <!--
                                 <div id="reportAngleControls" class="input-group">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-danger angleDownButton">
@@ -77,12 +67,26 @@
                                         </button>
                                     </span>
                                 </div>
+                                -->
                             </div>
                         </div>
                     </div>
-
-                    <div class="row" id="reportResultsRow">
+                    <!-- Need to get D3 charts working here
                     <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="chartTitle">Insolation (kWh/m<sup>2</sup>) By Month</div>
+                            <div class="resultsDisplay noselect" id="resultsHisto"></div>
+                        </div> 
+                        <div class="col-md-6">    
+                            <div class="chartTitle">Sun Hours By Month</div>
+                            <div class="resultsDisplay noselect" id="sunHrHisto"></div>
+                        </div>   
+                    </div>
+                    -->
+                    <hr />
+                    <div class="row" id="reportResultsRow">
+                    
                         <div class="col-md-12">
                             <div class="reportResults-container">
                             </div>

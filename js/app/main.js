@@ -255,10 +255,13 @@ define([
         var lat = parseFloat(getParameterByName('lat'));
         
         if (lng && lat){
+          $('.appHelpModal').modal('hide');
+          
           app.map.centerAndZoom([lng, lat - 0.0003], 19);
           var point = new Point (lng, lat, app.map.spatialReference);
           var mp = webMercatorUtils.geographicToWebMercator(point);
           var pseudoEventPt = {mapPoint: mp};
+
           query.pixelQuery(pseudoEventPt);
         }
 
