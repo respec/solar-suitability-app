@@ -44,7 +44,6 @@ define([
     return {
 
       startup: function() {
-        console.log('starting');
         app = this;
         this.initDojo();
       },

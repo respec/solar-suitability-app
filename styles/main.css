@@ -6175,7 +6175,7 @@ ul.dropdown-menu, a.dropdown-menu {
   color: #fff; }
 
 .helpMenu a:hover {
-  color: #000 !important;
+  color: #F65D23 !important;
   text-decoration: none; }
 
 .helpImage img {
@@ -6254,19 +6254,11 @@ ul.dropdown-menu, a.dropdown-menu {
   top: 70px;
   left: 60px; }
 
-#searchBar_input {
-  width: 90%; }
-
-.simpleGeocoder#searchBar .esriGeocoderContainer {
-  width: 100%;
-  max-width: 600px;
-  min-width: 500px; }
-
 .esriGeocoderContainer {
   z-index: 100 !important; }
 
 .dataIssuesModal {
-  width: 40%;
+  width: 60%;
   height: auto;
   max-height: 75%;
   margin: auto; }
@@ -6370,4 +6362,4 @@ ul.dropdown-menu, a.dropdown-menu {
 #emailSubmit {
   margin-left: 15px; }
 
-/* sourceMappingURL=main.css.map */
+/*# sourceMappingURL=main.css.map */

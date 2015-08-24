@@ -11,7 +11,6 @@ html,body,#mapContainer {
 }
 
 a {
-    font-family:"TrebuchetMS";
     font-size:16px;
     color:#ff7400
 }
@@ -25,7 +24,6 @@ a:hover {
 }
 
 #smText {
-    font-family:"TrebuchetMS";
     font-size:13px;
     color:#fff
 }
