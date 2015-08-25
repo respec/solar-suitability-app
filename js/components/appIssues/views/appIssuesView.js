@@ -40,7 +40,7 @@ define([
 
       initComponents: function() {
         $('.closeSplash').on('click', function(){
-          $('.dataIssuesModal').modal('hide');
+          $('.appIssuesModal').modal('hide');
         });
 
         /* I don't remember writing this.  Did you? */
@@ -48,19 +48,19 @@ define([
         //   appIssuesController.buildLink();
         // });
 
-        $('.dataIssuesSubmit').on('click', function(){
+        $('.appIssuesSubmit').on('click', function(){
           var emailData = {
                             to: config.appEmail,
                             to_name: '',
-                            from: $('#dataIssuesEmail').val(),
-                            from_name: $('#dataIssuesName').val(),
+                            from: $('#appIssuesEmail').val(),
+                            from_name: $('#appIssuesName').val(),
                             subject: 'Solar Suitability Data Issue',
-                            body: 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' at ' + $('#dataIssuesLocation').val(),
+                            body: 'An error was found with the Solar Suitability app.  Please see below for a description:<br><br>' + $('#appIssuesDescription').val(),
                             skey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
                           };
 
           $.post('api/email.php', emailData, function(data){
-            $('.dataIssuesModal').modal('hide');
+            $('.appIssuesModal').modal('hide');
           });
         });
       }

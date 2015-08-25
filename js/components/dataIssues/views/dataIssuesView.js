@@ -44,6 +44,22 @@ define([
         $('.closeSplash').on('click', function(){
           $('.dataIssuesModal').modal('hide');
         });
+
+        $('.dataIssuesSubmit').on('click', function(){
+          var emailData = {
+                            to: config.appEmail,
+                            to_name: '',
+                            from: $('#dataIssuesEmail').val(),
+                            from_name: $('#dataIssuesName').val(),
+                            subject: 'Solar Suitability Data Issue',
+                            body: 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' at ' + $('#dataIssuesLocation').val(),
+                            skey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
+                          };
+
+          $.post('api/email.php', emailData, function(data){
+            $('.dataIssuesModal').modal('hide');
+          });
+        });
       }
 
     });
