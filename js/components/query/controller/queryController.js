@@ -397,6 +397,8 @@ define([
       },
 
       drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
+        console.log('here');
+        console.log(data, dataAttr, max, div, title, titleOffset, titleModifier);
         titleOffset = parseInt(titleOffset, 10);
         var margin = {
             'top': 10,

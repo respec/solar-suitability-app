@@ -5,6 +5,7 @@ define([
     'components/map/controller/mapController',
     'components/report/views/resultsView',
     'components/report/controller/reportController',
+    'components/query/controller/queryController',
 
     'esri/layers/ArcGISImageServiceLayer',
     'esri/map',
@@ -15,7 +16,7 @@ define([
   function(
     config,
 
-    mapController, Results, reportController,
+    mapController, Results, reportController, queryController,
 
     ImageLayer, Map,
 
@@ -87,6 +88,8 @@ define([
           reportController.decreaseAngle();
           mapController.rotatePoint();
         });
+
+        
 
         // var solarMap = new Map('reportSolarMap-container', {
         //   basemap: 'solar',

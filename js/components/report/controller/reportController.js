@@ -6,6 +6,7 @@ define([
 
   'components/map/controller/mapController',
   'components/report/controller/imageUri',
+  'components/query/controller/queryController',
 
   'esri/layers/ArcGISImageServiceLayer',
   'esri/map',
@@ -18,7 +19,7 @@ define([
 
     lang,
 
-    mapController, imageUri,
+    mapController, imageUri, queryController,
 
     ImageLayer, Map, Edit
     ) {
@@ -36,6 +37,14 @@ define([
       this.buildResults();
       this.buildMap('reportSolarMap', 'reportSolarMap-container', 'solar');
       this.buildMap('reportAerialMap','reportAerialMap-container', 'hybrid');
+
+      // create histos
+      // 
+      // create Solar Insol histo
+      queryController.drawChart(app.solarObj, app.solarObj.insolList, 220, '#reportResultsHisto', '', 2, 20);
+
+      // create Sun Hrs histo
+      queryController.drawChart(app.solarObj, app.solarObj.sunHrList, 500, '#reportSunHrsHisto', 'Sun Hours By Month', 2, -40);
 
       // console.log($('#results').html());
     },
