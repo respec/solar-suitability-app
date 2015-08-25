@@ -82,7 +82,7 @@ define([
           basemap: 'solar',
           center: [config.centerLng, config.centerLat],
           showAttribution: false,
-          zoom: 13
+          zoom: config.defaultZoom
             // extent: new Extent(this.config.extent)
         });
 
