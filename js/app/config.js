@@ -31,7 +31,7 @@ define(['esri/symbols/PictureMarkerSymbol'],
       apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
-      appEmail: 'cmartin616@gmail.com',
+      appEmail: 'andywalz@gmail.com',
       appDomain: 'http://solar.maps.umn.edu/solar-suitability-app',
 
       // Esri Basemap Urls
