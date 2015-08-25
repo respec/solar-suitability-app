@@ -59,10 +59,17 @@ define(['esri/symbols/PictureMarkerSymbol'],
       eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/2',
       countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/5',
 
-      centerLat: 44.971795,
-      centerLng: -93.243322,
-      defaultZoom: 13,
+      /*MPLS*/
+      // centerLat: 44.971795,
+      // centerLng: -93.243322,
+      // defaultZoom: 13,
+
+      /*STATE*/
+      centerLat: 46.018056,
+      centerLng: -94.318333,
+      defaultZoom: 7,
       queryZoom: 18,
+
 
       pinSymbol: pinSymbol,
       solarPanelSymbol: solarPanelSymbol
