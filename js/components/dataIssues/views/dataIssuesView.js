@@ -46,6 +46,7 @@ define([
         });
 
         $('.dataIssuesSubmit').on('click', function(){
+          $('.dataIssuesSubmit').html('<i class="fa fa-spinner fa-spin"></i> Sending ...');
           var emailData = {
                             to: config.appEmail,
                             to_name: '',

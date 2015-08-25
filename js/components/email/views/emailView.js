@@ -46,7 +46,6 @@ define([
 
         $('.emailSubmit').on('click', function(){
           $('.emailSubmit').html('<i class="fa fa-spinner fa-spin"></i> Sending ...');
-          $('.emailSubmit').unbind( "click" );
           var emailLink = emailController.buildEmailLink();
           var emailData = {
                             to: $('#recipEmail').val(),
