@@ -27,7 +27,7 @@ define([
 
         var template = _.template(viewTemplate);
         var options = {
-          title: config.applicationTitle
+          gitHub: config.gitHub
         };
 
         // console.log(this.$el);

@@ -3,7 +3,7 @@
 define([
   'app/config',
   'app/utils/dataHandler',
-  'app/Data/sunHours',
+  'app/data/sunHours',
 
   'components/loadSplash/controller/loadSplashController',
   'components/map/controller/mapController',
