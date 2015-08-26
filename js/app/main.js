@@ -1,31 +1,31 @@
 /* global define, app:true*/
 define([
-    'app/config',
-    'app/views/LayoutView',
+  'app/config',
+  'app/views/LayoutView',
 
-    'components/navBar/views/navbarView',
-    'components/helpSplash/views/helpSplashView',
-    'components/loadSplash/views/loadSplashView',
-    'components/resultsSmall/views/resultsSmallView',
-    'components/report/views/reportView',
-    'components/calculator/views/calculatorView',
-    'components/geocoder/views/geocoderView',
-    'components/dataIssues/views/dataIssuesView',
-    'components/appIssues/views/appIssuesView',
-    'components/email/views/emailView',
+  'components/navBar/views/navbarView',
+  'components/helpSplash/views/helpSplashView',
+  'components/loadSplash/views/loadSplashView',
+  'components/resultsSmall/views/resultsSmallView',
+  'components/report/views/reportView',
+  'components/calculator/views/calculatorView',
+  'components/geocoder/views/geocoderView',
+  'components/dataIssues/views/dataIssuesView',
+  'components/appIssues/views/appIssuesView',
+  'components/email/views/emailView',
 
-    'components/helpSplash/controller/helpSplashController',
-    'components/query/controller/queryController',
+  'components/helpSplash/controller/helpSplashController',
+  'components/query/controller/queryController',
 
-    'esri/basemaps',
-    'esri/config',
-    'esri/layers/ArcGISTiledMapServiceLayer',
-    'esri/layers/ArcGISImageServiceLayer',
-    'esri/layers/ImageServiceParameters',
-    'esri/layers/RasterFunction',
-    'esri/map',
-    'esri/geometry/Point',
-    'esri/geometry/webMercatorUtils'
+  'esri/basemaps',
+  'esri/config',
+  'esri/layers/ArcGISTiledMapServiceLayer',
+  'esri/layers/ArcGISImageServiceLayer',
+  'esri/layers/ImageServiceParameters',
+  'esri/layers/RasterFunction',
+  'esri/map',
+  'esri/geometry/Point',
+  'esri/geometry/webMercatorUtils'
 
   ],
 
@@ -39,7 +39,7 @@ define([
 
     esriBasemaps, esriConfig, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
-  ) {
+    ) {
 
     return {
 
@@ -56,7 +56,7 @@ define([
        * Initialize the application layout by inserting top level nodes into the DOM
        * @return { N/A }
        */
-      initLayout: function() {
+       initLayout: function() {
         this.layout = new Layout({
           el: $('body')
         });
@@ -84,7 +84,7 @@ define([
           showAttribution: false,
           zoom: config.defaultZoom
             // extent: new Extent(this.config.extent)
-        });
+          });
 
         var params = new ImageParams();
 
@@ -123,6 +123,7 @@ define([
         // Add street to the map
         this.map.addLayer(streetLayer);
 
+        
 
         // // Read URL Parameters
         // function getParameterByName(name) {
@@ -236,8 +237,52 @@ define([
         });
         app.map.on('load', function(){
           self.checkUrlParams();
+          self.buildToolTip();
         });
         
+      },
+
+      buildToolTip: function(){
+        console.log('tooltip');
+        // dojo.connect(this.map, 'onLoad', function() {
+          // dojo.connect(dijit.byId('map'), 'resize', this.map, this.map.resize);
+
+          // create node for the tooltip
+          var tip = 'Click anywhere to begin.';
+          var tooltip = dojo.create('div', {
+            'class': 'tooltip',
+            'innerHTML': tip
+          }, app.map.container);
+          dojo.style(tooltip, 'position', 'fixed');
+
+          // update the tooltip as the mouse moves over the map
+          dojo.connect(app.map, 'onMouseMove', function(evt) {
+            var px, py;
+            if (evt.clientX || evt.pageY) {
+              px = evt.clientX;
+              py = evt.clientY;
+            } else {
+              px = evt.clientX + dojo.body().scrollLeft - dojo.body().clientLeft;
+              py = evt.clientY + dojo.body().scrollTop - dojo.body().clientTop;
+            }
+
+              // dojo.style(tooltip, 'display', 'none');
+              // tooltip.style.display = 'none';
+              dojo.style(tooltip, {
+                left: (px + 15) + 'px',
+                top: (py) + 'px'
+              });
+              // dojo.style(tooltip, 'display', ');
+              tooltip.style.display = '';
+              // console.log('updated tooltip pos.');
+          });
+
+          // hide the tooltip the cursor isn't over the map
+          dojo.connect(app.map, 'onMouseOut', function(evt) {
+            console.log('mouseout');
+            tooltip.style.display = 'none';
+          });
+        // });
       },
 
       checkUrlParams: function(){
@@ -246,7 +291,7 @@ define([
           name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
           
           var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
-            results = regex.exec(decodeURIComponent(unescape(location.search)));
+          results = regex.exec(decodeURIComponent(unescape(location.search)));
           
           return results === null ? '' : results[1].replace(/\+/g, ' ');
         }
