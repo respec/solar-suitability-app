@@ -274,12 +274,10 @@ define([
               });
               // dojo.style(tooltip, 'display', ');
               tooltip.style.display = '';
-              // console.log('updated tooltip pos.');
           });
 
           // hide the tooltip the cursor isn't over the map
           dojo.connect(app.map, 'onMouseOut', function(evt) {
-            console.log('mouseout');
             tooltip.style.display = 'none';
           });
         // });

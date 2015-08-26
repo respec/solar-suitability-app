@@ -13,8 +13,13 @@ if($_POST['skey'] == "Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq") {
 
 	$result = send_email($to, $to_name, $body, $subject, $fromaddress="mnsolarsuitability@gmail.com", $fromname, $replytoaddress);	
 
+	$sJson = json_encode( $result, 1 );
+} else {
+	// Set our response code
+	http_response_code(401);
+	$sJson = json_encode( "Unauthorized to send.", 0);
 }
-$sJson = json_encode( $result, 1 );
+
 header( 'Content-Type: application/json' );
 echo $sJson;
 

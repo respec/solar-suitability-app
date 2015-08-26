@@ -222,7 +222,6 @@ define([
                 });
 
                 lcQueryTask.execute(lcQuery, function(results) {
-                  console.log(results.features[0].attributes.lidar_coll);
                   var lidar_collect = results.features[0].attributes.lidar_coll;
                   $('#collect').html(lidar_collect);
                   app.query.collectDate = lidar_collect;
@@ -230,8 +229,8 @@ define([
 
               });
             }, function(err){
-              console.log('Solar Query Task error');
-              console.log(err);
+              // console.log('Solar Query Task error');
+              // console.log(err);
               alert('There was an error with your request.  Please click OK and try again');
             });
 
@@ -243,8 +242,8 @@ define([
           }
 
         }, function(err){
-              console.log('BE Query Task error');
-              console.log(err);
+              // console.log('BE Query Task error');
+              // console.log(err);
               alert('There was an error with your request.  Please click OK and try again');
             });
 
@@ -273,19 +272,18 @@ define([
         var self = this;
         // Create geoprocessing tool
         var gp = new esri.tasks.Geoprocessor(config.gpTool);
-        console.log(config.gpTool);
+    
         var params = {
           'PointX': point.x,
           'PointY': point.y,
           'File_Name': tile
         };
-        console.log(params);
+
         gp.execute(params, lang.hitch(self, self.displayResults));
         // , self.displayResults);
       },
 
       displayResults: function(results) {
-        console.log(results);
         
         app.query.results = results;
         //empty div so histo doesn't duplicate
@@ -367,7 +365,7 @@ define([
         solarObj.insolList = insolList;
         solarObj.months = months;
 
-        console.log(sunHrList);
+        // console.log(sunHrList);
 
         var nearestLat = Math.round(app.query.latLngPt.y);
         // console.log(sunHours[nearestLat]);

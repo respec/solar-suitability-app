@@ -122,7 +122,7 @@ define([
 
     createPdf: function(){
       function footer(){
-        console.log('footer');
+        // console.log('footer');
         doc.setFontSize(8);
         doc.text(8, 10.75, 'page ' + doc.page);
         doc.page ++;
@@ -197,14 +197,14 @@ define([
     },
 
     printPdf: function(doc){
-      console.log('printPDF');
+      // console.log('printPDF');
       // doc.autoPrint();
     },
 
     initEdit: function(){
-      console.log(app.reportAerialMap.graphics);
+      // console.log(app.reportAerialMap.graphics);
       var editToolbar = new Edit(app.reportAerialMap);
-      console.log('edit');
+      // console.log('edit');
       var selected;
       app.reportAerialMap.graphics.on('mouse-over', function(evt) {
         selected = evt.graphic;
