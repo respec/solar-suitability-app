@@ -278,7 +278,7 @@ define([
           'PointY': point.y,
           'File_Name': tile
         };
-
+        console.log(params);
         gp.execute(params, lang.hitch(self, self.displayResults));
         // , self.displayResults);
       },
