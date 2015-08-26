@@ -5797,6 +5797,35 @@ button.close {
     display: none !important; } }
 /* Original branding */
 /* Made in Minnesota Branding */
+.invert-btn {
+  color: #fff;
+  background-color: #000000;
+  border-color: #000000; }
+  .invert-btn:focus, .invert-btn.focus {
+    color: #fff;
+    background-color: black;
+    border-color: black; }
+  .invert-btn:hover {
+    color: #fff;
+    background-color: black;
+    border-color: black; }
+  .invert-btn:active, .invert-btn.active, .open > .invert-btn.dropdown-toggle {
+    color: #fff;
+    background-color: black;
+    border-color: black; }
+    .invert-btn:active:hover, .invert-btn:active:focus, .invert-btn:active.focus, .invert-btn.active:hover, .invert-btn.active:focus, .invert-btn.active.focus, .open > .invert-btn.dropdown-toggle:hover, .open > .invert-btn.dropdown-toggle:focus, .open > .invert-btn.dropdown-toggle.focus {
+      color: #fff;
+      background-color: black;
+      border-color: black; }
+  .invert-btn:active, .invert-btn.active, .open > .invert-btn.dropdown-toggle {
+    background-image: none; }
+  .invert-btn.disabled, .invert-btn.disabled:hover, .invert-btn.disabled:focus, .invert-btn.disabled.focus, .invert-btn.disabled:active, .invert-btn.disabled.active, .invert-btn[disabled], .invert-btn[disabled]:hover, .invert-btn[disabled]:focus, .invert-btn[disabled].focus, .invert-btn[disabled]:active, .invert-btn[disabled].active, fieldset[disabled] .invert-btn, fieldset[disabled] .invert-btn:hover, fieldset[disabled] .invert-btn:focus, fieldset[disabled] .invert-btn.focus, fieldset[disabled] .invert-btn:active, fieldset[disabled] .invert-btn.active {
+    background-color: #000000;
+    border-color: #000000; }
+  .invert-btn .badge {
+    color: #000000;
+    background-color: #fff; }
+
 body {
   font-family: Trebuchet MS; }
 
@@ -6061,7 +6090,11 @@ ul.dropdown-menu, a.dropdown-menu {
   width: 60%;
   height: auto;
   max-height: 75%;
-  margin: auto; }
+  margin: auto;
+  border-radius: 15px; }
+
+.logos {
+  padding-top: 20px; }
 
 .appHelp {
   background-color: rgba(0, 0, 0, 0.85);
@@ -6070,16 +6103,12 @@ ul.dropdown-menu, a.dropdown-menu {
 .dontShowText {
   margin-right: 15px; }
 
+#colorRamp {
+  text-align: center;
+  padding: 10px; }
+
 #website {
-  position: relative;
-  z-index: 55;
-  max-width: 200px;
-  font-family: "TrebuchetMS";
-  float: right;
-  text-align: right;
-  vertical-align: bottom;
-  font-size: 15px;
-  color: #fff; }
+  padding: 10px; }
 
 #viewReport a:visited, #viewReport a:hover, #viewReport a:link, #viewReport a:active {
   font-size: 18px;
@@ -6189,7 +6218,7 @@ ul.dropdown-menu, a.dropdown-menu {
   color: #fff; }
 
 .helpMenu a:hover {
-  color: #F65D23 !important;
+  color: #ff7400 !important;
   text-decoration: none; }
 
 .helpImage img {

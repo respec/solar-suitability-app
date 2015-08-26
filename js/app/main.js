@@ -243,12 +243,12 @@ define([
       },
 
       buildToolTip: function(){
-        console.log('tooltip');
+        
         // dojo.connect(this.map, 'onLoad', function() {
           // dojo.connect(dijit.byId('map'), 'resize', this.map, this.map.resize);
 
           // create node for the tooltip
-          var tip = 'Click anywhere to begin.';
+          var tip = 'Click to view solar potential.';
           var tooltip = dojo.create('div', {
             'class': 'tooltip',
             'innerHTML': tip

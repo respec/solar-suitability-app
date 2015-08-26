@@ -58,7 +58,7 @@ define([
                             from_name: $('#appIssuesName').val(),
                             subject: 'Solar Suitability App Issue',
                             body: 'An error was found with the Solar Suitability app.  Please see below for a description:<br><br>' + $('#appIssuesDescription').val(),
-                            skey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
+                            skey: config.appEmailKey
                           };
 
           $.post('api/email.php', emailData, function(data){

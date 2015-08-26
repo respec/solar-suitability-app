@@ -54,7 +54,7 @@ define([
                             from_name: $('#emailName').val(),
                             subject: 'Solar Suitability Report',
                             body: '<p>A Solar Suitability Analysis Report has been shared with you. Click the link below to view:</p><p><a href="' + emailLink + '">' + emailLink + '</a></p><p>' + $('#customMsg').val() + '</p>',
-                            skey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
+                            skey: config.appEmailKey
                           };
 
           $.post('api/email.php', emailData, function(data){

@@ -5,7 +5,10 @@
             <div class="modal-header" id="appHelpHeader">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-11">
+                        <div class="col-md-12">
+                            <button aria-label="Close" data-dismiss="modal" class="close invert-btn pull-right" type="button">
+                                <span aria-hidden="true"><i class="fa fa-times fa-1x"></i></span>
+                            </button>
                             <div class='appIcon'>
                                 <img src="assets/images/solar-app-transparent50.png">
                             </div>
@@ -13,11 +16,7 @@
                                 Minnesota Solar Suitability Analysis Tool
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-default btn-danger closeSplash floatRight">
-                                <i class="fa fa-times fa-1x"></i>
-                            </button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -26,14 +25,30 @@
                 <div class="container-fluid">
                   <div class="appHelpBody">
                       <h3>WELCOME</h3>
-                      <p>Tap anywhere on this map of Minnesota to view solar radiation per square meter, or tap the <i class="fa fa-location-arrow fa-2x"></i> icon to measure insolation at your current location. </p>
+                      <p>Tap anywhere on this map of Minnesota to view incident solar radiation (insolation) per square meter, or tap the <i class="fa fa-location-arrow fa-2x"></i> icon to measure insolation at your current location. </p>
                       <div id="colorRamp"> 
-                        <strong>LEGEND:</strong> <img src="assets/images/ramp_v2.png" style="padding-top:8px;max-width:250px;"/><br />
+                        <h4>LEGEND:</h4><strong>SUN</strong><img src="assets/images/ramp_v2.png" style="padding-top:8px;max-width:250px;"/><strong>SHADE</strong><br />
                       </div>
-                      <div id="website">
-                        <p><strong>LEARN MORE:</strong><br />
-                          <a href="http://solar.maps.umn.edu/" style="color:#ff7400">solar.maps.umn.edu</a> </p>
-                        <p> <br />
+                      <div id="website" class="pull-right">
+                        <h4>LEARN MORE:</h4>
+                          <a href="http://solar.maps.umn.edu/" style="color:#ff7400">solar.maps.umn.edu</a>
+                      </div>
+                      <div class="logos">
+                                    <a href="http://www.umn.edu" target="_blank">
+                                        <img src="assets/images/UMN_M_white.gif" height="40">
+                                    </a>
+                                    &nbsp;
+                                    <a href="http://www.flatrockgeo.com/" target="_blank">
+                                        <img src="assets/images/flatrockgeo.png" height="50">
+                                    </a>
+                                    &nbsp;
+                                    <a href="http://www.cleanenergyresourceteams.org/" target="_blank">
+                                        <img src="assets/images/certs.png" height="60">
+                                    </a>
+                                    &nbsp;
+                                    <a href="http://www.esri.com" target="_blank">
+                                        <img src="assets/images/powered-by-esri-logo-med.png" height="40">
+                                    </a>
                       </div>
                     </div>
                 </div>
@@ -42,9 +57,9 @@
             <div class="modal-footer">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="dontShow">
+                        <div class="dontShow pull-right">
                             <label for="dontShowCheckBox">
-                                <span class="dontShowText">Don't show this again for 30 days. (Access from Menu)</span>
+                                <span class="dontShowText">Do not show this again for 30 days</span>
                                 <input type="checkbox" id="dontShowCheckBox" class="dontShowCheckBox pull-right">
                             </label>
                         </div>

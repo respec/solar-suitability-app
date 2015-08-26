@@ -54,7 +54,7 @@ define([
                             from_name: $('#dataIssuesName').val(),
                             subject: 'Solar Suitability Data Issue',
                             body: 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' at ' + $('#dataIssuesLocation').val(),
-                            skey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
+                            skey: config.appEmailKey
                           };
 
           $.post('api/email.php', emailData, function(data){
