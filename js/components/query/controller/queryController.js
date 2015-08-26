@@ -147,7 +147,7 @@ define([
                 break;
               }
 
-              result = '<div class="resultHeader">INSOLATION (kWh/m<sup>2</sup>)</div><div>Total per Year: ' + y.toFixed(2) + warning + '<br>Avg per Day: ' + v.toFixed(2) + ' <span class="valueHelp">(' + quality + ')</span>' + warning + warningMsg + '</div>';
+              result = '<div class="resultHeader">INSOLATION (kWh/m<sup>2</sup>)</div><div class="valueHelp">[ ' + quality + ' ]</div><div>Total per Year: ' + y.toFixed(2) + warning + '<br>Avg per Day: ' + v.toFixed(2) + warning + warningMsg + '</div>';
 
               // Store returned solar values
               app.query.totalPerYear = y;
@@ -210,13 +210,17 @@ define([
                 }
 
                 result = '<div class="resultHeader"><strong>UTILITY SERVICE PROVIDER</strong></div><div>' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';
-                result = result + '</p><p><a href="http://www.dsireusa.org/solar/incentives/index.cfm?re=1&ee=1&spv=1&st=0&srp=0&state=MN" target="_blank">MN Incentives/Policies for Solar</a></p>' + getStarted + '<div>Report bad data <a href="/bad_data_handler.php?x=' + mp.x + '&y=' + mp.y + ' target="_blank">here</a>.</div><div class="resultHeader">SOURCE DATA (<a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>):</div><div id="collect"><div>.</p>';
+                result = result + '</p><p><a href="' + config.mnIncentives + '" target="_blank">MN Incentives/Policies for Solar</a></p>' + getStarted + '<div>Report bad data <span class="badData">here</span></div><div class="resultHeader">SOURCE DATA (<a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>)</div><div id="collect"><div>.</p>';
 
                 var resultsDiv = $('#results');
                 resultsDiv.html(resultsDiv.html() + result);
                 point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
-                var resultsiFrameURL = '/report.php?z=' + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
+                //var resultsiFrameURL = '/report.php?z=' + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
               
+                $('.badData').on('click', function(){
+                  $('.dataIssuesModal').modal('show');
+                });
+
                 lcQueryTask.execute(lcQuery, function(results) {
                   console.log(results.features[0].attributes.lidar_coll);
                   var lidar_collect = results.features[0].attributes.lidar_coll;

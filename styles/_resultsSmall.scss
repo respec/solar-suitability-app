@@ -10,6 +10,10 @@
     text-decoration: none;
 }
 
+.badData {
+    color: $brand-primary;
+    cursor: pointer;
+}
 
 // #emailReport a:visited, #emailReport a:hover, #emailReport a:link, #emailReport a:active{
 //   font-size: 18px;
@@ -64,8 +68,16 @@
 .resultHeader{
     font-weight: bold;
     margin-top: 10px;
-    font-size: 18px;
+    color: $primary-color;
 }
+
+.valueHelp{
+    color: $link-color;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 3px;
+}
+
 #closeResults{
     float:left;
 }

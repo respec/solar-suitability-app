@@ -33,6 +33,7 @@ define(['esri/symbols/PictureMarkerSymbol'],
 
       appEmail: 'andywalz@gmail.com',
       appDomain: 'http://solar.maps.umn.edu/solar-suitability-app',
+      appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq',
 
       // Esri Basemap Urls
       imagery: 'http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer',
@@ -41,6 +42,8 @@ define(['esri/symbols/PictureMarkerSymbol'],
       // Esri defaults
       geometryService: 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer',
 
+      // Other links
+      mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&technology=7&',
       // Solar data
       //gpTool: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/SolarPointQuery_fast/GPServer/Script',
       //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',

@@ -6120,6 +6120,10 @@ ul.dropdown-menu, a.dropdown-menu {
   color: #fff;
   text-decoration: none; }
 
+.badData {
+  color: #337ab7;
+  cursor: pointer; }
+
 .resultsDisplay {
   display: inline-block;
   font-size: 14px;
@@ -6155,7 +6159,13 @@ ul.dropdown-menu, a.dropdown-menu {
 .resultHeader {
   font-weight: bold;
   margin-top: 10px;
-  font-size: 18px; }
+  color: #474343; }
+
+.valueHelp {
+  color: #ff7400;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 3px; }
 
 #closeResults {
   float: left; }
