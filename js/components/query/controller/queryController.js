@@ -206,7 +206,7 @@ define([
                 if (quality === 'Poor') {
                   getStarted = '<p>Location not optimal? Check out:<br /><a href="http://mncerts.org/solargardens" target="_blank">Community Solar Gardens</a></p>';
                 } else {
-                  getStarted = '<p><a href="' + config.mnIncentives + zip + '" target="_blank">Contact a Local Installer</a></p>';
+                  getStarted = '<p><a href="' + config.mnInstallers + zip + '" target="_blank">Contact a Local Installer</a></p>';
                 }
 
                 result = '<div class="resultHeader"><strong>UTILITY SERVICE PROVIDER</strong></div><div>' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';
