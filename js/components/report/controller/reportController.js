@@ -57,9 +57,9 @@ define([
       $('#quality').text(app.query.quality);
 
       // Set get started link
-      var getStarted = '<a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=' + app.query.utilityCompany.zip + '&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a>';
+      var getStarted = '<a href="' + config.mnInstallers + app.query.utilityCompany.zip + '" target="_blank">Contact a Local Installer</a>';
       $('#reportGetStarted').html(getStarted);
-      var incentives = '<a href="http://www.dsireusa.org/solar/incentives/index.cfm?re=1&ee=1&spv=1&st=0&srp=0&state=MN" target="_blank">MN Solar Incentives</a>';
+      var incentives = '<a href="' + config.mnIncentives + '" target="_blank">MN Solar Incentives</a>';
       $('#reportIncentives').html(incentives);
 
       // Set utilities
