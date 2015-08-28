@@ -61,6 +61,38 @@ define([
             $('.dataIssuesModal').modal('hide');
           });
         });
+
+        $('.selectBadDataOption li a').click(function(){
+          var selection = $('.selectBadDataButton:first-child');
+          selection.text($(this).text());
+          selection.val($(this).text());
+          console.log(selection.val());
+          switch (selection.val()){
+
+            case 'Last Query':
+              $('.dataIssuesLocationGroup').hide();
+
+              if (!app.query.latLngPt){
+                var error = $('.selectBadDataError');
+                var errorMsg = $('.selectBadDataErrorMsg');
+                error.show();
+                errorMsg.css('color', 'red');
+                errorMsg.text('You have not made a solar query.  Please select another option.');
+              }
+              break;
+
+            case 'Select Area':
+              console.log('selectarea');
+              $('.dataIssuesLocationGroup').hide();
+              break;
+
+            case 'Enter Location':
+              console.log('loc');
+              $('.dataIssuesLocationGroup').show();
+              break;
+          };
+
+        });
       }
 
     });

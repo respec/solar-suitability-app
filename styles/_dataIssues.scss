@@ -37,8 +37,24 @@
   margin-left: 15px;
 }
 
+.selectBadDataWarningIcon {
+  color: yellow;
+}
+
+.selectBadDataSuccessIcon {
+  color: green;
+}
+
+.selectBadDataErrorIcon {
+  color: red;
+}
+
 #dataIssuesDescription {
   height:200px;
+}
+
+.dataIssuesLocationGroup, .selectBadDataSuccess, .selectBadDataWarning, .selectBadDataError {
+  display:none;
 }
 
 #dataIssuesSubmit {
@@ -47,4 +63,8 @@
 
 .dataIssuesFooter {
 
+}
+
+.selectBadData{
+  width: 50%
 }
