@@ -23,14 +23,12 @@ define([],
       },
 
       showLoader: function(){
-        $('.tooltip').hide();
         $('#loader').show();
         $('#resultsButton').show();
       },
 
       hideLoader: function(){
         $('#loader').hide();
-        $('.tooltip').show();
       }
     };
   });
