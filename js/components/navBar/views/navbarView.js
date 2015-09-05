@@ -142,7 +142,10 @@ define([
         });
 
         $('.dataIssues').on('click', function(){
+          // reset label if changed previously
+          $('.selectBadDataButton:first-child').text('Select Location:');
           $('.dataIssuesModal').modal('show');
+
         });
 
         // $('.appIssues').on('click', function(){

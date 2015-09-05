@@ -37,6 +37,15 @@
   margin-left: 15px;
 }
 
+.messageDisplay {
+  margin-left:15px;
+}
+
+.messageIcon {
+  float:left;
+  padding-right: 5px;
+}
+
 .selectBadDataWarningIcon {
   color: yellow;
 }
@@ -65,6 +74,7 @@
 
 }
 
-.selectBadData{
+.selectBadData {
+  margin-left: 15px;
   width: 50%
 }

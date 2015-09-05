@@ -4,6 +4,8 @@ define([
 
     'components/dataIssues/controller/dataIssuesController',
 
+    'dojo/_base/lang',
+
     'dojo/text!../templates/dataIssuesTemplate.html'
   ],
 
@@ -11,6 +13,8 @@ define([
     config,
 
     dataIssuesController,
+
+    lang,
 
     viewTemplate
 
@@ -40,7 +44,7 @@ define([
       },
 
       initComponents: function() {
-
+        dataIssuesController.initToolbar();
         $('.closeSplash').on('click', function(){
           $('.dataIssuesModal').modal('hide');
         });
@@ -62,11 +66,11 @@ define([
           });
         });
 
-        $('.selectBadDataOption li a').click(function(){
+        $('.selectBadDataOption li a').on('click', function(){
           var selection = $('.selectBadDataButton:first-child');
           selection.text($(this).text());
           selection.val($(this).text());
-          console.log(selection.val());
+
           switch (selection.val()){
 
             case 'Last Query':
@@ -75,22 +79,34 @@ define([
               if (!app.query.latLngPt){
                 var error = $('.selectBadDataError');
                 var errorMsg = $('.selectBadDataErrorMsg');
+                dataIssuesController.hideMessages();
                 error.show();
-                errorMsg.css('color', 'red');
-                errorMsg.text('You have not made a solar query.  Please select another option.');
+                dataIssuesController.createMessage(errorMsg, 'error', 'You have not made a solar query.  Please select another option.');
+                
+              } else {
+                var success = $('.selectBadDataSuccess');
+                var successMsg = $('.selectBadDataSuccessMsg');
+                dataIssuesController.hideMessages();
+                success.show();
+                dataIssuesController.createMessage(successMsg, 'success', 'You have selected your most recent query.');
               }
               break;
 
             case 'Select Area':
-              console.log('selectarea');
+              dataIssuesController.initSelection();
               $('.dataIssuesLocationGroup').hide();
+              var success = $('.selectBadDataSuccess');
+              var successMsg = $('.selectBadDataSuccessMsg');
+              dataIssuesController.hideMessages();
+              success.show();
+              dataIssuesController.createMessage(successMsg, 'success', 'You have selected an extent.');
               break;
 
             case 'Enter Location':
-              console.log('loc');
+              dataIssuesController.hideMessages();
               $('.dataIssuesLocationGroup').show();
               break;
-          };
+          }
 
         });
       }
