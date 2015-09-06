@@ -273,7 +273,7 @@ define([
       },
 
       displayResults: function(results) {
-        
+
         app.query.results = results;
         //empty div so histo doesn't duplicate
         $('#resultsHisto').html('');
@@ -392,6 +392,13 @@ define([
 
         // var endTime = new Date().getTime();
         //console.log("Solar point processing took: " + ((endTime - startTime)*0.001) + " seconds.")
+        
+        // Populate gradient
+        var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toString() + '%';
+        
+        var $showGradient = $('.showGradient');
+        $showGradient.css('width', gradient);
+        $('.showGradient>span').text(gradient);
 
         // create histos
         // 
