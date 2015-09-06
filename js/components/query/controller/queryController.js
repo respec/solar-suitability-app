@@ -7,6 +7,7 @@ define([
 
   'components/loadSplash/controller/loadSplashController',
   'components/map/controller/mapController',
+  'components/resultsSmall/views/resultsSmallView',
   'components/resultsSmall/controller/resultsSmallController',
   'components/calculator/controller/calculatorController',
 
@@ -22,7 +23,7 @@ define([
   function(
     config, dataHandler, sunHours,
 
-    loadSplashController, mapController, resultsSmallController, calculatorController,
+    loadSplashController, mapController, resultsSmallView, resultsSmallController, calculatorController,
 
     webMercatorUtils, GeometryService, Geoprocessor, Query, QueryTask,
 
@@ -112,20 +113,8 @@ define([
 
             // Store county
             app.query.county = county;
-
-            //then check if clicked point is within a bare earth county, if so add disclaimer
-            if (bareEarth === 1) {
-              warning = '**';
-              warningMsg = '<p>**<span id="smText">The lidar data available for ' + county + ' County includes only bare earth points. Hence, this insolation value does not take shade from nearby surface features into consideration.</span></p>';
-
-              if (county === 'Pine') {
-                warningMsg = '<p>**<span id="smText">The lidar data available for ' + county + ' County was inconsistently classified across different flight lines. Hence, insolation accuracy is variable as shade from nearby surface features may not be taken into consideration.</span></p>';
-              }
-
-            } else {
-              warning = '';
-              warningMsg = '';
-            }
+            app.model.attributes.county = county;
+            app.model.attributes.bareEarth = bareEarth;
 
             solarQueryTask.execute(solarQuery, function(results) {
               var val = results.value;
@@ -138,16 +127,18 @@ define([
                 quality = 'Optimal';
                 break;
 
-              case (v < 1.7):
+              case (v > 1.7):
+                quality = 'Good';
+                break;
+
+              case (v >= 0.1):
                 quality = 'Poor';
                 break;
 
               default:
-                quality = 'Good';
+                quality = 'No Data';
                 break;
               }
-
-              result = '<div class="resultHeader">INSOLATION (kWh/m<sup>2</sup>)</div><div class="valueHelp">[ ' + quality + ' ]</div><div>Total per Year: ' + y.toFixed(2) + warning + '<br>Avg per Day: ' + v.toFixed(2) + warning + warningMsg + '</div>';
 
               // Store returned solar values
               app.query.totalPerYear = y;
@@ -156,9 +147,18 @@ define([
               app.query.warning = warning;
               app.query.warningMessage = warningMsg;
 
-              // <div id="questionMark"><img src="/assets/img/help.png" style = "width:20px; height:20px; display:inline"></div>
+              app.model.setValue('quality', quality);
 
-              $('#results').html(result);
+              if (quality === 'No Data'){
+                app.model.setValue('totalPerYear', 'No Data');
+                app.model.setValue('averagePerDay', 'No Data');
+              } else {
+                app.model.setValue('totalPerYear', y.toFixed(2));
+                app.model.setValue('averagePerDay', v.toFixed(2));
+              }
+              
+              app.model.setValue('warning', warning);
+              app.model.setValue('warningMessage', warningMsg);
 
               //setup Utility Service Provider query
               var query = new Query();
@@ -200,20 +200,10 @@ define([
 
                 // Store returned utility info
                 app.query.utilityCompany = utilityCompany;
+                app.model.setValue('utilityCompany', utilityCompany);
 
                 var utility = encodeURIComponent(fullName + '_' + street + '_' + city + ', MN ' + zip + '_' + phone);
 
-                if (quality === 'Poor') {
-                  getStarted = '<p>Location not optimal? Check out:<br /><a href="http://mncerts.org/solargardens" target="_blank">Community Solar Gardens</a></p>';
-                } else {
-                  getStarted = '<p>Get Started: <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=" + zip + "&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a></p>';
-                }
-
-                result = '<div class="resultHeader"><strong>UTILITY SERVICE PROVIDER</strong></div><div>' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';
-                result = result + '</p><p><a href="' + config.mnIncentives + '" target="_blank">MN Incentives/Policies for Solar</a></p>' + getStarted + '<div>Report bad data <span class="badData">here</span></div><div class="resultHeader">SOURCE DATA (<a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>)</div><div id="collect"><div>.</p>';
-
-                var resultsDiv = $('#results');
-                resultsDiv.html(resultsDiv.html() + result);
                 point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
                 //var resultsiFrameURL = '/report.php?z=' + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
               
@@ -279,13 +269,10 @@ define([
           'PointY': point.y,
           'File_Name': tile
         };
-        console.log(params);
         gp.execute(params, lang.hitch(self, self.displayResults));
-        // , self.displayResults);
       },
 
       displayResults: function(results) {
-        console.log(results);
         
         app.query.results = results;
         //empty div so histo doesn't duplicate
@@ -294,6 +281,8 @@ define([
 
         //show results & hide loader
         loadSplashController.hideLoader();
+
+        // resultsSmallView.resultsSmall.render();
         resultsSmallController.showResults();
         // $('.resultsSmall-container').show();
         // $('#resultsSmall').show();
@@ -366,8 +355,6 @@ define([
         solarObj.sunHrList = sunHrList;
         solarObj.insolList = insolList;
         solarObj.months = months;
-
-        console.log(sunHrList);
 
         var nearestLat = Math.round(app.query.latLngPt.y);
         // console.log(sunHours[nearestLat]);

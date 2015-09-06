@@ -34,7 +34,7 @@ define([
             .append($('<td>')
               .text(data[shortMonth][values].toFixed(2))
             )
-          );   
+          );
       });
     },
 
