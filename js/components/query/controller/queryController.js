@@ -54,9 +54,6 @@ define([
         mapController.clearGraphics();
         mapController.placePoint(app.query.point, app.map, config.pinSymbol);
 
-        // Clear results div
-        $('#results').html('');
-
         //setup insolation query
         var solarQuery = new Query();
         var solarQueryTask = new QueryTask(config.imgIdentifyUrl);
@@ -78,7 +75,6 @@ define([
         lcQuery.outFields = ['lidar_coll'];
         lcQuery.geometry = e.mapPoint;
 
-
         //setup bare earth county layer query
         var BEquery = new Query();
         var BEQueryTask = new QueryTask(config.bareEarthCountyUrl);
@@ -95,12 +91,6 @@ define([
         BEquery.returnM = false;
         BEquery.f = 'pjson';
 
-        // BEQueryTask.execute(BEquery, BEsuccess, BEfail);
-
-        // function BEsuccess(results){
-          
-        // }
-
         BEQueryTask.execute(BEquery, function(results) {
           var warning;
           var warningMsg;
@@ -111,7 +101,7 @@ define([
             var bareEarth = results.features[0].attributes.bare_earth;
             var county = results.features[0].attributes.COUNTYNAME;
 
-            // Store county
+            // Store county/bare earth
             app.query.county = county;
             app.model.attributes.county = county;
             app.model.attributes.bareEarth = bareEarth;
@@ -179,7 +169,6 @@ define([
 
                 var getStarted;
                 
-
                 var fullName = results.features[0].attributes.FULL_NAME;
                 var city = results.features[0].attributes.CITY;
                 var street = results.features[0].attributes.STREET;
@@ -225,11 +214,8 @@ define([
               alert('There was an error with your request.  Please click OK and try again');
             });
 
-
           } else {
-            // clicked point is outside of the state
-            result = '<H3><strong>INSOLATION (kWh/m<sup>2</sup>)</strong></H3><p>Total per Year: Unknown**<br />Avg per Day: Unknown**</p><p>**<span id="smText">This point is out of the study area. Click within the State of Minnesota or try searching for something like "Target Field".</span></p><span class="closeSplash">(X) CLOSE</span> </p>';
-            alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
+              alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
           }
 
         }, function(err){
@@ -282,10 +268,7 @@ define([
         //show results & hide loader
         loadSplashController.hideLoader();
 
-        // resultsSmallView.resultsSmall.render();
         resultsSmallController.showResults();
-        // $('.resultsSmall-container').show();
-        // $('#resultsSmall').show();
 
         //parse the results
         var insolResults = results[0].value.split('\n');
@@ -357,42 +340,11 @@ define([
         solarObj.months = months;
 
         var nearestLat = Math.round(app.query.latLngPt.y);
-        // console.log(sunHours[nearestLat]);
+
         _.each(sunHours[nearestLat], function(value, month){
-          // console.log(solarObj[month]);
           solarObj[month].shadeHrValue = value;
         });
-        // total = 0;
-        // for (i = 0; i < 12; i++) {
-        //   // var month = dataHandler.getMonth(i);
-
-        //   total += parseInt(sunHrValue[i], 10);
-        //   if (parseInt(sunHrValue[i], 10) > maxSun) {
-        //     var maxSun = parseInt(sunHrValue[i], 10);
-        //   }
-        // }
-
-        // var data = {
-
-        //   'month': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        //   'insolValue': [insolValueCorrected[0], insolValueCorrected[1], insolValueCorrected[2], insolValueCorrected[3], insolValueCorrected[4], insolValueCorrected[5], insolValueCorrected[6], insolValueCorrected[7], insolValueCorrected[8], insolValueCorrected[9], insolValueCorrected[10], insolValueCorrected[11]],
-        //   'sunHrValue': [sunHrResults[0], sunHrResults[1], sunHrResults[2], sunHrResults[3], sunHrResults[4], sunHrResults[5], sunHrResults[6], sunHrResults[7], sunHrResults[8], sunHrResults[9], sunHrResults[10], sunHrResults[11]]
-        // };
-          //$("#resultsBig").html("<iframe src='" + resultsiFrameURL + "&m=" + JSON.stringify(data) + "' width='670px' height='800px' style='overflow-x:scroll;overflow-y:scroll;'><p>Your browser does not support iFrames.</p></iframe>");
-          // <div id="resultsBigClose" style="padding-right:10px">( x )</div>
-          // query time
-        var resultsiFrameURL = '/report.php?z=';
-         // + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
-
-        // $('#viewReportLink').html('<a class="fancybox fancybox.iframe" href=' + resultsiFrameURL + '&m=' + JSON.stringify(data) + '>View Report</a>');
-        // $('#emailReportLink').html('<a href="http://solar.maps.umn.');
-          // edu/share_point.php?x=' + params.PointX + '&y=' + params.PointY + '">Email Report</a>');
-          
-        // <a class='fancybox fancybox.iframe" href='/report.php?z=55401&w=www.xcelenergy.com&long=-93.25602494189295&lat=44.97118778347387&y=868.16&u=Xcel%20Energy_414%20Nicollet%20Mall_Minneapolis%2C%20MN%2055401_(612)%20330-5500&m={"month":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"insolValue":[6.94716589294,19.8687424162,61.5008547231,110.267029307,156.162897311,165.772712797,163.85618036900001,129.207720868,76.9877044141,30.3438740387,8.01637505342,5.466850362400001],"sunHrValue":["1.19230769231","82.9038581384","218.959320378","270.482483916","324.905458475","334.945970741","333.145012315","296.123701354","241.950447593","134.125582947","6.81959716388","0.0"]}'>Iframe</a></li>
-
-        // var endTime = new Date().getTime();
-        //console.log("Solar point processing took: " + ((endTime - startTime)*0.001) + " seconds.")
-        
+                
         // Populate gradient
         var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toString() + '%';
         
