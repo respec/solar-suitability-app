@@ -45,6 +45,10 @@
   background-color: $active-color;
 }
 
+ul.dropdown-menu li {
+    margin-left:10px
+}
+
 // .dropdown-menu li.activeButton >a {
 //   color: black;
 // }
