@@ -1,24 +1,6 @@
 <div id="resultsSmall">  
     <div class="container-fluid">
 
-        <!-- Controls -->
-        <!-- <div class="row">
-            <div class="col-md-1">
-                <button type="button" class="btn btn-default btn-danger" id="closeResults">
-                    <i class="fa fa-times fa-1x"></i>
-                </button>
-            </div>
-            <div class="col-md-3">
-                General
-            </div>
-            <div class="col-md-4">
-                Histograms
-            </div>
-            <div class="col-md-4">
-                Tables
-            </div>
-        </div> -->
-
         <!-- Data -->
 
         <div class="row">
@@ -50,10 +32,109 @@
                 </div>
             </div>
             <div class="col-md-3 resultsGeneral">
-                <div class="resultsDisplay noselect" id="results"></div>
+                <div class="resultsDisplay noselect" id="results">
+                    <div class="resultHeader">
+                        <span>INSOLATION (kWh/m<sup>2</sup>)</span>
+                    </div>
+                    
+                    <div class="valueHelp">
+                        [<%=quality%>]
+                    </div>
+
+                    <div>
+                        <!-- <h4 class="zeroPercent">0%<h4> -->
+                        <div class="progress gradient">
+                            <div class="progress-bar showGradient " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                <span></span>
+                            </div>
+                        </div>
+                        <!-- <h4 class="hundredPercent">100%<h4> -->
+                    </div>
+                    <div>
+                        Total per Year: <%=totalPerYear%>
+
+                        <!-- Display warning ** -->
+                        <% if(bareEarth === 1 || county === 'Pine') { %>
+                            **
+                        <% } %>
+
+                        <br>
+                        Avg per Day: <%=averagePerDay%>
+
+                        <!-- Display warning ** -->
+                        <% if(bareEarth === 1 || county === 'Pine') { %>
+                            **
+                        <% } %>
+
+                        <!-- Display bare earth warning msg -->
+                        <% if(bareEarth === 1) { %>
+                            <p>
+                                **
+                                <span id="smText">The lidar data available for ' <% county %>' County includes only bare earth points. Hence, this insolation value does not take shade from nearby surface features into consideration.</span>
+                            </p>
+                        <% } %>
+
+                        <!-- Display Pine County warning msg -->
+                        <% if(county === 'Pine') { %>
+                            <p>
+                                **
+                                <span id="smText">The lidar data available for '<% county %> ' County was inconsistently classified across different flight lines. Hence, insolation accuracy is variable as shade from nearby surface features may not be taken into consideration.</span>
+                            </p>
+                        <% } %>
+                    </div>
+
+                    <div class="resultHeader">
+                        <strong>UTILITY SERVICE PROVIDER</strong>
+                    </div>
+
+                    <div>
+                        <% if (typeof(utilityCompany) !== "undefined") {%>
+                            <%=utilityCompany.fullName%> -
+                            <br />
+                            <a href="tel:+1-' + <%=utilityCompany.phone.slice(1, 4)%> + '-' + <%=utilityCompany.phone.slice(6, 14)%>"><%=utilityCompany.phone%></a>
+                        <% } %>
+                        
+                        <p>
+                            <a href="<% mnIncentives %>" target="_blank">MN Incentives/Policies for Solar</a>
+                        </p>
+
+                        <% if(quality === 'Poor'){%>
+                            <p>Location not optimal? Check out:<br /><a href="<%=solarGardens%>" target="_blank">Community Solar Gardens</a></p>
+                        <% } else {%>
+                            <p>Get Started: 
+                                <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=" + zip + "&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a>
+                            </p>
+                        <% } %>
+                        <div>
+                            Report bad data 
+                            <span class="badData">here</span>
+                        </div>
+                        <div class="resultHeader">
+                            SOURCE DATA (
+                            <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>
+                            )
+                        </div>
+                        <div id="collect"></div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Tab Interface
+            <div class="col-md-4">
+                <div class="chartTitle">Insolation (kWh/m<sup>2</sup>) By Month</div>
+                <div class="resultsDisplay noselect" id="resultsHisto"></div>
+            </div> 
+            <div class="col-md-4">
+                <button id="closeResults" aria-label="Close" data-dismiss="modal" class="close invert-btn pull-right" type="button">
+                    <span aria-hidden="true"><i class="fa fa-times fa-1x"></i></span>
+                </button>
+                <div class="chartTitle">Sun Hours By Month</div>
+                <div class="resultsDisplay noselect" id="sunHrHisto"></div>
+            </div> 
+        </div>  <!-- ROW END -->
+    </div> <!-- CONTAINER END --> 
+</div> <!-- END ResultsSmall -->
+
+<!-- Tab Interface
             <div class="col-md-8">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#insolationResults" aria-controls="insolationResults" role="tab" data-toggle="tab">Solar Insolation By Month (kWh)</a></li>
@@ -147,17 +228,3 @@
                 </div>
             </div>
             -->
-             <div class="col-md-4">
-                <div class="chartTitle">Insolation (kWh/m<sup>2</sup>) By Month</div>
-                <div class="resultsDisplay noselect" id="resultsHisto"></div>
-            </div> 
-            <div class="col-md-4">
-                    <button id="closeResults" aria-label="Close" data-dismiss="modal" class="close invert-btn pull-right" type="button">
-                        <span aria-hidden="true"><i class="fa fa-times fa-1x"></i></span>
-                    </button>
-                <div class="chartTitle">Sun Hours By Month</div>
-                <div class="resultsDisplay noselect" id="sunHrHisto"></div>
-            </div> 
-        </div>  <!-- ROW END -->
-    </div> <!-- CONTAINER END --> 
-</div> <!-- END ResultsSmall -->
