@@ -17,7 +17,10 @@ define([
   ) {
     var email = Backbone.View.extend({
 
-      events: {},
+      events: {
+        'click .emailReportToMe': 'handleEmailToMe'
+
+      },
 
       initialize: function() {
         this.render();
@@ -69,6 +72,18 @@ define([
           });
         });
         
+      },
+
+      handleEmailToMe: function(){
+        $emailReportToMe = $('.emailReportToMe');
+        $recipEmail = $('#recipEmail');
+        $emailEmail = $('#emailEmail');
+
+        if ($emailReportToMe.prop('checked')){
+          $recipEmail.val($emailEmail.val());
+        } else {
+          $recipEmail.val('');
+        }
       }
 
     });
