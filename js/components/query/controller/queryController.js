@@ -194,20 +194,6 @@ define([
 
                 var utility = encodeURIComponent(fullName + '_' + street + '_' + city + ', MN ' + zip + '_' + phone);
 
-<<<<<<< HEAD
-=======
-                if (quality === 'Poor') {
-                  getStarted = '<p>Location not optimal? Check out:<br /><a href="http://mncerts.org/solargardens" target="_blank">Community Solar Gardens</a></p>';
-                } else {
-                  getStarted = '<p><a href="' + config.mnInstallers + zip + '" target="_blank">Contact a Local Installer</a></p>';
-                }
-
-                result = '<div class="resultHeader"><strong>UTILITY SERVICE PROVIDER</strong></div><div>' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';
-                result = result + '</p><p><a href="' + config.mnIncentives + '" target="_blank">MN Incentives/Policies for Solar</a></p>' + getStarted + '<div>Report bad data <span class="badData">here</span></div><div class="resultHeader">SOURCE DATA (<a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>)</div><div id="collect"><div>.</p>';
-
-                var resultsDiv = $('#results');
-                resultsDiv.html(resultsDiv.html() + result);
->>>>>>> dev
                 point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
                 //var resultsiFrameURL = '/report.php?z=' + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
               
@@ -273,11 +259,7 @@ define([
       },
 
       displayResults: function(results) {
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> dev
         app.query.results = results;
         //empty div so histo doesn't duplicate
         $('#resultsHisto').html('');
@@ -357,11 +339,6 @@ define([
         solarObj.insolList = insolList;
         solarObj.months = months;
 
-<<<<<<< HEAD
-=======
-        // console.log(sunHrList);
-
->>>>>>> dev
         var nearestLat = Math.round(app.query.latLngPt.y);
 
         _.each(sunHours[nearestLat], function(value, month){

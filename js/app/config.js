@@ -44,12 +44,8 @@ define(['esri/symbols/PictureMarkerSymbol'],
 
       // Other links
       mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&technology=7&',
-<<<<<<< HEAD
       mnCertsSolarGardens: 'http://mncerts.org/solargardens',
-      
-=======
       mnInstallers: 'http://www.cleanenergyprojectbuilder.org/directory?title=&field_category_tid=208&field_geofield_distance%5Borigin%5D=',
->>>>>>> dev
       // Solar data
       //gpTool: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/SolarPointQuery_fast/GPServer/Script',
       //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',
