@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
 
   <!-- App Styles -->
-  <link rel="stylesheet" type="text/css" href="assets/css/solarApp.css">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/solarApp.css"> -->
   <!-- <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"> -->
 
   <!-- CHANGE THIS FOR DEPLOYMENT -->
@@ -34,24 +34,24 @@
   <script src="lib/jspdf.min.js"></script>
   <script src="lib/js.cookie.js"></script>
   <script src="lib/jquery.printelement.min.js"></script>
+
+  <script src="//js.arcgis.com/3.13"></script>
+
 </head>
 
 <body id="body">
 
-<!-- JavaScript -->
-  <script src="//js.arcgis.com/3.13"></script>
-  <script src="//apis.google.com/js/client.js"></script>
- <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script> -->
   <script type="text/javascript">
     var pathRegex = new RegExp(/\/[^\/]+$/);
     var locationPath = location.pathname.replace(pathRegex, '');
+    if (locationPath.slice(-1) !== '/') { locationPath += '/'; }
 
     require({
       packages: [
-        { name: 'app', location: locationPath + '/js/app'},
-        { name: 'components',  location:  locationPath + '/js/components'},
-        { name: 'config',  location:  locationPath + '/js/config'},
-        { name: 'lib', location: locationPath + '/lib'}
+        { name: 'app', location: locationPath + 'js/app'},
+        { name: 'components',  location:  locationPath + 'js/components'},
+        { name: 'config',  location:  locationPath + 'js/config'},
+        { name: 'lib', location: locationPath + 'lib'}
       ]
     },
       ['app/main'],

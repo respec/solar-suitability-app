@@ -61,7 +61,14 @@ define([
                           };
 
           $.post('api/email.php', emailData, function(data){
-            $('.emailModal').modal('hide');
+            console.log(data);
+            if( 'success' in data) {
+              $('.emailModal').modal('hide');
+            } else {
+              $('.modal-body').prepend("Error: " + data.error + "<br>Please correct input and try again.");
+              $('.emailSubmit').html('Try Again');
+            }
+            
           });
         });
         

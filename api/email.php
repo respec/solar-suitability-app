@@ -13,8 +13,41 @@ if($_POST['skey'] == "Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq") {
 
 	$result = send_email($to, $to_name, $body, $subject, $fromaddress="mnsolarsuitability@gmail.com", $fromname, $replytoaddress);	
 
+	if($result == "Message sent!") {
+		if (version_compare(PHP_VERSION, '5.2.0') >= 0) {
+			$response_arr = array('success' => $result);
+			$sJson = json_encode( $response_arr );
+		} else {
+			// PHP Version does not support json_
+			$sJson = '{"success":"'.$result.'"}';
+		}
+	} else {
+		// Message failed to send
+		http_response_code(400);
+
+		if (version_compare(PHP_VERSION, '5.2.0') >= 0) {
+			$response_arr = array('error' => $result);
+			$sJson = json_encode( $response_arr );
+		} else {
+			// PHP Version does not support json_
+			$sJson = '{"error":"'.$result.'"}';
+		}
+	}
+	
+} else {
+	// Set our response code
+	http_response_code(401);
+	$result = "Unauthorized to send.";
+
+	if (version_compare(PHP_VERSION, '5.2.0') >= 0) {
+		$response_arr = array('error' => $result);
+		$sJson = json_encode( $response_arr );
+	} else {
+		// PHP Version does not support json_
+		$sJson = '{"error":"'.$result.'"}';
+	}
 }
-$sJson = json_encode( $result, 1 );
+
 header( 'Content-Type: application/json' );
 echo $sJson;
 

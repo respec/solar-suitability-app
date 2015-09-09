@@ -32,7 +32,7 @@ define(['esri/symbols/PictureMarkerSymbol'],
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
       appEmail: 'andywalz@gmail.com',
-      appDomain: 'http://solar.maps.umn.edu/solar-suitability-app',
+      appDomain: 'http://solar.maps.umn.edu/app',
       appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq',
 
       // Esri Basemap Urls
@@ -44,6 +44,7 @@ define(['esri/symbols/PictureMarkerSymbol'],
 
       // Other links
       mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&technology=7&',
+      mnInstallers: 'http://www.cleanenergyprojectbuilder.org/directory?title=&field_category_tid=208&field_geofield_distance%5Borigin%5D=',
       // Solar data
       //gpTool: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/SolarPointQuery_fast/GPServer/Script',
       //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',
