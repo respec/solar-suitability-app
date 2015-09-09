@@ -207,7 +207,7 @@ define([
                 if (quality === 'Poor') {
                   getStarted = '<p>Location not optimal? Check out:<br /><a href="http://mncerts.org/solargardens" target="_blank">Community Solar Gardens</a></p>';
                 } else {
-                  getStarted = '<p>Get Started: <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=" + zip + "&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a></p>';
+                  getStarted = '<p><a href="' + config.mnInstallers + zip + '" target="_blank">Contact a Local Installer</a></p>';
                 }
 
                 result = '<div class="resultHeader"><strong>UTILITY SERVICE PROVIDER</strong></div><div>' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';
@@ -223,7 +223,6 @@ define([
                 });
 
                 lcQueryTask.execute(lcQuery, function(results) {
-                  console.log(results.features[0].attributes.lidar_coll);
                   var lidar_collect = results.features[0].attributes.lidar_coll;
                   $('#collect').html(lidar_collect);
                   app.query.collectDate = lidar_collect;
@@ -231,8 +230,8 @@ define([
 
               });
             }, function(err){
-              console.log('Solar Query Task error');
-              console.log(err);
+              // console.log('Solar Query Task error');
+              // console.log(err);
               alert('There was an error with your request.  Please click OK and try again');
             });
 
@@ -244,8 +243,8 @@ define([
           }
 
         }, function(err){
-              console.log('BE Query Task error');
-              console.log(err);
+              // console.log('BE Query Task error');
+              // console.log(err);
               alert('There was an error with your request.  Please click OK and try again');
             });
 
@@ -274,7 +273,7 @@ define([
         var self = this;
         // Create geoprocessing tool
         var gp = new esri.tasks.Geoprocessor(config.gpTool);
-        console.log(config.gpTool);
+    
         var params = {
           'PointX': point.x,
           'PointY': point.y,
@@ -286,7 +285,6 @@ define([
       },
 
       displayResults: function(results) {
-        console.log(results);
         
         app.query.results = results;
         //empty div so histo doesn't duplicate
@@ -368,7 +366,7 @@ define([
         solarObj.insolList = insolList;
         solarObj.months = months;
 
-        console.log(sunHrList);
+        // console.log(sunHrList);
 
         var nearestLat = Math.round(app.query.latLngPt.y);
         // console.log(sunHours[nearestLat]);
