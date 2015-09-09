@@ -35,35 +35,23 @@
   <script src="lib/js.cookie.js"></script>
   <script src="lib/jquery.printelement.min.js"></script>
 
-  <!-- Google Analytics Tracking https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a36981530w65914167p67762582/ -->
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script src="//js.arcgis.com/3.13"></script>
 
-    ga('create', 'UA-36981530-2', 'auto');
-    ga('send', 'pageview');
-  </script>
 </head>
 
 <body id="body">
 
-<!-- JavaScript -->
-<script src="//js.arcgis.com/3.13"></script>
- <!--  <script src="lib/arcgis_js_v314_api/library/3.14/3.14/init.js"></script> -->
- <!-- <script src="//apis.google.com/js/client.js"></script> -->
- <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script> -->
   <script type="text/javascript">
     var pathRegex = new RegExp(/\/[^\/]+$/);
     var locationPath = location.pathname.replace(pathRegex, '');
+    if (locationPath.slice(-1) !== '/') { locationPath += '/'; }
 
     require({
       packages: [
-        { name: 'app', location: locationPath + '/js/app'},
-        { name: 'components',  location:  locationPath + '/js/components'},
-        { name: 'config',  location:  locationPath + '/js/config'},
-        { name: 'lib', location: locationPath + '/lib'}
+        { name: 'app', location: locationPath + 'js/app'},
+        { name: 'components',  location:  locationPath + 'js/components'},
+        { name: 'config',  location:  locationPath + 'js/config'},
+        { name: 'lib', location: locationPath + 'lib'}
       ]
     },
       ['app/main'],

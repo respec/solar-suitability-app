@@ -9,7 +9,7 @@ define([
   return {
 
     buildEmailLink: function(){
-      var url = config.appDomain + '/index.html?lat=' + app.query.latLngPt.y + '%26long=' + app.query.latLngPt.x;
+      var url = config.appDomain + '/?lat=' + app.query.latLngPt.y + '%26long=' + app.query.latLngPt.x;
 
       return encodeURI(url);
     }
