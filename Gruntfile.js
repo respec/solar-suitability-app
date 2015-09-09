@@ -233,6 +233,16 @@ module.exports = function(grunt) {
         src: [ 'release/*.html' ]
       }
     },
+
+    uncss: {
+      dist: {
+        src: ['app/about.html', 'app/index.html'],
+        dest: 'dist/css/tidy.css',
+        options: {
+          report: 'min' // optional: include to report savings
+        }
+      }
+    }
   });
 
   grunt.registerTask('init',['clean', 'shell:bowerInstall', 'copy:bower', 'copy:stylesAndFonts', 'copy:initStyles']);

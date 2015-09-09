@@ -1,5 +1,5 @@
 #viewReport a:visited, #viewReport a:hover, #viewReport a:link, #viewReport a:active{
-    font-size: 18px;
+  font-size: 18px;
   color: #fff;
   text-decoration:none;
 }
@@ -130,3 +130,77 @@
 // .hideGradient {
 //     background-color: black;
 // }
+
+/* D3 customization */
+
+.x.axis text,.y.axis text {
+    font-family:sans-serif;
+    font-size:14px
+}
+
+.x.axis text {
+    margin-left:-2px
+}
+
+.d3-tip {
+    line-height:1;
+    font-weight:700;
+    padding:12px;
+    background:rgba(0,0,0,0.8);
+    color:#fff;
+    border-radius:2px;
+    z-index:500
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing:border-box;
+    display:inline;
+    font-size:10px;
+    width:100%;
+    line-height:1;
+    color:rgba(0,0,0,0.8);
+    content:"\25BC";
+    position:absolute;
+    text-align:center
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+    margin:-1px 0 0;
+    top:100%;
+    left:0
+}
+
+.chart div {
+    font:10px sans-serif;
+    background-color:#4682b4;
+    text-align:right;
+    padding:3px;
+    margin:1px;
+    color:#000;
+    z-index:1
+}
+
+.chart rect {
+    fill:#ff7400
+}
+
+.chart rect:hover {
+    fill:#ff4500
+}
+
+.chart text {
+    fill:#fff;
+    font:10px sans-serif;
+    text-anchor:end
+}
+
+.shadowCSS { 
+  box-shadow: 12px 12px 7px rgba(0,0,0,0.5); 
+  }
+  
+.shadowfilter { 
+  -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+  filter: url(shadow.svg#drop-shadow); 
+}

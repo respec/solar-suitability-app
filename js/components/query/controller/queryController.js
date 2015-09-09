@@ -33,6 +33,7 @@ define([
     return {
 
       pixelQuery: function(e) {
+        $('.tooltip').hide();
         calculatorController.hideCalculator();
         resultsSmallController.hideResults();
         loadSplashController.placeLoader();
