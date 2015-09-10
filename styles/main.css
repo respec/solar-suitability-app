@@ -6192,6 +6192,44 @@ ul.dropdown-menu, a.dropdown-menu {
   height: 300px;
   overflow: auto; }
 
+.gradient {
+  height: 40px;
+  text-align: center;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#141414+0,bd4600+50,ffffc4+100 */
+  background: #141414;
+  /* Old browsers */
+  background: -moz-linear-gradient(left, #141414 0%, #bd4600 50%, #ffffc4 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #141414), color-stop(50%, #bd4600), color-stop(100%, #ffffc4));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left, #141414 0%, #bd4600 50%, #ffffc4 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left, #141414 0%, #bd4600 50%, #ffffc4 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(left, #141414 0%, #bd4600 50%, #ffffc4 100%);
+  /* IE10+ */
+  background: linear-gradient(to right, #141414 0%, #bd4600 50%, #ffffc4 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141414', endColorstr='#ffffc4',GradientType=1 );
+  /* IE6-9 */ }
+
+.showGradient {
+  box-shadow: 0px 0px 0px 2000px black;
+  /* white or whatever color you like */
+  background-image: none !important;
+  background-color: transparent !important; }
+
+.showGradient > span {
+  line-height: 40px; }
+
+.zeroPercent {
+  float: left;
+  margin-right: 5px; }
+
+.hundredPercent {
+  float: right;
+  margin-left: 5px; }
+
 /* D3 customization */
 .x.axis text, .y.axis text {
   font-family: sans-serif;

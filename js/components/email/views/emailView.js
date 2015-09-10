@@ -17,7 +17,10 @@ define([
   ) {
     var email = Backbone.View.extend({
 
-      events: {},
+      events: {
+        'click .emailReportToMe': 'handleEmailToMe'
+
+      },
 
       initialize: function() {
         this.render();
@@ -58,10 +61,29 @@ define([
                           };
 
           $.post('api/email.php', emailData, function(data){
-            $('.emailModal').modal('hide');
+            console.log(data);
+            if( 'success' in data) {
+              $('.emailModal').modal('hide');
+            } else {
+              $('.modal-body').prepend("Error: " + data.error + "<br>Please correct input and try again.");
+              $('.emailSubmit').html('Try Again');
+            }
+            
           });
         });
         
+      },
+
+      handleEmailToMe: function(){
+        $emailReportToMe = $('.emailReportToMe');
+        $recipEmail = $('#recipEmail');
+        $emailEmail = $('#emailEmail');
+
+        if ($emailReportToMe.prop('checked')){
+          $recipEmail.val($emailEmail.val());
+        } else {
+          $recipEmail.val('');
+        }
       }
 
     });
