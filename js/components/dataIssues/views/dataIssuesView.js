@@ -51,13 +51,30 @@ define([
 
         $('.dataIssuesSubmit').on('click', function(){
           $('.dataIssuesSubmit').html('<i class="fa fa-spinner fa-spin"></i> Sending ...');
+
+          var emailBody;
+
+          // check if there is a badData selection
+          if (app.query.badData){
+            var badData = app.query.badData;
+            emailBody = 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' in the following extent:<br><br>North: ' + badData.ymax + '<br>West: ' + badData.xmin + '<br>South: ' + badData.ymin + '<br>East: ' + badData.xmax;
+          }
+          // check if a solar query
+          else if (app.query.point){
+            emailBody = 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' at the following point:<br><br>X: ' + app.query.point.x + '<br>Y: ' + app.query.point.y;
+          }
+          // otherwise send description
+          else {
+            emailBody = 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' at the following description.<br><br>' + $('#dataIssuesLocation').val();
+          }
+
           var emailData = {
                             to: config.appEmail,
                             to_name: '',
                             from: $('#dataIssuesEmail').val(),
                             from_name: $('#dataIssuesName').val(),
                             subject: 'Solar Suitability Data Issue',
-                            body: 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' at ' + $('#dataIssuesLocation').val(),
+                            body: emailBody,
                             skey: config.appEmailKey
                           };
 
@@ -70,6 +87,8 @@ define([
           var selection = $('.selectBadDataButton:first-child');
           selection.text($(this).text());
           selection.val($(this).text());
+
+          var succes, successMsg;
 
           switch (selection.val()){
 
@@ -84,8 +103,8 @@ define([
                 dataIssuesController.createMessage(errorMsg, 'error', 'You have not made a solar query.  Please select another option.');
                 
               } else {
-                var success = $('.selectBadDataSuccess');
-                var successMsg = $('.selectBadDataSuccessMsg');
+                success = $('.selectBadDataSuccess');
+                successMsg = $('.selectBadDataSuccessMsg');
                 dataIssuesController.hideMessages();
                 success.show();
                 dataIssuesController.createMessage(successMsg, 'success', 'You have selected your most recent query.');
@@ -95,8 +114,8 @@ define([
             case 'Select Area':
               dataIssuesController.initSelection();
               $('.dataIssuesLocationGroup').hide();
-              var success = $('.selectBadDataSuccess');
-              var successMsg = $('.selectBadDataSuccessMsg');
+              success = $('.selectBadDataSuccess');
+              successMsg = $('.selectBadDataSuccessMsg');
               dataIssuesController.hideMessages();
               success.show();
               dataIssuesController.createMessage(successMsg, 'success', 'You have selected an extent.');
