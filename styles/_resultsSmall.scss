@@ -96,6 +96,7 @@
 .gradient {
     height: 40px;
     text-align: center;
+    border: 2px solid white;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#141414+0,bd4600+50,ffffc4+100 */
     background: #141414; /* Old browsers */
     background: -moz-linear-gradient(left,  #141414 0%, #bd4600 50%, #ffffc4 100%); /* FF3.6+ */
@@ -108,9 +109,12 @@
 }
 
 .showGradient {
-  box-shadow: 0px 0px 0px 2000px black;   /* white or whatever color you like */
+  box-shadow: 0px 0px 0px 2000px grey;   /* white or whatever color you like */
   background-image: none !important;
   background-color: transparent !important;
+  border-right: 2px solid white;
+  font-size: 14px;
+
 }
 
 .showGradient>span {
