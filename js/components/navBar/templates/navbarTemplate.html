@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div id="headerBar">
-            <div class="col-md-4 col-sm-5 col-xs-2">
+            <div class="col-md-4 col-sm-4 col-xs-2">
                 <div class="homeFindButtons">
 
                     <!-- Menu Dropdown -->
@@ -27,8 +27,6 @@
                                     </div>
                                 </li>
                                 <li role="presentation" class="divider"></li>
-
-                                <!-- Basemaps -->
                                 <div class="menuTopic">Basemaps</div>
                                 <li role="presentation" class="divider"></li>
 
@@ -45,29 +43,6 @@
                                 <li role="presentation" class="menuItem streetButton">
                                     <div class="helpMenu">
                                         <a role="menuitem" tabindex="-1" href="#">Streets</a>
-                                    </div>
-                                </li>
-
-                                <li role="presentation" class="divider"></li>
-
-                                <!-- Vector -->
-                                <div class="menuTopic">Vector</div>
-                                <li role="presentation" class="divider"></li>
-
-                                <li role="presentation" class="menuItem solarButton">
-                                    <div class="helpMenu">
-                                        Solar
-                                        <div class="pull-right">
-                                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="solarToggleSmall">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li role="presentation" class="menuItem solarButton">
-                                    <div class="helpMenu">
-                                        Solar
-                                        <div class="pull-right">
-                                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="solarToggleSmall">
-                                        </div>
                                     </div>
                                 </li>
 
@@ -150,14 +125,14 @@
                             <i class="fa fa-globe fa-2x" data-toggle="tooltip" data-placement="right" title="Select basemap"></i>
                         </button>
 
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown" id="basemapDropdownContent">
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown" style="top:50px" id="basemapDropdownContent">
                             <li role="presentation">
                                 <div id="basemapSelectorText">
                                     Basemap Selector:
                                 </div>
                             </li>
                             <li role="presentation" class="divider"></li>
-                            <!-- <li role="presentation" class="activeButton solarButton">
+                            <li role="presentation" class="activeButton solarButton">
                                 <a href="#">
                                     <div class="container-fluid">
                                         <div class="row no-gutter">
@@ -171,9 +146,9 @@
                                         </div>
                                     </div>
                                 </a>
-                            </li> -->
+                            </li>
                             <li role="presentation" class="divider"></li>
-                            <li role="presentation" class="activeButton aerialButton">
+                            <li role="presentation" class="aerialButton">
                                 <a href="#">
                                     <div class="container-fluid">
                                         <div class="row no-gutter">
@@ -204,94 +179,7 @@
                             </li>
                         </ul>
                     </div>
-
-                    <!-- Vector Dropdown -->
-                    <div class="dropdown hidden-xs" style="display:inline-block">
-                        <button class="btn btn-default dropdown-toggle menuButton appButton iconButton noBorder" type="button" id="vectorLayersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <img src="./assets/images/layerIcon.svg">
-                        </button>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="vectorLayersDropdownContent">
-                            <li role="presentation">
-                                <div id="vectorLayersSelectorText">
-                                    Additional Data Selector:
-                                </div>
-                            </li>
-                            <li role="presentation" class="divider"></li>
-                            <li>
-                                <div class="container-fluid">
-                                    <div class="row no-gutter vectorRow">
-                                        <div class="col-md-6 vectorText">
-                                            Solar
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="pull-right">
-                                                <input type="checkbox" data-toggle="toggle" data-onstyle="solar" class="vectorToggle" id="solarToggle">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="container-fluid">
-                                    <div class="row no-gutter vectorRow">
-                                        <div class="col-md-6 vectorText">
-                                            Counties
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="pull-right">
-                                                <input type="checkbox" data-toggle="toggle" data-onstyle="solar" class="vectorToggle" id="countiesToggle">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="container-fluid">
-                                    <div class="row no-gutter vectorRow">
-                                        <div class="col-md-6 vectorText">
-                                            EUSA
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="pull-right">
-                                                <input type="checkbox" data-toggle="toggle" data-onstyle="solar" class="vectorToggle" id="eusaToggle">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="container-fluid">
-                                    <div class="row no-gutter vectorRow">
-                                        <div class="col-md-6 vectorText">
-                                            Water
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="pull-right">
-                                                <input type="checkbox" data-toggle="toggle" data-onstyle="solar" class="vectorToggle" id="waterToggle">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="container-fluid">
-                                    <div class="row no-gutter vectorRow">
-                                        <div class="col-md-6 vectorText">
-                                            Lidar Collect Date
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="pull-right">
-                                                <input type="checkbox" data-toggle="toggle" data-onstyle="solar" class="vectorToggle" id="lidarToggle">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                        </ul>
-                    </div>
-
+                    
                 </div>
             </div>
 
@@ -309,7 +197,7 @@
                 <img src="assets/images/color_ramp_white_text.png" class="imgCenter headerColorRamp">
             </div>
 
-            <div class="col-md-4 col-sm-7 col-xs-10">
+            <div class="col-md-4 col-sm-8 col-xs-10">
                 <div class="appBrand floatRight">
                     <div class='appIcon'>
                         <img src="assets/images/solar-app-transparent50.png">
