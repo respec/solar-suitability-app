@@ -24,5 +24,8 @@
     "**/.*",
     "node_modules",
     "bower_components"
-  ]
+  ],
+  "devDependencies": {
+    "bootstrap-toggle": "~2.2.1"
+  }
 }
