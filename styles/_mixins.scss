@@ -15,4 +15,4 @@
   }
 }
 
-.btn-invert { @include button-variant($text-color, #000000, #000000); }
+.invert-btn { @include button-variant($text-color, #000000, #000000); }
