@@ -19,7 +19,6 @@ define([
 
   'esri/basemaps',
   'esri/config',
-  'esri/layers/FeatureLayer',
   'esri/layers/ArcGISTiledMapServiceLayer',
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/ImageServiceParameters',
@@ -38,7 +37,7 @@ define([
 
     helpSplashController, query,
 
-    esriBasemaps, esriConfig, FeatureLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
+    esriBasemaps, esriConfig, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
     ) {
 
@@ -102,13 +101,12 @@ define([
           showAttribution: false,
           opacity: 1.0
         });
-        solarLayer.hide();
 
         // Create aerial layer and load hidden
         var aerialLayer = new TiledLayer(config.imagery, {
           id: 'aerial'
         });
-        // aerialLayer.hide();
+        aerialLayer.hide();
 
         // Create street layer and load hidden
         var streetLayer = new TiledLayer(config.streets, {
@@ -116,25 +114,8 @@ define([
         });
         streetLayer.hide();
 
-        var countiesLayer = new FeatureLayer(config.countiesUrl, {
-          id: 'counties'
-        });
-        countiesLayer.hide();
-
-        var eusaLayer = new FeatureLayer(config.eusaUrl, {
-          id: 'eusa'
-        });
-        eusaLayer.hide();
-
-        var waterLayer = new FeatureLayer(config.waterUrl, {
-          id: 'water'
-        });
-        waterLayer.hide();
-
-        var lidarLayer = new FeatureLayer(config.countyLidarUrl, {
-          id: 'lidar'
-        });
-        lidarLayer.hide();
+        // Add solar to the map
+        this.map.addLayer(solarLayer);
 
         // Add aerial to the map
         this.map.addLayer(aerialLayer);
@@ -142,20 +123,7 @@ define([
         // Add street to the map
         this.map.addLayer(streetLayer);
 
-        // Add solar to the map
-        this.map.addLayer(solarLayer);
-
-        // Add counties to the map
-        this.map.addLayer(countiesLayer);
-
-        // Add eusa to the map
-        this.map.addLayer(eusaLayer);
-
-        // Add water to the map
-        this.map.addLayer(waterLayer);
-
-        // Add lidar to the map
-        this.map.addLayer(lidarLayer);
+        
 
         // // Read URL Parameters
         // function getParameterByName(name) {
@@ -207,6 +175,8 @@ define([
       initComponents: function() {
         // Initialize query object to hold data
         app.query = {};
+
+        
 
         this.navbar = new Navbar({
           el: this.layout.$el.find('.navbar-container')
