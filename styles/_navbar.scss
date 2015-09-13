@@ -20,8 +20,7 @@
 //   border:none;
 // }
 
-#basemapDropdownContent, #vectorLayersDropdownContent {
-  top:50px;
+#basemapDropdownContent {
   width: 410px;
 }
 
@@ -30,7 +29,7 @@
   // width: 100px;
 }
 
-#basemapSelectorText, #vectorLayersSelectorText {
+#basemapSelectorText {
   color: $text-color;
   font-size: 24px;
   padding-left: 10px;
@@ -39,11 +38,6 @@
 .basemapText {
   line-height: 100px;
   font-size: 18px;
-}
-
-.vectorText {
-  font-size: 18px;
-  color: $text-color;
 }
 
 /* Controls active basemap in both menu versions */
@@ -61,7 +55,7 @@ ul.dropdown-menu li {
 // 
 
 #menuDropdown {
-  width: 275px;
+  width: 225px;
 }
 
 .menuTopic {
@@ -72,11 +66,6 @@ ul.dropdown-menu li {
 
 .menuItem {
   padding-left:25px;
-}
-
-#vectorLayersDropdown img{
-  height:28px;
-  width:28px;
 }
 
 // .activeButton {
@@ -134,12 +123,3 @@ ul.dropdown-menu li {
 .headerColorRamp {
   height:50px;
 }
-
-.toggle{
-  margin-right:20px;
-}
-
- .vectorRow{
-  margin-bottom: 5px;
- }
-
