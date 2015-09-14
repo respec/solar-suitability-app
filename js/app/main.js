@@ -19,6 +19,7 @@ define([
 
   'esri/basemaps',
   'esri/config',
+  'esri/layers/GeoRSSLayer',
   'esri/layers/ArcGISTiledMapServiceLayer',
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/ImageServiceParameters',
@@ -37,7 +38,7 @@ define([
 
     helpSplashController, query,
 
-    esriBasemaps, esriConfig, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
+    esriBasemaps, esriConfig, GeoRSSLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
     ) {
 
@@ -123,7 +124,12 @@ define([
         // Add street to the map
         this.map.addLayer(streetLayer);
 
-        
+        var georss = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
+          id: 'geoRSS',
+          pointSymbol: config.sunSymbol
+        });
+       
+        this.map.addLayer(georss);
 
         // // Read URL Parameters
         // function getParameterByName(name) {
@@ -175,8 +181,6 @@ define([
       initComponents: function() {
         // Initialize query object to hold data
         app.query = {};
-
-        
 
         this.navbar = new Navbar({
           el: this.layout.$el.find('.navbar-container')
