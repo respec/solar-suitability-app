@@ -5,6 +5,8 @@ define([
     'components/report/controller/reportController',
     'components/calculator/controller/calculatorController',
 
+    'components/query/model/queryModel',
+
     'dojo/text!../templates/resultsSmallTemplate.html'
   ],
 
@@ -12,6 +14,8 @@ define([
     config,
 
     reportController, calculatorController,
+
+    QueryModel,
 
     viewTemplate
 
@@ -21,13 +25,26 @@ define([
       events: {},
 
       initialize: function() {
+        this.model = new QueryModel();
+        app.model = this.model;
+        this.listenTo(this.model, 'change', this.render);
         this.render();
       },
 
       render: function() {
         var template = _.template(viewTemplate);
+        var options = {
+          quality: app.model.attributes.quality,
+          totalPerYear: app.model.attributes.totalPerYear,
+          averagePerDay: app.model.attributes.averagePerDay,
+          county: app.model.attributes.county,
+          bareEarth: app.model.attributes.bareEarth,
+          utilityCompany: app.model.attributes.utilityCompany,
+          solarGardens: config.mnCertsSolarGardens,
+          mnIncentives: config.mnIncentives
+        };
 
-        this.$el.html(template());
+        this.$el.html(template(options));
         this.$el.hide();
         this.startup();
       },

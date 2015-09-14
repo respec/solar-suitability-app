@@ -32,7 +32,11 @@
   padding-right:30px;
 }
 
-#emailName, #emailEmail, #emailDescription, #emailLocation {
+.emailReportToMeLabel{
+  color:black;
+}
+
+.fullField {
   width:100%;
   margin-left: 15px;
 }

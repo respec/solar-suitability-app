@@ -3,12 +3,17 @@
   height: auto;
   max-height: 75%;
   margin: auto;
+  border-radius: 15px;
 }
 
 // .appHelpModal .modal-dialog {
 //   margin-top: 0px;
 //   margin-bottom: 0px;
 // }
+
+.logos {
+  padding-top:20px;
+}
 
 .appHelp {
   background-color:$overlay;
@@ -31,13 +36,15 @@
   margin-right: 15px;
 }
 
-// #colorRamp {
+#colorRamp {
+  text-align: center;
+  padding: 10px;
 //     display:block;
 //     margin-left:25%;
 //     margin-right:25%;
 //     width:auto;
 //     height:70px
-// }
+}
 
 // #colorRamp img {
 //     width:auto;
@@ -68,13 +75,14 @@
 // }
 
 #website {
-    position:relative;
-    z-index:55;
-    max-width:200px;
-    font-family:"TrebuchetMS";
-    float:right;
-    text-align:right;
-    vertical-align:bottom;
-    font-size:15px;
-    color:#fff
-}
+  padding:10px;
+//     position:relative;
+//     z-index:55;
+//     max-width:200px;
+//     font-family:"TrebuchetMS";
+//     float:right;
+//     text-align:right;
+//     vertical-align:bottom;
+//     font-size:15px;
+//     color:#fff
+ }

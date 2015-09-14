@@ -18,8 +18,8 @@ define([],
         loader.css('top', verticalOffset);
         loader.css('left', horizOffset);
         loader.show();
-        $('#resultsSmall-container').hide();
-        $('#resultsHeader').hide();
+        // $('#resultsSmall-container').hide();
+        // $('#resultsHeader').hide();
       },
 
       showLoader: function(){

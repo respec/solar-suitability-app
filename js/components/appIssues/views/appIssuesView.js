@@ -43,8 +43,27 @@ define([
           $('.appIssuesModal').modal('hide');
         });
 
-        $('#appIssuesDescription, #appIssuesName, #appIssuesEmail').on('input', function(){
-          appIssuesController.buildLink();
+        /* I don't remember writing this.  Did you? */
+        // $('#appIssuesDescription, #appIssuesName, #appIssuesEmail').on('input', function(){
+        //   appIssuesController.buildLink();
+        // });
+
+        $('.appIssuesSubmit').on('click', function(){
+
+          $('.appIssuesSubmit').html('<i class="fa fa-spinner fa-spin"></i> Sending ...');
+          var emailData = {
+                            to: config.appEmail,
+                            to_name: '',
+                            from: $('#appIssuesEmail').val(),
+                            from_name: $('#appIssuesName').val(),
+                            subject: 'Solar Suitability App Issue',
+                            body: 'An error was found with the Solar Suitability app.  Please see below for a description:<br><br>' + $('#appIssuesDescription').val(),
+                            skey: config.appEmailKey
+                          };
+
+          $.post('api/email.php', emailData, function(data){
+            $('.appIssuesModal').modal('hide');
+          });
         });
       }
 

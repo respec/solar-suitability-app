@@ -24,7 +24,7 @@ define([],
       if (visited === 'yes'){
         return false;
       } else {
-        $('#helpSplashModal').modal('show');
+        $('.appHelpModal').modal('show');
       }
     }
   };

@@ -1,6 +1,6 @@
 <div id="reportModal" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div id="reportContent" class="modal-content reportDivToPrint">
 
             <div class="modal-header" id="reportHeader">
                 <div class="container-fluid">
@@ -29,9 +29,9 @@
                                                                     Enter a new site title:
                                                                 </div>
                                                                 <div class="col-md-1">
-                                                                    <button type="button" class="btn btn-default btn-danger closeSplash floatRight">
+                                                                    <!-- <button type="button" class="btn btn-default btn-danger closeSplash floatRight">
                                                                         <i class="fa fa-times fa-1x"></i>
-                                                                    </button>
+                                                                    </button> -->
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -67,24 +67,12 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- <div class="row">
-                                <div class="col-md-2 noGutter">
-                                    Latitude:
+
+                            <div class="row">
+                                <div class="col-md-12 noGutter">
+                                    Latitude: <span id="reportLat">Lat</span>&nbsp;&nbsp; Longitude: <span id="reportLng">Lng</span>
                                 </div>
-                                 <div class="col-md-4">
-                                    <div id="reportLat">
-                                        Lat
-                                    </div>
-                                </div>
-                                 <div class="col-md-2">
-                                    Longitude:
-                                </div>
-                                 <div class="col-md-4">
-                                    <div id="reportLng">
-                                        Lng
-                                    </div>
-                                </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -92,63 +80,12 @@
 
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row" id="siteImagesRow">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-4 resultsImage">
-                            <div id="reportSolarMap-container">
-                            </div>
-                        </div>
-                        <div class="col-md-2"></div>
-                        <div class="col-md-4 resultsImage">
-                            <div id="reportAerialMap-container">
 
-                                <div id="reportAngleControls" class="input-group">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-danger angleDownButton">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </span>
-                                    <input type="text" class="form-control" id="reportAngleBox" value="90">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-success angleUpButton">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 reportHeading">
-                            Site Details:
-                        </div>
-                    </div>
-
-                    
-
+                    <!--
                     <div class="row" id="siteDetailsRow">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="siteName" class="col-md-3 control-label">Site Name:</label>
 
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="siteName" placeholder="Enter a site name: ">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="siteNotes" class="col-md-3 control-label">Site Notes:</label>
-
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="siteNotes" placeholder="Enter site notes: ">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 reportHeading">
-                            Site Results:
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="siteName" placeholder="Enter a site name: ">
                         </div>
                     </div>
 
@@ -169,15 +106,15 @@
                                 Lng
                             </div>
                         </div>
-                    </div>
-                    <!-- <div class="row" id="siteImagesRow">
+                    </div>-->
+                    <div class="row" id="siteImagesRow">
                         <div class="col-md-6 resultsImage">
                             <div id="reportSolarMap-container">
                             </div>
                         </div>
                         <div class="col-md-6 resultsImage">
                             <div id="reportAerialMap-container">
-
+                                <!--
                                 <div id="reportAngleControls" class="input-group">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-danger angleDownButton">
@@ -191,11 +128,26 @@
                                         </button>
                                     </span>
                                 </div>
+                                -->
                             </div>
                         </div>
-                    </div> -->
-
+                    </div>
+                    <!-- Need to get D3 charts working here
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="chartTitle">Insolation (kWh/m<sup>2</sup>) By Month</div>
+                            <div class="resultsDisplay noselect" id="resultsHisto"></div>
+                        </div> 
+                        <div class="col-md-6">    
+                            <div class="chartTitle">Sun Hours By Month</div>
+                            <div class="resultsDisplay noselect" id="sunHrHisto"></div>
+                        </div>   
+                    </div>
+                    -->
+                    <hr />
                     <div class="row" id="reportResultsRow">
+                    
                         <div class="col-md-12">
                             <div class="reportResults-container">
                             </div>
@@ -209,9 +161,16 @@
                     </div>
 
                     <div class="row reportHisto">
-                        <div class="col-md-6 reportHisto" id="reportResultsHisto">
+                        <div class="col-md-12 reportHisto" id="reportResultsHisto">
                         </div>
-                        <div class="col-md-6 reportHisto" id="reportSunHrsHisto">
+                    </div>
+                    <div class="row reportHisto">
+                        <div class="col-md-12 reportHisto" id="reportSunHrsHisto">
+                        </div>
+                    </div>
+                    <div class="row reportHisto">
+                        <div class="col-md-12 reportHisto" id="reportShadeHrsHisto">
+                            shade hours eventually
                         </div>
                     </div>
 
@@ -219,7 +178,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default downloadButton">Download PDF</button>
+                <!-- <button type="button" class="btn btn-default downloadButton">Download PDF</button> -->
                 <!-- <button type="button" class="btn btn-default printButton">Print PDF</button> -->
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>

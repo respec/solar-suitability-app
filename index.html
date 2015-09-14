@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head id="header">
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
   <title>MN Solar Suitability Analysis App</title>
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
 
   <!-- App Styles -->
-  <link rel="stylesheet" type="text/css" href="assets/css/solarApp.css">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/solarApp.css"> -->
   <!-- <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"> -->
 
   <!-- CHANGE THIS FOR DEPLOYMENT -->
@@ -33,17 +33,18 @@
   <script src="lib/d3-tip.js"></script>
   <script src="lib/jspdf.min.js"></script>
   <script src="lib/js.cookie.js"></script>
+  <script src="lib/jquery.printelement.min.js"></script>
+
+  <script src="//js.arcgis.com/3.13"></script>
+
 </head>
 
-<body>
+<body id="body">
 
-<!-- JavaScript -->
-  <script src="//js.arcgis.com/3.13"></script>
-  <script src="//apis.google.com/js/client.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script>
   <script type="text/javascript">
     var pathRegex = new RegExp(/\/[^\/]+$/);
     var locationPath = location.pathname.replace(pathRegex, '');
+    if (locationPath.slice(-1) !== '/') { locationPath += '/'; }
 
     require({
       packages: [
