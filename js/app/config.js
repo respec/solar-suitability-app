@@ -31,8 +31,9 @@ define(['esri/symbols/PictureMarkerSymbol'],
       apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
-      emailAddress: 'test@testing.com',
+      appEmail: 'andywalz@gmail.com',
       appDomain: 'http://solar.maps.umn.edu/app',
+      appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq',
 
       // Esri Basemap Urls
       imagery: 'http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer',
@@ -41,24 +42,39 @@ define(['esri/symbols/PictureMarkerSymbol'],
       // Esri defaults
       geometryService: 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer',
 
+      // Other links
+      mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&technology=7&',
+      mnCertsSolarGardens: 'http://mncerts.org/solargardens',
+      mnInstallers: 'http://www.cleanenergyprojectbuilder.org/directory?title=&field_category_tid=208&field_geofield_distance%5Borigin%5D=',
       // Solar data
-      gpTool: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/SolarPointQuery_fast/GPServer/Script',
+      //gpTool: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/SolarPointQuery_fast/GPServer/Script',
+      //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',
+      gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
 
       /* Solar raster - query*/
       // solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/',
       solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/',
+      dsmImageryUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnDSMRef/ImageServer',
       //solar data for querying insolation
       // imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/identify',
       imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/identify',
       // Vector data for querying vector datasets
-      vectorDataUrl: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/solar_fgdb/MapServer/',
-      bareEarthCountyUrl: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/solar_fgdb/MapServer/1',
-      eusaUrl: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/solar_fgdb/MapServer/0',
+      vectorDataUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/',
+      bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/3',
+      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/2',
+      countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/5',
 
-      centerLat: 44.971795,
-      centerLng: -93.243322,
-      defaultZoom: 13,
+      /*MPLS*/
+      // centerLat: 44.971795,
+      // centerLng: -93.243322,
+      // defaultZoom: 13,
+
+      /*STATE*/
+      centerLat: 46.018056,
+      centerLng: -94.318333,
+      defaultZoom: 7,
       queryZoom: 18,
+
 
       pinSymbol: pinSymbol,
       solarPanelSymbol: solarPanelSymbol

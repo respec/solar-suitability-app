@@ -6,6 +6,7 @@ define([
 
   'components/map/controller/mapController',
   'components/report/controller/imageUri',
+  'components/query/controller/queryController',
 
   'esri/layers/ArcGISImageServiceLayer',
   'esri/map',
@@ -18,7 +19,7 @@ define([
 
     lang,
 
-    mapController, imageUri,
+    mapController, imageUri, queryController,
 
     ImageLayer, Map, Edit
     ) {
@@ -52,15 +53,24 @@ define([
         parseFloat(app.query.averagePerDay).toFixed(2) + ' kWh/m<sup>2</sup>'
       );
 
+      $('#collectDate').text(app.query.collectDate);
+      $('#quality').text(app.query.quality);
+
       // Set get started link
-      var getStarted = '<a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=' + app.query.utilityCompany.zip + '&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a>';
+      var getStarted = '<a href="' + config.mnInstallers + app.query.utilityCompany.zip + '" target="_blank">Contact a Local Installer</a>';
       $('#reportGetStarted').html(getStarted);
+      var incentives = '<a href="' + config.mnIncentives + '" target="_blank">MN Solar Incentives</a>';
+      $('#reportIncentives').html(incentives);
 
       // Set utilities
       $('#reportUtilityName').text(app.query.utilityCompany.fullName);
       $('#reportUtilityStreet').text(app.query.utilityCompany.street);
       $('#reportUtilityCityStateZip').text(app.query.utilityCompany.city + ', MN ' + app.query.utilityCompany.zip);
       $('#reportUtilityPhone').text(app.query.utilityCompany.phone);
+
+      //console.log(app.query.results);
+      //queryController.displayResults(app.query.results);
+
     },
 
     buildMap: function(mapName, el, basemap){
@@ -89,7 +99,8 @@ define([
 
         } else {
           app[mapName].on('load', lang.hitch(this, function(){
-            mapController.placePoint(app.query.latLngPt, app[mapName], config.solarPanelSymbol);
+            //Solar panel disabled for statefair -AJW
+            //mapController.placePoint(app.query.latLngPt, app[mapName], config.solarPanelSymbol);
             this.initEdit();
           }));
         }
@@ -111,7 +122,7 @@ define([
 
     createPdf: function(){
       function footer(){
-        console.log('footer');
+        // console.log('footer');
         doc.setFontSize(8);
         doc.text(8, 10.75, 'page ' + doc.page);
         doc.page ++;
@@ -186,14 +197,14 @@ define([
     },
 
     printPdf: function(doc){
-      console.log('printPDF');
+      // console.log('printPDF');
       // doc.autoPrint();
     },
 
     initEdit: function(){
-      console.log(app.reportAerialMap.graphics);
+      // console.log(app.reportAerialMap.graphics);
       var editToolbar = new Edit(app.reportAerialMap);
-      console.log('edit');
+      // console.log('edit');
       var selected;
       app.reportAerialMap.graphics.on('mouse-over', function(evt) {
         selected = evt.graphic;

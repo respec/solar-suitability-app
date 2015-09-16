@@ -1,5 +1,5 @@
 #viewReport a:visited, #viewReport a:hover, #viewReport a:link, #viewReport a:active{
-    font-size: 18px;
+  font-size: 18px;
   color: #fff;
   text-decoration:none;
 }
@@ -10,6 +10,10 @@
     text-decoration: none;
 }
 
+.badData {
+    color: $brand-primary;
+    cursor: pointer;
+}
 
 // #emailReport a:visited, #emailReport a:hover, #emailReport a:link, #emailReport a:active{
 //   font-size: 18px;
@@ -56,6 +60,24 @@
     text-align:center;
 }
 
+.chartTitle{
+    text-align: center;
+    padding-left: 5px;
+}
+
+.resultHeader{
+    font-weight: bold;
+    margin-top: 10px;
+    color: $primary-color;
+}
+
+.valueHelp{
+    color: $link-color;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 3px;
+}
+
 #closeResults{
     float:left;
 }
@@ -69,4 +91,120 @@
 .resultsTables {
     height:300px;
     overflow:auto;
+}
+
+.gradient {
+    height: 40px;
+    text-align: center;
+    border: 2px solid white;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#141414+0,bd4600+50,ffffc4+100 */
+    background: #141414; /* Old browsers */
+    background: -moz-linear-gradient(left,  #141414 0%, #bd4600 50%, #ffffc4 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#141414), color-stop(50%,#bd4600), color-stop(100%,#ffffc4)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #141414 0%,#bd4600 50%,#ffffc4 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #141414 0%,#bd4600 50%,#ffffc4 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #141414 0%,#bd4600 50%,#ffffc4 100%); /* IE10+ */
+    background: linear-gradient(to right,  #141414 0%,#bd4600 50%,#ffffc4 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141414', endColorstr='#ffffc4',GradientType=1 ); /* IE6-9 */
+}
+
+.showGradient {
+  box-shadow: 0px 0px 0px 2000px grey;   /* white or whatever color you like */
+  background-image: none !important;
+  background-color: transparent !important;
+  border-right: 2px solid white;
+  font-size: 14px;
+
+}
+
+.showGradient>span {
+    line-height: 40px;
+}
+
+.zeroPercent {
+    float:left;
+    margin-right: 5px;
+}
+
+.hundredPercent {
+    float:right;
+    margin-left: 5px;
+}
+
+// .hideGradient {
+//     background-color: black;
+// }
+
+/* D3 customization */
+
+.x.axis text,.y.axis text {
+    font-family:sans-serif;
+    font-size:14px
+}
+
+.x.axis text {
+    margin-left:-2px
+}
+
+.d3-tip {
+    line-height:1;
+    font-weight:700;
+    padding:12px;
+    background:rgba(0,0,0,0.8);
+    color:#fff;
+    border-radius:2px;
+    z-index:500
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing:border-box;
+    display:inline;
+    font-size:10px;
+    width:100%;
+    line-height:1;
+    color:rgba(0,0,0,0.8);
+    content:"\25BC";
+    position:absolute;
+    text-align:center
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+    margin:-1px 0 0;
+    top:100%;
+    left:0
+}
+
+.chart div {
+    font:10px sans-serif;
+    background-color:#4682b4;
+    text-align:right;
+    padding:3px;
+    margin:1px;
+    color:#000;
+    z-index:1
+}
+
+.chart rect {
+    fill:#ff7400
+}
+
+.chart rect:hover {
+    fill:#ff4500
+}
+
+.chart text {
+    fill:#fff;
+    font:10px sans-serif;
+    text-anchor:end
+}
+
+.shadowCSS { 
+  box-shadow: 12px 12px 7px rgba(0,0,0,0.5); 
+  }
+  
+.shadowfilter { 
+  -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+  filter: url(shadow.svg#drop-shadow); 
 }

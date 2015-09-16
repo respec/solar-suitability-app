@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Simple Map</title>
+    <link rel="stylesheet" type="text/css" href="http://solar.local/lib/arcgis_js_v314_api/library/3.14/3.14/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" type="text/css" href="http://solar.local/lib/arcgis_js_v314_api/library/3.14/3.14/esri/css/esri.css" />
+    <script type="text/javascript" src="http://solar.local/lib/arcgis_js_v314_api/library/3.14/3.14/init.js"></script>
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      function init() {
+        var myMap = new esri.Map("mapDiv");
+        //note that if you do not have public Internet access then you will need to point this url to your own locally accessible cached service.
+        var myTiledMapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/NGS_Topo_US_2D/MapServer");
+        myMap.addLayer(myTiledMapServiceLayer);
+      }
+      dojo.addOnLoad(init);
+    </script>
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div>
+  </body>
+</html>

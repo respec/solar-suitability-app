@@ -7,6 +7,7 @@ define([
 
   'components/loadSplash/controller/loadSplashController',
   'components/map/controller/mapController',
+  'components/resultsSmall/views/resultsSmallView',
   'components/resultsSmall/controller/resultsSmallController',
   'components/calculator/controller/calculatorController',
 
@@ -22,7 +23,7 @@ define([
   function(
     config, dataHandler, sunHours,
 
-    loadSplashController, mapController, resultsSmallController, calculatorController,
+    loadSplashController, mapController, resultsSmallView, resultsSmallController, calculatorController,
 
     webMercatorUtils, GeometryService, Geoprocessor, Query, QueryTask,
 
@@ -32,6 +33,7 @@ define([
     return {
 
       pixelQuery: function(e) {
+        $('.tooltip').hide();
         calculatorController.hideCalculator();
         resultsSmallController.hideResults();
         loadSplashController.placeLoader();
@@ -53,9 +55,6 @@ define([
         mapController.clearGraphics();
         mapController.placePoint(app.query.point, app.map, config.pinSymbol);
 
-        // Clear results div
-        $('#results').html('');
-
         //setup insolation query
         var solarQuery = new Query();
         var solarQueryTask = new QueryTask(config.imgIdentifyUrl);
@@ -69,6 +68,13 @@ define([
         solarQuery.returnZ = false;
         solarQuery.returnM = false;
         solarQuery.f = 'pjson';
+
+        //setup lidar collect date query
+        var lcQueryTask = new QueryTask(config.countyLidarUrl);
+        var lcQuery = new Query();
+        lcQuery.returnGeometry = false;
+        lcQuery.outFields = ['lidar_coll'];
+        lcQuery.geometry = e.mapPoint;
 
         //setup bare earth county layer query
         var BEquery = new Query();
@@ -86,12 +92,6 @@ define([
         BEquery.returnM = false;
         BEquery.f = 'pjson';
 
-        // BEQueryTask.execute(BEquery, BEsuccess, BEfail);
-
-        // function BEsuccess(results){
-          
-        // }
-
         BEQueryTask.execute(BEquery, function(results) {
           var warning;
           var warningMsg;
@@ -102,22 +102,10 @@ define([
             var bareEarth = results.features[0].attributes.bare_earth;
             var county = results.features[0].attributes.COUNTYNAME;
 
-            // Store county
+            // Store county/bare earth
             app.query.county = county;
-
-            //then check if clicked point is within a bare earth county, if so add disclaimer
-            if (bareEarth === 1) {
-              warning = '**';
-              warningMsg = '<p>**<span id="smText">The lidar data available for ' + county + ' County includes only bare earth points. Hence, this insolation value does not take shade from nearby surface features into consideration.</span></p>';
-
-              if (county === 'Pine') {
-                warningMsg = '<p>**<span id="smText">The lidar data available for ' + county + ' County was inconsistently classified across different flight lines. Hence, insolation accuracy is variable as shade from nearby surface features may not be taken into consideration.</span></p>';
-              }
-
-            } else {
-              warning = '';
-              warningMsg = '';
-            }
+            app.model.attributes.county = county;
+            app.model.attributes.bareEarth = bareEarth;
 
             solarQueryTask.execute(solarQuery, function(results) {
               var val = results.value;
@@ -130,16 +118,18 @@ define([
                 quality = 'Optimal';
                 break;
 
-              case (v < 1.7):
+              case (v > 1.7):
+                quality = 'Good';
+                break;
+
+              case (v >= 0.1):
                 quality = 'Poor';
                 break;
 
               default:
-                quality = 'Good';
+                quality = 'No Data';
                 break;
               }
-
-              result = '<div><strong>INSOLATION (kWh/m<sup>2</sup>)</strong></div><div class="resultsDisplay" style="display:block">Total per Year: ' + y.toFixed(2) + warning + '<br>Avg per Day: ' + v.toFixed(2) + ' <div class="valueHelp" style="display:inline-block;">(' + quality + ')</div>' + warning + warningMsg + '</div>';
 
               // Store returned solar values
               app.query.totalPerYear = y;
@@ -148,9 +138,18 @@ define([
               app.query.warning = warning;
               app.query.warningMessage = warningMsg;
 
-              // <div id="questionMark"><img src="/assets/img/help.png" style = "width:20px; height:20px; display:inline"></div>
+              app.model.setValue('quality', quality);
 
-              $('#results').html(result);
+              if (quality === 'No Data'){
+                app.model.setValue('totalPerYear', 'No Data');
+                app.model.setValue('averagePerDay', 'No Data');
+              } else {
+                app.model.setValue('totalPerYear', y.toFixed(2));
+                app.model.setValue('averagePerDay', v.toFixed(2));
+              }
+              
+              app.model.setValue('warning', warning);
+              app.model.setValue('warningMessage', warningMsg);
 
               //setup Utility Service Provider query
               var query = new Query();
@@ -171,7 +170,6 @@ define([
 
                 var getStarted;
                 
-
                 var fullName = results.features[0].attributes.FULL_NAME;
                 var city = results.features[0].attributes.CITY;
                 var street = results.features[0].attributes.STREET;
@@ -192,39 +190,37 @@ define([
 
                 // Store returned utility info
                 app.query.utilityCompany = utilityCompany;
+                app.model.setValue('utilityCompany', utilityCompany);
 
                 var utility = encodeURIComponent(fullName + '_' + street + '_' + city + ', MN ' + zip + '_' + phone);
 
-                if (quality === 'Poor') {
-                  getStarted = '<p>Location not optimal? Check out:<br /><a href="http://mncerts.org/solargardens" target="_blank">Community Solar Gardens</a></p>';
-                } else {
-                  getStarted = '<p>Get Started: <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=" + zip + "&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a></p>';
-                }
-
-                result = '<div style="margin-top:5px;"><strong>UTILITY SERVICE PROVIDER</strong></div><div class="resultsDisplay">' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';
-                result = result + '</p><p><a href="http://www.dsireusa.org/solar/incentives/index.cfm?re=1&ee=1&spv=1&st=0&srp=0&state=MN" target="_blank">MN Incentives/Policies for Solar</a></p>' + getStarted + '<p>Report bad data <a href="/bad_data_handler.php?x=' + mp.x + '&y=' + mp.y + ' target="_blank">here</a>.</p><br>Source data collect: <span id="collect"><span>.</p>';
-
-                var resultsDiv = $('#results');
-                resultsDiv.html(resultsDiv.html() + result);
                 point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
-                var resultsiFrameURL = '/report.php?z=' + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
+                //var resultsiFrameURL = '/report.php?z=' + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
+              
+                $('.badData').on('click', function(){
+                  $('.dataIssuesModal').modal('show');
+                });
+
+                lcQueryTask.execute(lcQuery, function(results) {
+                  var lidar_collect = results.features[0].attributes.lidar_coll;
+                  $('#collect').html(lidar_collect);
+                  app.query.collectDate = lidar_collect;
+                });
+
               });
             }, function(err){
-              console.log('Solar Query Task error');
-              console.log(err);
+              // console.log('Solar Query Task error');
+              // console.log(err);
               alert('There was an error with your request.  Please click OK and try again');
             });
 
-
           } else {
-            // clicked point is outside of the state
-            result = '<H3><strong>INSOLATION (kWh/m<sup>2</sup>)</strong></H3><p>Total per Year: Unknown**<br />Avg per Day: Unknown**</p><p>**<span id="smText">This point is out of the study area. Click within the State of Minnesota or try searching for something like "Target Field".</span></p><span class="closeSplash">(X) CLOSE</span> </p>';
-            alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
+              alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
           }
 
         }, function(err){
-              console.log('BE Query Task error');
-              console.log(err);
+              // console.log('BE Query Task error');
+              // console.log(err);
               alert('There was an error with your request.  Please click OK and try again');
             });
 
@@ -235,7 +231,7 @@ define([
 
         var point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
 
-        var queryTask = new QueryTask(config.solarImageryUrl);
+        var queryTask = new QueryTask(config.dsmImageryUrl);
 
         //initialize query
         var tileQuery = new Query();
@@ -253,28 +249,26 @@ define([
         var self = this;
         // Create geoprocessing tool
         var gp = new esri.tasks.Geoprocessor(config.gpTool);
-        
+    
         var params = {
           'PointX': point.x,
           'PointY': point.y,
           'File_Name': tile
         };
-
-        gp.execute({}, lang.hitch(self, self.displayResults));
-        // , self.displayResults);
+        gp.execute(params, lang.hitch(self, self.displayResults));
       },
 
       displayResults: function(results) {
-        
+
+        app.query.results = results;
         //empty div so histo doesn't duplicate
         $('#resultsHisto').html('');
         $('#sunHrHisto').html('');
 
         //show results & hide loader
         loadSplashController.hideLoader();
+
         resultsSmallController.showResults();
-        // $('.resultsSmall-container').show();
-        // $('#resultsSmall').show();
 
         //parse the results
         var insolResults = results[0].value.split('\n');
@@ -346,41 +340,17 @@ define([
         solarObj.months = months;
 
         var nearestLat = Math.round(app.query.latLngPt.y);
-        // console.log(sunHours[nearestLat]);
+
         _.each(sunHours[nearestLat], function(value, month){
-          // console.log(solarObj[month]);
           solarObj[month].shadeHrValue = value;
         });
-        // total = 0;
-        // for (i = 0; i < 12; i++) {
-        //   // var month = dataHandler.getMonth(i);
-
-        //   total += parseInt(sunHrValue[i], 10);
-        //   if (parseInt(sunHrValue[i], 10) > maxSun) {
-        //     var maxSun = parseInt(sunHrValue[i], 10);
-        //   }
-        // }
-
-        // var data = {
-
-        //   'month': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        //   'insolValue': [insolValueCorrected[0], insolValueCorrected[1], insolValueCorrected[2], insolValueCorrected[3], insolValueCorrected[4], insolValueCorrected[5], insolValueCorrected[6], insolValueCorrected[7], insolValueCorrected[8], insolValueCorrected[9], insolValueCorrected[10], insolValueCorrected[11]],
-        //   'sunHrValue': [sunHrResults[0], sunHrResults[1], sunHrResults[2], sunHrResults[3], sunHrResults[4], sunHrResults[5], sunHrResults[6], sunHrResults[7], sunHrResults[8], sunHrResults[9], sunHrResults[10], sunHrResults[11]]
-        // };
-          //$("#resultsBig").html("<iframe src='" + resultsiFrameURL + "&m=" + JSON.stringify(data) + "' width='670px' height='800px' style='overflow-x:scroll;overflow-y:scroll;'><p>Your browser does not support iFrames.</p></iframe>");
-          // <div id="resultsBigClose" style="padding-right:10px">( x )</div>
-          // query time
-        var resultsiFrameURL = '/report.php?z=';
-         // + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
-
-        // $('#viewReportLink').html('<a class="fancybox fancybox.iframe" href=' + resultsiFrameURL + '&m=' + JSON.stringify(data) + '>View Report</a>');
-        // $('#emailReportLink').html('<a href="http://solar.maps.umn.');
-          // edu/share_point.php?x=' + params.PointX + '&y=' + params.PointY + '">Email Report</a>');
-          
-        // <a class='fancybox fancybox.iframe" href='/report.php?z=55401&w=www.xcelenergy.com&long=-93.25602494189295&lat=44.97118778347387&y=868.16&u=Xcel%20Energy_414%20Nicollet%20Mall_Minneapolis%2C%20MN%2055401_(612)%20330-5500&m={"month":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"insolValue":[6.94716589294,19.8687424162,61.5008547231,110.267029307,156.162897311,165.772712797,163.85618036900001,129.207720868,76.9877044141,30.3438740387,8.01637505342,5.466850362400001],"sunHrValue":["1.19230769231","82.9038581384","218.959320378","270.482483916","324.905458475","334.945970741","333.145012315","296.123701354","241.950447593","134.125582947","6.81959716388","0.0"]}'>Iframe</a></li>
-
-        // var endTime = new Date().getTime();
-        //console.log("Solar point processing took: " + ((endTime - startTime)*0.001) + " seconds.")
+                
+        // Populate gradient
+        var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toString() + '%';
+        
+        var $showGradient = $('.showGradient');
+        $showGradient.css('width', gradient);
+        $('.showGradient>span').text(gradient);
 
         // create histos
         // 
@@ -388,7 +358,7 @@ define([
         this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
 
         // create Sun Hrs histo
-        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', 'Sun Hours By Month', 2, -40);
+        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
 
         // store results
         app.solarObj = solarObj;
