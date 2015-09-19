@@ -21,40 +21,78 @@
             <div class="modal-body docModal-body">
                 <div class="container-fluid">
                   <div class="dataIssuesBody">
-                     
-                        <form class="form-horizontal dataIssuesForm">
+
+                    <form class="form-horizontal dataIssuesForm">
 
                         <!-- Text input-->
-                            <div class="control-group">
-                                <label class="control-label" for="dataIssuesName">Name:</label>
-                                <div class="controls">
-                                    <input id="dataIssuesName" name="dataIssuesName" type="text" placeholder="  Enter name..." class="input-xlarge" required="">
-                                </div>
+                        <div class="control-group">
+                            <label class="control-label" for="dataIssuesName">Name:</label>
+                            <div class="controls">
+                                <input id="dataIssuesName" name="dataIssuesName" type="text" placeholder="  Enter name..." class="input-xlarge" required="">
                             </div>
+                        </div>
 
                         <!-- Text input-->
-                            <div class="control-group">
-                                <label class="control-label" for="dataIssuesEmail">Email:</label>
-                                <div class="controls">
-                                    <input id="dataIssuesEmail" name="dataIssuesEmail" type="text" placeholder="  Enter email..." class="input-xlarge" required="">
-                            
+                        <div class="control-group">
+                            <label class="control-label" for="dataIssuesEmail">Email:</label>
+                            <div class="controls">
+                                <input id="dataIssuesEmail" name="dataIssuesEmail" type="text" placeholder="  Enter email..." class="input-xlarge" required="">
+
+                            </div>
+                        </div>
+
+                        <div class="control-group selectBadDataControlGroup">
+                            <label class="control-label" for="dataIssuesEmail">Select Location:</label>
+                            <div>
+                                <div class="btn-group selectBadData">
+                                    <button type="button" class="btn btn-solar selectBadDataButton">Select Location</button>
+                                    <button type="button" class="btn btn-solar dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu selectBadDataOption">
+                                        <li><a href="#">Last Query</a></li>
+                                        <li><a href="#">Select Area</a></li>
+                                        <li><a href="#">Enter Location</a></li>
+                                    </ul>
+                                </div>
+                                <div class="selectBadDataSuccess messageDisplay">
+                                    <div class="selectBadDataSuccessIcon messageIcon">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="selectBadDataSuccessMsg">
+                                    </div>
+                                </div>
+                                <div class="selectBadDataWarning messageDisplay">
+                                    <div class="selectBadDataWarningIcon messageIcon">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="selectBadDataWarningMsg">
+                                    </div>
+                                </div>
+                                <div class="selectBadDataError messageDisplay">
+                                <div class="selectBadDataErrorIcon messageIcon">
+                                    <i class="fa fa-exclamation-circle"></i>
+                                </div>
+                                <div class="selectBadDataErrorMsg">
                                 </div>
                             </div>
+                        </div>
+                        </div>
 
                         <!-- Textarea -->
-                            <div class="control-group">
-                                <label class="control-label" for="dataIssuesLocation">General Location:</label>
-                                <div class="controls">                     
-                                    <textarea id="dataIssuesLocation" name="dataIssuesLocation" placeholder="  General location..."></textarea>
-                                </div>
+                        <div class="control-group dataIssuesLocationGroup">
+                            <label class="control-label" for="dataIssuesLocation">General Location:</label>
+                            <div class="controls">                     
+                                <textarea id="dataIssuesLocation" name="dataIssuesLocation" placeholder="  General location..."></textarea>
                             </div>
+                        </div>
 
                         <!-- Textarea -->
-                            <div class="control-group">
-                                <label class="control-label" for="dataIssuesDescription">Description:</label>
-                                <div class="controls">                     
-                                    <textarea id="dataIssuesDescription" name="dataIssuesDescription" placeholder="  Data issue(s) description..."></textarea>
-                                </div>
+                        <div class="control-group">
+                            <label class="control-label" for="dataIssuesDescription">Description:</label>
+                            <div class="controls">                     
+                                <textarea id="dataIssuesDescription" name="dataIssuesDescription" placeholder="  Data issue(s) description..."></textarea>
                             </div>
                         </form>
                     </div>
