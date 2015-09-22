@@ -175,3 +175,19 @@ ul.dropdown-menu,a.dropdown-menu {
     width:auto;
     text-align:center;
 }
+
+.docModal-body {
+  background: url('../images/docBody2.png');
+  background-position: 0 60%;
+}
+
+.docModal-header {
+  background: url('../images/docHeader.png');
+  background-position: 0 60%;
+}
+
+.docModal-footer {
+  height: 55px;
+  background: url('../images/docBody.jpg');
+  background-position: 0 40%;
+}
