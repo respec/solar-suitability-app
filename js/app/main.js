@@ -283,6 +283,12 @@ define([
         // });
       },
 
+      showAlert: function(alertType, message) {
+          $("#myAlert").append('<div class="alert alert-' + alertType + ' alert-block" id="alert"><button type="button" class="close" data-dismiss="alert">×</button>' + message + '</div>');
+          $("#alert").alert();
+          //window.setTimeout(function () { $("#alert" + containerId).alert('close'); }, 3500);
+        },
+
       checkUrlParams: function(){
 
         function getParameterByName(name) {
