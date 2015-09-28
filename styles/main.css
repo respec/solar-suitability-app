@@ -5841,6 +5841,26 @@ html {
   position: relative;
   min-height: 100%; }
 
+/* Fading Alert */
+.flyover {
+  left: 150%;
+  overflow: hidden;
+  position: fixed;
+  width: 50%;
+  opacity: 0.9;
+  z-index: 1050;
+  transition: left 0.6s ease-out 0s; }
+
+.flyover.in {
+  left: 50%; }
+
+.flyover-centered {
+  top: 50%;
+  transform: translate(-50%, -50%); }
+
+.flyover-bottom {
+  bottom: 10px; }
+
 /* Make text not selectable */
 .noselect {
   -webkit-touch-callout: none;
@@ -6680,8 +6700,5 @@ ul.dropdown-menu li {
 
 #emailSubmit {
   margin-left: 15px; }
-
-/* Fading Alert */
-
 
 /*# sourceMappingURL=main.css.map */
