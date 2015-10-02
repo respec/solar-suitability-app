@@ -372,8 +372,6 @@ define([
 
         // store results
         app.solarObj = solarObj;
-        resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
-        resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
       },
 
       drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
