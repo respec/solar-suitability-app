@@ -32,8 +32,13 @@ define([
       this.layoutReport();
 
       // set values for lat/lng
-      $('#reportLat').text(app.query.latLngPt.y);
-      $('#reportLng').text(app.query.latLngPt.x);
+      if (app.query.latLngPt){
+        $('#reportLat').text(app.query.latLngPt.y);
+        $('#reportLng').text(app.query.latLngPt.x);
+      } else {
+        $('#reportLat').text(0.0);
+        $('#reportLng').text(0.0);
+      }
 
       this.buildResults();
       this.buildMap('reportSolarMap', 'reportSolarMap-container', 'solar');
@@ -90,7 +95,10 @@ define([
 
       //console.log(app.query.results);
       //queryController.displayResults(app.query.results);
-
+      // console.log(app.solarObj);
+      this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
+      this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+      this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
     },
 
     buildMap: function(mapName, el, basemap){
@@ -137,6 +145,24 @@ define([
 
       app[mapName].resize();
 
+    },
+
+    buildTable: function(el, data, values, ref){
+      console.log('bt');
+      var $table = $(el);
+      _.each(ref, function(mon){
+        var shortMonth = mon.abbr;
+        var longMonth = mon.full;
+        $table.find('tbody')
+          .append($('<tr>')
+            .append($('<td style="width:50%">')
+              .text(longMonth)
+            )
+            .append($('<td>')
+              .text(data[shortMonth][values].toFixed(2))
+            )
+          );
+      });
     },
 
     createPdf: function(){
