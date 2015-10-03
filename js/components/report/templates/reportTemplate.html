@@ -76,11 +76,6 @@
                                 <div class="col-md-1">
                                     <i class="fa fa-pencil"></i>
                                 </div>
-
-
-                                <!-- <div class="col-md-12 noGutter">
-                                    Latitude: <span id="reportLat">Lat</span>&nbsp;&nbsp; Longitude: <span id="reportLng">Lng</span>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -116,6 +111,11 @@
                             </div>
                         </div>
                     </div>-->
+                    <div class="row">
+                        <div class="col-md-12 reportHeading">
+                            Site Details:
+                        </div>
+                    </div>
                     <div class="row" id="siteDetailsRow">
                         <div class="col-md-12">
                             <%=siteName%>
@@ -124,7 +124,6 @@
                             <%=siteNotes%>
                         </div>
 
-                        <!-- <div class="row"> -->
                         <div class="col-md-2">
                             Latitude:
                         </div>
@@ -134,7 +133,6 @@
                             </div>
                         </div>
                         <div class="col-md-6"></div>
-                        <!-- </div> -->
 
                         <div class="col-md-2">
                             Longitude:
@@ -150,14 +148,36 @@
                         <input type="textarea" class="form-control" id="reportSiteDetails" placeholder="Enter Site Details"> -->
                     </div>
 
+                    <hr />
 
+                    <div class="row">
+                        <div class="col-md-12 reportHeading">
+                            Site Maps:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 reportTopicDescription">
+                            Copy will go here explaining topic.
+                        </div>
+                    </div>
                     <div class="row" id="siteImagesRow">
                         <div class="col-md-6 resultsImage">
-                            <div id="reportSolarMap-container">
+                            <div>
+                                Solar Map
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-11" id="reportSolarMap-container">
                             </div>
                         </div>
                         <div class="col-md-6 resultsImage">
-                            <div id="reportAerialMap-container">
+                            <div>
+                                Aerial Map
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+
+                            <div class="col-md-11" id="reportAerialMap-container">
                                 <!--
                                 <div id="reportAngleControls" class="input-group">
                                     <span class="input-group-btn">
@@ -176,23 +196,45 @@
                             </div>
                         </div>
                     </div>
+
                     <hr />
+
                     <div class="row" id="reportResultsRow">
-                    
+                        <div class="col-md-12 reportHeading">
+                            Solar Details:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 reportTopicDescription">
+                            Copy will go here explaining topic.
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="reportResults-container">
                             </div>
                         </div>
                     </div>
 
+                    <hr />
+
                     <div class="row">
                         <div class="col-md-12 reportHeading">
                             Solar Calculator:
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 reportTopicDescription">
+                            Copy will go here explaining topic.
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12 reportHeading">
                             Here
                         </div>
                     </div>
+
+                    <hr />
 
                     <div class="row">
                         <div class="col-md-12 reportHeading">
@@ -200,8 +242,19 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-12 reportTopicDescription">
+                            Copy will go here explaining topic.
+                        </div>
+                    </div>
+
                     <div class="row reportHisto">
-                        <div class="col-md-6 reportHisto" id="reportResultsHisto">
+                        <div class="col-md-6 reportHisto">
+                            <div class="reportTitle">
+                                Insolation
+                            </div>
+                            <div id="reportResultsHisto">
+                            </div>
                         </div>
                         <div class="col-md-6 reportHisto" id="reportResultsTable">
                             Insol Table
@@ -213,7 +266,12 @@
                     </div>
 
                     <div class="row reportHisto">
-                        <div class="col-md-6 reportHisto" id="reportSunHrsHisto">
+                        <div class="col-md-6 reportHisto">
+                            <div class="reportTitle">
+                                Sun Hours
+                            </div>
+                            <div id="reportSunHrsHisto">
+                            </div>
                         </div>
                         <div class="col-md-6 reportHisto" id="reportSunHrsTable">
                             Sun Hours Table
@@ -225,7 +283,12 @@
                     </div>
 
                     <div class="row reportHisto">
-                        <div class="col-md-6 reportHisto" id="reportShadeHrsHisto">
+                        <div class="col-md-6 reportHisto">
+                            <div class="reportTitle">
+                                Shade Hours
+                            </div>
+                            <div id="reportShadeHrsHisto">
+                            </div>
                         </div>
 
                         <div class="col-md-6 reportHisto" id="reportShadeHrsTable">

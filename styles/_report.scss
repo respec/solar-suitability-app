@@ -41,7 +41,6 @@
   position: absolute;
   right: 10px;
   top: 20px;
-  
   z-index: 100;
   width:115px;
 }
@@ -62,14 +61,31 @@
   margin-bottom: 15px;
 }
 
-.reportHisto {
-    background-color:$overlay;
+.reportHisto text {
+    fill: $overlay;
+}
+
+.reportTitle {
+  margin-left:20px;
+}
+
+.reportTopicDescription{
+  padding-left:3%;
+  margin-bottom: 10px;
 }
 
 .reportTable tbody, tr, td{
-  color: $secondary-color
+  color: $overlay;
+}
+
+.reportTable{
+  width: 250px;
 }
 
 .reportTable {
   height:100%;
 }
+
+// #reportSolarMap-container_root, #reportAerialMap-container_root{
+//   margin-left: 30px;
+// }
