@@ -7,6 +7,8 @@ define([
     'components/report/controller/reportController',
     'components/query/controller/queryController',
 
+    'components/report/model/reportModel',
+
     'esri/layers/ArcGISImageServiceLayer',
     'esri/map',
 
@@ -17,6 +19,8 @@ define([
     config,
 
     mapController, Results, reportController, queryController,
+
+    ReportModel,
 
     ImageLayer, Map,
 
@@ -32,6 +36,9 @@ define([
       },
 
       initialize: function() {
+        this.model = new ReportModel();
+        app.reportModel = this.model;
+        this.listenTo(this.model, 'change', this.render);
         this.render();
       },
 
@@ -39,7 +46,11 @@ define([
 
         var template = _.template(reportTemplate);
         var options = {
-          title: config.applicationTitle
+          siteTitle: app.reportModel.attributes.siteTitle,
+          siteName: app.reportModel.attributes.siteName,
+          siteNotes: app.reportModel.attributes.siteNotes,
+          lat: app.reportModel.attributes.latLngPt.y,
+          lng: app.reportModel.attributes.latLngPt.x
         };
 
         this.$el.html(template(options));
