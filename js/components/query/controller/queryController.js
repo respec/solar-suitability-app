@@ -50,6 +50,8 @@ define([
 
         // store point as lat/lng
         app.query.latLngPt = mp;
+        app.reportModel.set({'latLngPt':mp});
+        // app.reportModel.attributes.latLngPt = mp;
 
         // removes all previous graphics (previous click)
         mapController.clearGraphics();
@@ -190,7 +192,7 @@ define([
 
                 // Store returned utility info
                 app.query.utilityCompany = utilityCompany;
-                app.model.setValue('utilityCompany', utilityCompany);
+                app.model.set({'utilityCompany': utilityCompany});
 
                 var utility = encodeURIComponent(fullName + '_' + street + '_' + city + ', MN ' + zip + '_' + phone);
 
