@@ -51,17 +51,36 @@ define([
       queryController.clearDiv($('#reportSunHrsHisto'));
       queryController.clearDiv($('#reportShadeHrsHisto'));
 
+      var reportInsolChart = app.chartObj.insol;
+      reportInsolChart.el = '#reportResultsHisto';
+      reportInsolChart.className = 'reportChart';
+
+      queryController.drawChart(reportInsolChart);
+
+      var reportSunHrsChart = app.chartObj.sunHrs;
+      reportSunHrsChart.el = '#reportSunHrsHisto';
+      reportSunHrsChart.className = 'reportChart';
+
+      queryController.drawChart(reportSunHrsChart);
+
+      var reportShadeHrsChart = app.chartObj.shadeHrs;
+      reportShadeHrsChart.className = 'reportChart';
+
+      queryController.drawChart(reportShadeHrsChart);
+
+      
+
       // create Solar Insol histo
-      queryController.drawChart(app.solarObj, app.solarObj.insolList, 220, '#reportResultsHisto', 'Insolation By Month', 2, -40);
+      // queryController.drawChart(app.solarObj, app.solarObj.insolList, 220, '#reportResultsHisto', 'Insolation By Month', 2, -40);
 
       // create Sun Hrs histo
-      queryController.drawChart(app.solarObj, app.solarObj.sunHrList, 500, '#reportSunHrsHisto', 'Sun Hours By Month', 2, -40);
+      // queryController.drawChart(app.solarObj, app.solarObj.sunHrList, 500, '#reportSunHrsHisto', 'Sun Hours By Month', 2, -40);
 
-      // 25 is the rounding increment
-      shadeHrMax = 25 * Math.round(sunHours[app.solarObj.nearestLat].Jul/25);
+      // // 25 is the rounding increment
+      // shadeHrMax = 25 * Math.round(sunHours[app.solarObj.nearestLat].Jul/25);
 
       // create Shade Hrs histo
-      queryController.drawChart(app.solarObj, app.solarObj.shadeHrList, shadeHrMax, '#reportShadeHrsHisto', 'Shade Hours By Month', 2, -40);
+      // queryController.drawChart(app.solarObj, app.solarObj.shadeHrList, shadeHrMax, '#reportShadeHrsHisto', 'Shade Hours By Month', 2, -40);
 
       // console.log($('#results').html());
     },

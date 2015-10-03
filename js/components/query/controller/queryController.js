@@ -367,45 +367,120 @@ define([
         // create histos
         // 
         // create Solar Insol histo
-        this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
-
-        // create Sun Hrs histo
-        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
-
-        // store results
-        app.solarObj = solarObj;
-      },
-
-      drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
-        titleOffset = parseInt(titleOffset, 10);
-        var margin = {
+        insolChart = {
+          data: solarObj,
+          attributes: solarObj.insolList,
+          maxValue: 220,
+          el: '#resultsHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
             'top': 10,
             'right': 10,
             'bottom': 50,
             'left': 50
           },
-          width = 600,
-          height = 260;
-        var barWidth = 20;
+        };
 
+        this.drawChart(insolChart);
+
+        // create Sun Hrs histo
+        sunHrsChart = {
+          data: solarObj,
+          attributes: solarObj.sunHrList,
+          maxValue: 500,
+          el: '#sunHrHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: -40
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+        };
+        this.drawChart(sunHrsChart);
+
+        // 25 is the rounding increment
+        shadeHrMax = 25 * Math.round(sunHours[nearestLat].Jul/25);
+
+        shadeHrsChart = {
+          data: solarObj,
+          attributes: solarObj.shadeHrList,
+          maxValue: shadeHrMax,
+          el: '#reportShadeHrsHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: -40
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+        };
+
+        // store results
+        app.solarObj = solarObj;
+        app.chartObj = {};
+        app.chartObj.insol = insolChart;
+        app.chartObj.sunHrs = sunHrsChart;
+        app.chartObj.shadeHrs = shadeHrsChart;
+      },
+
+      drawChart: function (chartObj) {
+
+      // drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
+        var titleOffset = parseInt(chartObj.title.offset, 10);
+        var margin = chartObj.margin;
+        var width = chartObj.size.width;
+        var height = chartObj.size.height;
+        var barWidth = chartObj.size.barWidth;
         var months = [];
-        _.each(data, function(items){
+
+        // Build months
+        _.each(chartObj.data, function(items){
           if(items.month){
             months.push(items.month);
           }
         });
 
         var x = d3.scale.ordinal()
+          // SET X AXIS
           .domain(months.map(function(d) {
-            // return d.substring(0, 3);
             return d;
           }))
           .rangeRoundBands([0, width / 2], 0);
-          // .rangeRoundBands([margin.left, width - margin.right], 0);
 
         var y = d3.scale.linear()
           // SET Y AXIS HEIGHT
-          .domain([0, (max)])
+          .domain([0, (chartObj.maxValue)])
           .range([height, 0]);
 
         var xAxis = d3.svg.axis()
@@ -416,8 +491,8 @@ define([
           .scale(y)
           .orient('left');
 
-        var svgContainer = d3.select(div).append('svg')
-          .attr('class', 'chart')
+        var svgContainer = d3.select(chartObj.el).append('svg')
+          .attr('class', chartObj.className)
           .attr('width', width + margin.left + margin.right)
           .attr('height', height + margin.top + margin.bottom).append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
@@ -448,13 +523,13 @@ define([
         svgContainer.append('g')
           .attr('class', 'y axis').call(yAxis)
           .append('text')
-          .attr('x', (width / titleOffset + titleModifier))
+          .attr('x', (width / chartObj.title.offset + chartObj.title.modifier))
           .attr('y', 10)
           .attr('text-anchor', 'center')
           .style('font-size', '16px')
-          .text(title);
+          .text(chartObj.title.title);
 
-        svgContainer.selectAll('.bar').data(dataAttr).enter().append('rect')
+        svgContainer.selectAll('.bar').data(chartObj.attributes).enter().append('rect')
           .attr('class', 'bar')
           .attr('x', function(d, i) {
             return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
