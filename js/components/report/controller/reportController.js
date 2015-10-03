@@ -148,7 +148,6 @@ define([
     },
 
     buildTable: function(el, data, values, ref){
-      console.log('bt');
       var $table = $(el);
       _.each(ref, function(mon){
         var shortMonth = mon.abbr;
