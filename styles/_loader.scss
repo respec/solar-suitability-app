@@ -39,16 +39,49 @@
     height:20px;
     margin:50px auto;
     background:#3A3461;
-    -moz-border-radius:100px;
-    -moz-animation:bubblingG 1s infinite alternate;
+    // -moz-border-radius:100px;
+    // -moz-animation:bubblingG 1s infinite alternate;
+    // -webkit-border-radius:100px;
+    // -webkit-animation:bubblingG 1s infinite alternate;
+    // -ms-border-radius:100px;
+    // -ms-animation:bubblingG 1s infinite alternate;
+    // -o-border-radius:100px;
+    // -o-animation:bubblingG 1s infinite alternate;
+    // border-radius:100px;
+    // animation:bubblingG 1s infinite alternate
+}
+
+.bubblingG1{
+    -moz-animation:bubblingG1 1s infinite alternate;
     -webkit-border-radius:100px;
-    -webkit-animation:bubblingG 1s infinite alternate;
+    -webkit-animation:bubblingG1 1s infinite alternate;
     -ms-border-radius:100px;
-    -ms-animation:bubblingG 1s infinite alternate;
+    -ms-animation:bubblingG1 1s infinite alternate;
     -o-border-radius:100px;
-    -o-animation:bubblingG 1s infinite alternate;
-    border-radius:100px;
-    animation:bubblingG 1s infinite alternate
+    -o-animation:bubblingG1 1s infinite alternate;
+    animation:bubblingG1 1s infinite alternate
+}
+
+.bubblingG2{
+    -moz-animation:bubblingG2 1s infinite alternate;
+    -webkit-border-radius:100px;
+    -webkit-animation:bubblingG2 1s infinite alternate;
+    -ms-border-radius:100px;
+    -ms-animation:bubblingG2 1s infinite alternate;
+    -o-border-radius:100px;
+    -o-animation:bubblingG2 1s infinite alternate;
+    animation:bubblingG2 1s infinite alternate
+}
+
+.bubblingG3{
+    -moz-animation:bubblingG3 1s infinite alternate;
+    -webkit-border-radius:100px;
+    -webkit-animation:bubblingG3 1s infinite alternate;
+    -ms-border-radius:100px;
+    -ms-animation:bubblingG3 1s infinite alternate;
+    -o-border-radius:100px;
+    -o-animation:bubblingG3 1s infinite alternate;
+    animation:bubblingG3 1s infinite alternate
 }
 
 #bubblingG_1 {
@@ -75,66 +108,263 @@
     animation-delay:.6s
 }
 
-@-moz-keyframes bubblingG {
+// @-moz-keyframes bubblingG {
+//     0% {
+//         width:20px;
+//         height:20px;
+//         background-color:$doc-gray;
+//         -moz-transform:translateY(0)
+//     }
+
+//     100% {
+//         width:48px;
+//         height:48px;
+//         background-color:$doc-blue;
+//         -moz-transform:translateY(-42px)
+//     }
+// }
+
+// @-webkit-keyframes bubblingG {
+//     0% {
+//         width:20px;
+//         height:20px;
+//         background-color:$doc-gray;
+//         -webkit-transform:translateY(0)
+//     }
+
+//     100% {
+//         width:48px;
+//         height:48px;
+//         background-color:$doc-blue;
+//         -webkit-transform:translateY(-42px)
+//     }
+// }
+
+// @-ms-keyframes bubblingG {
+//     0% {
+//         width:20px;
+//         height:20px;
+//         background-color:$doc-gray;
+//         -ms-transform:translateY(0)
+//     }
+
+//     100% {
+//         width:48px;
+//         height:48px;
+//         background-color:$doc-blue;
+//         -ms-transform:translateY(-42px)
+//     }
+// }
+
+// @-o-keyframes bubblingG {
+//     0% {
+//         width:20px;
+//         height:20px;
+//         background-color:$doc-gray;
+//         -o-transform:translateY(0)
+//     }
+
+//     100% {
+//         width:48px;
+//         height:48px;
+//         background-color:$doc-blue;
+//         -o-transform:translateY(-42px)
+//     }
+// }
+
+
+// Left bubble
+
+@-moz-keyframes bubblingG1 {
     0% {
         width:20px;
         height:20px;
-        background-color:#3A3461;
+        background-color:$doc-green;
         -moz-transform:translateY(0)
     }
 
     100% {
         width:48px;
         height:48px;
-        background-color:#FFC163;
+        background-color:$doc-green;
         -moz-transform:translateY(-42px)
     }
 }
 
-@-webkit-keyframes bubblingG {
+@-webkit-keyframes bubblingG1 {
     0% {
         width:20px;
         height:20px;
-        background-color:#3A3461;
+        background-color:$doc-green;
         -webkit-transform:translateY(0)
     }
 
     100% {
         width:48px;
         height:48px;
-        background-color:#FFC163;
+        background-color:$doc-green;
         -webkit-transform:translateY(-42px)
     }
 }
 
-@-ms-keyframes bubblingG {
+@-ms-keyframes bubblingG1 {
     0% {
         width:20px;
         height:20px;
-        background-color:#3A3461;
+        background-color:$doc-green;
         -ms-transform:translateY(0)
     }
 
     100% {
         width:48px;
         height:48px;
-        background-color:#FFC163;
+        background-color:$doc-green;
         -ms-transform:translateY(-42px)
     }
 }
 
-@-o-keyframes bubblingG {
+@-o-keyframes bubblingG1 {
     0% {
         width:20px;
         height:20px;
-        background-color:#3A3461;
+        background-color:$doc-green;
         -o-transform:translateY(0)
     }
 
     100% {
         width:48px;
         height:48px;
-        background-color:#FFC163;
+        background-color:$doc-green;
+        -o-transform:translateY(-42px)
+    }
+}
+
+// Middle bubble
+@-moz-keyframes bubblingG2 {
+    0% {
+        width:20px;
+        height:20px;
+        background-color:$doc-gray;
+        -moz-transform:translateY(0)
+    }
+
+    100% {
+        width:48px;
+        height:48px;
+        background-color:$doc-gray;
+        -moz-transform:translateY(-42px)
+    }
+}
+
+@-webkit-keyframes bubblingG2 {
+    0% {
+        width:20px;
+        height:20px;
+        background-color:$doc-gray;
+        -webkit-transform:translateY(0)
+    }
+
+    100% {
+        width:48px;
+        height:48px;
+        background-color:$doc-gray;
+        -webkit-transform:translateY(-42px)
+    }
+}
+
+@-ms-keyframes bubblingG2 {
+    0% {
+        width:20px;
+        height:20px;
+        background-color:$doc-gray;
+        -ms-transform:translateY(0)
+    }
+
+    100% {
+        width:48px;
+        height:48px;
+        background-color:$doc-gray;
+        -ms-transform:translateY(-42px)
+    }
+}
+
+@-o-keyframes bubblingG2 {
+    0% {
+        width:20px;
+        height:20px;
+        background-color:$doc-gray;
+        -o-transform:translateY(0)
+    }
+
+    100% {
+        width:48px;
+        height:48px;
+        background-color:$doc-gray;
+        -o-transform:translateY(-42px)
+    }
+}
+
+// Right bubble
+@-moz-keyframes bubblingG3 {
+    0% {
+        width:20px;
+        height:20px;
+        background-color:$doc-blue;
+        -moz-transform:translateY(0)
+    }
+
+    100% {
+        width:48px;
+        height:48px;
+        background-color:$doc-blue;
+        -moz-transform:translateY(-42px)
+    }
+}
+
+@-webkit-keyframes bubblingG3 {
+    0% {
+        width:20px;
+        height:20px;
+        background-color:$doc-blue;
+        -webkit-transform:translateY(0)
+    }
+
+    100% {
+        width:48px;
+        height:48px;
+        background-color:$doc-blue;
+        -webkit-transform:translateY(-42px)
+    }
+}
+
+@-ms-keyframes bubblingG3 {
+    0% {
+        width:20px;
+        height:20px;
+        background-color:$doc-blue;
+        -ms-transform:translateY(0)
+    }
+
+    100% {
+        width:48px;
+        height:48px;
+        background-color:$doc-blue;
+        -ms-transform:translateY(-42px)
+    }
+}
+
+@-o-keyframes bubblingG3 {
+    0% {
+        width:20px;
+        height:20px;
+        background-color:$doc-blue;
+        -o-transform:translateY(0)
+    }
+
+    100% {
+        width:48px;
+        height:48px;
+        background-color:$doc-blue;
         -o-transform:translateY(-42px)
     }
 }

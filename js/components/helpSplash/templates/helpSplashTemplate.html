@@ -2,11 +2,11 @@
     <div class="modal-dialog">
         <div class="modal-content appHelp">
 
-            <div class="modal-header" id="appHelpHeader">
+            <div class="modal-header docModal-header" id="appHelpHeader">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <button aria-label="Close" data-dismiss="modal" class="close invert-btn pull-right" type="button">
+                            <button aria-label="Close" data-dismiss="modal" class="close btn-solar pull-right" type="button">
                                 <span aria-hidden="true"><i class="fa fa-times fa-1x"></i></span>
                             </button>
                             <div class='appIcon'>
@@ -21,52 +21,56 @@
                 </div>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body docModal-body">
                 <div class="container-fluid">
                   <div class="appHelpBody">
                       <h3>WELCOME</h3>
                       <p>Tap anywhere on this map of Minnesota to view incident solar radiation (insolation) per square meter, or tap the <i class="fa fa-location-arrow fa-2x"></i> icon to measure insolation at your current location. </p>
                       <div id="colorRamp"> 
                         <h4>LEGEND:</h4><strong>SHADE</strong><img src="assets/images/color_ramp_white_text.png" style="padding-bottom:10px;padding-top:8px;max-width:250px;"/><strong>SUN</strong><br />
-                      </div>
-                      <div id="website" class="pull-right">
+                    </div>
+                    <div id="website" class="pull-right">
                         <h4>LEARN MORE:</h4>
-                          <a href="http://solar.maps.umn.edu/" style="color:#ff7400">solar.maps.umn.edu</a>
-                      </div>
-                      <div class="logos">
-                                    <a href="http://www.umn.edu" target="_blank">
-                                        <img src="assets/images/UMN_M_white.gif" height="40">
-                                    </a>
-                                    &nbsp;
-                                    <a href="http://www.flatrockgeo.com/" target="_blank">
-                                        <img src="assets/images/flatrockgeo.png" height="50">
-                                    </a>
-                                    &nbsp;
-                                    <a href="http://www.cleanenergyresourceteams.org/" target="_blank">
-                                        <img src="assets/images/certs.png" height="60">
-                                    </a>
-                                    &nbsp;
-                                    <a href="http://www.esri.com" target="_blank">
-                                        <img src="assets/images/powered-by-esri-logo-med.png" height="40">
-                                    </a>
-                      </div>
+                        <a href="http://solar.maps.umn.edu/" style="color:#ff7400">solar.maps.umn.edu</a>
+                    </div>
+                    <div class="logos">
+                        <a href="http://mn.gov/commerce/" target="_blank">
+                            <img src="assets/images/doc_logo.png" height="40">
+                        </a>
+                        &nbsp;
+                        <a href="http://www.umn.edu" target="_blank">
+                            <img src="assets/images/UMN_M_white.gif" height="40">
+                        </a>
+                        &nbsp;
+                        <a href="http://www.flatrockgeo.com/" target="_blank">
+                            <img src="assets/images/flatrockgeo.png" height="50">
+                        </a>
+                        &nbsp;
+                        <a href="http://www.cleanenergyresourceteams.org/" target="_blank">
+                            <img src="assets/images/certs.png" height="60">
+                        </a>
+                        &nbsp;
+                        <a href="http://www.esri.com" target="_blank">
+                            <img src="assets/images/powered-by-esri-logo-med.png" height="40">
+                        </a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="modal-footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="dontShow pull-right">
-                            <label for="dontShowCheckBox">
-                                <span class="dontShowText">Do not show this again for 30 days</span>
-                                <input type="checkbox" id="dontShowCheckBox" class="dontShowCheckBox pull-right">
-                            </label>
-                        </div>
+        <div class="modal-footer docModal-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="dontShow pull-right">
+                        <label for="dontShowCheckBox">
+                            <span class="dontShowText">Do not show this again for 30 days</span>
+                            <input type="checkbox" id="dontShowCheckBox" class="dontShowCheckBox pull-right">
+                        </label>
                     </div>
                 </div>
             </div>
+        </div>
 
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

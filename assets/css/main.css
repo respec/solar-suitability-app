@@ -5987,6 +5987,19 @@ ul.dropdown-menu, a.dropdown-menu {
   width: auto;
   text-align: center; }
 
+.docModal-body {
+  background: url("../images/docBody2.png");
+  background-position: 0 60%; }
+
+.docModal-header {
+  background: url("../images/docHeader.png");
+  background-position: 0 60%; }
+
+.docModal-footer {
+  height: 55px;
+  background: url("../images/docBody.jpg");
+  background-position: 0 40%; }
+
 #loader {
   display: none;
   height: 140px;
@@ -6022,17 +6035,37 @@ ul.dropdown-menu, a.dropdown-menu {
   width: 20px;
   height: 20px;
   margin: 50px auto;
-  background: #3A3461;
-  -moz-border-radius: 100px;
-  -moz-animation: bubblingG 1s infinite alternate;
+  background: #3A3461; }
+
+.bubblingG1 {
+  -moz-animation: bubblingG1 1s infinite alternate;
   -webkit-border-radius: 100px;
-  -webkit-animation: bubblingG 1s infinite alternate;
+  -webkit-animation: bubblingG1 1s infinite alternate;
   -ms-border-radius: 100px;
-  -ms-animation: bubblingG 1s infinite alternate;
+  -ms-animation: bubblingG1 1s infinite alternate;
   -o-border-radius: 100px;
-  -o-animation: bubblingG 1s infinite alternate;
-  border-radius: 100px;
-  animation: bubblingG 1s infinite alternate; }
+  -o-animation: bubblingG1 1s infinite alternate;
+  animation: bubblingG1 1s infinite alternate; }
+
+.bubblingG2 {
+  -moz-animation: bubblingG2 1s infinite alternate;
+  -webkit-border-radius: 100px;
+  -webkit-animation: bubblingG2 1s infinite alternate;
+  -ms-border-radius: 100px;
+  -ms-animation: bubblingG2 1s infinite alternate;
+  -o-border-radius: 100px;
+  -o-animation: bubblingG2 1s infinite alternate;
+  animation: bubblingG2 1s infinite alternate; }
+
+.bubblingG3 {
+  -moz-animation: bubblingG3 1s infinite alternate;
+  -webkit-border-radius: 100px;
+  -webkit-animation: bubblingG3 1s infinite alternate;
+  -ms-border-radius: 100px;
+  -ms-animation: bubblingG3 1s infinite alternate;
+  -o-border-radius: 100px;
+  -o-animation: bubblingG3 1s infinite alternate;
+  animation: bubblingG3 1s infinite alternate; }
 
 #bubblingG_1 {
   -moz-animation-delay: 0;
@@ -6055,49 +6088,137 @@ ul.dropdown-menu, a.dropdown-menu {
   -o-animation-delay: .6s;
   animation-delay: 0.6s; }
 
-@-moz-keyframes bubblingG {
+@-moz-keyframes bubblingG1 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #3A3461;
+    background-color: #549125;
     -moz-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #FFC163;
+    background-color: #549125;
     -moz-transform: translateY(-42px); } }
-@-webkit-keyframes bubblingG {
+@-webkit-keyframes bubblingG1 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #3A3461;
+    background-color: #549125;
     -webkit-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #FFC163;
+    background-color: #549125;
     -webkit-transform: translateY(-42px); } }
-@-ms-keyframes bubblingG {
+@-ms-keyframes bubblingG1 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #3A3461;
+    background-color: #549125;
     -ms-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #FFC163;
+    background-color: #549125;
     -ms-transform: translateY(-42px); } }
-@-o-keyframes bubblingG {
+@-o-keyframes bubblingG1 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #3A3461;
+    background-color: #549125;
     -o-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #FFC163;
+    background-color: #549125;
+    -o-transform: translateY(-42px); } }
+@-moz-keyframes bubblingG2 {
+  0% {
+    width: 20px;
+    height: 20px;
+    background-color: #616161;
+    -moz-transform: translateY(0); }
+  100% {
+    width: 48px;
+    height: 48px;
+    background-color: #616161;
+    -moz-transform: translateY(-42px); } }
+@-webkit-keyframes bubblingG2 {
+  0% {
+    width: 20px;
+    height: 20px;
+    background-color: #616161;
+    -webkit-transform: translateY(0); }
+  100% {
+    width: 48px;
+    height: 48px;
+    background-color: #616161;
+    -webkit-transform: translateY(-42px); } }
+@-ms-keyframes bubblingG2 {
+  0% {
+    width: 20px;
+    height: 20px;
+    background-color: #616161;
+    -ms-transform: translateY(0); }
+  100% {
+    width: 48px;
+    height: 48px;
+    background-color: #616161;
+    -ms-transform: translateY(-42px); } }
+@-o-keyframes bubblingG2 {
+  0% {
+    width: 20px;
+    height: 20px;
+    background-color: #616161;
+    -o-transform: translateY(0); }
+  100% {
+    width: 48px;
+    height: 48px;
+    background-color: #616161;
+    -o-transform: translateY(-42px); } }
+@-moz-keyframes bubblingG3 {
+  0% {
+    width: 20px;
+    height: 20px;
+    background-color: #217BDB;
+    -moz-transform: translateY(0); }
+  100% {
+    width: 48px;
+    height: 48px;
+    background-color: #217BDB;
+    -moz-transform: translateY(-42px); } }
+@-webkit-keyframes bubblingG3 {
+  0% {
+    width: 20px;
+    height: 20px;
+    background-color: #217BDB;
+    -webkit-transform: translateY(0); }
+  100% {
+    width: 48px;
+    height: 48px;
+    background-color: #217BDB;
+    -webkit-transform: translateY(-42px); } }
+@-ms-keyframes bubblingG3 {
+  0% {
+    width: 20px;
+    height: 20px;
+    background-color: #217BDB;
+    -ms-transform: translateY(0); }
+  100% {
+    width: 48px;
+    height: 48px;
+    background-color: #217BDB;
+    -ms-transform: translateY(-42px); } }
+@-o-keyframes bubblingG3 {
+  0% {
+    width: 20px;
+    height: 20px;
+    background-color: #217BDB;
+    -o-transform: translateY(0); }
+  100% {
+    width: 48px;
+    height: 48px;
+    background-color: #217BDB;
     -o-transform: translateY(-42px); } }
 .appHelpModal {
   width: 60%;
@@ -6195,6 +6316,7 @@ ul.dropdown-menu, a.dropdown-menu {
 .gradient {
   height: 40px;
   text-align: center;
+  border: 2px solid white;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#141414+0,bd4600+50,ffffc4+100 */
   background: #141414;
   /* Old browsers */
@@ -6214,10 +6336,12 @@ ul.dropdown-menu, a.dropdown-menu {
   /* IE6-9 */ }
 
 .showGradient {
-  box-shadow: 0px 0px 0px 2000px black;
+  box-shadow: 0px 0px 0px 2000px grey;
   /* white or whatever color you like */
   background-image: none !important;
-  background-color: transparent !important; }
+  background-color: transparent !important;
+  border-right: 2px solid white;
+  font-size: 14px; }
 
 .showGradient > span {
   line-height: 40px; }
@@ -6467,11 +6591,34 @@ ul.dropdown-menu li {
   width: 100%;
   margin-left: 15px; }
 
+.messageDisplay {
+  margin-left: 15px; }
+
+.messageIcon {
+  float: left;
+  padding-right: 5px; }
+
+.selectBadDataWarningIcon {
+  color: yellow; }
+
+.selectBadDataSuccessIcon {
+  color: green; }
+
+.selectBadDataErrorIcon {
+  color: red; }
+
 #dataIssuesDescription {
   height: 200px; }
 
+.dataIssuesLocationGroup, .selectBadDataSuccess, .selectBadDataWarning, .selectBadDataError {
+  display: none; }
+
 #dataIssuesSubmit {
   margin-left: 15px; }
+
+.selectBadData {
+  margin-left: 15px;
+  width: 50%; }
 
 .appIssuesModal {
   width: 40%;
