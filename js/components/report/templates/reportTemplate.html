@@ -12,12 +12,12 @@
                             <div class="row">
                                 <div class="col-md-10 noGutter">
                                     <div class="row">
-                                        <div class="col-md-1">
+                                        <!-- <div class="col-md-1">
                                             <!-- <button type="button" class="btn editTitle" data-toggle="modal" data-target=".editTitleModal" aria-label="Edit">
                                                 <span aria-hidden="true">
                                                     <i class="fa fa-pencil"></i>
                                                 </span>
-                                            </button> -->
+                                            </button> --
 
                                             <div class="modal fade editTitleModal" tabindex="-1" role="dialog" aria-labelledby="editTitleModal">
                                                 <div class="modal-dialog modal-sm">
@@ -47,8 +47,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-10">
+                                        </div> -->
+                                        <div class="col-md-12">
                                             <h4 class="modal-title reportSiteTitle">
                                                 <!-- <input type="text" class="form-control" id="siteTitle" value="Minnesota Solar Suitability Location Report "> -->
                                                 Minnesota Solar Suitability Location Report
@@ -68,9 +68,19 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12 noGutter">
-                                    Latitude: <span id="reportLat">Lat</span>&nbsp;&nbsp; Longitude: <span id="reportLng">Lng</span>
+
+                                <div class="col-md-11">
+                                    <%=siteTitle%>
                                 </div>
+
+                                <div class="col-md-1">
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+
+
+                                <!-- <div class="col-md-12 noGutter">
+                                    Latitude: <span id="reportLat">Lat</span>&nbsp;&nbsp; Longitude: <span id="reportLng">Lng</span>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -106,6 +116,41 @@
                             </div>
                         </div>
                     </div>-->
+                    <div class="row" id="siteDetailsRow">
+                        <div class="col-md-12">
+                            <%=siteName%>
+                        </div>
+                        <div class="col-md-12">
+                            <%=siteNotes%>
+                        </div>
+
+                        <!-- <div class="row"> -->
+                        <div class="col-md-2">
+                            Latitude:
+                        </div>
+                        <div class="col-md-4">
+                            <div id="">
+                                <%=lat%>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                        <!-- </div> -->
+
+                        <div class="col-md-2">
+                            Longitude:
+                        </div>
+                        <div class="col-md-4">
+                            <div id="">
+                                <%=lng%>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+
+                        <!-- <input type="text" class="form-control" id="reportSiteName" placeholder="Enter Site Name">
+                        <input type="textarea" class="form-control" id="reportSiteDetails" placeholder="Enter Site Details"> -->
+                    </div>
+
+
                     <div class="row" id="siteImagesRow">
                         <div class="col-md-6 resultsImage">
                             <div id="reportSolarMap-container">
@@ -131,19 +176,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Need to get D3 charts working here
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="chartTitle">Insolation (kWh/m<sup>2</sup>) By Month</div>
-                            <div class="resultsDisplay noselect" id="resultsHisto"></div>
-                        </div> 
-                        <div class="col-md-6">    
-                            <div class="chartTitle">Sun Hours By Month</div>
-                            <div class="resultsDisplay noselect" id="sunHrHisto"></div>
-                        </div>   
-                    </div>
-                    -->
                     <hr />
                     <div class="row" id="reportResultsRow">
                     
@@ -169,22 +201,11 @@
                     </div>
 
                     <div class="row reportHisto">
-                        <div class="col-md-12 reportHisto" id="reportResultsHisto">
+                        <div class="col-md-6 reportHisto" id="reportResultsHisto">
                         </div>
-                    </div>
-                    <div class="row reportHisto">
-                        <div class="col-md-12 reportHisto" id="reportSunHrsHisto">
-                        </div>
-                    </div>
-                    <div class="row reportHisto">
-                        <div class="col-md-12 reportHisto" id="reportShadeHrsHisto">
-                        </div>
-                    </div>
-
-                    <div class="row reportHisto">
-                        <div class="col-md-12 reportHisto" id="reportResultsTable">
+                        <div class="col-md-6 reportHisto" id="reportResultsTable">
                             Insol Table
-                            <table>
+                            <table class="reportTable">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -192,9 +213,11 @@
                     </div>
 
                     <div class="row reportHisto">
-                        <div class="col-md-12 reportHisto" id="reportSunHrsTable">
+                        <div class="col-md-6 reportHisto" id="reportSunHrsHisto">
+                        </div>
+                        <div class="col-md-6 reportHisto" id="reportSunHrsTable">
                             Sun Hours Table
-                            <table>
+                            <table class="reportTable">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -202,15 +225,17 @@
                     </div>
 
                     <div class="row reportHisto">
-                        <div class="col-md-12 reportHisto" id="reportShadeHrsTable">
+                        <div class="col-md-6 reportHisto" id="reportShadeHrsHisto">
+                        </div>
+
+                        <div class="col-md-6 reportHisto" id="reportShadeHrsTable">
                             Shade Hours Table
-                            <table>
+                            <table class="reportTable">
                                 <tbody>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
 

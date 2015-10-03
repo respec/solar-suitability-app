@@ -64,4 +64,12 @@
 
 .reportHisto {
     background-color:$overlay;
-};
+}
+
+.reportTable tbody, tr, td{
+  color: $secondary-color
+}
+
+.reportTable {
+  height:100%;
+}
