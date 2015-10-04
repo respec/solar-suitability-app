@@ -82,9 +82,30 @@ define([
           basemap: 'solar',
           center: [config.centerLng, config.centerLat],
           showAttribution: false,
-          zoom: config.defaultZoom
-            // extent: new Extent(this.config.extent)
+          zoom: config.defaultZoom,
+          extent: config.defaultExtent
           });
+
+        // dojo.connect(this.map, 'onLoad', function(){
+        //   app.maxExtent = app.map.extent;
+        // });
+
+        dojo.connect(this.map, 'onExtentChange', function(extent){
+          // console.log('new', extent);
+          // console.log('max', app.maxExtent);
+          var maxExtent = config.defaultExtent;
+          // if (app.maxExtent){
+            if ((app.map.extent.xmin < maxExtent.xmin) ||
+                (app.map.extent.ymin < maxExtent.ymin) ||
+                (app.map.extent.xmax > maxExtent.xmax) ||
+                (app.map.extent.ymax > maxExtent.ymax)
+                )
+              {
+                console.log('here');
+                app.map.setExtent(maxExtent);
+              }
+            // }
+        });
 
         var params = new ImageParams();
 
@@ -175,8 +196,6 @@ define([
       initComponents: function() {
         // Initialize query object to hold data
         app.query = {};
-
-        
 
         this.navbar = new Navbar({
           el: this.layout.$el.find('.navbar-container')

@@ -1,6 +1,10 @@
-define(['esri/symbols/PictureMarkerSymbol'],
+define(
+  [
+  'esri/symbols/PictureMarkerSymbol',
+  'esri/geometry/Extent'
+  ],
 
-  function(PMS) {
+  function(PMS, Extent) {
 
     var pinSymbol = new PMS({
       'angle': 0,
@@ -24,9 +28,16 @@ define(['esri/symbols/PictureMarkerSymbol'],
       'height': 30
     });
 
+    var defaultExtent = new Extent({
+      'xmax': -9363308.813599678,
+      'xmin': -11635628.790460793,
+      'ymax': 6406357.833764882,
+      'ymin': 5249406.973640761,
+      'spatialReference':{'wkid':3857}
+    });
 
     return {
-      
+
       applicationTitle: 'MN Solar Suitability Analysis App',
       apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
@@ -74,7 +85,7 @@ define(['esri/symbols/PictureMarkerSymbol'],
       centerLng: -94.318333,
       defaultZoom: 7,
       queryZoom: 18,
-
+      defaultExtent: defaultExtent,
 
       pinSymbol: pinSymbol,
       solarPanelSymbol: solarPanelSymbol
