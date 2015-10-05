@@ -267,7 +267,8 @@ define([
         });
         app.map.on('load', function(){
           self.checkUrlParams();
-          self.buildToolTip();
+          //self.buildToolTip();
+          //self.showAlert("success","Notice:","Click anywhere on the map to view solar potential.");
         });
         
       },
@@ -312,6 +313,12 @@ define([
           });
         // });
       },
+
+      showAlert: function(alertType, headline, message) {
+          $("#myAlert").append('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+          $("#alert").toggleClass('in');
+          window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
+        },
 
       checkUrlParams: function(){
 
