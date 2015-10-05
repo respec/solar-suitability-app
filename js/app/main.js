@@ -158,12 +158,19 @@ define([
         // Add lidar to the map
         this.map.addLayer(maskLayer);
 
-        var georss = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
-          id: 'geoRSS',
+        // Add existing solar installations to the map
+        var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
+          id: 'georss',
+          visible: false,
           pointSymbol: config.sunSymbol
         });
-       
-        this.map.addLayer(georss);
+        
+        this.map.addLayer(installationsLayer);
+        
+        installationsLayer.on('load',function(){
+          app.map.getLayer('georss').setVisibility(false);
+        });
+        //this.map.getLayer('georss').hide();
 
         // // Read URL Parameters
         // function getParameterByName(name) {

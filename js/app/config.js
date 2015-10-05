@@ -31,10 +31,20 @@ define(['esri/symbols/PictureMarkerSymbol'],
       'type': 'esriPMS',
       'url': 'assets/images/sunicon.png',
       'contentType': 'image/png',
+      'width': 25,
+      'height': 25
+    });
+
+    var installationSymbol = new PMS({
+      'angle': 0,
+      'xoffset': 0,
+      'yoffset': 8,
+      'type': 'esriPMS',
+      'url': 'assets/images/solar_panel_icon.png',
+      'contentType': 'image/png',
       'width': 30,
       'height': 30
     });
-
 
     return {
       
