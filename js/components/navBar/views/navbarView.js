@@ -55,8 +55,10 @@ define([
         $('.findMe').click(function() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
+            app.showAlert("success","Location Found. Next Step:","Tap rooftop or point of interest near you to view solar potential.");
           } else {
-            alert('Browser doesn\'t support Geolocation.  Visit http: //caniuse.com to see browser support for the Geolocation API.');
+            //alert('Browser doesn\'t support Geolocation.  Visit http: //caniuse.com to see browser support for the Geolocation API.');
+            app.showAlert("danger","Your browser doesn\'t support Geolocation:","isit http: //caniuse.com to see browser support for the Geolocation API");
           }
         });
 
@@ -75,19 +77,23 @@ define([
           switch (error.code) {
 
           case error.PERMISSION_DENIED:
-            alert('Location not provided');
+            //alert('Location not provided');
+            app.showAlert("danger","ERROR:","Location not provided");
             break;
 
           case error.POSITION_UNAVAILABLE:
-            alert('Current location not available');
+            //alert('Current location not available');
+            app.showAlert("danger","ERROR:","Current location not available");
             break;
 
           case error.TIMEOUT:
-            alert('Timeout');
+            //alert('Timeout');
+            app.showAlert("danger","ERROR:","Geolocation has timed out. Current location not available.");
             break;
 
           default:
-            alert('unknown error');
+            //alert('unknown error');
+            app.showAlert("danger","ERROR:","An unknown geolocation error has occured.");
             break;
           }
         }
@@ -97,14 +103,6 @@ define([
         var streetLayer = app.map.getLayer('street');
 
         // Toggle basemaps
-        $('.solarButton').on('click', function() {
-          buttonClassRemove();
-          /* $(this) will only work for a single instance */
-          // $(this).addClass('activeButton');
-          $('.solarButton').addClass('activeButton');
-          toggleBasemapView();
-          solarLayer.show();
-        });
 
         $('.aerialButton').on('click', function() {
           buttonClassRemove();
@@ -125,13 +123,11 @@ define([
         });
 
         function buttonClassRemove() {
-          $('.solarButton').removeClass('activeButton');
           $('.aerialButton').removeClass('activeButton');
           $('.streetButton').removeClass('activeButton');
         }
 
         function toggleBasemapView() {
-          solarLayer.hide();
           aerialLayer.hide();
           streetLayer.hide();
         }
@@ -151,6 +147,30 @@ define([
         // $('.appIssues').on('click', function(){
         //   $('.appIssuesModal').modal('show');
         // });
+        // 
+        
+        // enable toggles
+        $('.vectorToggle').bootstrapToggle();
+
+        $('.toggle').on('click', function(){
+          // toggle layer toggle
+          var input = $(this).find('input');
+          input.bootstrapToggle('toggle');
+          // get layer name
+          var layerName = input.attr('id').slice(0, -6);
+          //get layer from app.map
+          var mapLayer = app.map.getLayer(layerName);
+          //check visibility and hide/show
+          if (mapLayer.visible){
+            mapLayer.hide();
+          } else {
+            mapLayer.show();
+          }
+        });
+
+        $('.dropdown-menu li').click(function(e) {
+            e.stopPropagation();
+        });
 
       }
     });
