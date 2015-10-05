@@ -102,7 +102,7 @@ define([
           showAttribution: false,
           opacity: 1.0
         });
-        solarLayer.hide();
+        //solarLayer.hide();
 
         // Create aerial layer and load hidden
         var aerialLayer = new TiledLayer(config.imagery, {
@@ -131,10 +131,10 @@ define([
         });
         waterLayer.hide();
 
-        var lidarLayer = new FeatureLayer(config.countyLidarUrl, {
-          id: 'lidar'
+        var maskLayer = new FeatureLayer(config.canadaUsMaskUrl, {
+          id: 'mask'
         });
-        lidarLayer.hide();
+        maskLayer.setOpacity(0.75);
 
         // Add aerial to the map
         this.map.addLayer(aerialLayer);
@@ -155,7 +155,7 @@ define([
         this.map.addLayer(waterLayer);
 
         // Add lidar to the map
-        this.map.addLayer(lidarLayer);
+        this.map.addLayer(maskLayer);
 
         // // Read URL Parameters
         // function getParameterByName(name) {
