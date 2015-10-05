@@ -5797,32 +5797,32 @@ button.close {
     display: none !important; } }
 /* Original branding */
 /* Made in Minnesota Branding */
-.invert-btn {
+.btn-invert {
   color: #fff;
   background-color: #000000;
   border-color: #000000; }
-  .invert-btn:focus, .invert-btn.focus {
+  .btn-invert:focus, .btn-invert.focus {
     color: #fff;
     background-color: black;
     border-color: black; }
-  .invert-btn:hover {
+  .btn-invert:hover {
     color: #fff;
     background-color: black;
     border-color: black; }
-  .invert-btn:active, .invert-btn.active, .open > .invert-btn.dropdown-toggle {
+  .btn-invert:active, .btn-invert.active, .open > .btn-invert.dropdown-toggle {
     color: #fff;
     background-color: black;
     border-color: black; }
-    .invert-btn:active:hover, .invert-btn:active:focus, .invert-btn:active.focus, .invert-btn.active:hover, .invert-btn.active:focus, .invert-btn.active.focus, .open > .invert-btn.dropdown-toggle:hover, .open > .invert-btn.dropdown-toggle:focus, .open > .invert-btn.dropdown-toggle.focus {
+    .btn-invert:active:hover, .btn-invert:active:focus, .btn-invert:active.focus, .btn-invert.active:hover, .btn-invert.active:focus, .btn-invert.active.focus, .open > .btn-invert.dropdown-toggle:hover, .open > .btn-invert.dropdown-toggle:focus, .open > .btn-invert.dropdown-toggle.focus {
       color: #fff;
       background-color: black;
       border-color: black; }
-  .invert-btn:active, .invert-btn.active, .open > .invert-btn.dropdown-toggle {
+  .btn-invert:active, .btn-invert.active, .open > .btn-invert.dropdown-toggle {
     background-image: none; }
-  .invert-btn.disabled, .invert-btn.disabled:hover, .invert-btn.disabled:focus, .invert-btn.disabled.focus, .invert-btn.disabled:active, .invert-btn.disabled.active, .invert-btn[disabled], .invert-btn[disabled]:hover, .invert-btn[disabled]:focus, .invert-btn[disabled].focus, .invert-btn[disabled]:active, .invert-btn[disabled].active, fieldset[disabled] .invert-btn, fieldset[disabled] .invert-btn:hover, fieldset[disabled] .invert-btn:focus, fieldset[disabled] .invert-btn.focus, fieldset[disabled] .invert-btn:active, fieldset[disabled] .invert-btn.active {
+  .btn-invert.disabled, .btn-invert.disabled:hover, .btn-invert.disabled:focus, .btn-invert.disabled.focus, .btn-invert.disabled:active, .btn-invert.disabled.active, .btn-invert[disabled], .btn-invert[disabled]:hover, .btn-invert[disabled]:focus, .btn-invert[disabled].focus, .btn-invert[disabled]:active, .btn-invert[disabled].active, fieldset[disabled] .btn-invert, fieldset[disabled] .btn-invert:hover, fieldset[disabled] .btn-invert:focus, fieldset[disabled] .btn-invert.focus, fieldset[disabled] .btn-invert:active, fieldset[disabled] .btn-invert.active {
     background-color: #000000;
     border-color: #000000; }
-  .invert-btn .badge {
+  .btn-invert .badge {
     color: #000000;
     background-color: #fff; }
 
@@ -6431,13 +6431,14 @@ ul.dropdown-menu, a.dropdown-menu {
 .appIcon {
   display: inline-block; }
 
-#basemapDropdownContent {
+#basemapDropdownContent, #vectorLayersDropdownContent {
+  top: 50px;
   width: 410px; }
 
 .basemapGrid {
   height: 100px; }
 
-#basemapSelectorText {
+#basemapSelectorText, #vectorLayersSelectorText {
   color: #fff;
   font-size: 24px;
   padding-left: 10px; }
@@ -6445,6 +6446,10 @@ ul.dropdown-menu, a.dropdown-menu {
 .basemapText {
   line-height: 100px;
   font-size: 18px; }
+
+.vectorText {
+  font-size: 18px;
+  color: #fff; }
 
 /* Controls active basemap in both menu versions */
 .dropdown-menu li.activeButton {
@@ -6454,7 +6459,7 @@ ul.dropdown-menu li {
   margin-left: 10px; }
 
 #menuDropdown {
-  width: 225px; }
+  width: 275px; }
 
 .menuTopic {
   color: #fff;
@@ -6463,6 +6468,10 @@ ul.dropdown-menu li {
 
 .menuItem {
   padding-left: 25px; }
+
+#vectorLayersDropdown img {
+  height: 28px;
+  width: 28px; }
 
 .helpMenu a {
   color: #fff; }
@@ -6484,6 +6493,12 @@ ul.dropdown-menu li {
 
 .headerColorRamp {
   height: 50px; }
+
+.toggle {
+  margin-right: 20px; }
+
+.vectorRow {
+  margin-bottom: 5px; }
 
 #reportModal {
   width: 65%;
@@ -6680,5 +6695,110 @@ ul.dropdown-menu li {
 
 #emailSubmit {
   margin-left: 15px; }
+
+/*! ========================================================================
+ * Bootstrap Toggle: bootstrap-toggle.css v2.2.0
+ * http://www.bootstraptoggle.com
+ * ========================================================================
+ * Copyright 2014 Min Hur, The New York Times Company
+ * Licensed under MIT
+ * ======================================================================== */
+.checkbox label .toggle,
+.checkbox-inline .toggle {
+  margin-left: -20px;
+  margin-right: 5px; }
+
+.toggle {
+  position: relative;
+  overflow: hidden; }
+
+.toggle input[type="checkbox"] {
+  display: none; }
+
+.toggle-group {
+  position: absolute;
+  width: 200%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transition: left 0.35s;
+  -webkit-transition: left 0.35s;
+  -moz-user-select: none;
+  -webkit-user-select: none; }
+
+.toggle.off .toggle-group {
+  left: -100%; }
+
+.toggle-on {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 50%;
+  margin: 0;
+  border: 0;
+  border-radius: 0; }
+
+.toggle-off {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0; }
+
+.toggle-handle {
+  position: relative;
+  margin: 0 auto;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 100%;
+  width: 0px;
+  border-width: 0 1px; }
+
+.toggle.btn {
+  min-width: 59px;
+  min-height: 34px; }
+
+.toggle-on.btn {
+  padding-right: 24px; }
+
+.toggle-off.btn {
+  padding-left: 24px; }
+
+.toggle.btn-lg, .btn-group-lg > .toggle.btn {
+  min-width: 79px;
+  min-height: 45px; }
+
+.toggle-on.btn-lg, .btn-group-lg > .toggle-on.btn {
+  padding-right: 31px; }
+
+.toggle-off.btn-lg, .btn-group-lg > .toggle-off.btn {
+  padding-left: 31px; }
+
+.toggle-handle.btn-lg, .btn-group-lg > .toggle-handle.btn {
+  width: 40px; }
+
+.toggle.btn-sm, .btn-group-sm > .toggle.btn {
+  min-width: 50px;
+  min-height: 30px; }
+
+.toggle-on.btn-sm, .btn-group-sm > .toggle-on.btn {
+  padding-right: 20px; }
+
+.toggle-off.btn-sm, .btn-group-sm > .toggle-off.btn {
+  padding-left: 20px; }
+
+.toggle.btn-xs, .btn-group-xs > .toggle.btn {
+  min-width: 35px;
+  min-height: 22px; }
+
+.toggle-on.btn-xs, .btn-group-xs > .toggle-on.btn {
+  padding-right: 12px; }
+
+.toggle-off.btn-xs, .btn-group-xs > .toggle-off.btn {
+  padding-left: 12px; }
 
 /*# sourceMappingURL=main.css.map */

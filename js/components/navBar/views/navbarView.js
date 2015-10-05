@@ -97,14 +97,6 @@ define([
         var streetLayer = app.map.getLayer('street');
 
         // Toggle basemaps
-        $('.solarButton').on('click', function() {
-          buttonClassRemove();
-          /* $(this) will only work for a single instance */
-          // $(this).addClass('activeButton');
-          $('.solarButton').addClass('activeButton');
-          toggleBasemapView();
-          solarLayer.show();
-        });
 
         $('.aerialButton').on('click', function() {
           buttonClassRemove();
@@ -125,13 +117,11 @@ define([
         });
 
         function buttonClassRemove() {
-          $('.solarButton').removeClass('activeButton');
           $('.aerialButton').removeClass('activeButton');
           $('.streetButton').removeClass('activeButton');
         }
 
         function toggleBasemapView() {
-          solarLayer.hide();
           aerialLayer.hide();
           streetLayer.hide();
         }
@@ -151,6 +141,30 @@ define([
         // $('.appIssues').on('click', function(){
         //   $('.appIssuesModal').modal('show');
         // });
+        // 
+        
+        // enable toggles
+        $('.vectorToggle').bootstrapToggle();
+
+        $('.toggle').on('click', function(){
+          // toggle layer toggle
+          var input = $(this).find('input');
+          input.bootstrapToggle('toggle');
+          // get layer name
+          var layerName = input.attr('id').slice(0, -6);
+          //get layer from app.map
+          var mapLayer = app.map.getLayer(layerName);
+          //check visibility and hide/show
+          if (mapLayer.visible){
+            mapLayer.hide();
+          } else {
+            mapLayer.show();
+          }
+        });
+
+        $('.dropdown-menu li').click(function(e) {
+            e.stopPropagation();
+        });
 
       }
     });
