@@ -244,8 +244,10 @@ define([
         tileQuery.geometry = e.mapPoint;
 
         queryTask.execute(tileQuery, function(results) {
-          var tile = results.features[0].attributes.Name + '.img';
-          self.executeGP(point, tile);
+          if( results.features.length > 0 ) {
+            var tile = results.features[0].attributes.Name + '.img';
+            self.executeGP(point, tile);
+          }
         });
       },
 
