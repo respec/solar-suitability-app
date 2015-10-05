@@ -20,6 +20,7 @@ define([
   'esri/basemaps',
   'esri/config',
   'esri/layers/FeatureLayer',
+  'esri/layers/GeoRSSLayer',
   'esri/layers/ArcGISTiledMapServiceLayer',
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/ImageServiceParameters',
@@ -38,7 +39,7 @@ define([
 
     helpSplashController, query,
 
-    esriBasemaps, esriConfig, FeatureLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
+    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
     ) {
 
@@ -156,6 +157,13 @@ define([
 
         // Add lidar to the map
         this.map.addLayer(maskLayer);
+
+        var georss = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
+          id: 'geoRSS',
+          pointSymbol: config.sunSymbol
+        });
+       
+        this.map.addLayer(georss);
 
         // // Read URL Parameters
         // function getParameterByName(name) {

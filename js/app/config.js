@@ -24,6 +24,17 @@ define(['esri/symbols/PictureMarkerSymbol'],
       'height': 30
     });
 
+    var sunSymbol = new PMS({
+      'angle': 0,
+      'xoffset': 0,
+      'yoffset': 8,
+      'type': 'esriPMS',
+      'url': 'assets/images/sunicon.png',
+      'contentType': 'image/png',
+      'width': 30,
+      'height': 30
+    });
+
 
     return {
       
@@ -93,7 +104,8 @@ define(['esri/symbols/PictureMarkerSymbol'],
 
 
       pinSymbol: pinSymbol,
-      solarPanelSymbol: solarPanelSymbol
+      solarPanelSymbol: solarPanelSymbol,
+      sunSymbol: sunSymbol
 
     };
   });
