@@ -145,9 +145,13 @@ define([
               if (quality === 'No Data'){
                 app.model.setValue('totalPerYear', 'No Data');
                 app.model.setValue('averagePerDay', 'No Data');
+                app.model.set({'averagePerMonth': 'No Data'});
               } else {
                 app.model.setValue('totalPerYear', y.toFixed(2));
                 app.model.setValue('averagePerDay', v.toFixed(2));
+                var averagePerMonth = (y/12).toFixed(2);
+                app.reportModel.set({'averagePerDay': parseFloat(v.toFixed(2))});
+                app.reportModel.set({'averagePerMonth': parseFloat(averagePerMonth)});
               }
               
               app.model.setValue('warning', warning);
