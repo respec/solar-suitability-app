@@ -14,16 +14,23 @@ function(
           latLngPt: {
             x:0,
             y:0
-          }
-        },
+          },
+          systemLife: 25,
+          systemSize: 0,
+          energyEscalator: 1.035,
+          degredationFactor: 0.998,
+          averagePerDay: 0,
+          averageUsePerMonth: 800,
+          costPerkWh: 0.12,
+          percentElectricGoal: 0.50,
+          derate: 0.77,
+          lowCostPerkWh: 2500,
+          highCostPerkWh: 5000,
+          averageCostSystem: 0,
+          paybackWithoutIncentives: 0,
+          paybackWithTaxCredit: 0,
+          paybackWithMim: 0
 
-        setValue: function(key,val){
-          var newVal = {};
-          newVal[key] = val;
-          // var newVal = {
-          //   key: val
-          // };
-          this.set(newVal);
         }
 
       });
