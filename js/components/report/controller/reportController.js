@@ -309,5 +309,90 @@ define([
 
     },
 
+    calculateSystemData: function(){
+
+      // Calculate System Size
+      var averagePerDay = app.reportModel.get('averagePerDay');
+      var averagePerMonth = app.reportModel.get('averageUsePerMonth');
+      var toWattsPerMonth = averagePerMonth*1000;
+      var toWattsPerDay = toWattsPerMonth/30;
+      var solarUsage = toWattsPerDay*app.reportModel.get('percentElectricGoal');
+      var solarProvided = solarUsage/averagePerDay;
+      var derated = solarProvided/app.reportModel.get('derate');
+      var systemSize = (derated/1000).toFixed(2);
+      app.reportModel.set({'systemSize': parseFloat(systemSize)});
+
+      // Calculate System Cost
+      var lowCostPerkWh = app.reportModel.get('lowCostPerkWh');
+      var highCostPerkWh = app.reportModel.get('highCostPerkWh');
+      var lowCostSystem = lowCostPerkWh * systemSize;
+      var highCostSystem = highCostPerkWh * systemSize;
+      console.log(systemSize);
+      console.log(highCostSystem, lowCostSystem);
+      var averageCostSystem = (lowCostSystem + highCostSystem)/2;
+      app.reportModel.set({'lowCostSystem': lowCostSystem});
+      app.reportModel.set({'highCostSystem': highCostSystem});
+      app.reportModel.set({'averageCostSystem': parseFloat(averageCostSystem)});
+
+      // Calculate System Payback
+      var averagePerDay = app.reportModel.get('averagePerDay');
+      var productionPerYear = averagePerDay * 365;
+      var costPerkWh = app.reportModel.get('costPerkWh');
+      var savingsPerYear = systemSize * productionPerYear * costPerkWh;
+      var systemLife = app.reportModel.get('systemLife');
+
+      this.calculateAnnualProduction(costPerkWh, systemLife, productionPerYear);
+
+    },
+
+    calculateAnnualProduction: function(costPerkWh, systemLife, productionPerYear){
+      var systemOutput = app.reportModel.get('systemSize');
+      var energyEscalator = app.reportModel.get('energyEscalator');
+      var degredationFactor = app.reportModel.get('degredationFactor');
+      var degredation = 100;
+      var costPerkWh = costPerkWh;
+      var productionPerYear = productionPerYear;
+      var paybackTotal = 0;
+      var averageCostSystem = app.reportModel.get('averageCostSystem');
+
+      // Only run if systemOutput is a valid value
+      if (systemOutput > 0){
+
+        for (i = 0; i < systemLife; i++) {
+          // payback for year i
+          paybackTotal += (costPerkWh * productionPerYear * systemOutput);
+
+          // reduce values each year i-1
+          costPerkWh = costPerkWh * energyEscalator;
+          productionPerYear = productionPerYear * (degredation/100);
+          degredation = degredation * degredationFactor;
+        }
+
+        app.reportModel.set({'payback25Year': paybackTotal});
+
+        // Payback is (average system cost divided by the system life payback total) times system life.  
+        // Result is in years
+        var paybackWithoutIncentives = (averageCostSystem/paybackTotal) * systemLife;
+        app.reportModel.set({'paybackWithoutIncentives': parseFloat(paybackWithoutIncentives)});
+
+        // Calculate tax credit, average system cost minus tax credit
+        var taxCredit = averageCostSystem * 0.3;
+        var costWithTaxCredit = averageCostSystem - taxCredit;
+
+        // Payback with tax credit in years
+        var paybackWithTaxCredit = (costWithTaxCredit/paybackTotal) * systemLife;
+        app.reportModel.set({'paybackWithTaxCredit': parseFloat(paybackWithTaxCredit)});
+
+        // Calculate MiM credit, average system cost minus tax credit AND MiM credit
+        var mimCredit = averageCostSystem * 0.4;
+        var costWithMim = averageCostSystem - taxCredit - mimCredit;
+
+        // Payback with tax credit and MiM credit in years
+        var paybackWithMim = (costWithMim/paybackTotal) * systemLife;
+        app.reportModel.set({'paybackWithMim': parseFloat(paybackWithMim)});
+
+      }
+    }
+
   };
 });
