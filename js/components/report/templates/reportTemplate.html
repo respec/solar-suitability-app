@@ -84,33 +84,6 @@
 
             <div class="modal-body">
                 <div class="container-fluid">
-
-                    <!--
-                    <div class="row" id="siteDetailsRow">
-
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="siteName" placeholder="Enter a site name: ">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            Latitude:
-                        </div>
-                         <div class="col-md-4">
-                            <div id="reportLat">
-                                Lat
-                            </div>
-                        </div>
-                         <div class="col-md-2">
-                            Longitude:
-                        </div>
-                         <div class="col-md-4">
-                            <div id="reportLng">
-                                Lng
-                            </div>
-                        </div>
-                    </div>-->
                     <div class="row">
                         <div class="col-md-12 reportHeading">
                             Site Details:
@@ -229,8 +202,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 reportHeading">
-                            Here
+                        <div class="col-md-12">
+                            Average solar insolation per day <%=averagePerDay%> kWh/m<sup>2</sup>
+                            <br /><br />
+                            Inputs <br />
+                            Average utility use (per month) <%=averageUsePerMonth%> kWh<br />
+                            Cost / kWh  $<%=costPerkWh%>/kWh<br />
+                            Percent of electricity you want covered by solar <%=percentElectricGoal%>%<br />
+                            <br /><br />
+                            Outputs<br />
+                            Size of system needed <%=systemSize%> kW
+                            <br /><br />
+                            Average system cost estimate <%=averageCostSystem%><br />
+                            Payback without incentives <%=paybackWithoutIncentives%><br />
+                            Payback with Tax Credit <%=paybackWithTaxCredit%><br />
+                            Payback with Tax Credit and MiM Incentive <%=paybackWithMim%><br />
+
                         </div>
                     </div>
 

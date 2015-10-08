@@ -44,13 +44,26 @@ define([
 
       render: function() {
 
+        reportController.calculateSystemData();
+
         var template = _.template(reportTemplate);
+
         var options = {
           siteTitle: app.reportModel.attributes.siteTitle,
           siteName: app.reportModel.attributes.siteName,
           siteNotes: app.reportModel.attributes.siteNotes,
           lat: app.reportModel.attributes.latLngPt.y,
-          lng: app.reportModel.attributes.latLngPt.x
+          lng: app.reportModel.attributes.latLngPt.x,
+          averagePerDay: app.reportModel.get('averagePerDay'),
+          averagePerMonth: app.reportModel.get('averagePerMonth'),
+          averageUsePerMonth: app.reportModel.get('averageUsePerMonth'),
+          costPerkWh: app.reportModel.get('costPerkWh'),
+          percentElectricGoal: String((app.reportModel.get('percentElectricGoal')*100)),
+          systemSize: app.reportModel.get('systemSize'),
+          averageCostSystem: app.reportModel.get('averageCostSystem'),
+          paybackWithoutIncentives: app.reportModel.get('paybackWithoutIncentives'),
+          paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
+          paybackWithMim: app.reportModel.get('paybackWithMim')
         };
 
         this.$el.html(template(options));
