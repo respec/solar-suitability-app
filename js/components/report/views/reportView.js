@@ -32,7 +32,10 @@ define([
       events: {
         'click .editTitle': 'editTitle',
         'click .closeSplash': 'hideEditTitleModal',
-        'change #siteTitle': 'setSiteTitle'
+        'change #siteTitle': 'setSiteTitle',
+        'click .saveEditModal': 'saveSolarCalculatorValues',
+        'click .saveSiteDetailsModal': 'saveSiteDetails',
+        'click .restoreDefaultsButton': 'resetDefaultSolarCalculatorValues'
       },
 
       initialize: function() {
@@ -43,7 +46,6 @@ define([
       },
 
       render: function() {
-
         reportController.calculateSystemData();
 
         var template = _.template(reportTemplate);
@@ -58,6 +60,7 @@ define([
           averagePerMonth: app.reportModel.get('averagePerMonth'),
           averageUsePerMonth: app.reportModel.get('averageUsePerMonth'),
           costPerkWh: app.reportModel.get('costPerkWh'),
+          percentElectricGoalRaw: app.reportModel.get('percentElectricGoal'),
           percentElectricGoal: String((app.reportModel.get('percentElectricGoal')*100)),
           systemSize: app.reportModel.get('systemSize'),
           averageCostSystem: app.reportModel.get('averageCostSystem'),
@@ -144,16 +147,68 @@ define([
         // });
       },
 
-      editTitle: function() {
-        $('#siteTitle').val($('.reportSiteTitle').text());
+      // editTitle: function() {
+      //   $('#siteTitle').val($('.reportSiteTitle').text());
+      // },
+
+      // setSiteTitle: function() {
+      //   $('.reportSiteTitle').text($('#siteTitle').val());
+      // },
+
+      // hideEditTitleModal: function() {
+      //   $('.editTitleModal').modal('hide');
+      // },
+
+      // ,
+      
+      saveSiteDetails: function(){
+        var siteDetails = $('.siteDetailsValue');
+
+        _.each(siteDetails, function(div){
+          var $div = $(div);
+          var savedValue = $div.val();
+          var id = $div.attr('id');
+          var currentValue = app.reportModel.get(id);
+          if (savedValue != currentValue){
+            var param = {};
+            param[id] = savedValue;
+            app.reportModel.set(param);
+          }
+        });
       },
 
-      setSiteTitle: function() {
-        $('.reportSiteTitle').text($('#siteTitle').val());
+      saveSolarCalculatorValues: function(){
+        var solarCalculatorValues = $('.solarCalculatorValue');
+
+        _.each(solarCalculatorValues, function(div){
+          var $div = $(div);
+          var savedValue = $div.val();
+          var id = $div.attr('id');
+          var currentValue = app.reportModel.get(id);
+          if (savedValue != currentValue){
+            var param = {};
+            param[id] = parseFloat(savedValue);
+            console.log(param);
+            app.reportModel.set(param);
+          }
+        });
       },
 
-      hideEditTitleModal: function() {
-        $('.editTitleModal').modal('hide');
+      resetDefaultSolarCalculatorValues: function(){
+        var averageUsePerMonth = config.averageUsePerMonth;
+        var costPerkWh = config.costPerkWh;
+        var percentElectricGoal = config.percentElectricGoal;
+
+        // Reset the model
+        app.reportModel.set({'averageUsePerMonth': averageUsePerMonth});
+        app.reportModel.set({'costPerkWh': costPerkWh});
+        app.reportModel.set({'percentElectricGoal': percentElectricGoal});
+
+        // Reset the input values
+        $('.averageUsePerMonth').val(averageUsePerMonth);
+        $('.costPerkWh').val(costPerkWh);
+        $('.percentElectricGoal').val(percentElectricGoal);
+
       }
 
     });

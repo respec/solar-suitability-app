@@ -1,4 +1,4 @@
-<div id="reportModal" class="modal fade">
+<div id="reportModal" class="modal fade reportModal">
     <div class="modal-dialog">
         <div id="reportContent" class="modal-content reportDivToPrint">
 
@@ -12,54 +12,16 @@
                             <div class="row">
                                 <div class="col-md-10 noGutter">
                                     <div class="row">
-                                        <!-- <div class="col-md-1">
-                                            <!-- <button type="button" class="btn editTitle" data-toggle="modal" data-target=".editTitleModal" aria-label="Edit">
-                                                <span aria-hidden="true">
-                                                    <i class="fa fa-pencil"></i>
-                                                </span>
-                                            </button> --
-
-                                            <div class="modal fade editTitleModal" tabindex="-1" role="dialog" aria-labelledby="editTitleModal">
-                                                <div class="modal-dialog modal-sm">
-                                                    <div class="modal-header">
-                                                        <div class="container-fluid">
-                                                            <div class="row">
-                                                                <div class="col-md-11">
-                                                                    Enter a new site title:
-                                                                </div>
-                                                                <div class="col-md-1">
-                                                                    <button type="button" class="btn btn-default btn-danger closeSplash floatRight">
-                                                                        <i class="fa fa-times fa-1x"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="modal-body">
-                                                        <div class="container-fluid">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <input type="text" class="form-control" id="siteTitle" value="Minnesota Solar Suitability Location Report ">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                         <div class="col-md-12">
                                             <h4 class="modal-title reportSiteTitle">
-                                                <!-- <input type="text" class="form-control" id="siteTitle" value="Minnesota Solar Suitability Location Report "> -->
                                                 Minnesota Solar Suitability Location Report
                                             </h4>
                                         </div>
                                     </div>
                                     
-                                    
                                 </div>
                                 <div class="col-md-2">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-dismiss="modal" data-target="#reportModal" aria-label="Close">
                                         <span aria-hidden="true">
                                             <i class="fa fa-times fa-1x"></i>
                                         </span>
@@ -69,14 +31,12 @@
 
                             <div class="row">
 
-                                <div class="col-md-11">
+                                <div class="col-md-12">
                                     <%=siteTitle%>
                                 </div>
 
-                                <div class="col-md-1">
-                                    <i class="fa fa-pencil"></i>
-                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -85,10 +45,24 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12 reportHeading">
+                        <div class="col-md-10 reportHeading">
                             Site Details:
                         </div>
+                        <div class="col-md-1">
+                            
+                            <button type="button" class="btn editSiteDetails" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">
+                                <span aria-hidden="true">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                            </button>
+
+                        </div>
+
+                        <div class="col-md-1"></div>
                     </div>
+
+                    <hr />
+
                     <div class="row" id="siteDetailsRow">
                         <div class="col-md-12">
                             <%=siteName%>
@@ -128,6 +102,9 @@
                             Site Maps:
                         </div>
                     </div>
+
+                    <hr />
+
                     <div class="row">
                         <div class="col-md-12 reportTopicDescription">
                             Copy will go here explaining topic.
@@ -177,6 +154,9 @@
                             Solar Details:
                         </div>
                     </div>
+
+                    <hr /> 
+
                     <div class="row">
                         <div class="col-md-12 reportTopicDescription">
                             Copy will go here explaining topic.
@@ -192,10 +172,25 @@
                     <hr />
 
                     <div class="row">
-                        <div class="col-md-12 reportHeading">
+                        <div class="col-md-10 reportHeading">
                             Solar Calculator:
                         </div>
+                        <div class="col-md-1">
+                            
+                            <button type="button" class="btn editSolarCalculator" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">
+                                <span aria-hidden="true">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                            </button>
+                            
+                        </div>
+
+                        <div class="col-md-1"></div>
+
                     </div>
+
+                    <hr />
+
                     <div class="row">
                         <div class="col-md-12 reportTopicDescription">
                             Copy will go here explaining topic.
@@ -203,21 +198,61 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            Average solar insolation per day <%=averagePerDay%> kWh/m<sup>2</sup>
-                            <br /><br />
-                            Inputs <br />
-                            Average utility use (per month) <%=averageUsePerMonth%> kWh<br />
-                            Cost / kWh  $<%=costPerkWh%>/kWh<br />
-                            Percent of electricity you want covered by solar <%=percentElectricGoal%>%<br />
-                            <br /><br />
-                            Outputs<br />
-                            Size of system needed <%=systemSize%> kW
-                            <br /><br />
-                            Average system cost estimate <%=averageCostSystem%><br />
-                            Payback without incentives <%=paybackWithoutIncentives%><br />
-                            Payback with Tax Credit <%=paybackWithTaxCredit%><br />
-                            Payback with Tax Credit and MiM Incentive <%=paybackWithMim%><br />
-
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Average solar insolation per day <%=averagePerDay%> kWh/m<sup>2</sup>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Inputs
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Average utility use (per month) <%=averageUsePerMonth%> kWh
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Cost / kWh  $<%=costPerkWh%>/kWh
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Percent of electricity you want covered by solar <%=percentElectricGoal%>%
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Outputs
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Size of system needed <%=systemSize%> kW
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Average system cost estimate $<%=averageCostSystem%>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Payback without incentives <%=paybackWithoutIncentives.toFixed(2)%> years
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Payback with Tax Credit <%=paybackWithTaxCredit.toFixed(2)%> years
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Payback with Tax Credit and MiM Incentive <%=paybackWithMim.toFixed(2)%> years
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -298,3 +333,107 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade editSolarCalculatorModal" tabindex="-1" role="dialog" aria-labelledby="editSolarCalculatorModal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content editSolarCalculatorModalContent">
+            <div class="modal-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            Enter Solar Calculator Variables:
+                        </div>
+                        <!-- <div class="col-md-1">
+                            <button type="button" class="btn btn-default btn-danger closeSplash floatRight">
+                                <i class="fa fa-times fa-1x"></i>
+                            </button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Average Use Per Month:
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control solarCalculatorValue" id="averageUsePerMonth" value=<%=averageUsePerMonth%>>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Cost Per kWh:
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control solarCalculatorValue" id="costPerkWh" value=<%=costPerkWh%>>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Percent Electric Goal:
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control solarCalculatorValue" id="percentElectricGoal" value=<%=percentElectricGoalRaw%>>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default cancelEditModal" data-dismiss="modal" data-toggle="modal" data-target=".reportModal">Cancel</button>
+                <button type="button" class="btn btn-default restoreDefaultsButton" data-dismiss="modal" data-toggle="modal" data-target=".reportModal">Restore Defaults</button>
+                <button type="button" class="btn btn-default saveEditModal" data-dismiss="modal" data-toggle="modal" data-target=".reportModal">Save and Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade editSiteDetailsModal" tabindex="-1" role="dialog" aria-labelledby="editSolarCalculatorModal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content editSiteDetailsModal">
+            <div class="modal-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            Enter Site Details:
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Site Title:
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control siteDetailsValue" id="siteTitle" value="<%=siteTitle%>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Site Name:
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control siteDetailsValue" id="siteName" value="<%=siteName%>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Site Notes:
+                        </div>
+                        <div class="col-md-6">
+                            <input type="textarea" class="form-control siteDetailsValue" id="siteNotes" value="<%=siteNotes%>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default cancelEditModal" data-dismiss="modal" data-toggle="modal" data-target=".reportModal">Cancel</button>
+                <button type="button" class="btn btn-default saveSiteDetailsModal" data-dismiss="modal" data-toggle="modal" data-target=".reportModal">Save and Close</button>
+            </div>
+        </div>
+    </div>
+</div>

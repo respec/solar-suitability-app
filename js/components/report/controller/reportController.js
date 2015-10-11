@@ -44,6 +44,19 @@ define([
       this.buildMap('reportSolarMap', 'reportSolarMap-container', 'solar');
       this.buildMap('reportAerialMap','reportAerialMap-container', 'hybrid');
 
+      // Sync maps
+      app.reportSolarMap.on('pan-end', function(){
+        var extent = app.reportSolarMap.extent;
+        app.reportAerialMap.setExtent(extent);
+      });
+
+      // Second map is causing stack issue, researching how to resolve
+      // app.reportAerialMap.on('pan-end', function(){
+      //   var extent = app.reportAerialMap.extent;
+      //   app.reportSolarMap.setExtent(extent);
+      // });
+
+
       // create histos
       // 
       // clear content (from previous click)
@@ -310,11 +323,10 @@ define([
     },
 
     calculateSystemData: function(){
-
       // Calculate System Size
       var averagePerDay = app.reportModel.get('averagePerDay');
-      var averagePerMonth = app.reportModel.get('averageUsePerMonth');
-      var toWattsPerMonth = averagePerMonth*1000;
+      var averageUsePerMonth = app.reportModel.get('averageUsePerMonth');
+      var toWattsPerMonth = averageUsePerMonth*1000;
       var toWattsPerDay = toWattsPerMonth/30;
       var solarUsage = toWattsPerDay*app.reportModel.get('percentElectricGoal');
       var solarProvided = solarUsage/averagePerDay;
@@ -327,8 +339,6 @@ define([
       var highCostPerkWh = app.reportModel.get('highCostPerkWh');
       var lowCostSystem = lowCostPerkWh * systemSize;
       var highCostSystem = highCostPerkWh * systemSize;
-      console.log(systemSize);
-      console.log(highCostSystem, lowCostSystem);
       var averageCostSystem = (lowCostSystem + highCostSystem)/2;
       app.reportModel.set({'lowCostSystem': lowCostSystem});
       app.reportModel.set({'highCostSystem': highCostSystem});
@@ -346,26 +356,25 @@ define([
     },
 
     calculateAnnualProduction: function(costPerkWh, systemLife, productionPerYear){
-      var systemOutput = app.reportModel.get('systemSize');
+      var systemSize = app.reportModel.get('systemSize');
       var energyEscalator = app.reportModel.get('energyEscalator');
-      var degredationFactor = app.reportModel.get('degredationFactor');
+      var degradationFactor = app.reportModel.get('degradationFactor');
       var degredation = 100;
       var costPerkWh = costPerkWh;
       var productionPerYear = productionPerYear;
       var paybackTotal = 0;
       var averageCostSystem = app.reportModel.get('averageCostSystem');
 
-      // Only run if systemOutput is a valid value
-      if (systemOutput > 0){
+      if (systemSize > 0){
 
         for (i = 0; i < systemLife; i++) {
           // payback for year i
-          paybackTotal += (costPerkWh * productionPerYear * systemOutput);
+          paybackTotal += (costPerkWh * productionPerYear * systemSize);
 
           // reduce values each year i-1
           costPerkWh = costPerkWh * energyEscalator;
           productionPerYear = productionPerYear * (degredation/100);
-          degredation = degredation * degredationFactor;
+          degredation = degredation * degradationFactor;
         }
 
         app.reportModel.set({'payback25Year': paybackTotal});
