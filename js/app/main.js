@@ -126,6 +126,7 @@ define([
           id: 'eusa'
         });
         eusaLayer.hide();
+        eusaLayer.setOpacity(0.65);
 
         var waterLayer = new FeatureLayer(config.waterUrl, {
           id: 'water'
@@ -135,7 +136,7 @@ define([
         var maskLayer = new FeatureLayer(config.canadaUsMaskUrl, {
           id: 'mask'
         });
-        maskLayer.setOpacity(0.75);
+        maskLayer.setOpacity(0.8);
 
         // Add aerial to the map
         this.map.addLayer(aerialLayer);
