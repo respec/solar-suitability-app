@@ -12,11 +12,13 @@ define([
   return {
 
     showResults: function(){
+      console.log('showResults');
       $('.resultsSmall-container').show();
       $('#resultsSmall').show();
     },
 
     hideResults: function(){
+      console.log('hideResults');
       $('.resultsSmall-container').hide();
       $('#resultsSmall').hide();
     },
