@@ -363,8 +363,8 @@ define([
         // create Solar Insol histo
         this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
 
-        // create Sun Hrs histo
-        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
+        // // create Sun Hrs histo
+        // this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
 
         // store results
         app.solarObj = solarObj;
