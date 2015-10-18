@@ -167,7 +167,8 @@ define([
           } else {
             // clicked point is outside of the state
             result = '<H3><strong>INSOLATION (kWh/m<sup>2</sup>)</strong></H3><p>Total per Year: Unknown**<br />Avg per Day: Unknown**</p><p>**<span id="smText">This point is out of the study area. Click within the State of Minnesota or try searching for something like "Target Field".</span></p><span class="closeSplash">(X) CLOSE</span> </p>';
-            alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
+            //alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
+            app.showAlert("danger","This location is outside of the study area:","Please refine your search to the state of Minnesota");
           }
 
         });

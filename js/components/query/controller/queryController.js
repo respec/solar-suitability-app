@@ -211,17 +211,21 @@ define([
             }, function(err){
               // console.log('Solar Query Task error');
               // console.log(err);
-              alert('There was an error with your request.  Please click OK and try again');
+              //alert('There was an error with your request.  Please click OK and try again');
+              app.showAlert("danger","There was an error with your request:","Please click OK and try again");
             });
 
           } else {
-              alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
+              app.showAlert("danger","This location is outside of the study area:","Please refine your search to the state of Minnesota");
+              loadSplashController.hideLoader();
+              // alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
           }
 
         }, function(err){
               // console.log('BE Query Task error');
               // console.log(err);
-              alert('There was an error with your request.  Please click OK and try again');
+              // alert('There was an error with your request.  Please click OK and try again');
+              app.showAlert("danger","There was an error with your request:","Please click OK and try again");
             });
 
       },
@@ -240,8 +244,10 @@ define([
         tileQuery.geometry = e.mapPoint;
 
         queryTask.execute(tileQuery, function(results) {
-          var tile = results.features[0].attributes.Name + '.img';
-          self.executeGP(point, tile);
+          if( results.features.length > 0 ) {
+            var tile = results.features[0].attributes.Name + '.img';
+            self.executeGP(point, tile);
+          }
         });
       },
 
