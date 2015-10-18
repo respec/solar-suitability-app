@@ -18,7 +18,6 @@ define([
     },
 
     hideResults: function(){
-      console.log('hideResults');
       $('.resultsSmall-container').hide();
       $('#resultsSmall').hide();
     },
