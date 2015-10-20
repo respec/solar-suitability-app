@@ -331,21 +331,31 @@ define([
       var solarUsage = toWattsPerDay*app.reportModel.get('percentElectricGoal');
       var solarProvided = solarUsage/averagePerDay;
       var derated = solarProvided/app.reportModel.get('derate');
-      var systemSize = (derated/1000).toFixed(2);
+      var systemSize = (derated/1000);
+      // .toFixed(2);
       app.reportModel.set({'systemSize': parseFloat(systemSize)});
 
       // Calculate System Cost
       var lowCostPerkWh = app.reportModel.get('lowCostPerkWh');
       var highCostPerkWh = app.reportModel.get('highCostPerkWh');
-      var lowCostSystem = lowCostPerkWh * systemSize;
+      var lowCostSystem = (lowCostPerkWh * systemSize);
       var highCostSystem = highCostPerkWh * systemSize;
       var averageCostSystem = (lowCostSystem + highCostSystem)/2;
       app.reportModel.set({'lowCostSystem': lowCostSystem});
       app.reportModel.set({'highCostSystem': highCostSystem});
       app.reportModel.set({'averageCostSystem': parseFloat(averageCostSystem)});
 
+      // system size
+      // averagePerDay
+      // averagePerDay*365 = yearly
+      // electric rate/kwh
+      // savings in year 1 = system * yearly * electric rate
+      // savings in 25 years
+      // (averageCostSystem/25 years) * 25
+
       // Calculate System Payback
-      var averagePerDay = app.reportModel.get('averagePerDay');
+      // var averagePerDay = app.reportModel.get('averagePerDay');
+      // 
       var productionPerYear = averagePerDay * 365;
       var costPerkWh = app.reportModel.get('costPerkWh');
       var savingsPerYear = systemSize * productionPerYear * costPerkWh;
@@ -361,7 +371,7 @@ define([
       var degradationFactor = app.reportModel.get('degradationFactor');
       var degredation = 100;
       var costPerkWh = costPerkWh;
-      var productionPerYear = productionPerYear;
+      var reducedProductionPerYear = productionPerYear;
       var paybackTotal = 0;
       var averageCostSystem = app.reportModel.get('averageCostSystem');
 
@@ -369,12 +379,13 @@ define([
 
         for (i = 0; i < systemLife; i++) {
           // payback for year i
-          paybackTotal += (costPerkWh * productionPerYear * systemSize);
-
+          paybackTotal += (costPerkWh * reducedProductionPerYear * systemSize);
+          // console.log('year', i+1, 'deg', degredation, degradationFactor, 'reducedProductionPerYear', reducedProductionPerYear);
           // reduce values each year i-1
           costPerkWh = costPerkWh * energyEscalator;
-          productionPerYear = productionPerYear * (degredation/100);
+          
           degredation = degredation * degradationFactor;
+          reducedProductionPerYear = productionPerYear * (degredation/100);
         }
 
         app.reportModel.set({'payback25Year': paybackTotal});
