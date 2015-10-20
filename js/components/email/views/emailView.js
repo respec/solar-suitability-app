@@ -66,7 +66,7 @@ define([
               $('.emailModal').modal('hide');
               app.showAlert("success","Success!","Your email has been sent.");
             } else {
-              $('.modal-body').prepend("Error: " + data.error + "<br>Please correct input and try again.");
+              $('.modal-body').prepend("<p>Error: " + data.error + "<br>Please correct input and try again.</p>");
               $('.emailSubmit').html('Try Again');
             }
             

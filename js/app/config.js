@@ -48,7 +48,7 @@ define(['esri/symbols/PictureMarkerSymbol'],
 
     return {
       
-      applicationTitle: 'MN Solar Suitability Analysis App',
+      applicationTitle: 'MN Solar App',
       apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
@@ -91,14 +91,13 @@ define(['esri/symbols/PictureMarkerSymbol'],
       // imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/identify',
       imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/identify',
       // Vector data for querying vector datasets
-      vectorDataUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_VectorData/MapServer/',
-      
-      canadaUsMaskUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_VectorData/MapServer/0',
-      countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_VectorData/MapServer/1',
-      waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_VectorData/MapServer/2',
-      bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_VectorData/MapServer/3',
-      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_VectorData/MapServer/4',
-      countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_VectorData/MapServer/5',
+      vectorDataUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/',
+      canadaUsMaskUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/0',
+      countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/1',
+      waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/2',
+      bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/3',
+      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/4',
+      countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/5',
 
       // Existing solar installations GeoRSS xml source
       certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',

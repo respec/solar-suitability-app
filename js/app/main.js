@@ -129,6 +129,7 @@ define([
           id: 'eusa'
         });
         eusaLayer.hide();
+        eusaLayer.setOpacity(0.65);
 
         var waterLayer = new FeatureLayer(config.waterUrl, {
           id: 'water'
@@ -138,7 +139,7 @@ define([
         var maskLayer = new FeatureLayer(config.canadaUsMaskUrl, {
           id: 'mask'
         });
-        maskLayer.setOpacity(0.75);
+        maskLayer.setOpacity(0.8);
 
         // Add aerial to the map
         this.map.addLayer(aerialLayer);
@@ -335,7 +336,7 @@ define([
       showAlert: function(alertType, headline, message) {
           $("#myAlert").html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
           $("#alert").toggleClass('in');
-          window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
+          //window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
         },
 
       checkUrlParams: function(){
