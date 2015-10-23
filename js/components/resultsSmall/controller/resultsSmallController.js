@@ -12,7 +12,6 @@ define([
   return {
 
     showResults: function(){
-      console.log('showResults');
       $('.resultsSmall-container').show();
       $('#resultsSmall').show();
     },

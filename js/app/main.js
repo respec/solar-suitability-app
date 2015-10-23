@@ -86,27 +86,18 @@ define([
           showAttribution: false,
           zoom: config.defaultZoom,
           extent: config.defaultExtent
-          });
-
-        // dojo.connect(this.map, 'onLoad', function(){
-        //   app.maxExtent = app.map.extent;
-        // });
+        });
 
         dojo.connect(this.map, 'onExtentChange', function(extent){
-          // console.log('new', extent);
-          // console.log('max', app.maxExtent);
           var maxExtent = config.defaultExtent;
-          // if (app.maxExtent){
-            if ((app.map.extent.xmin < maxExtent.xmin) ||
-                (app.map.extent.ymin < maxExtent.ymin) ||
-                (app.map.extent.xmax > maxExtent.xmax) ||
-                (app.map.extent.ymax > maxExtent.ymax)
-                )
-              {
-                console.log('here');
-                app.map.setExtent(maxExtent);
-              }
-            // }
+          if ((app.map.extent.xmin < maxExtent.xmin) ||
+            (app.map.extent.ymin < maxExtent.ymin) ||
+            (app.map.extent.xmax > maxExtent.xmax) ||
+            (app.map.extent.ymax > maxExtent.ymax)
+            )
+          {
+            app.map.setExtent(maxExtent);
+          }
         });
 
         var params = new ImageParams();
@@ -293,7 +284,6 @@ define([
 
         this.mapController();
 
-        
       },
 
       mapController: function() {
@@ -311,7 +301,7 @@ define([
       },
 
       buildToolTip: function(){
-        
+
         // dojo.connect(this.map, 'onLoad', function() {
           // dojo.connect(dijit.byId('map'), 'resize', this.map, this.map.resize);
 
@@ -342,47 +332,62 @@ define([
               });
               // dojo.style(tooltip, 'display', ');
               tooltip.style.display = '';
-          });
+            });
 
           // hide the tooltip the cursor isn't over the map
           dojo.connect(app.map, 'onMouseOut', function(evt) {
             tooltip.style.display = 'none';
           });
-        // });
-      },
+        },
 
-      showAlert: function(alertType, headline, message) {
-          $("#myAlert").html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
-          $("#alert").toggleClass('in');
+        checkExtent: function(){
+          // Check for bounds outside of maxExtent
+          if ((app.map.extent.xmin < maxExtent.xmin) ||
+            (app.map.extent.ymin < maxExtent.ymin) ||
+            (app.map.extent.xmax > maxExtent.xmax) ||
+            (app.map.extent.ymax > maxExtent.ymax)
+            )
+          {
+            // return false if bounds are outside maxExtent
+            return false;
+          } else {
+            // return true if bounds are within maxExtent
+            return true;
+          }
+        },
+
+        showAlert: function(alertType, headline, message) {
+          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+          $('#alert').toggleClass('in');
           //window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
         },
 
-      checkUrlParams: function(){
+        checkUrlParams: function(){
 
-        function getParameterByName(name) {
-          name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-          
-          var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
-          results = regex.exec(decodeURIComponent(unescape(location.search)));
-          
-          return results === null ? '' : results[1].replace(/\+/g, ' ');
+          function getParameterByName(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
+            results = regex.exec(decodeURIComponent(unescape(location.search)));
+
+            return results === null ? '' : results[1].replace(/\+/g, ' ');
+          }
+
+          var lng = parseFloat(getParameterByName('long'));
+          var lat = parseFloat(getParameterByName('lat'));
+
+          if (lng && lat){
+            $('.appHelpModal').modal('hide');
+
+            app.map.centerAndZoom([lng, lat - 0.0003], 19);
+            var point = new Point (lng, lat, app.map.spatialReference);
+            var mp = webMercatorUtils.geographicToWebMercator(point);
+            var pseudoEventPt = {mapPoint: mp};
+
+            query.pixelQuery(pseudoEventPt);
+          }
+
         }
 
-        var lng = parseFloat(getParameterByName('long'));
-        var lat = parseFloat(getParameterByName('lat'));
-        
-        if (lng && lat){
-          $('.appHelpModal').modal('hide');
-          
-          app.map.centerAndZoom([lng, lat - 0.0003], 19);
-          var point = new Point (lng, lat, app.map.spatialReference);
-          var mp = webMercatorUtils.geographicToWebMercator(point);
-          var pseudoEventPt = {mapPoint: mp};
-
-          query.pixelQuery(pseudoEventPt);
-        }
-
-      }
-
-    };
-  });
+      };
+    });

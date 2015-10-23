@@ -367,7 +367,6 @@ define([
 
         // Store calculated quality values
         app.query.quality = quality;
-        console.log(app.model);
         app.model.set('quality', quality);
 
         // Populate gradient
