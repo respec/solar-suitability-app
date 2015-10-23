@@ -49,6 +49,6 @@ release
 solar.sublime-project
 solar.sublime-workspace
 desktop.ini
-.css
+*.css
 *.css.map
 lib/arcgis_js_v314_api/*
