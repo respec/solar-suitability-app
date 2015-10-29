@@ -88,18 +88,6 @@ define([
           extent: config.defaultExtent
         });
 
-        dojo.connect(this.map, 'onExtentChange', function(extent){
-          var maxExtent = config.defaultExtent;
-          if ((app.map.extent.xmin < maxExtent.xmin) ||
-            (app.map.extent.ymin < maxExtent.ymin) ||
-            (app.map.extent.xmax > maxExtent.xmax) ||
-            (app.map.extent.ymax > maxExtent.ymax)
-            )
-          {
-            app.map.setExtent(maxExtent);
-          }
-        });
-
         var params = new ImageParams();
 
         // Direct call to raster function to symbolize imagery with color ramp (setting default was unreliable)
@@ -168,7 +156,7 @@ define([
         // Add water to the map
         this.map.addLayer(waterLayer);
 
-        // Add lidar to the map
+        // Add mask to the map
         this.map.addLayer(maskLayer);
 
         // Add existing solar installations to the map
@@ -297,68 +285,73 @@ define([
           //self.buildToolTip();
           //self.showAlert("success","Notice:","Click anywhere on the map to view solar potential.");
         });
+
+        app.map.on('extent-change', function(extent){
+          var maxExtent = config.defaultExtent;
+          if (!self.checkExtent())
+          {
+            app.map.setExtent(maxExtent);
+            console.log('hi');
+          }
+        });
         
       },
 
       buildToolTip: function(){
 
-        // dojo.connect(this.map, 'onLoad', function() {
-          // dojo.connect(dijit.byId('map'), 'resize', this.map, this.map.resize);
+        // create node for the tooltip
+        var tip = 'Click to view solar potential.';
+        var tooltip = dojo.create('div', {
+          'class': 'tooltip',
+          'innerHTML': tip
+        }, app.map.container);
+        dojo.style(tooltip, 'position', 'fixed');
 
-          // create node for the tooltip
-          var tip = 'Click to view solar potential.';
-          var tooltip = dojo.create('div', {
-            'class': 'tooltip',
-            'innerHTML': tip
-          }, app.map.container);
-          dojo.style(tooltip, 'position', 'fixed');
-
-          // update the tooltip as the mouse moves over the map
-          dojo.connect(app.map, 'onMouseMove', function(evt) {
-            var px, py;
-            if (evt.clientX || evt.pageY) {
-              px = evt.clientX;
-              py = evt.clientY;
-            } else {
-              px = evt.clientX + dojo.body().scrollLeft - dojo.body().clientLeft;
-              py = evt.clientY + dojo.body().scrollTop - dojo.body().clientTop;
-            }
-
-              // dojo.style(tooltip, 'display', 'none');
-              // tooltip.style.display = 'none';
-              dojo.style(tooltip, {
-                left: (px + 15) + 'px',
-                top: (py) + 'px'
-              });
-              // dojo.style(tooltip, 'display', ');
-              tooltip.style.display = '';
-            });
-
-          // hide the tooltip the cursor isn't over the map
-          dojo.connect(app.map, 'onMouseOut', function(evt) {
-            tooltip.style.display = 'none';
-          });
-        },
-
-        checkExtent: function(){
-          // Check for bounds outside of maxExtent
-          if ((app.map.extent.xmin < maxExtent.xmin) ||
-            (app.map.extent.ymin < maxExtent.ymin) ||
-            (app.map.extent.xmax > maxExtent.xmax) ||
-            (app.map.extent.ymax > maxExtent.ymax)
-            )
-          {
-            // return false if bounds are outside maxExtent
-            return false;
+        // update the tooltip as the mouse moves over the map
+        dojo.connect(app.map, 'onMouseMove', function(evt) {
+          var px, py;
+          if (evt.clientX || evt.pageY) {
+            px = evt.clientX;
+            py = evt.clientY;
           } else {
-            // return true if bounds are within maxExtent
-            return true;
+            px = evt.clientX + dojo.body().scrollLeft - dojo.body().clientLeft;
+            py = evt.clientY + dojo.body().scrollTop - dojo.body().clientTop;
           }
-        },
 
-        showAlert: function(alertType, headline, message) {
-          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
-          $('#alert').toggleClass('in');
+          dojo.style(tooltip, {
+            left: (px + 15) + 'px',
+            top: (py) + 'px'
+          });
+
+          tooltip.style.display = '';
+        });
+
+        // hide the tooltip the cursor isn't over the map
+        dojo.connect(app.map, 'onMouseOut', function(evt) {
+          tooltip.style.display = 'none';
+        });
+      },
+
+      checkExtent: function(){
+        var maxExtent = config.defaultExtent;
+        // Check for bounds outside of maxExtent
+        if ((app.map.extent.xmin < maxExtent.xmin) ||
+          (app.map.extent.ymin < maxExtent.ymin) ||
+          (app.map.extent.xmax > maxExtent.xmax) ||
+          (app.map.extent.ymax > maxExtent.ymax)
+          )
+        {
+          // return false if bounds are outside maxExtent
+          return false;
+        } else {
+          // return true if bounds are within maxExtent
+          return true;
+        }
+      },
+
+      showAlert: function(alertType, headline, message) {
+        $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+        $('#alert').toggleClass('in');
           //window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
         },
 
