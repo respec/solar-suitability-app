@@ -88,6 +88,19 @@ define([
           extent: config.defaultExtent
         });
 
+        var self = this;
+
+        var count = 0;
+
+        this.map.on('extent-change', function(extent){
+          var maxExtent = config.defaultExtent;
+          if (!self.checkExtent())
+          {
+            // app.map.setExtent(maxExtent);
+            console.log('hi');
+          }
+        });
+
         var params = new ImageParams();
 
         // Direct call to raster function to symbolize imagery with color ramp (setting default was unreliable)
@@ -286,14 +299,14 @@ define([
           //self.showAlert("success","Notice:","Click anywhere on the map to view solar potential.");
         });
 
-        app.map.on('extent-change', function(extent){
-          var maxExtent = config.defaultExtent;
-          if (!self.checkExtent())
-          {
-            app.map.setExtent(maxExtent);
-            console.log('hi');
-          }
-        });
+        // app.map.on('extent-change', function(extent){
+        //   var maxExtent = config.defaultExtent;
+        //   if (!self.checkExtent())
+        //   {
+        //     app.map.setExtent(maxExtent);
+        //     console.log('hi');
+        //   }
+        // });
         
       },
 
