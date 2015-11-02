@@ -12,8 +12,14 @@
                 </div>
                 <div>
                     <button type="button" class="btn btn-default btn-solar reportControls" id="emailReport">
-                        <span id="emailReportLink">Email Report</span>
+                        <span id="emailReportLink">Email Link</span>
                         <i class="fa fa-envelope-o"></i>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default btn-solar reportControls" id="emailReport">
+                        <span id="emailReportLink">View Nearby Installations</span>
+                        <i class="fa fa-sun-o"></i>
                     </button>
                 </div>
             </div>
@@ -29,12 +35,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="resultHeader">
-                            <div class="chartTitle">Insolation (kWh/m<sup>2</sup>) By Month</div>
+                            <div class="chartTitle">Shade Hours By Month</div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="resultHeader">
-                            <span>Solar Calculator</span>
+                            <span>Additional Information</span>
                         </div>
                     </div>
                 </div>
@@ -46,36 +52,26 @@
                         <div class="resultsDisplay noselect" id="results">
                             <div>
                                 <!-- <h4 class="zeroPercent">0%<h4> -->
-                                <div class="progress gradient">
+                                <div class="progress gradient center">
                                     <div class="progress-bar showGradient " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                        <span></span>
+                                        <span class="center"></span>
                                     </div>
                                 </div>
-                                <!-- <h4 class="hundredPercent">100%<h4> -->
+                                <div class="center">
+                                    Total Annual Percent Available Solar
+                                </div>
                             </div>
 
                             <div class="">
-                                <span>Average Annual Percent Sun</span>
+                                <p>
+                                    Your site is <span class="valueHelp"><%=quality%></span>.  The site collects an average of <span class="valueHelp"><%=averagePerDay%></span> kWh/m<sup>2</sup> each day for a total of <span class="valueHelp"><%=totalPerYear%></span> kWh<sup>2</sup> per year.  You would need a <span class="valueHelp">SOLAR SYSTEM SIZE</span> system to generate <span class="valueHelp">SOLAR PERCENT</span> of your power.  This system would cost approximately <span class="valueHelp">$SOLAR SYSTEM COST</span>.  Tax incentives and the Made in Minnesota program can provide assistance that would make the estimates payback for this system approximately <span class="valueHelp">PAYBACK</span> years.
+                                </p>
                             </div>
-                            
-                            <div class="valueHelp">
-                                [<%=quality%>]
-                            </div>
-
 
                             <div>
-                                Total per Year: <%=totalPerYear%>
 
                                 <!-- Display warning ** -->
-                                <% if(bareEarth === 1 || county === 'Pine') { %>
-                                    **
-                                <% } %>
-
-                                <br>
-                                Avg per Day: <%=averagePerDay%>
-
-                                <!-- Display warning ** -->
-                                <% if(bareEarth === 1 || county === 'Pine') { %>
+                                <% if(bareEarth === 1) { %>
                                     **
                                 <% } %>
 
@@ -87,47 +83,6 @@
                                     </p>
                                 <% } %>
 
-                                <!-- Display Pine County warning msg -->
-                                <% if(county === 'Pine') { %>
-                                    <p>
-                                        **
-                                        <span id="smText">The lidar data available for '<% county %> ' County was inconsistently classified across different flight lines. Hence, insolation accuracy is variable as shade from nearby surface features may not be taken into consideration.</span>
-                                    </p>
-                                <% } %>
-                            </div>
-
-                            <div class="resultHeader">
-                                <strong>UTILITY SERVICE PROVIDER</strong>
-                            </div>
-
-                            <div>
-                                <% if (typeof(utilityCompany) !== "undefined") {%>
-                                    <%=utilityCompany.fullName%> -
-                                    <br />
-                                    <a href="tel:+1-' + <%=utilityCompany.phone.slice(1, 4)%> + '-' + <%=utilityCompany.phone.slice(6, 14)%>"><%=utilityCompany.phone%></a>
-                                <% } %>
-                                
-                                <p>
-                                    <a href="<% mnIncentives %>" target="_blank">MN Incentives/Policies for Solar</a>
-                                </p>
-
-                                <% if(quality === 'Poor'){%>
-                                    <p>Location not optimal? Check out:<br /><a href="<%=solarGardens%>" target="_blank">Community Solar Gardens</a></p>
-                                <% } else {%>
-                                    <p>Get Started: 
-                                        <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=" + zip + "&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a>
-                                    </p>
-                                <% } %>
-                                <div>
-                                    Report bad data 
-                                    <span class="badData">here</span>
-                                </div>
-                                <div class="resultHeader">
-                                    SOURCE DATA (
-                                    <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>
-                                    )
-                                </div>
-                                <div id="collect"></div>
                             </div>
                         </div>
                     </div>
@@ -137,13 +92,57 @@
                         <div class="resultsDisplay noselect" id="resultsHisto"></div>
                     </div>
 
-                    <!-- Calculator -->
+                    <!-- New col -->
                     <div class="col-md-4">
-                        Output: kW Size of PV System
-                        Output: Cost of Average System Estimate
-                        Output: Payback w/o Incentive
-                        Output: Payback w/Tax Credit
-                        Output: Payback w/Tax Credit and MiM
+                        <div>
+                            <!-- <div class="resultHeader"> -->
+                            <p>Utility Service Provider:</p>
+                            <!-- </div> -->
+
+                            <p class="paragraphIndent">
+                                <% if (typeof(utilityCompany) !== "undefined") {%>
+                                    <a href="http://<%=utilityCompany.website%>" target="_blank"><%=utilityCompany.fullName%></a>
+                                    <!-- <a href="tel:+1-' + <%=utilityCompany.phone.slice(1, 4)%> + '-' + <%=utilityCompany.phone.slice(6, 14)%>"><%=utilityCompany.phone%></a> -->
+                                <% } else {%>
+                                    No utility company information available.  Please report bad data <span class="badData">here</span>.
+                                <% } %>
+                            </p>
+
+                            <% if(quality === 'Poor'){%>
+                                <p>Location not ideal? Check out:</p>
+                                <p class="paragraphIndent">
+                                    <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>
+                                </p>
+                            <% } else {%>
+                                <p>Get Started:</p>
+                                <p class="paragraphIndent">
+                                    <% if (typeof(utilityCompany) !== "undefined"){
+                                        if(utilityCompany.hasOwnProperty('zip')) { %>
+                                            <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=<%=parseInt(utilityCompany.zip, 10)%>&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a>
+                                        <% } else {%>
+                                            No zip code information available.  Please report bad data <span class="badData">here</span>.
+                                        <% } %>
+                                    <% } %>
+                                </p>
+                            <% } %>
+
+                            <p>
+                                Incentives:
+                            </p>
+
+                            <p class="paragraphIndent">
+                                <a href="<%= mnIncentives %>" target="_blank">MN Incentives/Policies for Solar</a>
+                            </p>
+
+                            <p>
+                                Source Data Collected:
+                            </p>
+                            <p class="paragraphIndent">
+                                <%=lidarCollect%> 
+                                (
+                                    <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>
+                                )
+                            </p>
                     </div>
                 </div>
             </div>
@@ -156,7 +155,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-1">
             </div>
             <div class="col-md-3 resultsGeneral">
@@ -170,18 +169,18 @@
                     </div>
 
                     <div>
-                        <!-- <h4 class="zeroPercent">0%<h4> -->
+                        <!-- <h4 class="zeroPercent">0%<h4> --
                         <div class="progress gradient">
                             <div class="progress-bar showGradient " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                 <span></span>
                             </div>
                         </div>
-                        <!-- <h4 class="hundredPercent">100%<h4> -->
+                        <!-- <h4 class="hundredPercent">100%<h4> --
                     </div>
                     <div>
                         Total per Year: <%=totalPerYear%>
 
-                        <!-- Display warning ** -->
+                        <!-- Display warning ** --
                         <% if(bareEarth === 1 || county === 'Pine') { %>
                             **
                         <% } %>
@@ -189,12 +188,12 @@
                         <br>
                         Avg per Day: <%=averagePerDay%>
 
-                        <!-- Display warning ** -->
+                        <!-- Display warning ** --
                         <% if(bareEarth === 1 || county === 'Pine') { %>
                             **
                         <% } %>
 
-                        <!-- Display bare earth warning msg -->
+                        <!-- Display bare earth warning msg --
                         <% if(bareEarth === 1) { %>
                             <p>
                                 **
@@ -202,7 +201,7 @@
                             </p>
                         <% } %>
 
-                        <!-- Display Pine County warning msg -->
+                        <!-- Display Pine County warning msg --
                         <% if(county === 'Pine') { %>
                             <p>
                                 **
@@ -244,9 +243,9 @@
                         </div>
                         <div id="collect"></div>
                     </div>
-                </div> -->
+                </div> --
             </div>
-        </div>  <!-- ROW END -->
+        </div> -->  <!-- ROW END -->
     </div> <!-- CONTAINER END --> 
 </div> <!-- END ResultsSmall -->
 
