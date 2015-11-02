@@ -34,12 +34,13 @@ define([
       render: function() {
         var template = _.template(viewTemplate);
         var options = {
-          quality: app.model.attributes.quality,
-          totalPerYear: app.model.attributes.totalPerYear,
-          averagePerDay: app.model.attributes.averagePerDay,
-          county: app.model.attributes.county,
-          bareEarth: app.model.attributes.bareEarth,
-          utilityCompany: app.model.attributes.utilityCompany,
+          quality: app.model.get('quality'),
+          totalPerYear: app.model.get('totalPerYear'),
+          averagePerDay: app.model.get('averagePerDay'),
+          county: app.model.get('county'),
+          bareEarth: app.model.get('bareEarth'),
+          utilityCompany: app.model.get('utilityCompany'),
+          lidarCollect: app.model.get('lidarCollect'),
           solarGardens: config.mnCertsSolarGardens,
           mnIncentives: config.mnIncentives
         };
