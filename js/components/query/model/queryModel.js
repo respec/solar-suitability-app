@@ -7,9 +7,7 @@ function(
   config
   ) {
       var QueryModel = Backbone.Model.extend({
-        defaults: {
-          utilityCompanyName: ''
-        },
+        defaults: {},
 
         setValue: function(key,val){
           var newVal = {};
