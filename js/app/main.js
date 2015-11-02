@@ -96,8 +96,7 @@ define([
           var maxExtent = config.defaultExtent;
           if (!self.checkExtent())
           {
-            // app.map.setExtent(maxExtent);
-            console.log('hi');
+            app.map.setExtent(maxExtent);
           }
         });
 
@@ -181,7 +180,7 @@ define([
         
         this.map.addLayer(installationsLayer);
         
-        installationsLayer.on('load',function(){
+        installationsLayer.on('load', function(){
           app.map.getLayer('georss').setVisibility(false);
         });
         //this.map.getLayer('georss').hide();
@@ -299,15 +298,6 @@ define([
           //self.showAlert("success","Notice:","Click anywhere on the map to view solar potential.");
         });
 
-        // app.map.on('extent-change', function(extent){
-        //   var maxExtent = config.defaultExtent;
-        //   if (!self.checkExtent())
-        //   {
-        //     app.map.setExtent(maxExtent);
-        //     console.log('hi');
-        //   }
-        // });
-        
       },
 
       buildToolTip: function(){
@@ -347,6 +337,22 @@ define([
 
       checkExtent: function(){
         var maxExtent = config.defaultExtent;
+
+        /* DEBUG */
+        // if (app.map.extent.xmin < maxExtent.xmin){
+        //   console.log('xmin');
+        // }
+        // if (app.map.extent.ymin < maxExtent.ymin){
+        //   console.log('ymin');
+        // }
+        // if (app.map.extent.xmax > maxExtent.xmax){
+        //   console.log('xmax');
+        // }
+        // if (app.map.extent.ymax > maxExtent.ymax){
+        //   console.log('ymax');
+        // }
+        
+
         // Check for bounds outside of maxExtent
         if ((app.map.extent.xmin < maxExtent.xmin) ||
           (app.map.extent.ymin < maxExtent.ymin) ||
