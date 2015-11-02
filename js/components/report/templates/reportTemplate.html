@@ -45,14 +45,14 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-10 reportHeading">
+                        <div class="col-md-9 reportHeading">
                             Site Details:
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-3">
                             
-                            <button type="button" class="btn editSiteDetails" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">
+                            <button type="button" class="btn editSiteDetails editButton" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">
                                 <span aria-hidden="true">
-                                    <i class="fa fa-pencil"></i>
+                                    Edit Site Details <i class="fa fa-pencil"></i>
                                 </span>
                             </button>
 
@@ -76,7 +76,7 @@
                         </div>
                         <div class="col-md-4">
                             <div id="">
-                                <%=lat%>
+                                <%=lat.toFixed(4)%>
                             </div>
                         </div>
                         <div class="col-md-6"></div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-md-4">
                             <div id="">
-                                <%=lng%>
+                                <%=lng.toFixed(4)%>
                             </div>
                         </div>
                         <div class="col-md-6"></div>
@@ -98,8 +98,17 @@
                     <hr />
 
                     <div class="row">
-                        <div class="col-md-12 reportHeading">
+                        <div class="col-md-9 reportHeading">
                             Site Maps:
+                        </div>
+                        <div class="col-md-3">
+                            
+                            <button type="button" class="btn addSolarPanels editButton" data-dismiss="modal" data-toggle="modal" data-target=".addSolarPanelsModal" aria-label="Edit">
+                                <span aria-hidden="true">
+                                    Add Solar Panels <i class="fa fa-pencil"></i>
+                                </span>
+                            </button>
+
                         </div>
                     </div>
 
@@ -172,14 +181,14 @@
                     <hr />
 
                     <div class="row">
-                        <div class="col-md-10 reportHeading">
+                        <div class="col-md-9 reportHeading">
                             Solar Calculator:
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-3">
                             
-                            <button type="button" class="btn editSolarCalculator" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">
+                            <button type="button" class="btn editSolarCalculator editButton" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">
                                 <span aria-hidden="true">
-                                    <i class="fa fa-pencil"></i>
+                                    Edit Solar Calculator Values<i class="fa fa-pencil"></i>
                                 </span>
                             </button>
                             
