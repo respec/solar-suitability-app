@@ -202,9 +202,10 @@ define([
                 });
 
                 lcQueryTask.execute(lcQuery, function(results) {
-                  var lidar_collect = results.features[0].attributes.lidar_coll;
-                  $('#collect').html(lidar_collect);
-                  app.query.collectDate = lidar_collect;
+                  var lidarCollect = results.features[0].attributes.lidar_coll;
+                  // $('#collect').html(lidarCollect);
+                  app.query.collectDate = lidarCollect;
+                  app.model.set('lidarCollect', lidarCollect);
                 });
 
               });
@@ -212,11 +213,11 @@ define([
               // console.log('Solar Query Task error');
               // console.log(err);
               //alert('There was an error with your request.  Please click OK and try again');
-              app.showAlert("danger","There was an error with your request:","Please click OK and try again");
+              app.showAlert('danger','There was an error with your request:','Please click OK and try again');
             });
 
           } else {
-              app.showAlert("danger","This location is outside of the study area:","Please refine your search to the state of Minnesota");
+              app.showAlert('danger','This location is outside of the study area:','Please refine your search to the state of Minnesota');
               loadSplashController.hideLoader();
               // alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
           }
@@ -225,7 +226,7 @@ define([
               // console.log('BE Query Task error');
               // console.log(err);
               // alert('There was an error with your request.  Please click OK and try again');
-              app.showAlert("danger","There was an error with your request:","Please click OK and try again");
+              app.showAlert('danger','There was an error with your request:','Please click OK and try again');
             });
 
       },
