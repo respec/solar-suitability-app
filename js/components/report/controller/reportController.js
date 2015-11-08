@@ -128,8 +128,6 @@ define([
         doc.page ++;
       }
 
-
-
       /* orientation, units, format*/
       var doc = new jsPDF('portrait', 'in', 'letter');
       doc.page = 1;  
