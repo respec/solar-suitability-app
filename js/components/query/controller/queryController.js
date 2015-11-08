@@ -353,7 +353,7 @@ define([
         });
                 
         // Populate gradient
-        var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toString() + '%';
+        var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toFixed().toString() + '%';
         
         var $showGradient = $('.showGradient');
         $showGradient.css('width', gradient);
