@@ -55,10 +55,10 @@ define([
         $('.findMe').click(function() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
-            app.showAlert("success","Location Found. Next Step:","Tap rooftop or point of interest near you to view solar potential.");
+            app.showAlert('success','Location Found. Next Step:','Tap rooftop or point of interest near you to view solar potential.');
           } else {
             //alert('Browser doesn\'t support Geolocation.  Visit http: //caniuse.com to see browser support for the Geolocation API.');
-            app.showAlert("danger","Your browser doesn\'t support Geolocation:","isit http: //caniuse.com to see browser support for the Geolocation API");
+            app.showAlert('danger','Your browser doesn\'t support Geolocation:','isit http: //caniuse.com to see browser support for the Geolocation API');
           }
         });
 
@@ -78,22 +78,22 @@ define([
 
           case error.PERMISSION_DENIED:
             //alert('Location not provided');
-            app.showAlert("danger","ERROR:","Location not provided");
+            app.showAlert('danger','ERROR:','Location not provided');
             break;
 
           case error.POSITION_UNAVAILABLE:
             //alert('Current location not available');
-            app.showAlert("danger","ERROR:","Current location not available");
+            app.showAlert('danger','ERROR:','Current location not available');
             break;
 
           case error.TIMEOUT:
             //alert('Timeout');
-            app.showAlert("danger","ERROR:","Geolocation has timed out. Current location not available.");
+            app.showAlert('danger','ERROR:','Geolocation has timed out. Current location not available.');
             break;
 
           default:
             //alert('unknown error');
-            app.showAlert("danger","ERROR:","An unknown geolocation error has occured.");
+            app.showAlert('danger','ERROR:','An unknown geolocation error has occured.');
             break;
           }
         }
@@ -133,7 +133,6 @@ define([
         }
 
         $('.appHelp').on('click', function(){
-
           $('.appHelpModal').modal('show');
         });
 
@@ -141,7 +140,6 @@ define([
           // reset label if changed previously
           $('.selectBadDataButton:first-child').text('Select Location:');
           $('.dataIssuesModal').modal('show');
-
         });
 
         // $('.appIssues').on('click', function(){
