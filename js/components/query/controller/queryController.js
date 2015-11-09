@@ -33,188 +33,179 @@ define([
     return {
 
       pixelQuery: function(e) {
-        $('.tooltip').hide();
-        calculatorController.hideCalculator();
+        // $('.tooltip').hide();
+        // calculatorController.hideCalculator();
         resultsSmallController.hideResults();
         loadSplashController.placeLoader();
         loadSplashController.showLoader();
-        this.dataQuery(e);
-        this.solarGPTool(e);
+        this.processClick(e);
         resultsSmallController.buildLink();
       },
 
-      dataQuery: function(e) {
-
+      processClick: function(e){
         var mp = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
         app.query.point = e.mapPoint;
 
         // store point as lat/lng
         app.query.latLngPt = mp;
 
+        this.handleMap();
+      },
+
+      handleMap: function(){
         // removes all previous graphics (previous click)
         mapController.clearGraphics();
         mapController.placePoint(app.query.point, app.map, config.pinSymbol);
 
-        //setup insolation query
-        var solarQuery = new Query();
-        var solarQueryTask = new QueryTask(config.imgIdentifyUrl);
-        solarQuery.geometry = e.mapPoint;
-        solarQuery.geometryType = 'esriGeometryPoint';
-        solarQuery.mosaicRule = '';
-        solarQuery.sr = 102100;
-        solarQuery.imageDisplay = 1;
-        solarQuery.tolerance = 1;
-        solarQuery.returnGeometry = false;
-        solarQuery.returnZ = false;
-        solarQuery.returnM = false;
-        solarQuery.f = 'pjson';
+        // Bare earth also checks if click in MN, otherwise handleQueries won't run
+        this.bareEarthQuery();
+      },
 
+      handleQueries: function(){
+        // bareEarthQuery checks if in MN and sets app.query.inState = true
+        if (app.query.inState){
+          this.lidarQuery();
+          this.utilityProviderQuery();
+          this.solarQuery();
+          this.solarGPTool();
+        }
+      },
+
+      bareEarthQuery: function(){
+        //setup bare earth county layer query
+        var BEquery = new Query();
+        var BEQueryTask = new QueryTask(config.bareEarthCountyUrl);
+        BEquery.geometry = app.query.point;
+        BEquery.geometryType = 'esriGeometryPoint';
+        BEquery.outFields = ['bare_earth', 'COUNTYNAME'];
+        // BEquery.mosaicRule = '';
+        // BEquery.sr = 102100;
+        // BEquery.imageDisplay = 1;
+        // BEquery.tolerance = 1;
+        BEquery.returnGeometry = false;
+        // BEquery.returnZ = false;
+        // BEquery.returnM = false;
+        // BEquery.f = 'pjson';
+
+        var self = this;
+
+        BEQueryTask.execute(BEquery, function(results) {
+          //first make sure clicked point is within the state
+          if (results.features && results.features.length > 0) {
+
+            var county = results.features[0].attributes.COUNTYNAME;
+            // Store county/bare earth
+            app.query.county = county;
+            app.query.inState = true;
+            app.model.set('county', county);
+            app.model.set('bareEarth', results.features[0].attributes.bare_earth);
+
+            self.handleQueries();
+
+          } else {
+            app.showAlert('danger','This location is outside of the study area:','Please refine your search to the state of Minnesota');
+            loadSplashController.hideLoader();
+            }
+          });
+      },
+
+      lidarQuery: function(){
         //setup lidar collect date query
         var lcQuery = new Query();
         var lcQueryTask = new QueryTask(config.countyLidarUrl);
         lcQuery.returnGeometry = false;
         lcQuery.outFields = ['lidar_coll'];
-        lcQuery.geometry = e.mapPoint;
+        lcQuery.geometry = app.query.point;
 
-        //setup bare earth county layer query
-        var BEquery = new Query();
-        var BEQueryTask = new QueryTask(config.bareEarthCountyUrl);
-        BEquery.geometry = e.mapPoint;
-        BEquery.geometryType = 'esriGeometryPoint';
-        BEquery.outFields = ['bare_earth', 'COUNTYNAME'];
-        BEquery.spatialRelationship = solarQuery.SPATIAL_REL_INTERSECTS;
-        BEquery.mosaicRule = '';
-        BEquery.sr = 102100;
-        BEquery.imageDisplay = 1;
-        BEquery.tolerance = 1;
-        BEquery.returnGeometry = false;
-        BEquery.returnZ = false;
-        BEquery.returnM = false;
-        BEquery.f = 'pjson';
-
-        BEQueryTask.execute(BEquery, function(results) {
-          var warning;
-          var warningMsg;
-          var result;
-          //first make sure clicked point is within the state
-          if (results.features && results.features.length > 0) {
-
-            var bareEarth = results.features[0].attributes.bare_earth;
-            var county = results.features[0].attributes.COUNTYNAME;
-
-            // Store county/bare earth
-            app.query.county = county;
-            app.model.set('county', county);
-            app.model.set('bareEarth', bareEarth);
-
-            solarQueryTask.execute(solarQuery, function(results) {
-              var val = results.value;
-              var v = val / 1000 / 365;
-              var y = val / 1000;
-
-              // Store returned solar values
-              app.query.totalPerYear = y;
-              app.query.averagePerDay = v;
-              app.query.warning = warning;
-              app.query.warningMessage = warningMsg;
-
-              if (v){
-                app.model.set('totalPerYear', y.toFixed(2));
-                app.model.set('averagePerDay', v.toFixed(2));
-              } else {
-                app.model.set('totalPerYear', 'No Data');
-                app.model.set('averagePerDay', 'No Data');
-              }
-              
-              app.model.set('warning', warning);
-              app.model.set('warningMessage', warningMsg);
-
-              //setup Utility Service Provider query
-              var query = new Query();
-              var queryTask = new QueryTask(config.eusaUrl);
-              query.geometry = e.mapPoint;
-              query.geometryType = 'esriGeometryPoint';
-              query.outFields = ['*'];
-              query.spatialRelationship = query.SPATIAL_REL_INTERSECTS;
-              query.sr = 102100;
-              query.imageDisplay = 1;
-              query.tolerance = 1;
-              query.returnGeometry = false;
-              query.returnZ = false;
-              query.returnM = false;
-              query.f = 'pjson';
-
-              queryTask.execute(query, function(results) {
-
-                var getStarted;
-                
-                var fullName = results.features[0].attributes.FULL_NAME;
-                var city = results.features[0].attributes.CITY;
-                var street = results.features[0].attributes.STREET;
-                var phone = results.features[0].attributes.PHONE;
-                var website = results.features[0].attributes.WEBSITE;
-                var electricCompany = results.features[0].attributes.ELEC_COMP;
-                var zip = results.features[0].attributes.ZIP;
-
-                var utilityCompany = {
-                  fullName: fullName,
-                  city: city,
-                  street: street,
-                  phone: phone,
-                  website: website,
-                  abbreviatedName: electricCompany,
-                  zip: zip.toString()
-                };
-
-                // Store returned utility info
-                app.query.utilityCompany = utilityCompany;
-                app.model.set('utilityCompany', utilityCompany);
-
-                var utility = encodeURIComponent(fullName + '_' + street + '_' + city + ', MN ' + zip + '_' + phone);
-
-                point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
-
-                // This shouldn't be here, needs to be moved
-                $('.badData').on('click', function(){
-                  $('.dataIssuesModal').modal('show');
-                });
-
-                lcQueryTask.execute(lcQuery, function(results) {
-                  var lidarCollect = results.features[0].attributes.lidar_coll;
-                  app.query.collectDate = lidarCollect;
-                  app.model.set('lidarCollect', lidarCollect);
-                });
-              });
-            });
-
-          // }, function(err){
-          //     // console.log('Solar Query Task error');
-          //     // console.log(err);
-          //     //alert('There was an error with your request.  Please click OK and try again');
-          //     app.showAlert('danger','There was an error with your request:','Please click OK and try again');
-          //   });
-
-} else {
-  app.showAlert('danger','This location is outside of the study area:','Please refine your search to the state of Minnesota');
-  loadSplashController.hideLoader();
-              // alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
-            }
-
-          }, function(err){
-              // console.log('BE Query Task error');
-              // console.log(err);
-              // alert('There was an error with your request.  Please click OK and try again');
-              app.showAlert('danger','There was an error with your request:','Please click OK and try again');
-            });
-
-          
-        // });
+        lcQueryTask.execute(lcQuery, function(results) {
+          var lidarCollect = results.features[0].attributes.lidar_coll;
+          app.query.collectDate = lidarCollect;
+          app.model.set('lidarCollect', lidarCollect);
+        });
       },
 
-      solarGPTool: function(e) {
+      utilityProviderQuery: function(){
+        //setup Utility Service Provider query
+        var query = new Query();
+        var queryTask = new QueryTask(config.eusaUrl);
+        query.geometry = app.query.point;
+        query.geometryType = 'esriGeometryPoint';
+        query.outFields = ['FULL_NAME', 'CITY', 'STREET', 'PHONE', 'WEBSITE', 'ELEC_COMP', 'ZIP'];
+        // query.spatialRelationship = query.SPATIAL_REL_INTERSECTS;
+        // query.sr = 102100;
+        // query.imageDisplay = 1;
+        // query.tolerance = 1;
+        query.returnGeometry = false;
+        // query.returnZ = false;
+        // query.returnM = false;
+        // query.f = 'pjson';
+
+        queryTask.execute(query, function(results) {
+
+          var utilityCompany = {
+            fullName: results.features[0].attributes.FULL_NAME,
+            city: results.features[0].attributes.CITY,
+            street: results.features[0].attributes.STREET,
+            phone: results.features[0].attributes.PHONE,
+            website: results.features[0].attributes.WEBSITE,
+            abbreviatedName: results.features[0].attributes.ELEC_COMP,
+            zip: results.features[0].attributes.ZIP.toString()
+          };
+
+          // Store returned utility info
+          app.query.utilityCompany = utilityCompany;
+          app.model.set('utilityCompany', utilityCompany);
+        });
+      },
+
+      solarQuery: function() {
+        //setup insolation query
+        var solarQuery = new Query();
+        var solarQueryTask = new QueryTask(config.imgIdentifyUrl);
+        solarQuery.geometry = app.query.point;
+        solarQuery.geometryType = 'esriGeometryPoint';
+        // solarQuery.mosaicRule = '';
+        // solarQuery.sr = 102100;
+        // solarQuery.imageDisplay = 1;
+        // solarQuery.tolerance = 1;
+        solarQuery.returnGeometry = false;
+        // solarQuery.returnZ = false;
+        // solarQuery.returnM = false;
+        // solarQuery.f = 'pjson';
+
+        solarQueryTask.execute(solarQuery, function(results) {
+          var val = results.value;
+          var dailyValue = val / 1000 / 365;
+          var yearlyValue = val / 1000;
+
+            // Store returned solar values
+            app.query.totalPerYear = yearlyValue;
+            app.query.averagePerDay = dailyValue;
+            // app.query.warning = warning;
+            // app.query.warningMessage = warningMsg;
+
+            if (dailyValue){
+              app.model.set('totalPerYear', yearlyValue.toFixed(2));
+              app.model.set('averagePerDay', dailyValue.toFixed(2));
+            } else {
+              app.model.set('totalPerYear', 'No Data');
+              app.model.set('averagePerDay', 'No Data');
+            }
+
+            // app.model.set('warning', warning);
+            // app.model.set('warningMessage', warningMsg);
+          });
+
+      },
+
+      // , function(err){
+      //     app.showAlert('danger','There was an error with your request:','Please click OK and try again');
+      //   };
+
+      solarGPTool: function() {
         var self = this;
 
-        var point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
+        var point = app.query.latLngPt;
 
         var queryTask = new QueryTask(config.dsmImageryUrl);
 
@@ -222,7 +213,7 @@ define([
         var tileQuery = new Query();
         tileQuery.returnGeometry = false;
         tileQuery.outFields = ['Name'];
-        tileQuery.geometry = e.mapPoint;
+        tileQuery.geometry = app.query.point;
 
         queryTask.execute(tileQuery, function(results) {
           if( results.features.length > 0 ) {
@@ -367,7 +358,6 @@ define([
 
         // Store calculated quality values
         app.query.quality = quality;
-        console.log(app.model);
         app.model.set('quality', quality);
 
         // Populate gradient
