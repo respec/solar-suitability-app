@@ -18,7 +18,7 @@ define([
   'esri/tasks/QueryTask',
 
   'dojo/_base/lang'
-  ],
+],
 
   function(
     config, dataHandler, sunHours,
@@ -50,6 +50,8 @@ define([
 
         // store point as lat/lng
         app.query.latLngPt = mp;
+        app.reportModel.set({'latLngPt':mp});
+        // app.reportModel.attributes.latLngPt = mp;
 
         // removes all previous graphics (previous click)
         mapController.clearGraphics();
@@ -70,8 +72,8 @@ define([
         solarQuery.f = 'pjson';
 
         //setup lidar collect date query
-        var lcQuery = new Query();
         var lcQueryTask = new QueryTask(config.countyLidarUrl);
+        var lcQuery = new Query();
         lcQuery.returnGeometry = false;
         lcQuery.outFields = ['lidar_coll'];
         lcQuery.geometry = e.mapPoint;
@@ -104,30 +106,56 @@ define([
 
             // Store county/bare earth
             app.query.county = county;
-            app.model.set('county', county);
-            app.model.set('bareEarth', bareEarth);
+            app.model.attributes.county = county;
+            app.model.attributes.bareEarth = bareEarth;
 
             solarQueryTask.execute(solarQuery, function(results) {
               var val = results.value;
               var v = val / 1000 / 365;
               var y = val / 1000;
+              var quality = 0;
+              switch (true) {
+                
+              case (v > 2.7):
+                quality = 'Optimal';
+                break;
+
+              case (v > 1.7):
+                quality = 'Good';
+                break;
+
+              case (v >= 0.1):
+                quality = 'Poor';
+                break;
+
+              default:
+                quality = 'No Data';
+                break;
+              }
 
               // Store returned solar values
               app.query.totalPerYear = y;
               app.query.averagePerDay = v;
+              app.query.quality = quality;
               app.query.warning = warning;
               app.query.warningMessage = warningMsg;
 
-              if (v){
-                app.model.set('totalPerYear', y.toFixed(2));
-                app.model.set('averagePerDay', v.toFixed(2));
+              app.model.setValue('quality', quality);
+
+              if (quality === 'No Data'){
+                app.model.setValue('totalPerYear', 'No Data');
+                app.model.setValue('averagePerDay', 'No Data');
+                app.model.set({'averagePerMonth': 'No Data'});
               } else {
-                app.model.set('totalPerYear', 'No Data');
-                app.model.set('averagePerDay', 'No Data');
+                app.model.setValue('totalPerYear', y.toFixed(2));
+                app.model.setValue('averagePerDay', v.toFixed(2));
+                var averagePerMonth = (y/12).toFixed(2);
+                app.reportModel.set({'averagePerDay': parseFloat(v.toFixed(2))});
+                app.reportModel.set({'averagePerMonth': parseFloat(averagePerMonth)});
               }
               
-              app.model.set('warning', warning);
-              app.model.set('warningMessage', warningMsg);
+              app.model.setValue('warning', warning);
+              app.model.setValue('warningMessage', warningMsg);
 
               //setup Utility Service Provider query
               var query = new Query();
@@ -168,49 +196,46 @@ define([
 
                 // Store returned utility info
                 app.query.utilityCompany = utilityCompany;
-                app.model.set('utilityCompany', utilityCompany);
+                app.model.set({'utilityCompany': utilityCompany});
 
                 var utility = encodeURIComponent(fullName + '_' + street + '_' + city + ', MN ' + zip + '_' + phone);
 
                 point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
-
-                // This shouldn't be here, needs to be moved
+                //var resultsiFrameURL = '/report.php?z=' + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
+              
                 $('.badData').on('click', function(){
                   $('.dataIssuesModal').modal('show');
                 });
 
                 lcQueryTask.execute(lcQuery, function(results) {
-                  var lidarCollect = results.features[0].attributes.lidar_coll;
-                  app.query.collectDate = lidarCollect;
-                  app.model.set('lidarCollect', lidarCollect);
+                  var lidar_collect = results.features[0].attributes.lidar_coll;
+                  $('#collect').html(lidar_collect);
+                  app.query.collectDate = lidar_collect;
                 });
+
               });
+            }, function(err){
+              // console.log('Solar Query Task error');
+              // console.log(err);
+              //alert('There was an error with your request.  Please click OK and try again');
+              app.showAlert("danger","There was an error with your request:","Please click OK and try again");
             });
 
-          // }, function(err){
-          //     // console.log('Solar Query Task error');
-          //     // console.log(err);
-          //     //alert('There was an error with your request.  Please click OK and try again');
-          //     app.showAlert('danger','There was an error with your request:','Please click OK and try again');
-          //   });
-
-} else {
-  app.showAlert('danger','This location is outside of the study area:','Please refine your search to the state of Minnesota');
-  loadSplashController.hideLoader();
+          } else {
+              app.showAlert("danger","This location is outside of the study area:","Please refine your search to the state of Minnesota");
+              loadSplashController.hideLoader();
               // alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
-            }
+          }
 
-          }, function(err){
+        }, function(err){
               // console.log('BE Query Task error');
               // console.log(err);
               // alert('There was an error with your request.  Please click OK and try again');
-              app.showAlert('danger','There was an error with your request:','Please click OK and try again');
+              app.showAlert("danger","There was an error with your request:","Please click OK and try again");
             });
 
-          
-        // });
       },
-
+        
       solarGPTool: function(e) {
         var self = this;
 
@@ -236,7 +261,7 @@ define([
         var self = this;
         // Create geoprocessing tool
         var gp = new esri.tasks.Geoprocessor(config.gpTool);
-
+    
         var params = {
           'PointX': point.x,
           'PointY': point.y,
@@ -245,12 +270,22 @@ define([
         gp.execute(params, lang.hitch(self, self.displayResults));
       },
 
+      clearDiv: function(div){
+        div.html('');
+        // $('#sunHrHisto').html('');
+      },
+
       displayResults: function(results) {
 
         app.query.results = results;
         //empty div so histo doesn't duplicate
-        $('#resultsHisto').html('');
-        $('#sunHrHisto').html('');
+        this.clearDiv($('#resultsHisto'));
+        this.clearDiv($('#sunHrHisto'));
+
+        //show results & hide loader
+        loadSplashController.hideLoader();
+
+        resultsSmallController.showResults();
 
         //parse the results
         var insolResults = results[0].value.split('\n');
@@ -322,56 +357,18 @@ define([
         solarObj.months = months;
 
         var nearestLat = Math.round(app.query.latLngPt.y);
-        var annualPercentSun = 0;
+        solarObj.nearestLat = nearestLat;
+
+        solarObj.shadeHrList = [];
 
         _.each(sunHours[nearestLat], function(value, month){
-          solarObj[month].maxSunHrValue = value;
-
-          // Calculate percent sun 
-          var percentSun = solarObj[month].sunHrValue/value;
-          if (percentSun > 1){
-            percentSun = 1;
-          }
-          solarObj[month].percentSun = percentSun;
-          annualPercentSun += percentSun;
+          solarObj[month].shadeHrPotential = value;
+          solarObj[month].shadeHrValue = Math.abs(solarObj[month].sunHrValue-value);
+          solarObj.shadeHrList.push(solarObj[month].shadeHrValue);
         });
-
-        // Convert to average, float, 2 decimal points (percent)
-        annualPercentSun = parseFloat((annualPercentSun/12).toFixed(2));
-
-        solarObj.annualPercentSun = annualPercentSun;
-
-        var quality;
-        switch (true) {
-
-          case (annualPercentSun >= 0.9):
-          quality = 'Optimal';
-          break;
-
-          case (annualPercentSun >= 0.8):
-          quality = 'Good';
-          break;
-
-          case (annualPercentSun >= 0.7):
-          quality = 'Fair';
-          break;
-
-          case (annualPercentSun < 0.7):
-          quality = 'Poor';
-          break;
-
-          default:
-          quality = 'No Data';
-          break;
-        }
-
-        // Store calculated quality values
-        app.query.quality = quality;
-        console.log(app.model);
-        app.model.set('quality', quality);
-
+                
         // Populate gradient
-        var gradient = (annualPercentSun*100).toString() + '%';
+        var gradient = ((app.query.averagePerDay/4)*100).toFixed(2).toString() + '%';
         
         var $showGradient = $('.showGradient');
         $showGradient.css('width', gradient);
@@ -380,113 +377,182 @@ define([
         // create histos
         // 
         // create Solar Insol histo
-        this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
+        insolChart = {
+          data: solarObj,
+          attributes: solarObj.insolList,
+          maxValue: 220,
+          el: '#resultsHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+        };
+
+        this.drawChart(insolChart);
 
         // create Sun Hrs histo
-        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
+        sunHrsChart = {
+          data: solarObj,
+          attributes: solarObj.sunHrList,
+          maxValue: 500,
+          el: '#sunHrHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: -40
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+        };
+        this.drawChart(sunHrsChart);
+
+        // 25 is the rounding increment
+        shadeHrMax = 25 * Math.round(sunHours[nearestLat].Jul/25);
+
+        shadeHrsChart = {
+          data: solarObj,
+          attributes: solarObj.shadeHrList,
+          maxValue: shadeHrMax,
+          el: '#reportShadeHrsHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: -40
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+        };
 
         // store results
         app.solarObj = solarObj;
-        resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
-        resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
-
-        //show results & hide loader
-        loadSplashController.hideLoader();
-        resultsSmallController.showResults();
+        app.chartObj = {};
+        app.chartObj.insol = insolChart;
+        app.chartObj.sunHrs = sunHrsChart;
+        app.chartObj.shadeHrs = shadeHrsChart;
       },
 
-      drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
-        titleOffset = parseInt(titleOffset, 10);
-        var margin = {
-          'top': 10,
-          'right': 10,
-          'bottom': 50,
-          'left': 50
-        },
-        width = 600,
-        height = 260;
-        var barWidth = 20;
+      drawChart: function (chartObj) {
 
+      // drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
+        var titleOffset = parseInt(chartObj.title.offset, 10);
+        var margin = chartObj.margin;
+        var width = chartObj.size.width;
+        var height = chartObj.size.height;
+        var barWidth = chartObj.size.barWidth;
         var months = [];
-        _.each(data, function(items){
+
+        // Build months
+        _.each(chartObj.data, function(items){
           if(items.month){
             months.push(items.month);
           }
         });
 
         var x = d3.scale.ordinal()
-        .domain(months.map(function(d) {
-            // return d.substring(0, 3);
+          // SET X AXIS
+          .domain(months.map(function(d) {
             return d;
           }))
-        .rangeRoundBands([0, width / 2], 0);
-          // .rangeRoundBands([margin.left, width - margin.right], 0);
+          .rangeRoundBands([0, width / 2], 0);
 
-          var y = d3.scale.linear()
+        var y = d3.scale.linear()
           // SET Y AXIS HEIGHT
-          .domain([0, (max)])
+          .domain([0, (chartObj.maxValue)])
           .range([height, 0]);
 
-          var xAxis = d3.svg.axis()
+        var xAxis = d3.svg.axis()
           .scale(x)
           .orient('bottom');
 
-          var yAxis = d3.svg.axis()
+        var yAxis = d3.svg.axis()
           .scale(y)
           .orient('left');
 
-          var svgContainer = d3.select(div).append('svg')
-          .attr('class', 'chart')
+        var svgContainer = d3.select(chartObj.el).append('svg')
+          .attr('class', chartObj.className)
           .attr('width', width + margin.left + margin.right)
           .attr('height', height + margin.top + margin.bottom).append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
 
         // CREATE TOOL TIP
         var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-          return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
 
-        });
+          });
 
         svgContainer.call(tip);
 
         svgContainer.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate( 0,' + height + ')')
-        .call(xAxis)
-        .selectAll('text')
-        .style('text-anchor', 'end')
-        .attr('dx', '-.8em')
-        .attr('dy', '.15em')
-        .attr('transform', function(d) {
-          return 'rotate(-65)';
-        });
+          .attr('class', 'x axis')
+          .attr('transform', 'translate( 0,' + height + ')')
+          .call(xAxis)
+          .selectAll('text')
+          .style('text-anchor', 'end')
+          .attr('dx', '-.8em')
+          .attr('dy', '.15em')
+          .attr('transform', function(d) {
+            return 'rotate(-65)';
+          });
 
         svgContainer.append('g')
-        .attr('class', 'y axis').call(yAxis)
-        .append('text')
-        .attr('x', (width / titleOffset + titleModifier))
-        .attr('y', 10)
-        .attr('text-anchor', 'center')
-        .style('font-size', '16px')
-        .text(title);
+          .attr('class', 'y axis').call(yAxis)
+          .append('text')
+          .attr('x', (width / chartObj.title.offset + chartObj.title.modifier))
+          .attr('y', 10)
+          .attr('text-anchor', 'center')
+          .style('font-size', '16px')
+          .text(chartObj.title.title);
 
-        svgContainer.selectAll('.bar').data(dataAttr).enter().append('rect')
-        .attr('class', 'bar')
-        .attr('x', function(d, i) {
-          return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
-        })
-        .attr('y', function(d) {
-          return y(d);
-        })
-        .attr('width', barWidth)
-        .attr('height', function(d) {
-          return height - y(d);
-        })
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide);
+        svgContainer.selectAll('.bar').data(chartObj.attributes).enter().append('rect')
+          .attr('class', 'bar')
+          .attr('x', function(d, i) {
+            return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
+          })
+          .attr('y', function(d) {
+            return y(d);
+          })
+          .attr('width', barWidth)
+          .attr('height', function(d) {
+            return height - y(d);
+          })
+          .on('mouseover', tip.show)
+          .on('mouseout', tip.hide);
 
       }
       
