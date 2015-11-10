@@ -78,9 +78,7 @@ define([
         BEquery.outFields = ['bare_earth', 'COUNTYNAME'];
         BEquery.returnGeometry = false;
 
-        var self = this;
-
-        BEQueryTask.execute(BEquery, function(results) {
+        BEQueryTask.execute(BEquery, lang.hitch(this, function(results) {
           //first make sure clicked point is within the state
           if (results.features && results.features.length > 0) {
 
@@ -91,13 +89,13 @@ define([
             app.model.set('county', county);
             app.model.set('bareEarth', results.features[0].attributes.bare_earth);
 
-            self.handleQueries();
+            this.handleQueries();
 
           } else {
             app.showAlert('danger','This location is outside of the study area:','Please refine your search to the state of Minnesota');
             loadSplashController.hideLoader();
             }
-          });
+          }));
       },
 
       lidarQuery: function(){
@@ -176,8 +174,6 @@ define([
       //   };
 
       solarGPTool: function() {
-        var self = this;
-
         var point = app.query.latLngPt;
 
         var queryTask = new QueryTask(config.dsmImageryUrl);
@@ -188,16 +184,15 @@ define([
         tileQuery.outFields = ['Name'];
         tileQuery.geometry = app.query.point;
 
-        queryTask.execute(tileQuery, function(results) {
+        queryTask.execute(tileQuery, lang.hitch(this, function(results) {
           if( results.features.length > 0 ) {
             var tile = results.features[0].attributes.Name + '.img';
-            self.executeGP(point, tile);
+            this.executeGP(point, tile);
           }
-        });
+        }));
       },
 
       executeGP: function(point, tile){
-        var self = this;
         // Create geoprocessing tool
         var gp = new esri.tasks.Geoprocessor(config.gpTool);
 
@@ -206,7 +201,7 @@ define([
           'PointY': point.y,
           'File_Name': tile
         };
-        gp.execute(params, lang.hitch(self, self.displayResults));
+        gp.execute(params, lang.hitch(this, this.displayResults));
       },
 
       displayResults: function(results) {
