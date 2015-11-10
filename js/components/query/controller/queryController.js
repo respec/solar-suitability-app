@@ -33,8 +33,6 @@ define([
     return {
 
       pixelQuery: function(e) {
-        // $('.tooltip').hide();
-        // calculatorController.hideCalculator();
         resultsSmallController.hideResults();
         loadSplashController.placeLoader();
         loadSplashController.showLoader();
@@ -78,14 +76,7 @@ define([
         BEquery.geometry = app.query.point;
         BEquery.geometryType = 'esriGeometryPoint';
         BEquery.outFields = ['bare_earth', 'COUNTYNAME'];
-        // BEquery.mosaicRule = '';
-        // BEquery.sr = 102100;
-        // BEquery.imageDisplay = 1;
-        // BEquery.tolerance = 1;
         BEquery.returnGeometry = false;
-        // BEquery.returnZ = false;
-        // BEquery.returnM = false;
-        // BEquery.f = 'pjson';
 
         var self = this;
 
@@ -131,14 +122,7 @@ define([
         query.geometry = app.query.point;
         query.geometryType = 'esriGeometryPoint';
         query.outFields = ['FULL_NAME', 'CITY', 'STREET', 'PHONE', 'WEBSITE', 'ELEC_COMP', 'ZIP'];
-        // query.spatialRelationship = query.SPATIAL_REL_INTERSECTS;
-        // query.sr = 102100;
-        // query.imageDisplay = 1;
-        // query.tolerance = 1;
         query.returnGeometry = false;
-        // query.returnZ = false;
-        // query.returnM = false;
-        // query.f = 'pjson';
 
         queryTask.execute(query, function(results) {
 
@@ -164,14 +148,7 @@ define([
         var solarQueryTask = new QueryTask(config.imgIdentifyUrl);
         solarQuery.geometry = app.query.point;
         solarQuery.geometryType = 'esriGeometryPoint';
-        // solarQuery.mosaicRule = '';
-        // solarQuery.sr = 102100;
-        // solarQuery.imageDisplay = 1;
-        // solarQuery.tolerance = 1;
         solarQuery.returnGeometry = false;
-        // solarQuery.returnZ = false;
-        // solarQuery.returnM = false;
-        // solarQuery.f = 'pjson';
 
         solarQueryTask.execute(solarQuery, function(results) {
           var val = results.value;
@@ -181,8 +158,6 @@ define([
             // Store returned solar values
             app.query.totalPerYear = yearlyValue;
             app.query.averagePerDay = dailyValue;
-            // app.query.warning = warning;
-            // app.query.warningMessage = warningMsg;
 
             if (dailyValue){
               app.model.set('totalPerYear', yearlyValue.toFixed(2));
@@ -192,8 +167,6 @@ define([
               app.model.set('averagePerDay', 'No Data');
             }
 
-            // app.model.set('warning', warning);
-            // app.model.set('warningMessage', warningMsg);
           });
 
       },

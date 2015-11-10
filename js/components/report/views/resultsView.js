@@ -23,7 +23,6 @@ define([
 
         var template = _.template(resultsTemplate);
         var options = {
-          title: config.applicationTitle
         };
 
         this.$el.html(template(options));
