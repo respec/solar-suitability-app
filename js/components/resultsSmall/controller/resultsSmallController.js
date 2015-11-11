@@ -31,8 +31,11 @@ define([
       var emailSignature = encodeURI('\n\nPlease feel free to email us any time with any questions or concerns you have.  - MN Solar App team');
 
       var link = 'mailto:' + config.emailAddress + '?subject=' + emailSubject + '&body=' + emailBody + url + emailSignature;
-
+      
       $('#emailLink').attr('href', link);
+      
+      var installerLink = config.mnInstallers + app.model.attributes.utilityCompany.zip;
+      $('#mnInstallers').attr('href', installerLink);
     }
   };
 });

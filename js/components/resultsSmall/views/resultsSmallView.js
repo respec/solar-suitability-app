@@ -42,7 +42,8 @@ define([
           utilityCompany: app.model.get('utilityCompany'),
           lidarCollect: app.model.get('lidarCollect'),
           solarGardens: config.mnCertsSolarGardens,
-          mnIncentives: config.mnIncentives
+          mnIncentives: config.mnIncentives,
+          mnInstallers: config.mnInstallers
         };
 
         this.$el.html(template(options));
