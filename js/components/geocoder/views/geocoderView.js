@@ -1,14 +1,14 @@
 /* global define, app, Backbone, _ */
 define([
-    'app/config',
-    'app/utils/draw',
+  'app/config',
+  'app/utils/draw',
 
-    'dojo/text!../templates/geocoderTemplate.html',
+  'dojo/text!../templates/geocoderTemplate.html',
 
-    'esri/geometry/Point',
-    'esri/map',
+  'esri/geometry/Point',
+  'esri/map',
 
-    'esri/dijit/Geocoder'
+  'esri/dijit/Geocoder'
   ],
 
   function(
@@ -20,7 +20,7 @@ define([
 
     EsriGeocoder
 
-  ) {
+    ) {
     var Geocoder = Backbone.View.extend({
 
       events: {},
@@ -58,10 +58,18 @@ define([
         geocoder.startup();
 
         geocoder.on('select', function(e) {
-          app.showAlert("success","Location Found. Next Step:","Tap rooftop or point of interest to view solar potential.");
+          var maxExtent = config.defaultExtent;
+          if (!app.checkExtent){
+            app.showAlert('success','Location Found. Next Step:','Tap rooftop or point of interest to view solar potential.');
+          } else {
+            app.showAlert('danger','This location is outside of the study area:','Please refine your search to the state of Minnesota');
+            setTimeout(function(){
+              app.map.setExtent(maxExtent);
+            }, 3000);
+          }
         });
 
       }
     });
-    return Geocoder;
-  });
+return Geocoder;
+});

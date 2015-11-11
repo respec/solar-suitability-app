@@ -1,11 +1,11 @@
 /* global navigator, alert, define, app, Backbone, _ */
 define([
-    'app/config',
-    'app/utils/draw',
+  'app/config',
+  'app/utils/draw',
 
-    'dojo/text!../templates/navbarTemplate.html',
+  'dojo/text!../templates/navbarTemplate.html',
 
-    'esri/geometry/Point',
+  'esri/geometry/Point',
   ],
 
   function(
@@ -15,7 +15,7 @@ define([
 
     Point
 
-  ) {
+    ) {
     var Navbar = Backbone.View.extend({
 
       events: {
@@ -55,10 +55,17 @@ define([
         $('.findMe').click(function() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
-            app.showAlert("success","Location Found. Next Step:","Tap rooftop or point of interest near you to view solar potential.");
+            // Check extent and alert appropriately
+            if (!app.checkExtent){
+              app.showAlert('success','Location Found. Next Step:','Tap rooftop or point of interest to view solar potential.');
+            } else {
+              app.showAlert('danger','This location is outside of the study area:','Please refine your search to the state of Minnesota');
+              setTimeout(function(){
+                app.map.setExtent(maxExtent);
+              }, 3000);
+            }
           } else {
-            //alert('Browser doesn\'t support Geolocation.  Visit http: //caniuse.com to see browser support for the Geolocation API.');
-            app.showAlert("danger","Your browser doesn\'t support Geolocation:","isit http: //caniuse.com to see browser support for the Geolocation API");
+            app.showAlert('danger','Your browser doesn\'t support Geolocation:','Visit http: //caniuse.com to see browser support for the Geolocation API');
           }
         });
 
@@ -76,22 +83,22 @@ define([
           }
           switch (error.code) {
 
-          case error.PERMISSION_DENIED:
+            case error.PERMISSION_DENIED:
             //alert('Location not provided');
             app.showAlert("danger","ERROR:","Location not provided");
             break;
 
-          case error.POSITION_UNAVAILABLE:
+            case error.POSITION_UNAVAILABLE:
             //alert('Current location not available');
             app.showAlert("danger","ERROR:","Current location not available");
             break;
 
-          case error.TIMEOUT:
+            case error.TIMEOUT:
             //alert('Timeout');
             app.showAlert("danger","ERROR:","Geolocation has timed out. Current location not available.");
             break;
 
-          default:
+            default:
             //alert('unknown error');
             app.showAlert("danger","ERROR:","An unknown geolocation error has occured.");
             break;
@@ -169,10 +176,10 @@ define([
         });
 
         $('.dropdown-menu li').click(function(e) {
-            e.stopPropagation();
+          e.stopPropagation();
         });
 
       }
     });
-    return Navbar;
-  });
+return Navbar;
+});
