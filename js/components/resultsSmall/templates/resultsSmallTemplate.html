@@ -102,7 +102,7 @@
                             <p>Location not optimal? Check out:<br /><a href="<%=solarGardens%>" target="_blank">Community Solar Gardens</a></p>
                         <% } else {%>
                             <p>Get Started: 
-                                <a id="mnInstallers" target="_blank">Contact a Local Installer</a>
+                                <a id="mnInstallers" href="<%=mnInstallers%><% if (typeof(utilityCompany) !== "undefined") {%><%=utilityCompany.zip%><%}%>" target="_blank">Contact a Local Installer</a>
                             </p>
                         <% } %>
                         <div>

@@ -37,7 +37,7 @@ define([
         loadSplashController.placeLoader();
         loadSplashController.showLoader();
         this.processClick(e);
-        resultsSmallController.buildLink();
+        //resultsSmallController.buildLink();
       },
 
       processClick: function(e){
