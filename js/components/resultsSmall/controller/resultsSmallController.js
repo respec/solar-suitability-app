@@ -12,7 +12,6 @@ define([
   return {
 
     showResults: function(){
-      console.log('showResults');
       $('.resultsSmall-container').show();
       $('#resultsSmall').show();
     },
@@ -20,6 +19,23 @@ define([
     hideResults: function(){
       $('.resultsSmall-container').hide();
       $('#resultsSmall').hide();
+    },
+
+    buildTable: function(el, data, values, ref){
+      var $table = $(el);
+      _.each(ref, function(mon){
+        var shortMonth = mon.abbr;
+        var longMonth = mon.full;
+        $table.find('tbody')
+          .append($('<tr>')
+            .append($('<td style="width:50%">')
+              .text(longMonth)
+            )
+            .append($('<td>')
+              .text(data[shortMonth][values].toFixed(2))
+            )
+          );
+      });
     },
 
     buildLink: function(){
