@@ -18,7 +18,7 @@ define([
   'esri/tasks/QueryTask',
 
   'dojo/_base/lang'
-],
+  ],
 
   function(
     config, dataHandler, sunHours,
@@ -33,213 +33,148 @@ define([
     return {
 
       pixelQuery: function(e) {
-        $('.tooltip').hide();
-        calculatorController.hideCalculator();
         resultsSmallController.hideResults();
         loadSplashController.placeLoader();
         loadSplashController.showLoader();
-        this.dataQuery(e);
-        this.solarGPTool(e);
+        this.processClick(e);
         resultsSmallController.buildLink();
       },
 
-      dataQuery: function(e) {
-
+      processClick: function(e){
         var mp = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
         app.query.point = e.mapPoint;
 
         // store point as lat/lng
         app.query.latLngPt = mp;
-        app.reportModel.set({'latLngPt':mp});
-        // app.reportModel.attributes.latLngPt = mp;
 
+        this.handleMap();
+      },
+
+      handleMap: function(){
         // removes all previous graphics (previous click)
         mapController.clearGraphics();
         mapController.placePoint(app.query.point, app.map, config.pinSymbol);
 
-        //setup insolation query
-        var solarQuery = new Query();
-        var solarQueryTask = new QueryTask(config.imgIdentifyUrl);
-        solarQuery.geometry = e.mapPoint;
-        solarQuery.geometryType = 'esriGeometryPoint';
-        solarQuery.mosaicRule = '';
-        solarQuery.sr = 102100;
-        solarQuery.imageDisplay = 1;
-        solarQuery.tolerance = 1;
-        solarQuery.returnGeometry = false;
-        solarQuery.returnZ = false;
-        solarQuery.returnM = false;
-        solarQuery.f = 'pjson';
+        // Bare earth also checks if click in MN, otherwise handleQueries won't run
+        this.bareEarthQuery();
+      },
 
-        //setup lidar collect date query
-        var lcQueryTask = new QueryTask(config.countyLidarUrl);
-        var lcQuery = new Query();
-        lcQuery.returnGeometry = false;
-        lcQuery.outFields = ['lidar_coll'];
-        lcQuery.geometry = e.mapPoint;
+      handleQueries: function(){
+        // bareEarthQuery checks if in MN and sets app.query.inState = true
+        if (app.query.inState){
+          this.lidarQuery();
+          this.utilityProviderQuery();
+          this.solarQuery();
+          this.solarGPTool();
+        }
+      },
 
+      bareEarthQuery: function(){
         //setup bare earth county layer query
         var BEquery = new Query();
         var BEQueryTask = new QueryTask(config.bareEarthCountyUrl);
-        BEquery.geometry = e.mapPoint;
+        BEquery.geometry = app.query.point;
         BEquery.geometryType = 'esriGeometryPoint';
         BEquery.outFields = ['bare_earth', 'COUNTYNAME'];
-        BEquery.spatialRelationship = solarQuery.SPATIAL_REL_INTERSECTS;
-        BEquery.mosaicRule = '';
-        BEquery.sr = 102100;
-        BEquery.imageDisplay = 1;
-        BEquery.tolerance = 1;
         BEquery.returnGeometry = false;
-        BEquery.returnZ = false;
-        BEquery.returnM = false;
-        BEquery.f = 'pjson';
 
-        BEQueryTask.execute(BEquery, function(results) {
-          var warning;
-          var warningMsg;
-          var result;
+        BEQueryTask.execute(BEquery, lang.hitch(this, function(results) {
           //first make sure clicked point is within the state
           if (results.features && results.features.length > 0) {
 
-            var bareEarth = results.features[0].attributes.bare_earth;
             var county = results.features[0].attributes.COUNTYNAME;
-
             // Store county/bare earth
             app.query.county = county;
-            app.model.attributes.county = county;
-            app.model.attributes.bareEarth = bareEarth;
+            app.query.inState = true;
+            app.model.set('county', county);
+            app.model.set('bareEarth', results.features[0].attributes.bare_earth);
 
-            solarQueryTask.execute(solarQuery, function(results) {
-              var val = results.value;
-              var v = val / 1000 / 365;
-              var y = val / 1000;
-              var quality = 0;
-              switch (true) {
-                
-              case (v > 2.7):
-                quality = 'Optimal';
-                break;
-
-              case (v > 1.7):
-                quality = 'Good';
-                break;
-
-              case (v >= 0.1):
-                quality = 'Poor';
-                break;
-
-              default:
-                quality = 'No Data';
-                break;
-              }
-
-              // Store returned solar values
-              app.query.totalPerYear = y;
-              app.query.averagePerDay = v;
-              app.query.quality = quality;
-              app.query.warning = warning;
-              app.query.warningMessage = warningMsg;
-
-              app.model.setValue('quality', quality);
-
-              if (quality === 'No Data'){
-                app.model.setValue('totalPerYear', 'No Data');
-                app.model.setValue('averagePerDay', 'No Data');
-                app.model.set({'averagePerMonth': 'No Data'});
-              } else {
-                app.model.setValue('totalPerYear', y.toFixed(2));
-                app.model.setValue('averagePerDay', v.toFixed(2));
-                var averagePerMonth = (y/12).toFixed(2);
-                app.reportModel.set({'averagePerDay': parseFloat(v.toFixed(2))});
-                app.reportModel.set({'averagePerMonth': parseFloat(averagePerMonth)});
-              }
-              
-              app.model.setValue('warning', warning);
-              app.model.setValue('warningMessage', warningMsg);
-
-              //setup Utility Service Provider query
-              var query = new Query();
-              var queryTask = new QueryTask(config.eusaUrl);
-              query.geometry = e.mapPoint;
-              query.geometryType = 'esriGeometryPoint';
-              query.outFields = ['*'];
-              query.spatialRelationship = query.SPATIAL_REL_INTERSECTS;
-              query.sr = 102100;
-              query.imageDisplay = 1;
-              query.tolerance = 1;
-              query.returnGeometry = false;
-              query.returnZ = false;
-              query.returnM = false;
-              query.f = 'pjson';
-
-              queryTask.execute(query, function(results) {
-
-                var getStarted;
-                
-                var fullName = results.features[0].attributes.FULL_NAME;
-                var city = results.features[0].attributes.CITY;
-                var street = results.features[0].attributes.STREET;
-                var phone = results.features[0].attributes.PHONE;
-                var website = results.features[0].attributes.WEBSITE;
-                var electricCompany = results.features[0].attributes.ELEC_COMP;
-                var zip = results.features[0].attributes.ZIP;
-
-                var utilityCompany = {
-                  fullName: fullName,
-                  city: city,
-                  street: street,
-                  phone: phone,
-                  website: website,
-                  abbreviatedName: electricCompany,
-                  zip: zip.toString()
-                };
-
-                // Store returned utility info
-                app.query.utilityCompany = utilityCompany;
-                app.model.set({'utilityCompany': utilityCompany});
-
-                var utility = encodeURIComponent(fullName + '_' + street + '_' + city + ', MN ' + zip + '_' + phone);
-
-                point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
-                //var resultsiFrameURL = '/report.php?z=' + zip + '&w=' + website + '&long=' + point.x + '&lat=' + point.y + '&y=' + y.toFixed(2) + '&u=' + utility;
-              
-                $('.badData').on('click', function(){
-                  $('.dataIssuesModal').modal('show');
-                });
-
-                lcQueryTask.execute(lcQuery, function(results) {
-                  var lidar_collect = results.features[0].attributes.lidar_coll;
-                  $('#collect').html(lidar_collect);
-                  app.query.collectDate = lidar_collect;
-                });
-
-              });
-            }, function(err){
-              // console.log('Solar Query Task error');
-              // console.log(err);
-              //alert('There was an error with your request.  Please click OK and try again');
-              app.showAlert("danger","There was an error with your request:","Please click OK and try again");
-            });
+            this.handleQueries();
 
           } else {
-              app.showAlert("danger","This location is outside of the study area:","Please refine your search to the state of Minnesota");
-              loadSplashController.hideLoader();
-              // alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
-          }
+            app.showAlert('danger','This location is outside of the study area:','Please refine your search to the state of Minnesota');
+            loadSplashController.hideLoader();
+            }
+          }));
+      },
 
-        }, function(err){
-              // console.log('BE Query Task error');
-              // console.log(err);
-              // alert('There was an error with your request.  Please click OK and try again');
-              app.showAlert("danger","There was an error with your request:","Please click OK and try again");
-            });
+      lidarQuery: function(){
+        //setup lidar collect date query
+        var lcQuery = new Query();
+        var lcQueryTask = new QueryTask(config.countyLidarUrl);
+        lcQuery.returnGeometry = false;
+        lcQuery.outFields = ['lidar_coll'];
+        lcQuery.geometry = app.query.point;
+
+        lcQueryTask.execute(lcQuery, function(results) {
+          var lidarCollect = results.features[0].attributes.lidar_coll;
+          app.query.collectDate = lidarCollect;
+          app.model.set('lidarCollect', lidarCollect);
+        });
+      },
+
+      utilityProviderQuery: function(){
+        //setup Utility Service Provider query
+        var query = new Query();
+        var queryTask = new QueryTask(config.eusaUrl);
+        query.geometry = app.query.point;
+        query.geometryType = 'esriGeometryPoint';
+        query.outFields = ['FULL_NAME', 'CITY', 'STREET', 'PHONE', 'WEBSITE', 'ELEC_COMP', 'ZIP'];
+        query.returnGeometry = false;
+
+        queryTask.execute(query, function(results) {
+
+          var utilityCompany = {
+            fullName: results.features[0].attributes.FULL_NAME,
+            city: results.features[0].attributes.CITY,
+            street: results.features[0].attributes.STREET,
+            phone: results.features[0].attributes.PHONE,
+            website: results.features[0].attributes.WEBSITE,
+            abbreviatedName: results.features[0].attributes.ELEC_COMP,
+            zip: results.features[0].attributes.ZIP.toString()
+          };
+
+          // Store returned utility info
+          app.query.utilityCompany = utilityCompany;
+          app.model.set('utilityCompany', utilityCompany);
+        });
+      },
+
+      solarQuery: function() {
+        //setup insolation query
+        var solarQuery = new Query();
+        var solarQueryTask = new QueryTask(config.imgIdentifyUrl);
+        solarQuery.geometry = app.query.point;
+        solarQuery.geometryType = 'esriGeometryPoint';
+        solarQuery.returnGeometry = false;
+
+        solarQueryTask.execute(solarQuery, function(results) {
+          var val = results.value;
+          var dailyValue = val / 1000 / 365;
+          var yearlyValue = val / 1000;
+
+            // Store returned solar values
+            app.query.totalPerYear = yearlyValue;
+            app.query.averagePerDay = dailyValue;
+
+            if (dailyValue){
+              app.model.set('totalPerYear', yearlyValue.toFixed(2));
+              app.model.set('averagePerDay', dailyValue.toFixed(2));
+            } else {
+              app.model.set('totalPerYear', 'No Data');
+              app.model.set('averagePerDay', 'No Data');
+            }
+
+          });
 
       },
-        
-      solarGPTool: function(e) {
-        var self = this;
 
-        var point = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
+      // , function(err){
+      //     app.showAlert('danger','There was an error with your request:','Please click OK and try again');
+      //   };
+
+      solarGPTool: function() {
+        var point = app.query.latLngPt;
 
         var queryTask = new QueryTask(config.dsmImageryUrl);
 
@@ -247,45 +182,34 @@ define([
         var tileQuery = new Query();
         tileQuery.returnGeometry = false;
         tileQuery.outFields = ['Name'];
-        tileQuery.geometry = e.mapPoint;
+        tileQuery.geometry = app.query.point;
 
-        queryTask.execute(tileQuery, function(results) {
+        queryTask.execute(tileQuery, lang.hitch(this, function(results) {
           if( results.features.length > 0 ) {
             var tile = results.features[0].attributes.Name + '.img';
-            self.executeGP(point, tile);
+            this.executeGP(point, tile);
           }
-        });
+        }));
       },
 
       executeGP: function(point, tile){
-        var self = this;
         // Create geoprocessing tool
         var gp = new esri.tasks.Geoprocessor(config.gpTool);
-    
+
         var params = {
           'PointX': point.x,
           'PointY': point.y,
           'File_Name': tile
         };
-        gp.execute(params, lang.hitch(self, self.displayResults));
-      },
-
-      clearDiv: function(div){
-        div.html('');
-        // $('#sunHrHisto').html('');
+        gp.execute(params, lang.hitch(this, this.displayResults));
       },
 
       displayResults: function(results) {
 
         app.query.results = results;
         //empty div so histo doesn't duplicate
-        this.clearDiv($('#resultsHisto'));
-        this.clearDiv($('#sunHrHisto'));
-
-        //show results & hide loader
-        loadSplashController.hideLoader();
-
-        resultsSmallController.showResults();
+        $('#resultsHisto').html('');
+        $('#sunHrHisto').html('');
 
         //parse the results
         var insolResults = results[0].value.split('\n');
@@ -357,18 +281,55 @@ define([
         solarObj.months = months;
 
         var nearestLat = Math.round(app.query.latLngPt.y);
-        solarObj.nearestLat = nearestLat;
-
-        solarObj.shadeHrList = [];
+        var annualPercentSun = 0;
 
         _.each(sunHours[nearestLat], function(value, month){
-          solarObj[month].shadeHrPotential = value;
-          solarObj[month].shadeHrValue = Math.abs(solarObj[month].sunHrValue-value);
-          solarObj.shadeHrList.push(solarObj[month].shadeHrValue);
+          solarObj[month].maxSunHrValue = value;
+
+          // Calculate percent sun 
+          var percentSun = solarObj[month].sunHrValue/value;
+          if (percentSun > 1){
+            percentSun = 1;
+          }
+          solarObj[month].percentSun = percentSun;
+          annualPercentSun += percentSun;
         });
-                
+
+        // Convert to average, float, 2 decimal points (percent)
+        annualPercentSun = parseFloat((annualPercentSun/12).toFixed(2));
+
+        solarObj.annualPercentSun = annualPercentSun;
+
+        var quality;
+        switch (true) {
+
+          case (annualPercentSun >= 0.9):
+          quality = 'Optimal';
+          break;
+
+          case (annualPercentSun >= 0.8):
+          quality = 'Good';
+          break;
+
+          case (annualPercentSun >= 0.7):
+          quality = 'Fair';
+          break;
+
+          case (annualPercentSun < 0.7):
+          quality = 'Poor';
+          break;
+
+          default:
+          quality = 'No Data';
+          break;
+        }
+
+        // Store calculated quality values
+        app.query.quality = quality;
+        app.model.set('quality', quality);
+
         // Populate gradient
-        var gradient = ((app.query.averagePerDay/4)*100).toFixed(2).toString() + '%';
+        var gradient = (annualPercentSun*100).toString() + '%';
         
         var $showGradient = $('.showGradient');
         $showGradient.css('width', gradient);
@@ -377,182 +338,113 @@ define([
         // create histos
         // 
         // create Solar Insol histo
-        insolChart = {
-          data: solarObj,
-          attributes: solarObj.insolList,
-          maxValue: 220,
-          el: '#resultsHisto',
-          className: 'chart',
-          size: {
-            width: 600,
-            height: 260,
-            barWidth: 20
-          },
-          title: {
-            title: '',
-            offset: 2,
-            modifier: 20
-          },
-          margin: {
-            'top': 10,
-            'right': 10,
-            'bottom': 50,
-            'left': 50
-          },
-        };
-
-        this.drawChart(insolChart);
+        this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
 
         // create Sun Hrs histo
-        sunHrsChart = {
-          data: solarObj,
-          attributes: solarObj.sunHrList,
-          maxValue: 500,
-          el: '#sunHrHisto',
-          className: 'chart',
-          size: {
-            width: 600,
-            height: 260,
-            barWidth: 20
-          },
-          title: {
-            title: '',
-            offset: 2,
-            modifier: -40
-          },
-          margin: {
-            'top': 10,
-            'right': 10,
-            'bottom': 50,
-            'left': 50
-          },
-        };
-        this.drawChart(sunHrsChart);
-
-        // 25 is the rounding increment
-        shadeHrMax = 25 * Math.round(sunHours[nearestLat].Jul/25);
-
-        shadeHrsChart = {
-          data: solarObj,
-          attributes: solarObj.shadeHrList,
-          maxValue: shadeHrMax,
-          el: '#reportShadeHrsHisto',
-          className: 'chart',
-          size: {
-            width: 600,
-            height: 260,
-            barWidth: 20
-          },
-          title: {
-            title: '',
-            offset: 2,
-            modifier: -40
-          },
-          margin: {
-            'top': 10,
-            'right': 10,
-            'bottom': 50,
-            'left': 50
-          },
-        };
+        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
 
         // store results
         app.solarObj = solarObj;
-        app.chartObj = {};
-        app.chartObj.insol = insolChart;
-        app.chartObj.sunHrs = sunHrsChart;
-        app.chartObj.shadeHrs = shadeHrsChart;
+        resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
+        resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+
+        //show results & hide loader
+        loadSplashController.hideLoader();
+        resultsSmallController.showResults();
       },
 
-      drawChart: function (chartObj) {
+      drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
+        titleOffset = parseInt(titleOffset, 10);
+        var margin = {
+          'top': 10,
+          'right': 10,
+          'bottom': 50,
+          'left': 50
+        },
+        width = 600,
+        height = 260;
+        var barWidth = 20;
 
-      // drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
-        var titleOffset = parseInt(chartObj.title.offset, 10);
-        var margin = chartObj.margin;
-        var width = chartObj.size.width;
-        var height = chartObj.size.height;
-        var barWidth = chartObj.size.barWidth;
         var months = [];
-
-        // Build months
-        _.each(chartObj.data, function(items){
+        _.each(data, function(items){
           if(items.month){
             months.push(items.month);
           }
         });
 
         var x = d3.scale.ordinal()
-          // SET X AXIS
-          .domain(months.map(function(d) {
+        .domain(months.map(function(d) {
+            // return d.substring(0, 3);
             return d;
           }))
-          .rangeRoundBands([0, width / 2], 0);
+        .rangeRoundBands([0, width / 2], 0);
+          // .rangeRoundBands([margin.left, width - margin.right], 0);
 
-        var y = d3.scale.linear()
+          var y = d3.scale.linear()
           // SET Y AXIS HEIGHT
-          .domain([0, (chartObj.maxValue)])
+          .domain([0, (max)])
           .range([height, 0]);
 
-        var xAxis = d3.svg.axis()
+          var xAxis = d3.svg.axis()
           .scale(x)
           .orient('bottom');
 
-        var yAxis = d3.svg.axis()
+          var yAxis = d3.svg.axis()
           .scale(y)
           .orient('left');
 
-        var svgContainer = d3.select(chartObj.el).append('svg')
-          .attr('class', chartObj.className)
+          var svgContainer = d3.select(div).append('svg')
+          .attr('class', 'chart')
           .attr('width', width + margin.left + margin.right)
           .attr('height', height + margin.top + margin.bottom).append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
 
         // CREATE TOOL TIP
         var tip = d3.tip()
-          .attr('class', 'd3-tip')
-          .offset([-10, 0])
-          .html(function(d) {
-            return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+          return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
 
-          });
+        });
 
         svgContainer.call(tip);
 
         svgContainer.append('g')
-          .attr('class', 'x axis')
-          .attr('transform', 'translate( 0,' + height + ')')
-          .call(xAxis)
-          .selectAll('text')
-          .style('text-anchor', 'end')
-          .attr('dx', '-.8em')
-          .attr('dy', '.15em')
-          .attr('transform', function(d) {
-            return 'rotate(-65)';
-          });
+        .attr('class', 'x axis')
+        .attr('transform', 'translate( 0,' + height + ')')
+        .call(xAxis)
+        .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr('dx', '-.8em')
+        .attr('dy', '.15em')
+        .attr('transform', function(d) {
+          return 'rotate(-65)';
+        });
 
         svgContainer.append('g')
-          .attr('class', 'y axis').call(yAxis)
-          .append('text')
-          .attr('x', (width / chartObj.title.offset + chartObj.title.modifier))
-          .attr('y', 10)
-          .attr('text-anchor', 'center')
-          .style('font-size', '16px')
-          .text(chartObj.title.title);
+        .attr('class', 'y axis').call(yAxis)
+        .append('text')
+        .attr('x', (width / titleOffset + titleModifier))
+        .attr('y', 10)
+        .attr('text-anchor', 'center')
+        .style('font-size', '16px')
+        .text(title);
 
-        svgContainer.selectAll('.bar').data(chartObj.attributes).enter().append('rect')
-          .attr('class', 'bar')
-          .attr('x', function(d, i) {
-            return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
-          })
-          .attr('y', function(d) {
-            return y(d);
-          })
-          .attr('width', barWidth)
-          .attr('height', function(d) {
-            return height - y(d);
-          })
-          .on('mouseover', tip.show)
-          .on('mouseout', tip.hide);
+        svgContainer.selectAll('.bar').data(dataAttr).enter().append('rect')
+        .attr('class', 'bar')
+        .attr('x', function(d, i) {
+          return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
+        })
+        .attr('y', function(d) {
+          return y(d);
+        })
+        .attr('width', barWidth)
+        .attr('height', function(d) {
+          return height - y(d);
+        })
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
 
       }
       
