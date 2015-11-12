@@ -150,7 +150,7 @@ define([
                 if (quality === 'Poor') {
                   getStarted = '<p>Location not optimal? Check out:<br /><a href="http://mncerts.org/solargardens" target="_blank">Community Solar Gardens</a></p>';
                 } else {
-                  getStarted = '<p>Get Started: <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=" + zip + "&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a></p>';
+                  getStarted = '<p>Get Started: <a href="' + config.mnInstallers + zip + '" target="_blank">Contact a Local Installer</a></p>';
                 }
 
                 result = '<div style="margin-top:5px;"><strong>UTILITY SERVICE PROVIDER</strong></div><div class="resultsDisplay">' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';

@@ -43,14 +43,10 @@ define([
           $('.appIssuesModal').modal('hide');
         });
 
-        /* I don't remember writing this.  Did you? */
-        // $('#appIssuesDescription, #appIssuesName, #appIssuesEmail').on('input', function(){
-        //   appIssuesController.buildLink();
-        // });
-
         $('.appIssuesSubmit').on('click', function(){
 
           $('.appIssuesSubmit').html('<i class="fa fa-spinner fa-spin"></i> Sending ...');
+
           var emailData = {
                             to: config.appEmail,
                             to_name: '',

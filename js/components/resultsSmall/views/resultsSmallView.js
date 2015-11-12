@@ -42,7 +42,8 @@ define([
           utilityCompany: app.model.get('utilityCompany'),
           lidarCollect: app.model.get('lidarCollect'),
           solarGardens: config.mnCertsSolarGardens,
-          mnIncentives: config.mnIncentives
+          mnIncentives: config.mnIncentives,
+          mnInstallers: config.mnInstallers
         };
 
         this.$el.html(template(options));
@@ -78,9 +79,8 @@ define([
           $('.emailModal').modal('show');
         });
 
-        // Old methods for report/email
-        // $('#viewReportLink').html('<a class="fancybox fancybox.iframe" href="' + resultsiFrameURL + '&m=' + JSON.stringify(data) + '">View Report</a>');
-        // $('#emailReportLink').html('<a href="http://solar.maps.umn.edu/share_point.php?x=' + params.PointX + '&y=' + params.PointY + '">Email Report</a>');
+        //$('#mnInstallers').attr("href", config.mnInstallers + app.model.attributes.utilityCompany.zip);
+
       }
       
     });
