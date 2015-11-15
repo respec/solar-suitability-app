@@ -56,6 +56,17 @@ define(['esri/symbols/PictureMarkerSymbol'],
       appDomain: 'http://solar.maps.umn.edu/app',
       appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq',
 
+      // Solar Calculator Defaults
+      systemLife: 25,
+      energyEscalator: 1.035,
+      degradationFactor: 0.998,
+      averageUsePerMonth: 800,
+      costPerkWh: 0.12,
+      percentElectricGoal: 0.50,
+      derate: 0.77,
+      lowCostPerkWh: 2500,
+      highCostPerkWh: 5000,
+
       // Esri Basemap Urls
       imagery: 'http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer',
       streets: 'http://server.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/',

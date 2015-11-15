@@ -25,9 +25,3 @@ function(
       });
     return QueryModel;
   });
-
-      // defaults : {
-      //   name : 'hi',
-      //   totalPerYear : 0.00,
-      //   averagePerDay : 0.00
-      // },

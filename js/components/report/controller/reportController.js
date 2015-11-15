@@ -1,6 +1,7 @@
 /* global define, app, jsPDF*/
 define([
   'app/config',
+  'app/data/sunHours',
 
   'dojo/_base/lang',
 
@@ -15,7 +16,7 @@ define([
 ],
 
   function(
-    config,
+    config, sunHours,
 
     lang,
 
@@ -31,12 +32,68 @@ define([
       this.layoutReport();
 
       // set values for lat/lng
-      $('#reportLat').text(app.query.latLngPt.y);
-      $('#reportLng').text(app.query.latLngPt.x);
+      if (app.query.latLngPt){
+        $('#reportLat').text(app.query.latLngPt.y);
+        $('#reportLng').text(app.query.latLngPt.x);
+      } else {
+        $('#reportLat').text(0.0);
+        $('#reportLng').text(0.0);
+      }
 
       this.buildResults();
       this.buildMap('reportSolarMap', 'reportSolarMap-container', 'solar');
       this.buildMap('reportAerialMap','reportAerialMap-container', 'hybrid');
+
+      // Sync maps
+      app.reportSolarMap.on('pan-end', function(){
+        var extent = app.reportSolarMap.extent;
+        app.reportAerialMap.setExtent(extent);
+      });
+
+      // Second map is causing stack issue, researching how to resolve
+      // app.reportAerialMap.on('pan-end', function(){
+      //   var extent = app.reportAerialMap.extent;
+      //   app.reportSolarMap.setExtent(extent);
+      // });
+
+
+      // create histos
+      // 
+      // clear content (from previous click)
+      queryController.clearDiv($('#reportResultsHisto'));
+      queryController.clearDiv($('#reportSunHrsHisto'));
+      queryController.clearDiv($('#reportShadeHrsHisto'));
+
+      var reportInsolChart = app.chartObj.insol;
+      reportInsolChart.el = '#reportResultsHisto';
+      reportInsolChart.className = 'reportChart';
+
+      queryController.drawChart(reportInsolChart);
+
+      var reportSunHrsChart = app.chartObj.sunHrs;
+      reportSunHrsChart.el = '#reportSunHrsHisto';
+      reportSunHrsChart.className = 'reportChart';
+
+      queryController.drawChart(reportSunHrsChart);
+
+      var reportShadeHrsChart = app.chartObj.shadeHrs;
+      reportShadeHrsChart.className = 'reportChart';
+
+      queryController.drawChart(reportShadeHrsChart);
+
+      
+
+      // create Solar Insol histo
+      // queryController.drawChart(app.solarObj, app.solarObj.insolList, 220, '#reportResultsHisto', 'Insolation By Month', 2, -40);
+
+      // create Sun Hrs histo
+      // queryController.drawChart(app.solarObj, app.solarObj.sunHrList, 500, '#reportSunHrsHisto', 'Sun Hours By Month', 2, -40);
+
+      // // 25 is the rounding increment
+      // shadeHrMax = 25 * Math.round(sunHours[app.solarObj.nearestLat].Jul/25);
+
+      // create Shade Hrs histo
+      // queryController.drawChart(app.solarObj, app.solarObj.shadeHrList, shadeHrMax, '#reportShadeHrsHisto', 'Shade Hours By Month', 2, -40);
 
       // console.log($('#results').html());
     },
@@ -70,7 +127,10 @@ define([
 
       //console.log(app.query.results);
       //queryController.displayResults(app.query.results);
-
+      // console.log(app.solarObj);
+      this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
+      this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+      this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
     },
 
     buildMap: function(mapName, el, basemap){
@@ -85,7 +145,6 @@ define([
         app[mapName] = new Map(el, {
           basemap: basemap,
           center: [app.query.latLngPt.x, app.query.latLngPt.y],
-          // center: [config.centerLng, config.centerLat],
           showAttribution: false,
           zoom: 18,
           minZoom: 18
@@ -118,6 +177,23 @@ define([
 
       app[mapName].resize();
 
+    },
+
+    buildTable: function(el, data, values, ref){
+      var $table = $(el);
+      _.each(ref, function(mon){
+        var shortMonth = mon.abbr;
+        var longMonth = mon.full;
+        $table.find('tbody')
+          .append($('<tr>')
+            .append($('<td style="width:50%">')
+              .text(longMonth)
+            )
+            .append($('<td>')
+              .text(data[shortMonth][values].toFixed(2))
+            )
+          );
+      });
     },
 
     createPdf: function(){
@@ -245,6 +321,98 @@ define([
       });
 
     },
+
+    calculateSystemData: function(){
+      // Calculate System Size
+      var averagePerDay = app.reportModel.get('averagePerDay');
+      var averageUsePerMonth = app.reportModel.get('averageUsePerMonth');
+      var toWattsPerMonth = averageUsePerMonth*1000;
+      var toWattsPerDay = toWattsPerMonth/30;
+      var solarUsage = toWattsPerDay*app.reportModel.get('percentElectricGoal');
+      var solarProvided = solarUsage/averagePerDay;
+      var derated = solarProvided/app.reportModel.get('derate');
+      var systemSize = (derated/1000);
+      // .toFixed(2);
+      app.reportModel.set({'systemSize': parseFloat(systemSize)});
+
+      // Calculate System Cost
+      var lowCostPerkWh = app.reportModel.get('lowCostPerkWh');
+      var highCostPerkWh = app.reportModel.get('highCostPerkWh');
+      var lowCostSystem = (lowCostPerkWh * systemSize);
+      var highCostSystem = highCostPerkWh * systemSize;
+      var averageCostSystem = (lowCostSystem + highCostSystem)/2;
+      app.reportModel.set({'lowCostSystem': lowCostSystem});
+      app.reportModel.set({'highCostSystem': highCostSystem});
+      app.reportModel.set({'averageCostSystem': parseFloat(averageCostSystem)});
+
+      // system size
+      // averagePerDay
+      // averagePerDay*365 = yearly
+      // electric rate/kwh
+      // savings in year 1 = system * yearly * electric rate
+      // savings in 25 years
+      // (averageCostSystem/25 years) * 25
+
+      // Calculate System Payback
+      // var averagePerDay = app.reportModel.get('averagePerDay');
+      // 
+      var productionPerYear = averagePerDay * 365;
+      var costPerkWh = app.reportModel.get('costPerkWh');
+      var savingsPerYear = systemSize * productionPerYear * costPerkWh;
+      var systemLife = app.reportModel.get('systemLife');
+
+      this.calculateAnnualProduction(costPerkWh, systemLife, productionPerYear);
+
+    },
+
+    calculateAnnualProduction: function(costPerkWh, systemLife, productionPerYear){
+      var systemSize = app.reportModel.get('systemSize');
+      var energyEscalator = app.reportModel.get('energyEscalator');
+      var degradationFactor = app.reportModel.get('degradationFactor');
+      var degredation = 100;
+      var costPerkWh = costPerkWh;
+      var reducedProductionPerYear = productionPerYear;
+      var paybackTotal = 0;
+      var averageCostSystem = app.reportModel.get('averageCostSystem');
+
+      if (systemSize > 0){
+
+        for (i = 0; i < systemLife; i++) {
+          // payback for year i
+          paybackTotal += (costPerkWh * reducedProductionPerYear * systemSize);
+          // console.log('year', i+1, 'deg', degredation, degradationFactor, 'reducedProductionPerYear', reducedProductionPerYear);
+          // reduce values each year i-1
+          costPerkWh = costPerkWh * energyEscalator;
+          
+          degredation = degredation * degradationFactor;
+          reducedProductionPerYear = productionPerYear * (degredation/100);
+        }
+
+        app.reportModel.set({'payback25Year': paybackTotal});
+
+        // Payback is (average system cost divided by the system life payback total) times system life.  
+        // Result is in years
+        var paybackWithoutIncentives = (averageCostSystem/paybackTotal) * systemLife;
+        app.reportModel.set({'paybackWithoutIncentives': parseFloat(paybackWithoutIncentives)});
+
+        // Calculate tax credit, average system cost minus tax credit
+        var taxCredit = averageCostSystem * 0.3;
+        var costWithTaxCredit = averageCostSystem - taxCredit;
+
+        // Payback with tax credit in years
+        var paybackWithTaxCredit = (costWithTaxCredit/paybackTotal) * systemLife;
+        app.reportModel.set({'paybackWithTaxCredit': parseFloat(paybackWithTaxCredit)});
+
+        // Calculate MiM credit, average system cost minus tax credit AND MiM credit
+        var mimCredit = averageCostSystem * 0.4;
+        var costWithMim = averageCostSystem - taxCredit - mimCredit;
+
+        // Payback with tax credit and MiM credit in years
+        var paybackWithMim = (costWithMim/paybackTotal) * systemLife;
+        app.reportModel.set({'paybackWithMim': parseFloat(paybackWithMim)});
+
+      }
+    }
 
   };
 });

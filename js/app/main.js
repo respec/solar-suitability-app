@@ -68,6 +68,9 @@ define([
 
       initMap: function() {
 
+        // Remove pan delay
+        esriConfig.defaults.map.panDuration = 0;
+
         // Setup World Imagery Basemap
         esriBasemaps.solar = {
           baseMapLayers: [{

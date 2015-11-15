@@ -231,7 +231,7 @@
                             <p>Location not optimal? Check out:<br /><a href="<%=solarGardens%>" target="_blank">Community Solar Gardens</a></p>
                         <% } else {%>
                             <p>Get Started: 
-                                <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=" + zip + "&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a>
+                                <a id="mnInstallers" href="<%=mnInstallers%><% if (typeof(utilityCompany) !== "undefined") {%><%=utilityCompany.zip%><%}%>" target="_blank">Contact a Local Installer</a>
                             </p>
                         <% } %>
                         <div>
