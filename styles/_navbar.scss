@@ -16,13 +16,14 @@
   display: inline-block;
 }
 
-#finishedNearbySolarButton {
-  display:none;
+.finishedNearbySolarRow {
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
-
-// .homeButton, #currentLoc, #menuButton {
-//   border:none;
-// }
 
 #basemapDropdownContent, #vectorLayersDropdownContent {
   top:50px;
@@ -31,7 +32,6 @@
 
 .basemapGrid{
   height: 100px;
-  // width: 100px;
 }
 
 #basemapSelectorText, #vectorLayersSelectorText {
