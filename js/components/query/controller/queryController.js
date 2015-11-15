@@ -79,7 +79,6 @@ define([
         BEquery.returnGeometry = false;
 
         BEQueryTask.execute(BEquery, lang.hitch(this, function(results) {
-          console.log(results);
           //first make sure clicked point is within the state
           if (results.features && results.features.length > 0) {
 
