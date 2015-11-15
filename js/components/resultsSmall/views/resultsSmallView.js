@@ -2,6 +2,7 @@
 define([
     'app/config',
 
+    'components/resultsSmall/controller/resultsSmallController',
     'components/report/controller/reportController',
     'components/calculator/controller/calculatorController',
 
@@ -13,7 +14,7 @@ define([
   function(
     config,
 
-    reportController, calculatorController,
+    resultsSmallController, reportController, calculatorController,
 
     QueryModel,
 
@@ -81,41 +82,11 @@ define([
 
         $('#nearbySolarLink').on('click', function(e) {
           e.preventDefault();
-          app.eventDisable = true;
-          var colorRamp = $('.headerColorRamp');
-          $('#resultsSmall').toggle();
-          $('#headerBar *:not(.centerColumn, .centerColumn *)').css('visibility', 'hidden');
-          colorRamp.css('display', 'inline-block');
-          colorRamp.css('visibility', 'hidden');
-          $('#finishedNearbySolarButton').show();
-
-          // Hide solar layer
-          app.map.getLayer('solar').hide();
-
-          // Show solar install locations
-          app.map.getLayer('georss').setVisibility(true);
-
-          // Center and zoom map on point
-          app.map.centerAndZoom([app.query.latLngPt.x, app.query.latLngPt.y], 14);
+          resultsSmallController.prepareForNearby();
         });
 
         $('#finishedNearbySolarButton').on('click', function() {
-          app.eventDisable = false;
-          
-          // Return nav bar
-          $('#finishedNearbySolarButton').hide();
-          $('.headerColorRamp').css('display', 'block');
-          $('#headerBar *').css('visibility', 'visible');
-
-          // Return results
-          $('#resultsSmall').show();
-
-          // Hide solar install locations
-          app.map.getLayer('georss').setVisibility(false);
-          app.map.infoWindow.hide();
-
-          // Show solar layer
-          app.map.getLayer('solar').show();
+          resultsSmallController.returnFromNearby();
 
         });
       }
