@@ -19,7 +19,7 @@
             </div>
 
             <!-- Data -->
-            <div class="col-md-10">
+            <div class="col-md-11">
                 <!-- Header Columns -->
                 <div class="row">
                     <div class="col-md-4">
@@ -32,10 +32,15 @@
                             <div class="chartTitle">Shade Hours By Month</div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="resultHeader">
                             <span>Additional Information</span>
                         </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button id="closeResults" aria-label="Close" data-dismiss="modal" class="close invert-btn pull-right" type="button">
+                            <span aria-hidden="true"><i class="fa fa-times fa-1x"></i></span>
+                        </button>
                     </div>
                 </div>
 
@@ -58,7 +63,7 @@
 
                             <div class="">
                                 <p>
-                                    Your site is <span class="valueHelp"><%=quality%></span>.  The site collects an average of <span class="valueHelp"><%=averagePerDay%></span> kWh/m<sup>2</sup> each day for a total of <span class="valueHelp"><%=totalPerYear%></span> kWh<sup>2</sup> per year.  You would need a <span class="valueHelp">SOLAR SYSTEM SIZE</span> system to generate <span class="valueHelp">SOLAR PERCENT</span> of your power.  This system would cost approximately <span class="valueHelp">$SOLAR SYSTEM COST</span>.  Tax incentives and the Made in Minnesota program can provide assistance that would make the estimates payback for this system approximately <span class="valueHelp">PAYBACK</span> years.
+                                    Your site is <span class="valueHelp"><%=quality%></span>.  The site collects an average of <span class="valueHelp"><%=averagePerDay%> kWh/m<sup>2</sup></span> each day for a total of <span class="valueHelp"><%=totalPerYear%> kWh<sup>2</sup></span> per year.  You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power.  This system would cost approximately <span class="valueHelp">$<%=averageSystemCost.toFixed()%></span>.  Tax incentives and the Made in Minnesota program can provide assistance that would make the estimates payback for this system approximately <span class="valueHelp"><%=payback.toFixed(1)%> years</span>.
                                 </p>
                             </div>
 
@@ -145,16 +150,17 @@
                                     <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>
                                 )
                             </p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Exit button -->
-            <div class="col-md-1">
+            <!-- <div class="col-md-1">
                 <button id="closeResults" aria-label="Close" data-dismiss="modal" class="close invert-btn pull-right" type="button">
                     <span aria-hidden="true"><i class="fa fa-times fa-1x"></i></span>
                 </button>
-            </div>
+            </div> -->
         </div>
 
         <!-- <div class="row">
