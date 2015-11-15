@@ -47,9 +47,6 @@ define([
         app.eventDisable = true;
         var colorRamp = $('.headerColorRamp');
         $('#resultsSmall').toggle();
-        // $('#headerBar *:not(.centerColumn, .centerColumn *)').css('visibility', 'hidden');
-        // colorRamp.css('display', 'inline-block');
-        // colorRamp.css('visibility', 'hidden');
         $('.finishedNearbySolarRow').show();
 
         // Center and zoom map on point
@@ -67,9 +64,7 @@ define([
 
         // Return nav bar
         $('.finishedNearbySolarRow').hide();
-        // $('.headerColorRamp').css('display', 'block');
-        // $('#headerBar *').css('visibility', 'visible');
-
+        
         // Return results
         $('#resultsSmall').show();
 
