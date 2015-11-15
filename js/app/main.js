@@ -17,6 +17,8 @@ define([
   'components/helpSplash/controller/helpSplashController',
   'components/query/controller/queryController',
 
+  'components/report/model/reportModel',
+
   'esri/basemaps',
   'esri/config',
   'esri/layers/FeatureLayer',
@@ -39,6 +41,8 @@ define([
 
     helpSplashController, query,
 
+    ReportModel,
+
     esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
     ) {
@@ -58,11 +62,29 @@ define([
        * Initialize the application layout by inserting top level nodes into the DOM
        * @return { N/A }
        */
-       initLayout: function() {
+      initLayout: function() {
         this.layout = new Layout({
           el: $('body')
         });
 
+        this.initModels();
+      },
+
+      initModels: function(){
+        this.initGeneralModel();
+        this.initReportModel();
+
+      },
+
+      initGeneralModel: function(){
+        // PUT GENERAL MODEL HERE
+      },
+
+      initReportModel: function(){
+        this.model = new ReportModel();
+        app.reportModel = this.model;
+        
+        // this is should be moved to fire after both models init
         this.initMap();
       },
 
