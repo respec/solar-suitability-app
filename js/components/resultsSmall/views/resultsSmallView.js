@@ -85,6 +85,10 @@ define([
           $('.emailModal').modal('show');
         });
 
+        $('#dataIssue').on('click', function(){
+          $('.dataIssuesModal').modal('show');
+        });
+
         $('#nearbySolarLink').on('click', function(e) {
           e.preventDefault();
           resultsSmallController.prepareForNearby();

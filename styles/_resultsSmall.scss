@@ -15,6 +15,16 @@
     cursor: pointer;
 }
 
+.close {
+    opacity: .8;
+    color: $close-color;
+}
+
+.close:hover, .close:focus {
+    color: $close-color;
+    opacity: .4;
+}
+
 // #emailReport a:visited, #emailReport a:hover, #emailReport a:link, #emailReport a:active{
 //   font-size: 18px;
 //   color: #fff;
@@ -73,8 +83,8 @@
     font-weight: bold;
     margin-top: 10px;
     color: $secondary-color;
-    text-align: center;
-
+    margin-bottom: 10px;
+    //text-align: center;
 }
 
 .valueHelp {

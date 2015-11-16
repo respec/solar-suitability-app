@@ -6286,6 +6286,14 @@ ul.dropdown-menu, a.dropdown-menu {
   color: #337ab7;
   cursor: pointer; }
 
+.close {
+  opacity: .8;
+  color: #fff; }
+
+.close:hover, .close:focus {
+  color: #fff;
+  opacity: .4; }
+
 .resultsDisplay {
   display: inline-block;
   font-size: 14px;
@@ -6323,7 +6331,7 @@ ul.dropdown-menu, a.dropdown-menu {
   font-weight: bold;
   margin-top: 10px;
   color: #fff;
-  text-align: center; }
+  margin-bottom: 10px; }
 
 .valueHelp {
   color: #ff7400;
