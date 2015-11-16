@@ -17,6 +17,7 @@ define([
   'components/helpSplash/controller/helpSplashController',
   'components/query/controller/queryController',
 
+  'components/query/model/queryModel',
   'components/report/model/reportModel',
 
   'esri/basemaps',
@@ -41,7 +42,7 @@ define([
 
     helpSplashController, query,
 
-    ReportModel,
+    QueryModel, ReportModel,
 
     esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
@@ -68,24 +69,23 @@ define([
         });
 
         this.initModels();
+        this.initMap();
       },
 
       initModels: function(){
-        this.initGeneralModel();
+        this.initQueryModel();
         this.initReportModel();
 
       },
 
-      initGeneralModel: function(){
-        // PUT GENERAL MODEL HERE
+      initQueryModel: function(){
+        this.model = new QueryModel();
+        app.model = this.model;
       },
 
       initReportModel: function(){
         this.model = new ReportModel();
         app.reportModel = this.model;
-        
-        // this is should be moved to fire after both models init
-        this.initMap();
       },
 
       initMap: function() {
