@@ -5942,6 +5942,14 @@ html {
 .floatRight {
   float: right; }
 
+.paragraphIndent {
+  margin-left: 2em; }
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; }
+
 /* Overwrite default dropdown menu*/
 .dropdown-menu > li > a {
   color: #fff; }
@@ -6284,8 +6292,10 @@ ul.dropdown-menu, a.dropdown-menu {
   /* background-color:#474343; */
   color: #fff;
   z-index: 5;
-  padding-top: 15px;
-  margin-left: 50px; }
+  padding-top: 15px; }
+
+.progress {
+  margin-bottom: 10px; }
 
 .resultsButtonToolbar {
   float: right;
@@ -6300,8 +6310,7 @@ ul.dropdown-menu, a.dropdown-menu {
   height: 400px;
   width: 100%;
   position: absolute;
-  bottom: 0;
-  padding-top: 15px; }
+  bottom: 0; }
 
 .resultsGeneral {
   text-align: center; }
@@ -6313,7 +6322,8 @@ ul.dropdown-menu, a.dropdown-menu {
 .resultHeader {
   font-weight: bold;
   margin-top: 10px;
-  color: #474343; }
+  color: #fff;
+  text-align: center; }
 
 .valueHelp {
   color: #ff7400;
@@ -6322,7 +6332,7 @@ ul.dropdown-menu, a.dropdown-menu {
   padding: 3px; }
 
 #closeResults {
-  float: left; }
+  margin-top: 10px; }
 
 .reportControls {
   float: left;
@@ -6451,6 +6461,14 @@ ul.dropdown-menu, a.dropdown-menu {
 .appIcon {
   display: inline-block; }
 
+.finishedNearbySolarRow {
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  z-index: 100; }
+
 #basemapDropdownContent, #vectorLayersDropdownContent {
   top: 50px;
   width: 410px; }
@@ -6512,7 +6530,10 @@ ul.dropdown-menu li {
   padding-top: 5px; }
 
 .headerColorRamp {
-  height: 50px; }
+  height: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
 
 .toggle {
   margin-right: 20px; }

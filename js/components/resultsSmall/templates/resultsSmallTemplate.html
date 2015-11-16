@@ -117,7 +117,7 @@
                                 <p class="paragraphIndent">
                                     <% if (typeof(utilityCompany) !== "undefined"){
                                         if(utilityCompany.hasOwnProperty('zip')) { %>
-                                            <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=<%=parseInt(utilityCompany.zip, 10)%>&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a>
+                                            <a href="<%= mnInstallers %><%=parseInt(utilityCompany.zip, 10)%>" target="_blank">Contact a Local Installer</a>
                                         <% } else {%>
                                             No zip code information available.  Please report bad data <span class="badData">here</span>.
                                         <% } %>
