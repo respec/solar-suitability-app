@@ -27,9 +27,7 @@ define([
       events: {},
 
       initialize: function() {
-        this.model = new QueryModel();
-        app.model = this.model;
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(app.model, 'change', this.render);
         this.render();
       },
 
