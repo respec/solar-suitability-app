@@ -6524,8 +6524,7 @@ ul.dropdown-menu li {
   width: 65%;
   margin: auto;
   height: auto;
-  max-height: 90%;
-  overflow-y: scroll; }
+  max-height: 90%; }
 
 #reportHeader {
   height: 85px; }
@@ -6543,8 +6542,6 @@ ul.dropdown-menu li {
   padding-left: 0px; }
 
 #reportSolarMap-container, #reportAerialMap-container {
-  width: 400px;
-  height: 400px;
   margin-top: 20px;
   position: relative; }
 
@@ -6558,42 +6555,6 @@ ul.dropdown-menu li {
 #reportAngleBox {
   width: 50px;
   text-align: center; }
-
-#siteImagesRow {
-  margin-bottom: 30px; }
-
-.reportHeading {
-  font-size: 1.5em;
-  font-weight: bold;
-  font-family: Trebuchet MS; }
-
-.reportHisto text {
-  fill: rgba(0, 0, 0, 0.85); }
-
-.reportTitle {
-  margin-left: 20px; }
-
-.reportTopicDescription {
-  padding-left: 3%;
-  margin-bottom: 10px; }
-
-.reportTable tbody, tr, td {
-  color: rgba(0, 0, 0, 0.85); }
-
-.reportTable {
-  width: 250px; }
-
-.reportTable {
-  height: 100%; }
-
-.editButton {
-  float: right;
-  margin-right: 15%; }
-
-.editSiteDetailsModal, .editSolarCalculatorModal {
-  width: 60%;
-  margin: auto;
-  height: 60%; }
 
 #calculator {
   background-color: rgba(0, 0, 0, 0.85);

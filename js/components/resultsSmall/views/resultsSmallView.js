@@ -2,8 +2,10 @@
 define([
     'app/config',
 
+    'components/resultsSmall/controller/resultsSmallController',
     'components/report/controller/reportController',
     'components/calculator/controller/calculatorController',
+    'components/query/controller/queryController',
 
     'components/query/model/queryModel',
 
@@ -13,7 +15,7 @@ define([
   function(
     config,
 
-    reportController, calculatorController,
+    resultsSmallController, reportController, calculatorController, queryController,
 
     QueryModel,
 
@@ -25,13 +27,12 @@ define([
       events: {},
 
       initialize: function() {
-        this.model = new QueryModel();
-        app.model = this.model;
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(app.model, 'change', this.render);
         this.render();
       },
 
       render: function() {
+        queryController.calculateSystemData();
         var template = _.template(viewTemplate);
         var options = {
           quality: app.model.get('quality'),
@@ -43,7 +44,12 @@ define([
           lidarCollect: app.model.get('lidarCollect'),
           solarGardens: config.mnCertsSolarGardens,
           mnIncentives: config.mnIncentives,
-          mnInstallers: config.mnInstallers
+          mnInstallers: config.mnInstallers,
+          solarPercent: app.reportModel.get('percentElectricGoal'),
+          systemSize: app.reportModel.get('systemSize'),
+          averageSystemCost: app.reportModel.get('averageCostSystem'),
+          payback: app.reportModel.get('paybackWithMim')
+
         };
 
         this.$el.html(template(options));
@@ -79,8 +85,15 @@ define([
           $('.emailModal').modal('show');
         });
 
-        //$('#mnInstallers').attr("href", config.mnInstallers + app.model.attributes.utilityCompany.zip);
+        $('#nearbySolarLink').on('click', function(e) {
+          e.preventDefault();
+          resultsSmallController.prepareForNearby();
+        });
 
+        $('#finishedNearbySolarButton').on('click', function() {
+          resultsSmallController.returnFromNearby();
+
+        });
       }
       
     });

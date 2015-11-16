@@ -5,10 +5,12 @@ define([
   'app/utils/dataHandler',
   'app/data/sunHours',
 
+  'components/resultsSmall/views/resultsSmallView',
+
   'components/loadSplash/controller/loadSplashController',
   'components/map/controller/mapController',
-  'components/resultsSmall/views/resultsSmallView',
   'components/resultsSmall/controller/resultsSmallController',
+  'components/report/controller/reportController',
   'components/calculator/controller/calculatorController',
 
   'esri/geometry/webMercatorUtils',
@@ -23,7 +25,9 @@ define([
   function(
     config, dataHandler, sunHours,
 
-    loadSplashController, mapController, resultsSmallView, resultsSmallController, calculatorController,
+    resultsSmallView,
+
+    loadSplashController, mapController, resultsSmallController, reportController, calculatorController,
 
     webMercatorUtils, GeometryService, Geoprocessor, Query, QueryTask,
 
@@ -94,8 +98,8 @@ define([
           } else {
             app.showAlert('danger','This location is outside of the study area:','Please refine your search to the state of Minnesota');
             loadSplashController.hideLoader();
-            }
-          }));
+          }
+        }));
       },
 
       lidarQuery: function(){
@@ -329,7 +333,7 @@ define([
         app.model.set('quality', quality);
 
         // Populate gradient
-        var gradient = (annualPercentSun*100).toString() + '%';
+        var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toFixed().toString() + '%';
         
         var $showGradient = $('.showGradient');
         $showGradient.css('width', gradient);
@@ -340,17 +344,117 @@ define([
         // create Solar Insol histo
         this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
 
-        // create Sun Hrs histo
-        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
+        // // create Sun Hrs histo
+        // this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
 
         // store results
         app.solarObj = solarObj;
         resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
         resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
 
+
+        this.displayResults2();
+      },
+
+      displayResults2: function(){
+        // Calculate solar calculator
+        this.calculateSystemData();
+
         //show results & hide loader
         loadSplashController.hideLoader();
         resultsSmallController.showResults();
+      },
+
+      calculateSystemData: function(){
+        // Calculate System Size
+        var averagePerDay = app.model.get('averagePerDay');
+        var averageUsePerMonth = app.reportModel.get('averageUsePerMonth');
+        var toWattsPerMonth = averageUsePerMonth*1000;
+        var toWattsPerDay = toWattsPerMonth/30;
+        var solarUsage = toWattsPerDay*app.reportModel.get('percentElectricGoal');
+        var solarProvided = solarUsage/averagePerDay;
+        var derated = solarProvided/app.reportModel.get('derate');
+        var systemSize = (derated/1000);
+        // .toFixed(2);
+        app.reportModel.set({'systemSize': parseFloat(systemSize)});
+
+        // Calculate System Cost
+        var lowCostPerkWh = app.reportModel.get('lowCostPerkWh');
+        var highCostPerkWh = app.reportModel.get('highCostPerkWh');
+        var lowCostSystem = (lowCostPerkWh * systemSize);
+        var highCostSystem = highCostPerkWh * systemSize;
+        var averageCostSystem = (lowCostSystem + highCostSystem)/2;
+        app.reportModel.set({'lowCostSystem': lowCostSystem});
+        app.reportModel.set({'highCostSystem': highCostSystem});
+        app.reportModel.set({'averageCostSystem': parseFloat(averageCostSystem)});
+
+        // system size
+        // averagePerDay
+        // averagePerDay*365 = yearly
+        // electric rate/kwh
+        // savings in year 1 = system * yearly * electric rate
+        // savings in 25 years
+        // (averageCostSystem/25 years) * 25
+
+        // Calculate System Payback
+        // var averagePerDay = app.reportModel.get('averagePerDay');
+        // 
+        var productionPerYear = averagePerDay * 365;
+        var costPerkWh = app.reportModel.get('costPerkWh');
+        var savingsPerYear = systemSize * productionPerYear * costPerkWh;
+        var systemLife = app.reportModel.get('systemLife');
+
+        this.calculateAnnualProduction(costPerkWh, systemLife, productionPerYear);
+
+      },
+
+      calculateAnnualProduction: function(costPerkWh, systemLife, productionPerYear){
+        var systemSize = app.reportModel.get('systemSize');
+        var energyEscalator = app.reportModel.get('energyEscalator');
+        var degradationFactor = app.reportModel.get('degradationFactor');
+        var degredation = 100;
+        var costPerkWh = costPerkWh;
+        var reducedProductionPerYear = productionPerYear;
+        var paybackTotal = 0;
+        var averageCostSystem = app.reportModel.get('averageCostSystem');
+
+        if (systemSize > 0){
+
+          for (i = 0; i < systemLife; i++) {
+            // payback for year i
+            paybackTotal += (costPerkWh * reducedProductionPerYear * systemSize);
+            // console.log('year', i+1, 'deg', degredation, degradationFactor, 'reducedProductionPerYear', reducedProductionPerYear);
+            // reduce values each year i-1
+            costPerkWh = costPerkWh * energyEscalator;
+
+            degredation = degredation * degradationFactor;
+            reducedProductionPerYear = productionPerYear * (degredation/100);
+          }
+
+          app.reportModel.set({'payback25Year': paybackTotal});
+
+          // Payback is (average system cost divided by the system life payback total) times system life.  
+          // Result is in years
+          var paybackWithoutIncentives = (averageCostSystem/paybackTotal) * systemLife;
+          app.reportModel.set({'paybackWithoutIncentives': parseFloat(paybackWithoutIncentives)});
+
+          // Calculate tax credit, average system cost minus tax credit
+          var taxCredit = averageCostSystem * 0.3;
+          var costWithTaxCredit = averageCostSystem - taxCredit;
+
+          // Payback with tax credit in years
+          var paybackWithTaxCredit = (costWithTaxCredit/paybackTotal) * systemLife;
+          app.reportModel.set({'paybackWithTaxCredit': parseFloat(paybackWithTaxCredit)});
+
+          // Calculate MiM credit, average system cost minus tax credit AND MiM credit
+          var mimCredit = averageCostSystem * 0.4;
+          var costWithMim = averageCostSystem - taxCredit - mimCredit;
+
+          // Payback with tax credit and MiM credit in years
+          var paybackWithMim = (costWithMim/paybackTotal) * systemLife;
+          app.reportModel.set({'paybackWithMim': parseFloat(paybackWithMim)});
+
+        }
       },
 
       drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
@@ -446,6 +550,10 @@ define([
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide);
 
+      },
+
+      clearDiv: function(div){
+        div.html('');
       }
       
     };

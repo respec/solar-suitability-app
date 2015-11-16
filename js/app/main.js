@@ -17,6 +17,9 @@ define([
   'components/helpSplash/controller/helpSplashController',
   'components/query/controller/queryController',
 
+  'components/query/model/queryModel',
+  'components/report/model/reportModel',
+
   'esri/basemaps',
   'esri/config',
   'esri/layers/FeatureLayer',
@@ -39,6 +42,8 @@ define([
 
     helpSplashController, query,
 
+    QueryModel, ReportModel,
+
     esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
     ) {
@@ -58,12 +63,29 @@ define([
        * Initialize the application layout by inserting top level nodes into the DOM
        * @return { N/A }
        */
-       initLayout: function() {
+      initLayout: function() {
         this.layout = new Layout({
           el: $('body')
         });
 
+        this.initModels();
         this.initMap();
+      },
+
+      initModels: function(){
+        this.initQueryModel();
+        this.initReportModel();
+
+      },
+
+      initQueryModel: function(){
+        this.model = new QueryModel();
+        app.model = this.model;
+      },
+
+      initReportModel: function(){
+        this.model = new ReportModel();
+        app.reportModel = this.model;
       },
 
       initMap: function() {
@@ -165,16 +187,14 @@ define([
         // Add existing solar installations to the map
         var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
           id: 'georss',
-          visible: false,
           pointSymbol: config.sunSymbol
         });
         
         this.map.addLayer(installationsLayer);
-        
+
         installationsLayer.on('load',function(){
           app.map.getLayer('georss').setVisibility(false);
         });
-        //this.map.getLayer('georss').hide();
 
         // // Read URL Parameters
         // function getParameterByName(name) {
@@ -281,8 +301,11 @@ define([
       mapController: function() {
         var self = this;
         app.map.resize();
+        app.eventDisable = false;
         app.map.on('click', function(e) {
-          query.pixelQuery(e);
+          if (!app.eventDisable){
+            query.pixelQuery(e);
+          }
         });
         app.map.on('load', function(){
           self.checkUrlParams();
@@ -334,8 +357,8 @@ define([
       },
 
       showAlert: function(alertType, headline, message) {
-          $("#myAlert").html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
-          $("#alert").toggleClass('in');
+          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+          $('#alert').toggleClass('in');
           //window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
         },
 

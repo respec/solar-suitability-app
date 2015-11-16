@@ -91,6 +91,15 @@ html {
   float:right;
 }
 
+.paragraphIndent {
+  margin-left: 2em;
+}
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 
 /* Overwrite default dropdown menu*/
 .dropdown-menu > li > a {

@@ -39,14 +39,14 @@ define([
       },
 
       initialize: function() {
-        this.model = new ReportModel();
-        app.reportModel = this.model;
-        this.listenTo(this.model, 'change', this.render);
+        // this.model = new ReportModel();
+        // app.reportModel = this.model;
+        this.listenTo(app.reportModel, 'change', this.render);
         this.render();
       },
 
       render: function() {
-        reportController.calculateSystemData();
+        queryController.calculateSystemData();
 
         var template = _.template(reportTemplate);
 
