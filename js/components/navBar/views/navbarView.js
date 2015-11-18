@@ -161,8 +161,14 @@ define([
           //check visibility and hide/show
           if (mapLayer.visible){
             mapLayer.hide();
+            if (layerName === "solar"){
+              $('.headerColorRamp').hide();
+            }
           } else {
             mapLayer.show();
+            if (layerName === "solar"){
+              $('.headerColorRamp').show();
+            }
           }
         });
 
