@@ -1,18 +1,32 @@
 #viewReport a:visited, #viewReport a:hover, #viewReport a:link, #viewReport a:active{
-  font-size: 18px;
+  //font-size: 18px;
   color: #fff;
   text-decoration:none;
 }
 
 #resultsSmall button a{
-    font-size: 14px;
+    //font-size: 14px;
     color: $text-color;
     text-decoration: none;
+}
+
+.btn-solar {
+    margin: 3px;
 }
 
 .badData {
     color: $brand-primary;
     cursor: pointer;
+}
+
+.close {
+    opacity: .8;
+    color: $close-color;
+}
+
+.close:hover, .close:focus {
+    color: $close-color;
+    opacity: .4;
 }
 
 // #emailReport a:visited, #emailReport a:hover, #emailReport a:link, #emailReport a:active{
@@ -27,12 +41,16 @@
    /* background-color:#474343; */
     color:#fff;
     z-index:5;
-    padding-top:15px;
+    padding-top:10px;
     // margin-left:50px
 }
 
-.progress {
+.bottomSpace {
     margin-bottom: 10px;
+}
+
+.topSpace {
+    padding-top:15px;
 }
 
 // .resultsTable {
@@ -55,26 +73,26 @@
     width:100%;
     position:absolute;
     bottom: 0;
-
+    overflow: scroll;
     // Add top gutter to match right/left
     // padding-top:15px;
 }
 
-.resultsGeneral{
+.resultsGeneral {
     text-align:center;
 }
 
 .chartTitle{
-    text-align: center;
-    padding-left: 5px;
+    //text-align: center;
+    padding-left: 50px;
 }
 
 .resultHeader{
     font-weight: bold;
     margin-top: 10px;
     color: $secondary-color;
-    text-align: center;
-
+    margin-bottom: 10px;
+    //text-align: center;
 }
 
 .valueHelp {
@@ -137,6 +155,10 @@
     margin-left: 5px;
 }
 
+.progress{
+    width: 90%;
+}
+
 // .hideGradient {
 //     background-color: black;
 // }
@@ -187,7 +209,7 @@
     background-color:#4682b4;
     text-align:right;
     padding:3px;
-    margin:1px;
+    margin:auto;
     color:#000;
     z-index:1
 }
@@ -204,6 +226,10 @@
     fill:#fff;
     font:10px sans-serif;
     text-anchor:end
+}
+
+.chart {
+    margin-left: 50px;
 }
 
 .shadowCSS { 
