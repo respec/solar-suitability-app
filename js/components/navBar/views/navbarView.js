@@ -55,7 +55,6 @@ define([
         $('.findMe').click(function() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
-            app.showAlert('success','Location Found. Next Step:','Tap rooftop or point of interest near you to view solar potential.');
           } else {
             //alert('Browser doesn\'t support Geolocation.  Visit http: //caniuse.com to see browser support for the Geolocation API.');
             app.showAlert('danger','Your browser doesn\'t support Geolocation:','isit http: //caniuse.com to see browser support for the Geolocation API');
@@ -67,6 +66,7 @@ define([
           var pt = new Point(location.coords.longitude, location.coords.latitude);
           app.map.centerAndZoom(pt, config.queryZoom);
           draw.addGraphic(pt);
+          app.showAlert('success','Location Found. Next Step:','Tap rooftop or point of interest near you to view solar potential.');
         }
 
         function locationError(error) {
