@@ -23,28 +23,26 @@
                                     </div>
                                 </div>
                                 <div class="center bottomSpace">
-                                    Percent of Total Available Solar
+                                    Percent of Total Available Solar<% if(bareEarth === 1) { %>**<% } %>
                                 </div>
                             </div>
 
                             <div class="topSpace">
                                 <p>
-                                    Your site is <span class="valueHelp"><%=quality%>.</span> It receives an average of <span class="valueHelp"><%=averagePerDay%> kWh/m<sup>2</sup></span> of solar radiation daily and a total of <span class="valueHelp"><%=totalPerYear%> kWh<sup>2</sup></span> per year. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power. This system would cost approximately <span class="valueHelp">$<%=averageSystemCost.toFixed()%>.</span> <a href="http://www.mn.gov/commerce/energy/businesses/energy-leg-initiatives/made-in-minnesota/" target="_blank">Made in Minnesota</a> and other tax/rebate incentives can help make the estimate payback for this system <span class="valueHelp"><%=payback.toFixed(1)%> years.</span>
+                                    Your site is <span class="valueHelp"><%=quality%>.</span> It receives an average of <span class="valueHelp"><%=averagePerDay%> kWh/m<sup>2</sup></span> of solar radiation daily and a total of <span class="valueHelp"><%=totalPerYear%> kWh<sup>2</sup></span> per year. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power. This system would cost approximately <span class="valueHelp">$<%=averageSystemCost.toFixed()%>.</span> <a href="http://www.mn.gov/commerce/energy/businesses/energy-leg-initiatives/made-in-minnesota/" target="_blank">Made in Minnesota</a> and other tax/rebate incentives can help make the estimate payback for this system <span class="valueHelp"><%=payback.toFixed(1)%> years.</span><!-- Display warning ** -->
+                                
                                 </p>
                             </div>
 
                             <div>
 
-                                <!-- Display warning ** -->
-                                <% if(bareEarth === 1) { %>
-                                    **
-                                <% } %>
+                                
 
                                 <!-- Display bare earth warning msg -->
                                 <% if(bareEarth === 1) { %>
                                     <p>
                                         **
-                                        <span id="smText">The lidar data available for ' <% county %>' County includes only bare earth points. Hence, this insolation value does not take shade from nearby surface features into consideration.</span>
+                                        <span id="smText">The source data available for <span class="valueHelp"><%=county%> County</span> contains only bare earth points. Hence, these results do not take shade from nearby features into consideration.</span>
                                     </p>
                                 <% } %>
 
