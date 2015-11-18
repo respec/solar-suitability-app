@@ -3,52 +3,78 @@ define([
 
   'app/config'
 
-],
+  ],
 
   function(
     config
     ) {
 
-  return {
+    return {
 
-    showResults: function(){
-      $('.resultsSmall-container').show();
-      $('#resultsSmall').show();
-    },
+      showResults: function(){
+        $('.resultsSmall-container').show();
+        $('#resultsSmall').show();
+      },
 
-    hideResults: function(){
-      $('.resultsSmall-container').hide();
-      $('#resultsSmall').hide();
-    },
+      hideResults: function(){
+        $('.resultsSmall-container').hide();
+        $('#resultsSmall').hide();
+      },
 
-    buildTable: function(el, data, values, ref){
-      var $table = $(el);
-      _.each(ref, function(mon){
-        var shortMonth = mon.abbr;
-        var longMonth = mon.full;
-        $table.find('tbody')
+      buildTable: function(el, data, values, ref){
+        var $table = $(el);
+        _.each(ref, function(mon){
+          var shortMonth = mon.abbr;
+          var longMonth = mon.full;
+          $table.find('tbody')
           .append($('<tr>')
             .append($('<td style="width:50%">')
               .text(longMonth)
-            )
+              )
             .append($('<td>')
               .text(data[shortMonth][values].toFixed(2))
-            )
-          );
-      });
-    },
+              )
+            );
+        });
+      },
 
-    buildLink: function(){
-      var url = config.appDomain + '/index.html?lat=' + app.query.latLngPt.y + '%26long=' + app.query.latLngPt.x;
+      buildLink: function(){
+        var url = config.appDomain + '/index.html?lat=' + app.query.latLngPt.y + '%26long=' + app.query.latLngPt.x;
+        return url;
+      },
 
-      var emailSubject = encodeURI('Your requested solar report');
-      var emailBody = encodeURI('Thank you for your interest in the MN Solar Suitability Project.  Below you will find a link to the app that will generate the report for you:\nSite Name: \nUrl: ');
+      prepareForNearby: function(){
+        app.eventDisable = true;
+        var colorRamp = $('.headerColorRamp');
+        $('#resultsSmall').toggle();
+        $('.finishedNearbySolarRow').show();
 
-      var emailSignature = encodeURI('\n\nPlease feel free to email us any time with any questions or concerns you have.  - MN Solar App team');
+        // Center and zoom map on point
+        app.map.centerAndZoom([app.query.latLngPt.x, app.query.latLngPt.y], 14);
 
-      var link = 'mailto:' + config.emailAddress + '?subject=' + emailSubject + '&body=' + emailBody + url + emailSignature;
+        // Show solar install locations
+        app.map.getLayer('georss').setVisibility(true);
+        // Set solar installation toggle to on
+        $('#georssToggle').bootstrapToggle('on');
 
-      $('#emailLink').attr('href', link);
-    }
-  };
-});
+      },
+
+      returnFromNearby: function(){
+        app.eventDisable = false;
+
+        // Return nav bar
+        $('.finishedNearbySolarRow').hide();
+        
+        // Return results
+        $('#resultsSmall').show();
+
+        // Hide solar install locations
+        app.map.getLayer('georss').setVisibility(false);
+        // Set solar installation toggle to off
+        $('#georssToggle').bootstrapToggle('off');
+        // Destroy info window
+        app.map.infoWindow.hide();
+
+      }
+    };
+  });

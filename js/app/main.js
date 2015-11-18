@@ -17,8 +17,13 @@ define([
   'components/helpSplash/controller/helpSplashController',
   'components/query/controller/queryController',
 
+  'components/query/model/queryModel',
+  'components/report/model/reportModel',
+
   'esri/basemaps',
   'esri/config',
+  'esri/layers/FeatureLayer',
+  'esri/layers/GeoRSSLayer',
   'esri/layers/ArcGISTiledMapServiceLayer',
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/ImageServiceParameters',
@@ -37,7 +42,9 @@ define([
 
     helpSplashController, query,
 
-    esriBasemaps, esriConfig, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
+    QueryModel, ReportModel,
+
+    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
     ) {
 
@@ -56,15 +63,35 @@ define([
        * Initialize the application layout by inserting top level nodes into the DOM
        * @return { N/A }
        */
-       initLayout: function() {
+      initLayout: function() {
         this.layout = new Layout({
           el: $('body')
         });
 
+        this.initModels();
         this.initMap();
       },
 
+      initModels: function(){
+        this.initQueryModel();
+        this.initReportModel();
+
+      },
+
+      initQueryModel: function(){
+        this.model = new QueryModel();
+        app.model = this.model;
+      },
+
+      initReportModel: function(){
+        this.model = new ReportModel();
+        app.reportModel = this.model;
+      },
+
       initMap: function() {
+
+        // Remove pan delay
+        esriConfig.defaults.map.panDuration = 0;
 
         // Setup World Imagery Basemap
         esriBasemaps.solar = {
@@ -101,12 +128,13 @@ define([
           showAttribution: false,
           opacity: 1.0
         });
+        //solarLayer.hide();
 
         // Create aerial layer and load hidden
         var aerialLayer = new TiledLayer(config.imagery, {
           id: 'aerial'
         });
-        aerialLayer.hide();
+        // aerialLayer.hide();
 
         // Create street layer and load hidden
         var streetLayer = new TiledLayer(config.streets, {
@@ -114,8 +142,26 @@ define([
         });
         streetLayer.hide();
 
-        // Add solar to the map
-        this.map.addLayer(solarLayer);
+        var countiesLayer = new FeatureLayer(config.countiesUrl, {
+          id: 'counties'
+        });
+        countiesLayer.hide();
+
+        var eusaLayer = new FeatureLayer(config.eusaUrl, {
+          id: 'eusa'
+        });
+        eusaLayer.hide();
+        eusaLayer.setOpacity(0.65);
+
+        var waterLayer = new FeatureLayer(config.waterUrl, {
+          id: 'water'
+        });
+        waterLayer.hide();
+
+        var maskLayer = new FeatureLayer(config.canadaUsMaskUrl, {
+          id: 'mask'
+        });
+        maskLayer.setOpacity(0.8);
 
         // Add aerial to the map
         this.map.addLayer(aerialLayer);
@@ -123,7 +169,32 @@ define([
         // Add street to the map
         this.map.addLayer(streetLayer);
 
+        // Add solar to the map
+        this.map.addLayer(solarLayer);
+
+        // Add counties to the map
+        this.map.addLayer(countiesLayer);
+
+        // Add eusa to the map
+        this.map.addLayer(eusaLayer);
+
+        // Add water to the map
+        this.map.addLayer(waterLayer);
+
+        // Add lidar to the map
+        this.map.addLayer(maskLayer);
+
+        // Add existing solar installations to the map
+        var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
+          id: 'georss',
+          pointSymbol: config.sunSymbol
+        });
         
+        this.map.addLayer(installationsLayer);
+
+        installationsLayer.on('load',function(){
+          app.map.getLayer('georss').setVisibility(false);
+        });
 
         // // Read URL Parameters
         // function getParameterByName(name) {
@@ -175,8 +246,6 @@ define([
       initComponents: function() {
         // Initialize query object to hold data
         app.query = {};
-
-        
 
         this.navbar = new Navbar({
           el: this.layout.$el.find('.navbar-container')
@@ -232,12 +301,16 @@ define([
       mapController: function() {
         var self = this;
         app.map.resize();
+        app.eventDisable = false;
         app.map.on('click', function(e) {
-          query.pixelQuery(e);
+          if (!app.eventDisable){
+            query.pixelQuery(e);
+          }
         });
         app.map.on('load', function(){
           self.checkUrlParams();
-          self.buildToolTip();
+          //self.buildToolTip();
+          //self.showAlert("success","Notice:","Click anywhere on the map to view solar potential.");
         });
         
       },
@@ -282,6 +355,12 @@ define([
           });
         // });
       },
+
+      showAlert: function(alertType, headline, message) {
+          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+          $('#alert').toggleClass('in');
+          //window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
+        },
 
       checkUrlParams: function(){
 

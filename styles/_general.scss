@@ -18,6 +18,27 @@ html {
     min-height:100%
 }
 
+/* Fading Alert */
+.flyover {
+   left: 150%;
+   overflow: hidden;
+   position: fixed;
+   width: 50%;
+   opacity: 0.9;
+   z-index: 1050;
+   transition: left 0.6s ease-out 0s;
+}
+.flyover.in {
+   left: 50%;
+}
+.flyover-centered {
+   top: 50%;
+   transform: translate(-50%, -50%);
+}
+.flyover-bottom {
+   bottom: 10px;
+}
+
 /* Make text not selectable */
 .noselect {
     -webkit-touch-callout:none;
@@ -70,6 +91,15 @@ html {
   float:right;
 }
 
+.paragraphIndent {
+  margin-left: 2em;
+}
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 
 /* Overwrite default dropdown menu*/
 .dropdown-menu > li > a {
@@ -174,4 +204,20 @@ ul.dropdown-menu,a.dropdown-menu {
     height:150px;
     width:auto;
     text-align:center;
+}
+
+.docModal-body {
+  background: url('../images/docBody2.png');
+  background-position: 0 60%;
+}
+
+.docModal-header {
+  background: url('../images/docHeader.png');
+  background-position: 0 60%;
+}
+
+.docModal-footer {
+  height: 55px;
+  background: url('../images/docBody.jpg');
+  background-position: 0 40%;
 }

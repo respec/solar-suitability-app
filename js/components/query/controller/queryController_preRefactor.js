@@ -150,7 +150,7 @@ define([
                 if (quality === 'Poor') {
                   getStarted = '<p>Location not optimal? Check out:<br /><a href="http://mncerts.org/solargardens" target="_blank">Community Solar Gardens</a></p>';
                 } else {
-                  getStarted = '<p>Get Started: <a href="http://thecleanenergybuilder.com/directory#resultsType=both&page=0&pageNum=25&order=alphaTitle&proximityNum=60&proximityInput=" + zip + "&textInput=&textSearchTitle=1&textSearchDescription=1&field_established=&field_employees=&field_year=&reload=false&mapSize=large&allResults=false&tids2=&tids3=568&tids4=&tids5=&tids6=" target="_blank">Contact a Local Installer</a></p>';
+                  getStarted = '<p>Get Started: <a href="' + config.mnInstallers + zip + '" target="_blank">Contact a Local Installer</a></p>';
                 }
 
                 result = '<div style="margin-top:5px;"><strong>UTILITY SERVICE PROVIDER</strong></div><div class="resultsDisplay">' + fullName + ' - <a href="tel:+1-' + phone.slice(1, 4) + '-' + phone.slice(6, 14) + '">' + phone + '</a></p>';
@@ -167,7 +167,8 @@ define([
           } else {
             // clicked point is outside of the state
             result = '<H3><strong>INSOLATION (kWh/m<sup>2</sup>)</strong></H3><p>Total per Year: Unknown**<br />Avg per Day: Unknown**</p><p>**<span id="smText">This point is out of the study area. Click within the State of Minnesota or try searching for something like "Target Field".</span></p><span class="closeSplash">(X) CLOSE</span> </p>';
-            alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
+            //alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
+            app.showAlert("danger","This location is outside of the study area:","Please refine your search to the state of Minnesota");
           }
 
         });

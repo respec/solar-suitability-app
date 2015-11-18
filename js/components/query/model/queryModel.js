@@ -7,9 +7,7 @@ function(
   config
   ) {
       var QueryModel = Backbone.Model.extend({
-        defaults: {
-          utilityCompanyName: ''
-        },
+        defaults: {},
 
         setValue: function(key,val){
           var newVal = {};
@@ -27,9 +25,3 @@ function(
       });
     return QueryModel;
   });
-
-      // defaults : {
-      //   name : 'hi',
-      //   totalPerYear : 0.00,
-      //   averagePerDay : 0.00
-      // },

@@ -2,8 +2,10 @@
 define([
     'app/config',
 
+    'components/resultsSmall/controller/resultsSmallController',
     'components/report/controller/reportController',
     'components/calculator/controller/calculatorController',
+    'components/query/controller/queryController',
 
     'components/query/model/queryModel',
 
@@ -13,7 +15,7 @@ define([
   function(
     config,
 
-    reportController, calculatorController,
+    resultsSmallController, reportController, calculatorController, queryController,
 
     QueryModel,
 
@@ -25,23 +27,29 @@ define([
       events: {},
 
       initialize: function() {
-        this.model = new QueryModel();
-        app.model = this.model;
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(app.model, 'change', this.render);
         this.render();
       },
 
       render: function() {
+        queryController.calculateSystemData();
         var template = _.template(viewTemplate);
         var options = {
-          quality: app.model.attributes.quality,
-          totalPerYear: app.model.attributes.totalPerYear,
-          averagePerDay: app.model.attributes.averagePerDay,
-          county: app.model.attributes.county,
-          bareEarth: app.model.attributes.bareEarth,
-          utilityCompany: app.model.attributes.utilityCompany,
+          quality: app.model.get('quality'),
+          totalPerYear: app.model.get('totalPerYear'),
+          averagePerDay: app.model.get('averagePerDay'),
+          county: app.model.get('county'),
+          bareEarth: app.model.get('bareEarth'),
+          utilityCompany: app.model.get('utilityCompany'),
+          lidarCollect: app.model.get('lidarCollect'),
           solarGardens: config.mnCertsSolarGardens,
-          mnIncentives: config.mnIncentives
+          mnIncentives: config.mnIncentives,
+          mnInstallers: config.mnInstallers,
+          solarPercent: app.reportModel.get('percentElectricGoal'),
+          systemSize: app.reportModel.get('systemSize'),
+          averageSystemCost: app.reportModel.get('averageCostSystem'),
+          payback: app.reportModel.get('paybackWithMim')
+
         };
 
         this.$el.html(template(options));
@@ -77,9 +85,15 @@ define([
           $('.emailModal').modal('show');
         });
 
-        // Old methods for report/email
-        // $('#viewReportLink').html('<a class="fancybox fancybox.iframe" href="' + resultsiFrameURL + '&m=' + JSON.stringify(data) + '">View Report</a>');
-        // $('#emailReportLink').html('<a href="http://solar.maps.umn.edu/share_point.php?x=' + params.PointX + '&y=' + params.PointY + '">Email Report</a>');
+        $('#nearbySolarLink').on('click', function(e) {
+          e.preventDefault();
+          resultsSmallController.prepareForNearby();
+        });
+
+        $('#finishedNearbySolarButton').on('click', function() {
+          resultsSmallController.returnFromNearby();
+
+        });
       }
       
     });

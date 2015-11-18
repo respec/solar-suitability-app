@@ -57,6 +57,10 @@ define([
         },'searchBar');
         geocoder.startup();
 
+        geocoder.on('select', function(e) {
+          app.showAlert("success","Location Found. Next Step:","Tap rooftop or point of interest to view solar potential.");
+        });
+
       }
     });
     return Geocoder;

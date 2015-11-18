@@ -28,7 +28,11 @@
     color:#fff;
     z-index:5;
     padding-top:15px;
-    margin-left:50px
+    // margin-left:50px
+}
+
+.progress {
+    margin-bottom: 10px;
 }
 
 // .resultsTable {
@@ -53,7 +57,7 @@
     bottom: 0;
 
     // Add top gutter to match right/left
-    padding-top:15px;
+    // padding-top:15px;
 }
 
 .resultsGeneral{
@@ -68,18 +72,20 @@
 .resultHeader{
     font-weight: bold;
     margin-top: 10px;
-    color: $primary-color;
+    color: $secondary-color;
+    text-align: center;
+
 }
 
-.valueHelp{
+.valueHelp {
     color: $link-color;
     font-weight: bold;
     font-size: 18px;
     padding: 3px;
 }
 
-#closeResults{
-    float:left;
+#closeResults {
+    margin-top:10px;
 }
 
 .reportControls {
