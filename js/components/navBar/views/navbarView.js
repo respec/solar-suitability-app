@@ -142,10 +142,10 @@ define([
           $('.dataIssuesModal').modal('show');
         });
 
-        // $('.appIssues').on('click', function(){
-        //   $('.appIssuesModal').modal('show');
-        // });
-        // 
+        $('.appIssues').on('click', function(){
+          $('.appIssuesModal').modal('show');
+        });
+        
         
         // enable toggles
         $('.vectorToggle').bootstrapToggle();
@@ -161,12 +161,12 @@ define([
           //check visibility and hide/show
           if (mapLayer.visible){
             mapLayer.hide();
-            if (layerName === "solar"){
+            if (layerName === 'solar'){
               $('.headerColorRamp').hide();
             }
           } else {
             mapLayer.show();
-            if (layerName === "solar"){
+            if (layerName === 'solar'){
               $('.headerColorRamp').show();
             }
           }
