@@ -49,7 +49,6 @@ define([
           systemSize: app.reportModel.get('systemSize'),
           averageSystemCost: app.reportModel.get('averageCostSystem'),
           payback: app.reportModel.get('paybackWithMim')
-
         };
 
         this.$el.html(template(options));
