@@ -6564,6 +6564,9 @@ ul.dropdown-menu li {
   margin-left: auto;
   margin-right: auto; }
 
+.headerColorRampImg {
+  height: 50px; }
+
 .toggle {
   margin-right: 20px; }
 
