@@ -49,7 +49,6 @@ define([
           systemSize: app.reportModel.get('systemSize'),
           averageSystemCost: app.reportModel.get('averageCostSystem'),
           payback: app.reportModel.get('paybackWithMim')
-
         };
 
         this.$el.html(template(options));
@@ -83,6 +82,10 @@ define([
 
         $('#emailReport').on('click', function(){
           $('.emailModal').modal('show');
+        });
+
+        $('#dataIssue').on('click', function(){
+          $('.dataIssuesModal').modal('show');
         });
 
         $('#nearbySolarLink').on('click', function(e) {
