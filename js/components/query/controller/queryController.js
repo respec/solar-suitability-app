@@ -50,6 +50,7 @@ define([
 
         // store point as lat/lng
         app.query.latLngPt = mp;
+        app.model.set('latLngPt', mp);
 
         this.handleMap();
       },
@@ -211,9 +212,10 @@ define([
       displayResults: function(results) {
 
         app.query.results = results;
+
         //empty div so histo doesn't duplicate
-        $('#resultsHisto').html('');
-        $('#sunHrHisto').html('');
+        this.clearDiv('#resultsHisto');
+        this.clearDiv('#sunHrHisto');
 
         //parse the results
         var insolResults = results[0].value.split('\n');
@@ -249,6 +251,7 @@ define([
         var sunTotal = 0;
         var insolList = [];
         var sunHrList = [];
+        var shadeHrList = [];
         var months = [];
 
         for (var i = 0; i < 12; i++) {
@@ -287,17 +290,26 @@ define([
         var nearestLat = Math.round(app.query.latLngPt.y);
         var annualPercentSun = 0;
 
-        _.each(sunHours[nearestLat], function(value, month){
-          solarObj[month].maxSunHrValue = value;
+        _.each(sunHours[nearestLat], function(value, mon){
+          var month = solarObj[mon];
+          month.maxSunHrValue = value;
+
+          month.shadeHrValue = 0;
 
           // Calculate percent sun 
-          var percentSun = solarObj[month].sunHrValue/value;
+          var percentSun = month.sunHrValue/value;
           if (percentSun > 1){
             percentSun = 1;
+          } else {
+            month.shadeHrValue = month.maxSunHrValue - month.sunHrValue;
           }
-          solarObj[month].percentSun = percentSun;
+          month.percentSun = percentSun;
           annualPercentSun += percentSun;
+
+          shadeHrList.push(month.shadeHrValue);
         });
+
+        solarObj.shadeHrList = shadeHrList;
 
         // Convert to average, float, 2 decimal points (percent)
         annualPercentSun = parseFloat((annualPercentSun/12).toFixed(2));
@@ -342,8 +354,31 @@ define([
         // create histos
         // 
         // create Solar Insol histo
-        this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
+        insolChart = {
+          data: solarObj,
+          attributes: solarObj.insolList,
+          maxValue: 220,
+          el: '#resultsHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+        };
 
+        this.drawChart(insolChart);
         // // create Sun Hrs histo
         // this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
 
@@ -457,103 +492,100 @@ define([
         }
       },
 
-      drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
-        titleOffset = parseInt(titleOffset, 10);
-        var margin = {
-          'top': 10,
-          'right': 10,
-          'bottom': 50,
-          'left': 50
-        },
-        width = 600,
-        height = 260;
-        var barWidth = 20;
+      drawChart: function (chartObj) {
 
+      // drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
+        var titleOffset = parseInt(chartObj.title.offset, 10);
+        var margin = chartObj.margin;
+        var width = chartObj.size.width;
+        var height = chartObj.size.height;
+        var barWidth = chartObj.size.barWidth;
         var months = [];
-        _.each(data, function(items){
+
+        // Build months
+        _.each(chartObj.data, function(items){
           if(items.month){
             months.push(items.month);
           }
         });
 
         var x = d3.scale.ordinal()
-        .domain(months.map(function(d) {
-            // return d.substring(0, 3);
+          // SET X AXIS
+          .domain(months.map(function(d) {
             return d;
           }))
-        .rangeRoundBands([0, width / 2], 0);
-          // .rangeRoundBands([margin.left, width - margin.right], 0);
+          .rangeRoundBands([0, width / 2], 0);
 
-          var y = d3.scale.linear()
+        var y = d3.scale.linear()
           // SET Y AXIS HEIGHT
-          .domain([0, (max)])
+          .domain([0, (chartObj.maxValue)])
           .range([height, 0]);
 
-          var xAxis = d3.svg.axis()
+        var xAxis = d3.svg.axis()
           .scale(x)
           .orient('bottom');
 
-          var yAxis = d3.svg.axis()
+        var yAxis = d3.svg.axis()
           .scale(y)
           .orient('left');
 
-          var svgContainer = d3.select(div).append('svg')
-          .attr('class', 'chart')
+        var svgContainer = d3.select(chartObj.el).append('svg')
+          .attr('class', chartObj.className)
           .attr('width', width + margin.left + margin.right)
           .attr('height', height + margin.top + margin.bottom).append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
 
         // CREATE TOOL TIP
         var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-          return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
 
-        });
+          });
 
         svgContainer.call(tip);
 
         svgContainer.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate( 0,' + height + ')')
-        .call(xAxis)
-        .selectAll('text')
-        .style('text-anchor', 'end')
-        .attr('dx', '-.8em')
-        .attr('dy', '.15em')
-        .attr('transform', function(d) {
-          return 'rotate(-65)';
-        });
+          .attr('class', 'x axis')
+          .attr('transform', 'translate( 0,' + height + ')')
+          .call(xAxis)
+          .selectAll('text')
+          .style('text-anchor', 'end')
+          .attr('dx', '-.8em')
+          .attr('dy', '.15em')
+          .attr('transform', function(d) {
+            return 'rotate(-65)';
+          });
 
         svgContainer.append('g')
-        .attr('class', 'y axis').call(yAxis)
-        .append('text')
-        .attr('x', (width / titleOffset + titleModifier))
-        .attr('y', 10)
-        .attr('text-anchor', 'center')
-        .style('font-size', '16px')
-        .text(title);
+          .attr('class', 'y axis').call(yAxis)
+          .append('text')
+          .attr('x', (width / chartObj.title.offset + chartObj.title.modifier))
+          .attr('y', 10)
+          .attr('text-anchor', 'center')
+          .style('font-size', '16px')
+          .text(chartObj.title.title);
 
-        svgContainer.selectAll('.bar').data(dataAttr).enter().append('rect')
-        .attr('class', 'bar')
-        .attr('x', function(d, i) {
-          return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
-        })
-        .attr('y', function(d) {
-          return y(d);
-        })
-        .attr('width', barWidth)
-        .attr('height', function(d) {
-          return height - y(d);
-        })
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide);
+        svgContainer.selectAll('.bar').data(chartObj.attributes).enter().append('rect')
+          .attr('class', 'bar')
+          .attr('x', function(d, i) {
+            return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
+          })
+          .attr('y', function(d) {
+            return y(d);
+          })
+          .attr('width', barWidth)
+          .attr('height', function(d) {
+            return height - y(d);
+          })
+          .on('mouseover', tip.show)
+          .on('mouseout', tip.hide);
 
       },
 
       clearDiv: function(div){
-        div.html('');
+        $(div).html('');
       }
       
     };
