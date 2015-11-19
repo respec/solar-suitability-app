@@ -18,6 +18,18 @@ html {
     min-height:100%
 }
 
+a {
+  color: $doc-blue;
+}
+a:hover {
+  color: $doc-green;
+  text-decoration: none;
+}
+a:active, a:visited {
+  color: $doc-green;
+  text-decoration: underline;
+}
+
 /* Fading Alert */
 .flyover {
    left: 150%;
@@ -92,7 +104,7 @@ html {
 }
 
 .paragraphIndent {
-  margin-left: 2em;
+  margin-left: 1em;
 }
 
 .center{
