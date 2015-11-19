@@ -82,9 +82,9 @@ define([
 
       // queryController.drawChart(reportShadeHrsChart);
 
-      // this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
-      // this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
-      // this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
+      this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
+      this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+      this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
       
 
       // create Solar Insol histo
@@ -146,12 +146,13 @@ define([
         });
 
       if (!app[mapName]){
+        console.log('creating', mapName);
         app[mapName] = new Map(el, {
           basemap: basemap,
           center: [app.query.latLngPt.x, app.query.latLngPt.y],
           showAttribution: false,
           zoom: 18,
-          minZoom: 18
+          minZoom: 18,
         });
 
         if (mapName === 'reportSolarMap'){
@@ -178,12 +179,20 @@ define([
         }
 
       }
+      app[mapName].on('load', lang.hitch(this, function(){
+        app[mapName].isPan = false;
+        app[mapName].isPanArrows = true;
+      }));
 
       app[mapName].resize();
 
     },
 
     buildTable: function(el, data, values, ref){
+      // empty the previous table
+      var tableRows = el + 'tbody tr';
+      $(tableRows).remove();
+
       var $table = $(el);
       _.each(ref, function(mon){
         var shortMonth = mon.abbr;
