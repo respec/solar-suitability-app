@@ -351,6 +351,8 @@ define([
         $showGradient.css('width', gradient);
         $('.showGradient>span').text(gradient);
 
+        app.charts = {};
+
         // create histos
         // 
         // create Solar Insol histo
@@ -377,6 +379,8 @@ define([
             'left': 50
           },
         };
+
+        app.charts.insolChart = insolChart;
 
         this.drawChart(insolChart);
         // // create Sun Hrs histo

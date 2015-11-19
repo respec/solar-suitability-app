@@ -65,11 +65,11 @@ define([
       queryController.clearDiv($('#reportShadeHrsHisto'));
 
       // NEED TO FIX THESE - I DON'T REMEMBER DOING THIS AND IT DOESN'T WORK - MAYBE I LOST CODE WITH A BAD CONFLICT RESOLUTION?
-      // var reportInsolChart = app.chartObj.insol;
-      // reportInsolChart.el = '#reportResultsHisto';
-      // reportInsolChart.className = 'reportChart';
+      var reportInsolChart = app.charts.insolChart;
+      reportInsolChart.el = '#reportResultsHisto';
+      reportInsolChart.className = 'reportChart';
 
-      // queryController.drawChart(reportInsolChart);
+      queryController.drawChart(reportInsolChart);
 
       // var reportSunHrsChart = app.chartObj.sunHrs;
       // reportSunHrsChart.el = '#reportSunHrsHisto';
