@@ -4,8 +4,8 @@ define(['esri/symbols/PictureMarkerSymbol'],
 
     var pinSymbol = new PMS({
       'angle': 0,
-      'xoffset': 0,
-      'yoffset': 8,
+      'xoffset': -1,
+      'yoffset': 12,
       'type': 'esriPMS',
       'url': 'http://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png',
       'contentType': 'image/png',

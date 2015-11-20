@@ -23,11 +23,14 @@ a {
 }
 a:hover {
   color: $doc-green;
-  text-decoration: none;
+  text-decoration: underline;
 }
-a:active, a:visited {
+a:active {
   color: $doc-green;
   text-decoration: underline;
+}
+a:visited {
+  color: $doc-blue;
 }
 
 /* Fading Alert */

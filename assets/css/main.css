@@ -5846,11 +5846,14 @@ a {
 
 a:hover {
   color: #549125;
-  text-decoration: none; }
+  text-decoration: underline; }
 
-a:active, a:visited {
+a:active {
   color: #549125;
   text-decoration: underline; }
+
+a:visited {
+  color: #217BDB; }
 
 /* Fading Alert */
 .flyover {
@@ -6351,8 +6354,7 @@ ul.dropdown-menu, a.dropdown-menu {
 .valueHelp {
   color: #ff7400;
   font-weight: bold;
-  font-size: 18px;
-  padding: 3px; }
+  font-size: 18px; }
 
 #closeResults {
   margin-top: 10px; }
