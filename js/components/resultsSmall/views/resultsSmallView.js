@@ -48,6 +48,7 @@ define([
           solarPercent: app.reportModel.get('percentElectricGoal'),
           systemSize: app.reportModel.get('systemSize'),
           averageSystemCost: app.reportModel.get('averageCostSystem'),
+          averageCostSystemAsCurrency: app.reportModel.get('averageCostSystemAsCurrency'),
           payback: app.reportModel.get('paybackWithMim')
         };
 

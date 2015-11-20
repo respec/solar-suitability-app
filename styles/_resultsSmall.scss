@@ -35,7 +35,17 @@
 //   text-decoration:none;
 // }
 
-.resultsDisplay {
+.resultsPreview1 {
+    display:inline-block;
+    //font-size:14px;
+   /* background-color:#474343; */
+    color:#fff;
+    z-index:5;
+    padding-top:10px;
+    // margin-left:50px
+}
+
+.resultsPreview2 {
     display:inline-block;
     font-size:14px;
    /* background-color:#474343; */
@@ -154,9 +164,11 @@
     margin-left: 5px;
 }
 
-.progress{
+.progress-width{
     width: 90%;
 }
+
+
 
 // .hideGradient {
 //     background-color: black;

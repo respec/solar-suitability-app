@@ -14,10 +14,14 @@
                         <div class="resultHeader">
                             <span>Results Preview</span>
                         </div>
-                        <div class="resultsDisplay noselect" id="results">
+                        <div class="resultsPreview1 noselect" id="results">
                             <div>
-                                <!-- <h4 class="zeroPercent">0%<h4> -->
-                                <div class="progressBar progress gradient center bottomSpace">
+                                <!-- <h4 class="zeroPercent">0%<h4> 
+                                TODO move this inline CSS
+                                -->
+                                <div style="font-size:10px;" class="progress-width center"><div style="border-left: 2px solid white; width: 70%; display:inline-block;">Poor</div><div style="border-left: 2px solid white; width: 10%; display:inline-block;">Fair</div><div style="border-left: 2px solid white; width: 10%; display:inline-block;">Good</div><div style="border-left: 2px solid white; border-right: 2px solid white; width: 10%; display:inline-block;">Optimal</div></div>
+                                <div class="progressBar progress progress-width gradient center bottomSpace">
+
                                     <div class="progress-bar showGradient" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                         <span class="center"></span>
                                     </div>
@@ -29,7 +33,7 @@
 
                             <div class="topSpace">
                                 <p>
-                                    Your site is <span class="valueHelp"><%=quality%></span>. It receives an average of <span class="valueHelp"><%=averagePerDay%> kWh/m<sup>2</sup></span> of solar radiation daily and a total of <span class="valueHelp"><%=totalPerYear%> kWh<sup>2</sup></span> per year. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power. This system would cost approximately <span class="valueHelp">$<%=averageSystemCost.toFixed()%></span>. <a href="http://www.mn.gov/commerce/energy/businesses/energy-leg-initiatives/made-in-minnesota/" target="_blank">Made in Minnesota</a> and other tax/rebate incentives can help make the estimate payback for this system <span class="valueHelp"><%=payback.toFixed(1)%> years</span>.<!-- Display warning ** -->
+                                    Your site is <span class="valueHelp"><%=quality%></span>. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> solar PV system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power. This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. With <a href="http://www.mn.gov/commerce/energy/businesses/energy-leg-initiatives/made-in-minnesota/" target="_blank">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=payback.toFixed(1)%> years</span>.<!-- Display warning ** -->
                                 
                                 </p>
                             </div>
@@ -54,9 +58,9 @@
                     <!-- histogram -->
                     <div class="col-md-4">
                         <div class="resultHeader">
-                            <div class="chartTitle">Total Shade Hours By Month</div>
+                            <div class="chartTitle">Sun Hours By Month</div>
                         </div>
-                        <div class="resultsDisplay noselect" id="resultsHisto"></div>
+                        <div class="resultsPreview2 noselect" id="sunHrHisto"></div>
                     </div>
 
                     <!-- New col -->
@@ -121,200 +125,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Exit button -->
-            <!-- <div class="col-md-1">
-                <button id="closeResults" aria-label="Close" data-dismiss="modal" class="close invert-btn pull-right" type="button">
-                    <span aria-hidden="true"><i class="fa fa-times fa-1x"></i></span>
-                </button>
-            </div> -->
-        </div>
-
-        <!-- <div class="row">
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-3 resultsGeneral">
-                <!-- <div class="resultsDisplay noselect" id="results">
-                    <div class="resultHeader">
-                        <span>Average Annual Percent Sun</span>
-                    </div>
-                    
-                    <div class="valueHelp">
-                        [<%=quality%>]
-                    </div>
-
-                    <div>
-                        <!-- <h4 class="zeroPercent">0%<h4> --
-                        <div class="progress gradient">
-                            <div class="progress-bar showGradient " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                <span></span>
-                            </div>
-                        </div>
-                        <!-- <h4 class="hundredPercent">100%<h4> --
-                    </div>
-                    <div>
-                        Total per Year: <%=totalPerYear%>
-
-                        <!-- Display warning ** --
-                        <% if(bareEarth === 1 || county === 'Pine') { %>
-                            **
-                        <% } %>
-
-                        <br>
-                        Avg per Day: <%=averagePerDay%>
-
-                        <!-- Display warning ** --
-                        <% if(bareEarth === 1 || county === 'Pine') { %>
-                            **
-                        <% } %>
-
-                        <!-- Display bare earth warning msg --
-                        <% if(bareEarth === 1) { %>
-                            <p>
-                                **
-                                <span id="smText">The lidar data available for ' <% county %>' County includes only bare earth points. Hence, this insolation value does not take shade from nearby surface features into consideration.</span>
-                            </p>
-                        <% } %>
-
-                        <!-- Display Pine County warning msg --
-                        <% if(county === 'Pine') { %>
-                            <p>
-                                **
-                                <span id="smText">The lidar data available for '<% county %> ' County was inconsistently classified across different flight lines. Hence, insolation accuracy is variable as shade from nearby surface features may not be taken into consideration.</span>
-                            </p>
-                        <% } %>
-                    </div>
-
-                    <div class="resultHeader">
-                        <strong>UTILITY SERVICE PROVIDER</strong>
-                    </div>
-
-                    <div>
-                        <% if (typeof(utilityCompany) !== "undefined") {%>
-                            <%=utilityCompany.fullName%> -
-                            <br />
-                            <a href="tel:+1-' + <%=utilityCompany.phone.slice(1, 4)%> + '-' + <%=utilityCompany.phone.slice(6, 14)%>"><%=utilityCompany.phone%></a>
-                        <% } %>
-                        
-                        <p>
-                            <a href="<% mnIncentives %>" target="_blank">MN Incentives/Policies for Solar</a>
-                        </p>
-
-                        <% if(quality === 'Poor'){%>
-                            <p>Location not optimal? Check out:<br /><a href="<%=solarGardens%>" target="_blank">Community Solar Gardens</a></p>
-                        <% } else {%>
-                            <p>Get Started: 
-                                <a id="mnInstallers" href="<%=mnInstallers%><% if (typeof(utilityCompany) !== "undefined") {%><%=utilityCompany.zip%><%}%>" target="_blank">Contact a Local Installer</a>
-                            </p>
-                        <% } %>
-                        <div>
-                            Report bad data 
-                            <span class="badData">here</span>
-                        </div>
-                        <div class="resultHeader">
-                            SOURCE DATA (
-                            <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar</a>
-                            )
-                        </div>
-                        <div id="collect"><%=lidarCollect%></div>
-                    </div>
-                </div> --
-            </div>
-        </div> -->  <!-- ROW END -->
+        </div> <!-- ROW END -->
     </div> <!-- CONTAINER END --> 
 </div> <!-- END ResultsSmall -->
-
-<!-- Tab Interface
-            <div class="col-md-8">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#insolationResults" aria-controls="insolationResults" role="tab" data-toggle="tab">Solar Insolation By Month (kWh)</a></li>
-                    <li role="presentation"><a href="#sunHrsResults" aria-controls="sunHrsResults" role="tab" data-toggle="tab">Sun Hours (Month)</a></li>
-                    <li role="presentation"><a href="#shadeHrsResults" aria-controls="shadeHrsResults" role="tab" data-toggle="tab">Shade Hours (Month)</a></li>
-                </ul>
-
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="insolationResults">
-                        <div class="row no-gutter">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                <div class="resultsDisplay noselect" id="resultsHisto"></div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="row">
-                                    <div class="col-md-11">
-                                        <table class="table table-bordered table-hover table-condensed" >
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:50%">Month</th>
-                                                    <th style="width:50%">Value</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-11 resultsTables">
-                                        <table class="table table-bordered table-hover table-condensed" id="insolationTable">
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-1"></div>
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="sunHrsResults">
-                        <div class="row no-gutter">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                <div class="resultsDisplay noselect" id="sunHrHisto"></div>
-                            </div>
-                            <div class="col-md-5 resultsTables">
-                                <table class="table table-bordered table-hover table-condensed" id="sunHoursTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Month</th>
-                                            <th>Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-1"></div>
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="shadeHrsResults">
-                        <div class="row no-gutter">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                shadeHrs here eventually
-                                
-                            </div>
-                            <div class="col-md-5">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <table class="table table-bordered table-hover table-condensed" >
-                                            <thead>
-                                                <tr>
-                                                    <th>Month</th>
-                                                    <th>Value</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="height: 300px; overflow:auto">
-                                        <table class="table table-bordered table-hover table-condensed" id="shadeHoursTable">
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-1"></div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            -->

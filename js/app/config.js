@@ -110,7 +110,6 @@ define(['esri/symbols/PictureMarkerSymbol'],
       // countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/5',
       // certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',
 
-
       /*MPLS*/
       // centerLat: 44.971795,
       // centerLng: -93.243322,

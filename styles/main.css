@@ -6309,7 +6309,14 @@ ul.dropdown-menu, a.dropdown-menu {
   color: #fff;
   opacity: .4; }
 
-.resultsDisplay {
+.resultsPreview1 {
+  display: inline-block;
+  /* background-color:#474343; */
+  color: #fff;
+  z-index: 5;
+  padding-top: 10px; }
+
+.resultsPreview2 {
   display: inline-block;
   font-size: 14px;
   /* background-color:#474343; */
@@ -6409,7 +6416,7 @@ ul.dropdown-menu, a.dropdown-menu {
   float: right;
   margin-left: 5px; }
 
-.progress {
+.progress-width {
   width: 90%; }
 
 /* D3 customization */
