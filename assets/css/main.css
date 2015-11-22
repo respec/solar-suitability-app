@@ -6330,6 +6330,9 @@ ul.dropdown-menu, a.dropdown-menu {
 .topSpace {
   padding-top: 15px; }
 
+li {
+  margin: 0 0 10px 0; }
+
 .resultsButtonToolbar {
   float: right;
   margin-top: 3px; }
@@ -6367,7 +6370,6 @@ ul.dropdown-menu, a.dropdown-menu {
   margin-top: 10px; }
 
 .reportControls {
-  float: left;
   width: 130px;
   margin-top: 20px; }
 
@@ -6418,6 +6420,9 @@ ul.dropdown-menu, a.dropdown-menu {
 
 .progress-width {
   width: 90%; }
+
+.progress {
+  margin-bottom: 0px; }
 
 /* D3 customization */
 .x.axis text, .y.axis text {

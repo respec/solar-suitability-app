@@ -16,15 +16,21 @@
                         </div>
                         <div class="resultsPreview1 noselect" id="results">
                             <div>
-                                <!-- <h4 class="zeroPercent">0%<h4> 
-                                TODO move this inline CSS
-                                -->
-                                <div style="font-size:10px;" class="progress-width center"><div style="border-left: 2px solid white; width: 70%; display:inline-block;">Poor</div><div style="border-left: 2px solid white; width: 10%; display:inline-block;">Fair</div><div style="border-left: 2px solid white; width: 10%; display:inline-block;">Good</div><div style="border-left: 2px solid white; border-right: 2px solid white; width: 10%; display:inline-block;">Optimal</div></div>
-                                <div class="progressBar progress progress-width gradient center bottomSpace">
+                                
+                                <div class="progressBar progress progress-width gradient center">
 
                                     <div class="progress-bar showGradient" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                         <span class="center"></span>
                                     </div>
+                                </div>
+                                <!-- <h4 class="zeroPercent">0%<h4> 
+                                TODO move this inline CSS
+                                -->
+                                <div class="progress-width center bottomSpace" style="font-size:10px;margin-top:-2px;">
+                                    <div style="border-left: 2px solid white; width: 68%; display:inline-block;">Poor</div>
+                                    <div style="border-left: 2px solid white; width: 10%; display:inline-block;">Fair</div>
+                                    <div style="border-left: 2px solid white; width: 10%; display:inline-block;">Good</div>
+                                    <div style="border-left: 2px solid white; border-right: 2px solid white; width: 10%; display:inline-block;">Optimal</div>
                                 </div>
                                 <div class="center bottomSpace">
                                     Percent of Total Available Solar<% if(bareEarth === 1) { %>**<% } %>
@@ -32,24 +38,28 @@
                             </div>
 
                             <div class="topSpace">
-                                <p>
+                                <p class="paragraphIndent">
                                     Your site is <span class="valueHelp"><%=quality%></span>. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> solar PV system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power. This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. With <a href="http://www.mn.gov/commerce/energy/businesses/energy-leg-initiatives/made-in-minnesota/" target="_blank">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=payback.toFixed(1)%> years</span>.<!-- Display warning ** -->
                                 
                                 </p>
                             </div>
 
-                            <div>
+                            <!-- Buttons -->
+                            <div class="center">
+                            <button type="button" class="btn btn-default btn-solar reportControls" id="viewReport">
+                                <span id="viewReportLink">Full Report</span>
+                                <i class="fa fa-print"></i>
+                            </button>
+                        
+                            <button type="button" class="btn btn-default btn-solar reportControls" id="emailReport">
+                                <span id="emailReportLink">Share Results</span>
+                                <i class="fa fa-envelope-o"></i>
+                            </button>
 
-                                
-
-                                <!-- Display bare earth warning msg -->
-                                <% if(bareEarth === 1) { %>
-                                    <p>
-                                        **
-                                        <span id="smText">The source data available for <span class="valueHelp"><%=county%> County</span> contains only bare earth points. Hence, these results do not take shade from nearby features into consideration.</span>
-                                    </p>
-                                <% } %>
-
+                            <button type="button" class="btn btn-default btn-solar reportControls" id="dataIssue">
+                                <span id="dataIssuesLink">Problem?</span>
+                                <i class="fa fa-exclamation-circle"></i>
+                            </button>
                             </div>
                         </div>                     
             
@@ -72,12 +82,13 @@
                             <span>Get Started</span>
                         </div>
                         <div class="paragraphIndent topSpace">
+                        <ol>
                             <% if(quality === 'Poor'){%>
-                                <p>
+                                <li>
                                     Location not ideal, consider <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>
-                                </p>
+                                </li>
                             <% } else {%>
-                                <p>
+                                <li>
                                     <% if (typeof(utilityCompany) !== "undefined"){
                                         if(utilityCompany.hasOwnProperty('zip')) { %>
                                             <a href="<%= mnInstallers %><%=parseInt(utilityCompany.zip, 10)%>" target="_blank">Contact a Local Installer</a>
@@ -85,42 +96,37 @@
                                             No zip code information available.  Please report bad data <span class="badData">here</span>.
                                         <% } %>
                                     <% } %>
-                                </p>
+                                </li>
                             <% } %>
 
-                            <p>
+                            <li>
                                 <a href="<%= mnIncentives %>" target="_blank">MN Incentives/Policies for Solar</a>
-                            </p>
+                            </li>
 
-                            <p>
+                            <li>
                                 <a href="" id="nearbySolarLink">Map nearby solar installations</a>
-                            </p>
-                            <p>Contact utility service provider: </p>
-                            <p>
+                            </li>
+                            <li>Contact utility service provider: <br>
                                 <% if (typeof(utilityCompany) !== "undefined") {%>
                                    &nbsp; <a href="http://<%=utilityCompany.website%>" target="_blank"><%=utilityCompany.fullName%></a>
                                     <!-- <a href="tel:+1-' + <%=utilityCompany.phone.slice(1, 4)%> + '-' + <%=utilityCompany.phone.slice(6, 14)%>"><%=utilityCompany.phone%></a> -->
                                 <% } %>
-                            </p>
-                            <p>
+                            </li>
+                            </ol>
+                            <div class="small">
                                 Source Data: <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar <%=lidarCollect%></a>
-                            </p>
+                            </div>
+                            <div>
+                                <!-- Display bare earth warning msg -->
+                                <% if(bareEarth === 1) { %>
+                                    <p>
+                                        **
+                                        <span id="smText">The source data available for <span class="valueHelp"><%=county%> County</span> contains only bare earth points. Hence, these results do not take shade from nearby features into consideration.</span>
+                                    </p>
+                                <% } %>
+                            </div>
                         </div>
-                            <!-- Buttons -->
-                            <button type="button" class="btn btn-default btn-solar reportControls" id="viewReport">
-                                <span id="viewReportLink">Full Report</span>
-                                <i class="fa fa-print"></i>
-                            </button>
-                        
-                            <button type="button" class="btn btn-default btn-solar reportControls" id="emailReport">
-                                <span id="emailReportLink">Share Results</span>
-                                <i class="fa fa-envelope-o"></i>
-                            </button>
-
-                            <button type="button" class="btn btn-default btn-solar reportControls" id="dataIssue">
-                                <span id="dataIssuesLink">Problem?</span>
-                                <i class="fa fa-exclamation-circle"></i>
-                            </button>
+                            
                         
                     </div>
                 </div>
