@@ -207,10 +207,10 @@ define([
           'PointY': point.y,
           'File_Name': tile
         };
-        gp.execute(params, lang.hitch(this, this.displayResults));
+        gp.execute(params, lang.hitch(this, this.buildResults));
       },
 
-      displayResults: function(results) {
+      buildResults: function(results) {
 
         app.query.results = results;
 
@@ -386,21 +386,20 @@ define([
         app.charts.insolChart = insolChart;
 
         this.drawChart(insolChart);
-        // // create Sun Hrs histo
-        // this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
 
         // store results
         app.solarObj = solarObj;
         resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
         resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
 
-
-        this.displayResults2();
-      },
-
-      displayResults2: function(){
         // Calculate solar calculator
         this.calculateSystemData();
+
+        this.displayResults();
+      },
+
+      displayResults: function(){
+        
 
         //show results & hide loader
         loadSplashController.hideLoader();
