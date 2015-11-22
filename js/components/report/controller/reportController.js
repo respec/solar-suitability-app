@@ -13,7 +13,7 @@ define([
   'esri/map',
   'esri/toolbars/edit'
 
-],
+  ],
 
   function(
     config, sunHours,
@@ -25,9 +25,9 @@ define([
     ImageLayer, Map, Edit
     ) {
 
-  return {
+    return {
 
-    buildReport: function(){
+      buildReport: function(){
       // init layout
       this.layoutReport();
 
@@ -64,86 +64,28 @@ define([
       queryController.clearDiv($('#reportSunHrsHisto'));
       queryController.clearDiv($('#reportShadeHrsHisto'));
 
-      // NEED TO FIX THESE - I DON'T REMEMBER DOING THIS AND IT DOESN'T WORK - MAYBE I LOST CODE WITH A BAD CONFLICT RESOLUTION?
+      // draw insol hours chart
       var reportInsolChart = app.charts.insolChart;
       reportInsolChart.el = '#reportResultsHisto';
       reportInsolChart.className = 'reportChart';
-
       queryController.drawChart(reportInsolChart);
 
-      reportSunHrsChart = {
-          data: app.solarObj,
-          attributes: app.solarObj.sunHrList,
-          maxValue: 500,
-          el: '#reportSunHrsHisto',
-          className: 'reportChart',
-          size: {
-            width: 600,
-            height: 260,
-            barWidth: 20
-          },
-          title: {
-            title: '',
-            offset: 2,
-            modifier: 20
-          },
-          margin: {
-            'top': 10,
-            'right': 10,
-            'bottom': 50,
-            'left': 50
-          },
-        };
-
+      // draw sun hours chart
+      var reportSunHrsChart = app.charts.sunHrsChart;
+      reportSunHrsChart.el = '#reportSunHrsHisto';
+      reportSunHrsChart.className = 'reportChart';
       queryController.drawChart(reportSunHrsChart);
 
-      reportShadeHrsChart = {
-          data: app.solarObj,
-          attributes: app.solarObj.shadeHrList,
-          maxValue: 500,
-          el: '#reportShadeHrsHisto',
-          className: 'reportChart',
-          size: {
-            width: 600,
-            height: 260,
-            barWidth: 20
-          },
-          title: {
-            title: '',
-            offset: 2,
-            modifier: 20
-          },
-          margin: {
-            'top': 10,
-            'right': 10,
-            'bottom': 50,
-            'left': 50
-          },
-        };
-
-      // var reportShadeHrsChart = app.chartObj.shadeHrs;
-      // reportShadeHrsChart.className = 'reportChart';
-
+      // draw shade hours chart
+      var reportShadeHrsChart = app.charts.shadeHrsChart;
+      reportShadeHrsChart.el = '#reportShadeHrsHisto';
+      reportShadeHrsChart.className = 'reportChart';
       queryController.drawChart(reportShadeHrsChart);
 
       this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
       this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
       this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
       
-
-      // create Solar Insol histo
-      // queryController.drawChart(app.solarObj, app.solarObj.insolList, 220, '#reportResultsHisto', 'Insolation By Month', 2, -40);
-
-      // create Sun Hrs histo
-      // queryController.drawChart(app.solarObj, app.solarObj.sunHrList, 500, '#reportSunHrsHisto', 'Sun Hours By Month', 2, -40);
-
-      // // 25 is the rounding increment
-      // shadeHrMax = 25 * Math.round(sunHours[app.solarObj.nearestLat].Jul/25);
-
-      // create Shade Hrs histo
-      // queryController.drawChart(app.solarObj, app.solarObj.shadeHrList, shadeHrMax, '#reportShadeHrsHisto', 'Shade Hours By Month', 2, -40);
-
-      // console.log($('#results').html());
     },
 
     layoutReport: function(){
@@ -153,10 +95,10 @@ define([
       // Set solar values
       $('#reportTotalPerYear').html(
         parseFloat(app.query.totalPerYear).toFixed(2) + ' kWh/m<sup>2</sup>'
-      );
+        );
       $('#reportAveragePerDay').html(
         parseFloat(app.query.averagePerDay).toFixed(2) + ' kWh/m<sup>2</sup>'
-      );
+        );
 
       $('#collectDate').text(app.query.collectDate);
       $('#quality').text(app.query.quality);
@@ -237,12 +179,12 @@ define([
         var shortMonth = mon.abbr;
         var longMonth = mon.full;
         $table.find('tbody')
-          .append($('<tr>')
-            .append($('<td style="width:50%">')
-              .text(longMonth)
+        .append($('<tr>')
+          .append($('<td style="width:50%">')
+            .text(longMonth)
             )
-            .append($('<td>')
-              .text(data[shortMonth][values].toFixed(2))
+          .append($('<td>')
+            .text(data[shortMonth][values].toFixed(2))
             )
           );
       });
@@ -274,8 +216,8 @@ define([
       // doc.addHTML(html, function(){
       //   doc.save('test.pdf');
       // })
-      
-      /* ONLY TAKES TEXT */
+
+/* ONLY TAKES TEXT */
       // doc.fromHTML(
       //   $('.modal-content').get(0),  // source
       //   15,                       // xcoord
@@ -285,44 +227,44 @@ define([
       //     'elementHandlers': specialElementHandlers
       //   }
       // );
-      
-      var solarLogo = imageUri.solarLogo;
-            
-      doc.addImage(
+
+var solarLogo = imageUri.solarLogo;
+
+doc.addImage(
         solarLogo,    // source
         'JPEG',       // type
         0.25,           // x coord
         0.25,           // y coord
         1,           // width
         1           // height
-      );
+        );
 
-      doc.setFontSize(18);
-      doc.text(
+doc.setFontSize(18);
+doc.text(
         1.5,                     // x coord
         0.5,                     // y coord
         'Minnesota Solar Suitability Location Report'  // value
-      );
+        );
 
-      doc.setLineWidth(0.0005);
-      doc.line(
-        0, 1.5,
-        8.5, 1.5
-      );
+doc.setLineWidth(0.0005);
+doc.line(
+  0, 1.5,
+  8.5, 1.5
+  );
 
-      
-      return doc;
-    },
 
-    saveToPdf: function(doc){
-      var docName = 'default.pdf';
-      if (app.query.siteName){
-        docName = app.query.siteName + '.pdf';
-      }
-      doc.save(docName);
-    },
+return doc;
+},
 
-    printPdf: function(doc){
+saveToPdf: function(doc){
+  var docName = 'default.pdf';
+  if (app.query.siteName){
+    docName = app.query.siteName + '.pdf';
+  }
+  doc.save(docName);
+},
+
+printPdf: function(doc){
       // console.log('printPDF');
       // doc.autoPrint();
     },
@@ -432,7 +374,7 @@ define([
     //       // console.log('year', i+1, 'deg', degredation, degradationFactor, 'reducedProductionPerYear', reducedProductionPerYear);
     //       // reduce values each year i-1
     //       costPerkWh = costPerkWh * energyEscalator;
-          
+
     //       degredation = degredation * degradationFactor;
     //       reducedProductionPerYear = productionPerYear * (degredation/100);
     //     }
