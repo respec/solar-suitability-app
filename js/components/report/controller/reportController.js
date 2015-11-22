@@ -139,11 +139,13 @@ define([
 
     buildMap: function(mapName, el, basemap){
 
-      var solarLayer = new ImageLayer(config.solarImageryUrl, {
-          id: 'solar',
-          showAttribution: false,
-          opacity: 1.0
-        });
+      // var solarLayer = new ImageLayer(config.solarImageryUrl, {
+      //     id: 'solar',
+      //     showAttribution: false,
+      //     opacity: 1.0
+      //   });
+
+      var solarLayer = app.map.getLayer('solar');
 
       if (!app[mapName]){
         console.log('creating', mapName);
