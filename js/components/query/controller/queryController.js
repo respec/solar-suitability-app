@@ -354,14 +354,37 @@ define([
         $showGradient.css('width', gradient);
         $('.showGradient>span').text(gradient);
 
-        app.charts = {};
+        // store results
+        app.solarObj = solarObj;
 
         // create histos
         // 
         // create Solar Insol histo
-        insolChart = {
-          data: solarObj,
-          attributes: solarObj.insolList,
+        this.buildCharts();
+        
+        this.drawChart(app.charts.sunHrsChart);
+
+        resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
+        resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+
+        // Calculate solar calculator
+        this.calculateSystemData();
+
+        this.displayResults();
+      },
+
+      displayResults: function(){
+        //show results & hide loader
+        loadSplashController.hideLoader();
+        resultsSmallController.showResults();
+      },
+
+      buildCharts: function(){
+        app.charts = {};
+
+        var insolChart = {
+          data: app.solarObj,
+          attributes: app.solarObj.insolList,
           maxValue: 220,
           el: '#resultsHisto',
           className: 'chart',
@@ -381,29 +404,64 @@ define([
             'bottom': 50,
             'left': 50
           },
+          tip: true
         };
 
         app.charts.insolChart = insolChart;
 
-        this.drawChart(insolChart);
+        var sunHrsChart = {
+          data: app.solarObj,
+          attributes: app.solarObj.sunHrList,
+          maxValue: 500,
+          el: '#sunHrsHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+          tip: true
+        };
 
-        // store results
-        app.solarObj = solarObj;
-        resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
-        resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+        app.charts.sunHrsChart = sunHrsChart;
 
-        // Calculate solar calculator
-        this.calculateSystemData();
+        var shadeHrsChart = {
+          data: app.solarObj,
+          attributes: app.solarObj.shadeHrList,
+          maxValue: 500,
+          el: '',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+          tip: false
+        };
 
-        this.displayResults();
-      },
-
-      displayResults: function(){
-        
-
-        //show results & hide loader
-        loadSplashController.hideLoader();
-        resultsSmallController.showResults();
+        app.charts.shadeHrsChart = shadeHrsChart;
       },
 
       calculateSystemData: function(){
@@ -500,7 +558,6 @@ define([
 
       drawChart: function (chartObj) {
 
-      // drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
         var titleOffset = parseInt(chartObj.title.offset, 10);
         var margin = chartObj.margin;
         var width = chartObj.size.width;
@@ -516,83 +573,88 @@ define([
         });
 
         var x = d3.scale.ordinal()
-          // SET X AXIS
-          .domain(months.map(function(d) {
-            return d;
-          }))
-          .rangeRoundBands([0, width / 2], 0);
+        // SET X AXIS
+        .domain(months.map(function(d) {
+          return d;
+        }))
+        .rangeRoundBands([0, width / 2], 0);
 
         var y = d3.scale.linear()
-          // SET Y AXIS HEIGHT
-          .domain([0, (chartObj.maxValue)])
-          .range([height, 0]);
+        // SET Y AXIS HEIGHT
+        .domain([0, (chartObj.maxValue)])
+        .range([height, 0]);
 
+        // define x-axis
         var xAxis = d3.svg.axis()
-          .scale(x)
-          .orient('bottom');
+        .scale(x)
+        .orient('bottom');
 
+        // define y-axis
         var yAxis = d3.svg.axis()
-          .scale(y)
-          .orient('left');
+        .scale(y)
+        .orient('left');
 
+        // adds chart SVG to element and defines sizes, etc.
         var svgContainer = d3.select(chartObj.el).append('svg')
-          .attr('class', chartObj.className)
-          .attr('width', width + margin.left + margin.right)
-          .attr('height', height + margin.top + margin.bottom).append('g')
-          .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
+        .attr('class', chartObj.className)
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom).append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
 
-        // CREATE TOOL TIP
-        var tip = d3.tip()
-          .attr('class', 'd3-tip')
-          .offset([-10, 0])
-          .html(function(d) {
-            return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
-
-          });
-
-        svgContainer.call(tip);
+        // adds x-axis and labels
+        svgContainer.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', 'translate( 0,' + height + ')')
+        .call(xAxis)
+        .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr('dx', '-.8em')
+        .attr('dy', '.15em')
+        .attr('transform', function(d) {
+          return 'rotate(-65)';
+        });
 
         svgContainer.append('g')
-          .attr('class', 'x axis')
-          .attr('transform', 'translate( 0,' + height + ')')
-          .call(xAxis)
-          .selectAll('text')
-          .style('text-anchor', 'end')
-          .attr('dx', '-.8em')
-          .attr('dy', '.15em')
-          .attr('transform', function(d) {
-            return 'rotate(-65)';
-          });
+        .attr('class', 'y axis').call(yAxis)
+        .append('text')
+        .attr('x', (width / chartObj.title.offset + chartObj.title.modifier))
+        .attr('y', 10)
+        .attr('text-anchor', 'center')
+        .style('font-size', '16px')
+        .text(chartObj.title.title);
 
-        svgContainer.append('g')
-          .attr('class', 'y axis').call(yAxis)
-          .append('text')
-          .attr('x', (width / chartObj.title.offset + chartObj.title.modifier))
-          .attr('y', 10)
-          .attr('text-anchor', 'center')
-          .style('font-size', '16px')
-          .text(chartObj.title.title);
+        var rect = svgContainer.selectAll('.bar').data(chartObj.attributes).enter().append('rect');
+        rect.attr('class', 'bar')
+        .attr('x', function(d, i) {
+          return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
+        })
+        .attr('y', function(d) {
+          return y(d);
+        })
+        .attr('width', barWidth)
+        .attr('height', function(d) {
+          return height - y(d);
+        });
 
-        svgContainer.selectAll('.bar').data(chartObj.attributes).enter().append('rect')
-          .attr('class', 'bar')
-          .attr('x', function(d, i) {
-            return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
-          })
-          .attr('y', function(d) {
-            return y(d);
-          })
-          .attr('width', barWidth)
-          .attr('height', function(d) {
-            return height - y(d);
-          })
-          .on('mouseover', tip.show)
-          .on('mouseout', tip.hide);
+          // CREATE TOOL TIP
+          if (chartObj.tip){
+            var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+              return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
+            });
 
-      },
+            svgContainer.call(tip);
+            rect.on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+          }
+          
+        },
 
-      clearDiv: function(div){
-        $(div).html('');
-      }
-      
-    };
-  });
+        clearDiv: function(div){
+          $(div).html('');
+        }
+
+      };
+    });
