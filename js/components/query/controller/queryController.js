@@ -51,6 +51,7 @@ define([
         // store point as lat/lng
         app.query.latLngPt = mp;
         app.model.set('latLngPt', mp);
+        app.reportModel.set('latLngPt', mp);
 
         this.handleMap();
       },
