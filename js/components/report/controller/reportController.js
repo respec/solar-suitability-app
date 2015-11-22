@@ -71,16 +71,60 @@ define([
 
       queryController.drawChart(reportInsolChart);
 
-      // var reportSunHrsChart = app.chartObj.sunHrs;
-      // reportSunHrsChart.el = '#reportSunHrsHisto';
-      // reportSunHrsChart.className = 'reportChart';
+      reportSunHrsChart = {
+          data: app.solarObj,
+          attributes: app.solarObj.sunHrList,
+          maxValue: 500,
+          el: '#reportSunHrsHisto',
+          className: 'reportChart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+        };
 
-      // queryController.drawChart(reportSunHrsChart);
+      queryController.drawChart(reportSunHrsChart);
+
+      reportShadeHrsChart = {
+          data: app.solarObj,
+          attributes: app.solarObj.shadeHrList,
+          maxValue: 500,
+          el: '#reportShadeHrsHisto',
+          className: 'reportChart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+        };
 
       // var reportShadeHrsChart = app.chartObj.shadeHrs;
       // reportShadeHrsChart.className = 'reportChart';
 
-      // queryController.drawChart(reportShadeHrsChart);
+      queryController.drawChart(reportShadeHrsChart);
 
       this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
       this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
@@ -139,16 +183,9 @@ define([
 
     buildMap: function(mapName, el, basemap){
 
-      // var solarLayer = new ImageLayer(config.solarImageryUrl, {
-      //     id: 'solar',
-      //     showAttribution: false,
-      //     opacity: 1.0
-      //   });
-
       var solarLayer = app.map.getLayer('solar');
 
       if (!app[mapName]){
-        console.log('creating', mapName);
         app[mapName] = new Map(el, {
           basemap: basemap,
           center: [app.query.latLngPt.x, app.query.latLngPt.y],
