@@ -86,18 +86,33 @@ a:visited {
     user-select:none
 }
 
-/* Custom button style */
+/* Buttons */
 .btn-solar {
     // args - color, background, border
     @include button-variant($secondary-color, $primary-color, $secondary-color);
+}
+
+button.close {
+    padding-right: 0;
+    padding-top: 10px;
+}
+.closeResultsTop {
+    padding-top: 0 !important;
+}
+.closeButton:before {
+    content: "\f057";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
 }
 
 /* force aspect ratio - 8.5x11 */
 .letterSize{
     @include aspect-ratio(4, 3);
 }
-/* remove 30px top/bottom margin on modal dialogs - overflow-scroll looks weird without it */
 
+/* remove 30px top/bottom margin on modal dialogs - overflow-scroll looks weird without it */
 .modal-dialog {
   margin-top: 0px;
   margin-bottom: 0px;
@@ -122,10 +137,6 @@ a:visited {
   text-align: center;
   width: 100px;
   z-index: 9999;
-}
-
-.floatRight{
-  float:right;
 }
 
 .paragraphIndent {

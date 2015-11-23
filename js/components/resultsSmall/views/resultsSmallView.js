@@ -63,7 +63,7 @@ define([
 
       initComponents: function() {
         // Initalize event to close results with close X div
-        $('#closeResults').on('click',function(){
+        $('#closeResultsTop, #closeResultsRight').on('click',function(){
           $('#resultsSmall').hide();
         });
 
