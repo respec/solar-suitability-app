@@ -18,6 +18,28 @@ html {
     min-height:100%
 }
 
+/* Media Queries for Responsiveness */
+//@media(max-width:767px){}
+
+@media(min-width:768px){
+  .closeResultsTop {
+    display: inline;
+  }
+  .closeResultsRight {
+    display: none;
+  }
+}
+@media(min-width:992px){
+  .closeResultsTop {
+    display: none;
+  }
+  .closeResultsRight {
+    display: inline;
+  }
+}
+//@media(min-width:1200px){}
+
+/* Hyperlinks */
 a {
   color: $doc-blue;
 }
@@ -190,19 +212,6 @@ ul.dropdown-menu,a.dropdown-menu {
 .iconLabel {
     font-size:12px
 }
- 
-// // resultsSmall
-// #viewReport, #emailReport, #closeResults, #calculateButton{
-//   text-align: right !important;
-//   margin-top:3px;
-// }
-
-// resultsSmall
-// #closeResults{
-//   text-align: right !important;
-//   // margin-top:3px;
-//   margin-right:6px;
-// }
 
 // resultsSmall
 #viewReport svg, #emailReport svg, #closeResults svg{

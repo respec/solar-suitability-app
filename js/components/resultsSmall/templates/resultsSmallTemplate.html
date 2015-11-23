@@ -11,6 +11,9 @@
                     
                     <!-- Quick solar results -->
                     <div class="col-md-4">
+                        <button id="closeResultsTop" aria-label="Close" class="close invert-btn pull-right closeResultsTop" type="button">
+                            <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+                        </button>
                         <div class="resultHeader">
                             <span>Results Preview</span>
                         </div>
@@ -73,16 +76,16 @@
                         <div class="resultsPreview2 noselect" id="sunHrHisto"></div>
                     </div>
 
-                    <!-- New col -->
+                    <!-- getting started col -->
                     <div class="col-md-4">
-                        <button id="closeResults" aria-label="Close" class="close invert-btn pull-right" type="button">
+                        <button id="closeResults" aria-label="Close" class="close invert-btn pull-right closeResultsRight" type="button">
                             <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
                         </button>
                         <div class="resultHeader bottomSpace">
                             <span>Get Started</span>
                         </div>
                         <div class="paragraphIndent topSpace">
-                        <ol id="getstarted">
+                        <ol class="getstarted">
                             <% if(quality === 'Poor'){%>
                                 <li>
                                     Location not ideal, consider <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>
@@ -106,25 +109,26 @@
                             <li>
                                 <a href="" id="nearbySolarLink">Map nearby solar installations</a>
                             </li>
-                            <li>Contact utility service provider: <br>
+                            <li>Contact your utility service provider: <br>
                                 <% if (typeof(utilityCompany) !== "undefined") {%>
-                                   &nbsp; <a href="http://<%=utilityCompany.website%>" target="_blank"><%=utilityCompany.fullName%></a>
+                                   <a href="http://<%=utilityCompany.website%>" target="_blank"><%=utilityCompany.fullName%></a>
                                     <!-- <a href="tel:+1-' + <%=utilityCompany.phone.slice(1, 4)%> + '-' + <%=utilityCompany.phone.slice(6, 14)%>"><%=utilityCompany.phone%></a> -->
                                 <% } %>
                             </li>
                             </ol>
-                            <div class="small">
-                                Source Data: <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar <%=lidarCollect%></a>
-                            </div>
-                            <div>
-                                <!-- Display bare earth warning msg -->
-                                <% if(bareEarth === 1) { %>
-                                    <p>
-                                        **
-                                        <span id="smText">The source data available for <span class="valueHelp"><%=county%> County</span> contains only bare earth points. Hence, these results do not take shade from nearby features into consideration.</span>
-                                    </p>
-                                <% } %>
-                            </div>
+                            
+                            <!-- Display bare earth warning msg -->
+                            <% if(bareEarth === 1) { %>
+                                <div>
+                                    **
+                                    <small><em>The <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank"><%=lidarCollect%> MN Lidar</a> source data available for <span class="valueHelp"><%=county%> County</span> contains only bare earth points. Hence, these results do not take shade from nearby features into consideration.</em></small>
+                                </div>
+                            <% } else { %>
+                                <div class="small topSpace">
+                                    Source Data: <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar (<%=lidarCollect%>)</a>
+                                </div>
+                            <% } %>
+                           
                         </div>
                             
                         

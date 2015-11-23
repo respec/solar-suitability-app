@@ -5841,6 +5841,20 @@ html {
   position: relative;
   min-height: 100%; }
 
+/* Media Queries for Responsiveness */
+@media (min-width: 768px) {
+  .closeResultsTop {
+    display: inline; }
+
+  .closeResultsRight {
+    display: none; } }
+@media (min-width: 992px) {
+  .closeResultsTop {
+    display: none; }
+
+  .closeResultsRight {
+    display: inline; } }
+/* Hyperlinks */
 a {
   color: #217BDB; }
 
@@ -6413,7 +6427,7 @@ ol.getstarted > li {
 /* Poor<->Optimal labels */
 .progress-labels {
   font-size: 10px;
-  margin-top: -2px; }
+  margin-top: -1px; }
 
 div.progress-labels > div {
   border-left: 2px solid white;
