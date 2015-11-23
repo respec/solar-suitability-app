@@ -6337,6 +6337,16 @@ ul.dropdown-menu, a.dropdown-menu {
   color: #fff;
   text-decoration: none; }
 
+a.madeInMn {
+  color: #fff;
+  font-style: italic;
+  text-decoration: none; }
+
+a.madeInMn:hover {
+  color: #fff;
+  font-style: italic;
+  text-decoration: underline; }
+
 .reportControls {
   width: 130px;
   margin-top: 20px; }

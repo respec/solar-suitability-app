@@ -187,7 +187,7 @@ define([
         // Add existing solar installations to the map
         var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
           id: 'georss',
-          pointSymbol: config.sunSymbol
+          pointSymbol: config.installationSymbol
         });
         
         this.map.addLayer(installationsLayer);

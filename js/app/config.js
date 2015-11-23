@@ -24,23 +24,23 @@ define(['esri/symbols/PictureMarkerSymbol'],
       'height': 30
     });
 
-    var sunSymbol = new PMS({
-      'angle': 0,
-      'xoffset': 0,
-      'yoffset': 8,
-      'type': 'esriPMS',
-      'url': 'assets/images/sunicon.png',
-      'contentType': 'image/png',
-      'width': 25,
-      'height': 25
-    });
+    // var sunSymbol = new PMS({
+    //   'angle': 0,
+    //   'xoffset': 0,
+    //   'yoffset': 8,
+    //   'type': 'esriPMS',
+    //   'url': 'assets/images/existing-install.png',
+    //   'contentType': 'image/png',
+    //   'width': 25,
+    //   'height': 25
+    // });
 
     var installationSymbol = new PMS({
       'angle': 0,
       'xoffset': 0,
       'yoffset': 8,
       'type': 'esriPMS',
-      'url': 'assets/images/solar_panel_icon.png',
+      'url': 'assets/images/existing-install.png',
       'contentType': 'image/png',
       'width': 30,
       'height': 30
@@ -121,10 +121,9 @@ define(['esri/symbols/PictureMarkerSymbol'],
       defaultZoom: 7,
       queryZoom: 18,
 
-
       pinSymbol: pinSymbol,
       solarPanelSymbol: solarPanelSymbol,
-      sunSymbol: sunSymbol
+      installationSymbol: installationSymbol
 
     };
   });

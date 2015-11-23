@@ -5,6 +5,17 @@
   text-decoration:none;
 }
 
+a.madeInMn {
+    color: $text-color;
+    font-style: italic;
+    text-decoration: none;
+}
+a.madeInMn:hover {
+    color: $text-color;
+    font-style: italic;
+    text-decoration: underline;
+}
+
 .reportControls {
     width:130px;
     margin-top:20px;
