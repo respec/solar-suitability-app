@@ -24,14 +24,12 @@
                                         <span class="center"></span>
                                     </div>
                                 </div>
-                                <!--
-                                TODO move this inline CSS
-                                -->
+                                
                                 <div id="progress-labels" class="progress-width center bottomSpace progress-labels"><!-- Do not remove these comments (needed to eliminate space between inline block elements)
-                                --><div id="labelPoor">Poor</div><!--
-                                    --><div id="labelFair">Fair</div><!--
-                                    --><div id="labelGood">Good</div><!--
-                                    --><div id="labelOptimal">Optimal</div><!--
+                                --><div id="labelPoor">Poor</div><!-- removing space
+                                    --><div id="labelFair">Fair</div><!-- removing space
+                                    --><div id="labelGood">Good</div><!-- removing space
+                                    --><div id="labelOptimal">Optimal</div><!-- removing space
                             --></div>
                                 <div class="center bottomSpace">
                                     Percent of Total Available Solar<% if(bareEarth === 1) { %>**<% } %>
@@ -77,6 +75,7 @@
                     <!-- getting started col -->
                     <div class="col-md-4">
                         <button id="closeResultsRight" aria-label="Close" data-dismiss="modal" class="close closeButton pull-right closeResultsRight" type="button"></button>
+
                         <div class="resultHeader bottomSpace">
                             <span>Get Started</span>
                         </div>

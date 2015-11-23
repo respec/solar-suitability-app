@@ -19,7 +19,14 @@ html {
 }
 
 /* Media Queries for Responsiveness */
-//@media(max-width:767px){}
+@media(max-width:767px){
+  .logo {
+    max-height: 30px;
+  }
+  .modal {
+    border-radius: 30px !important;
+  }
+}
 
 @media(min-width:768px){
   .closeResultsTop {
@@ -116,6 +123,9 @@ button.close {
 .modal-dialog {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+.modal {
+    border-radius: 15px;
 }
 
 /* remove left/right padding on rows */
