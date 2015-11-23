@@ -23,15 +23,15 @@
                                         <span class="center"></span>
                                     </div>
                                 </div>
-                                <!-- <h4 class="zeroPercent">0%<h4> 
+                                <!--
                                 TODO move this inline CSS
                                 -->
-                                <div class="progress-width center bottomSpace" style="font-size:10px;margin-top:-2px;">
-                                    <div style="border-left: 2px solid white; width: 68%; display:inline-block;">Poor</div>
-                                    <div style="border-left: 2px solid white; width: 10%; display:inline-block;">Fair</div>
-                                    <div style="border-left: 2px solid white; width: 10%; display:inline-block;">Good</div>
-                                    <div style="border-left: 2px solid white; border-right: 2px solid white; width: 10%; display:inline-block;">Optimal</div>
-                                </div>
+                                <div id="progress-labels" class="progress-width center bottomSpace progress-labels"><!-- Do not remove these comments (needed to eliminate space between inline block elements)
+                                --><div id="labelPoor">Poor</div><!--
+                                    --><div id="labelFair">Fair</div><!--
+                                    --><div id="labelGood">Good</div><!--
+                                    --><div id="labelOptimal">Optimal</div><!--
+                            --></div>
                                 <div class="center bottomSpace">
                                     Percent of Total Available Solar<% if(bareEarth === 1) { %>**<% } %>
                                 </div>
@@ -82,7 +82,7 @@
                             <span>Get Started</span>
                         </div>
                         <div class="paragraphIndent topSpace">
-                        <ol>
+                        <ol id="getstarted">
                             <% if(quality === 'Poor'){%>
                                 <li>
                                     Location not ideal, consider <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>
