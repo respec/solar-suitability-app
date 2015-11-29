@@ -636,25 +636,25 @@ define([
           return height - y(d);
         });
 
-          // CREATE TOOL TIP
-          if (chartObj.tip){
-            var tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .offset([-10, 0])
-            .html(function(d) {
-              return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
-            });
+        // CREATE TOOL TIP
+        if (chartObj.tip){
+          var tip = d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
+          });
 
-            svgContainer.call(tip);
-            rect.on('mouseover', tip.show)
-            .on('mouseout', tip.hide);
-          }
-          
-        },
-
-        clearDiv: function(div){
-          $(div).html('');
+          svgContainer.call(tip);
+          rect.on('mouseover', tip.show)
+          .on('mouseout', tip.hide);
         }
+        
+      },
 
-      };
-    });
+      clearDiv: function(div){
+        $(div).html('');
+      }
+
+    };
+  });
