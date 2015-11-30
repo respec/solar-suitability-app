@@ -6738,6 +6738,14 @@ ul.dropdown-menu li {
   margin: auto;
   height: 60%; }
 
+.userVal {
+  font-weight: bold;
+  color: #549125; }
+
+.outputVal {
+  font-weight: bold;
+  color: #ff7400; }
+
 #calculator {
   background-color: rgba(0, 0, 0, 0.75);
   font-size: 18px;

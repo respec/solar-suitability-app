@@ -28,6 +28,7 @@ function(
           systemSize: 1.0,
           test: 1,
           averageCostSystem: 0,
+          averageCostSystemAsCurrency: 0,
           paybackWithoutIncentives: 0,
           paybackWithTaxCredit: 0,
           paybackWithMim: 0

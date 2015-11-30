@@ -64,9 +64,11 @@ define([
           percentElectricGoal: String((app.reportModel.get('percentElectricGoal')*100)),
           systemSize: app.reportModel.get('systemSize'),
           averageCostSystem: app.reportModel.get('averageCostSystem'),
+          averageCostSystemAsCurrency: app.reportModel.get('averageCostSystemAsCurrency'),
           paybackWithoutIncentives: app.reportModel.get('paybackWithoutIncentives'),
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
-          paybackWithMim: app.reportModel.get('paybackWithMim')
+          paybackWithMim: app.reportModel.get('paybackWithMim'),
+          madeInMn: config.madeInMn
         };
 
         this.$el.html(template(options));

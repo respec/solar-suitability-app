@@ -107,6 +107,16 @@ $modalHeight: 90vh;
   height: 60%;
 }
 
+.userVal {
+  font-weight: bold;
+  color: $doc-green;
+}
+
+.outputVal {
+  font-weight: bold;
+  color: $link-color;
+}
+
 // #reportSolarMap-container_root, #reportAerialMap-container_root{
 //   margin-left: 30px;
 // }
