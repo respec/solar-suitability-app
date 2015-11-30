@@ -8,41 +8,34 @@
                         <div class="col-md-1">
                             <img src="assets/images/solar-app-transparent220x235.png" alt="MN Solar Logo">
                         </div>
-                        <div class="col-md-11">
+                        <div class="col-md-10">
                             <div class="row">
                                 <div class="col-md-10 noGutter">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h4 class="modal-title reportSiteTitle">
-                                                Minnesota Solar Suitability Location Report
+                                                Solar Suitability Report
                                             </h4>
                                         </div>
                                     </div>
-                                    
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="close" data-dismiss="modal" data-target="#reportModal" aria-label="Close">
-                                        <span aria-hidden="true">
-                                            <i class="fa fa-times fa-1x"></i>
-                                        </span>
-                                    </button>
                                 </div>
                             </div>
 
                             <div class="row">
-
                                 <div class="col-md-12">
                                     <%=siteTitle%>
                                 </div>
-
                             </div>
 
+                        </div>
+                        <div class="col-md-1">
+                            <button data-target="#reportModal" aria-label="Close" data-dismiss="modal" class="close closeButton pull-right" style="color:black;" type="button"></button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body reportModal-body">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-9 reportHeading">
@@ -329,9 +322,9 @@
                 </div>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer reportFooter">
                 <!-- <button type="button" class="btn btn-default downloadButton">Download PDF</button> -->
-                <!-- <button type="button" class="btn btn-default printButton">Print PDF</button> -->
+                <button type="button" id="pdfButton" class="btn btn-primary printButton">PDF</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
 

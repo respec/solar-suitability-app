@@ -1,24 +1,38 @@
-// .editTitle {
-//   height:65px;
-//   line-height: 65px;
-// }
+
+
+
+$headHeight: 85px;
+$footHeight: 60px;
+$modalHeight: 90vh;
 
 #reportModal {
-  width: 65%;
+  width: 80%;
+  max-width: 960px;
   margin: auto;
   height: auto;
-  max-height: 90%;
-  overflow-y: scroll;
+  max-height: $modalHeight; 
+}
+
+.reportModal-body {
+  max-height: -webkit-calc(#{$modalHeight} - (#{$headHeight} + #{$footHeight}));
+  max-height: -moz-calc(#{$modalHeight} - (#{$headHeight} + #{$footHeight}));
+  max-height: calc(#{$modalHeight} - (#{$headHeight} + #{$footHeight}));
+  height: -webkit-calc((#{$modalHeight} - 5vh) - (#{$headHeight} + #{$footHeight}));
+  height: -moz-calc((#{$modalHeight} - 5vh) - (#{$headHeight} + #{$footHeight}));
+  height: calc((#{$modalHeight} - 5vh) - (#{$headHeight} + #{$footHeight}));
+  overflow-y: auto; 
 }
 
 #reportHeader {
-  height:85px;
+  height:$headHeight;
+}
+.reportFooter {
+  height:$footHeight;
 }
 
 #reportHeader img {
   float: left;
-  width: 62px;
-  height: 65px;
+  height: $headHeight - 20px;
 }
 
 #reportHeader .modal-title {

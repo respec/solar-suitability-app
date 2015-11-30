@@ -40,6 +40,8 @@ define([
         $('#reportLng').text(0.0);
       }
 
+      $('#pdfButton').on('click', this.underConstruction);
+
       this.buildResults();
       this.buildMap('reportSolarMap', 'reportSolarMap-container', 'solar');
       this.buildMap('reportAerialMap','reportAerialMap-container', 'hybrid');
@@ -200,6 +202,10 @@ define([
       });
     },
 
+    underConstruction: function(){
+      app.showAlert('danger','NOTICE:','This feature is currently under construction.');
+    },
+
     createPdf: function(){
       function footer(){
         // console.log('footer');
@@ -275,8 +281,8 @@ define([
     },
 
     printPdf: function(doc){
-      // console.log('printPDF');
-      // doc.autoPrint();
+      console.log('printPDF');
+      doc.autoPrint();
     },
 
     initEdit: function(){
