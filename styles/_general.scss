@@ -93,7 +93,8 @@ a:visited {
     border-color: transparent;
     cursor: pointer;
     padding: 0;
-}
+    color: inherit;
+} 
 
 /* Make text not selectable */
 .noselect {

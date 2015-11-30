@@ -5905,7 +5905,8 @@ a:visited {
   box-shadow: none;
   border-color: transparent;
   cursor: pointer;
-  padding: 0; }
+  padding: 0;
+  color: inherit; }
 
 /* Make text not selectable */
 .noselect {
@@ -6731,10 +6732,6 @@ ul.dropdown-menu li {
 
 .reportTable {
   height: 100%; }
-
-.editButton {
-  float: right;
-  margin-right: 15%; }
 
 .editSiteDetailsModal, .editSolarCalculatorModal {
   width: 60%;

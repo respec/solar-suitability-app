@@ -33,8 +33,9 @@ define([
 
       // set values for lat/lng
       if (app.query.latLngPt){
-        $('#reportLat').text(app.query.latLngPt.y);
-        $('#reportLng').text(app.query.latLngPt.x);
+        myY = app.query.latLngPt.y;
+        $('#reportLat').text(myY.toFixed(6));
+        $('#reportLng').text(app.query.latLngPt.x.toFixed(6));
       } else {
         $('#reportLat').text(0.0);
         $('#reportLng').text(0.0);
@@ -43,6 +44,7 @@ define([
       $('#pdfButton').on('click', this.underConstruction);
 
       this.buildResults();
+
       this.buildMap('reportSolarMap', 'reportSolarMap-container', 'solar');
       this.buildMap('reportAerialMap','reportAerialMap-container', 'hybrid');
 

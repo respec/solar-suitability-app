@@ -8,9 +8,9 @@ function(
   ) {
       var ReportModel = Backbone.Model.extend({
         defaults: {
-          siteTitle: 'Enter a site title',
-          siteName: 'Enter a site name',
-          siteNotes: 'Enter site notes',
+          siteTitle: 'Solar Suitability Report',
+          siteName: '&lt;Site Name&gt;',
+          siteNotes: '&lt;Site Notes&gt;',
           latLngPt: {
             x:0,
             y:0

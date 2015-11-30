@@ -14,7 +14,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h4 class="modal-title reportSiteTitle">
-                                                Solar Suitability Report
+                                                <%=siteTitle%>
                                             </h4>
                                         </div>
                                     </div>
@@ -23,7 +23,10 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <%=siteTitle%>
+                                    Latitude: <span id="reportLat"></span> &nbsp;Longitude: <span id="reportLng"></span> 
+                                    <!-- could not get these to work -AJW
+                                       <%=lat.toFixed(4)%> <%=lng.toFixed(4)%>
+                                    -->
                                 </div>
                             </div>
 
@@ -37,92 +40,41 @@
 
             <div class="modal-body reportModal-body">
                 <div class="container-fluid">
+
                     <div class="row">
-                        <div class="col-md-9 reportHeading">
-                            Site Details:
-                        </div>
-                        <div class="col-md-3">
-                            
-                            <button type="button" class="btn editSiteDetails editButton" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-link editSiteDetails pull-right" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">
                                 <span aria-hidden="true">
-                                    Edit Site Details <i class="fa fa-pencil"></i>
+                                    Customize Report <i class="fa fa-pencil"></i>
                                 </span>
                             </button>
-
-                        </div>
-
-                        <div class="col-md-1"></div>
-                    </div>
-
-                    <hr />
-
-                    <div class="row" id="siteDetailsRow">
-                        <div class="col-md-12">
-                            <%=siteName%>
-                        </div>
-                        <div class="col-md-12">
-                            <%=siteNotes%>
-                        </div>
-
-                        <div class="col-md-2">
-                            Latitude:
-                        </div>
-                        <div class="col-md-4">
-                            <div id="">
-                                <%=lat.toFixed(4)%>
+                            <div>
+                                <strong><%=siteName%></strong><br />
+                                <%=siteNotes%>
                             </div>
                         </div>
-                        <div class="col-md-6"></div>
 
-                        <div class="col-md-2">
-                            Longitude:
-                        </div>
-                        <div class="col-md-4">
-                            <div id="">
-                                <%=lng.toFixed(4)%>
-                            </div>
-                        </div>
-                        <div class="col-md-6"></div>
-
-                        <!-- <input type="text" class="form-control" id="reportSiteName" placeholder="Enter Site Name">
-                        <input type="textarea" class="form-control" id="reportSiteDetails" placeholder="Enter Site Details"> -->
                     </div>
 
+                    
                     <hr />
 
-                    <div class="row">
-                        <div class="col-md-9 reportHeading">
-                            Site Maps:
-                        </div>
-                        <div class="col-md-3">
-                            
-                            <button type="button" class="btn addSolarPanels editButton" data-dismiss="modal" data-toggle="modal" data-target=".addSolarPanelsModal" aria-label="Edit">
-                                <span aria-hidden="true">
-                                    Add Solar Panels <i class="fa fa-pencil"></i>
-                                </span>
-                            </button>
-
-                        </div>
-                    </div>
-
-                    <hr />
-
-                    <div class="row">
-                        <div class="col-md-12 reportTopicDescription">
-                            Copy will go here explaining topic.
-                        </div>
-                    </div>
                     <div class="row" id="siteImagesRow">
                         <div class="col-md-6 resultsImage">
                             <div>
-                                Solar Map
+                                <strong>Solar Map</strong>
                             </div>
                             <div id="reportSolarMap-container">
                             </div>
                         </div>
                         <div class="col-md-6 resultsImage">
                             <div>
-                                Aerial Map
+                            <button type="button" class="btn btn-link addSolarPanels editButton pull-right" data-dismiss="modal" data-toggle="modal" data-target=".addSolarPanelsModal" aria-label="Edit">
+                                <span aria-hidden="true">
+                                    Draw Solar Array <i class="fa fa-pencil"></i>
+                                </span>
+                            </button>
+                                <strong>Aerial Map</strong>
                             </div>
 
                             <div id="reportAerialMap-container">
@@ -147,19 +99,6 @@
 
                     <hr />
 
-                    <div class="row" id="reportResultsRow">
-                        <div class="col-md-12 reportHeading">
-                            Solar Details:
-                        </div>
-                    </div>
-
-                    <hr /> 
-
-                    <div class="row">
-                        <div class="col-md-12 reportTopicDescription">
-                            Copy will go here explaining topic.
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="reportResults-container">
@@ -175,9 +114,9 @@
                         </div>
                         <div class="col-md-3">
                             
-                            <button type="button" class="btn editSolarCalculator editButton" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">
+                            <button type="button" class="btn btn-link editSolarCalculator" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">
                                 <span aria-hidden="true">
-                                    Edit Solar Calculator Values<i class="fa fa-pencil"></i>
+                                    Improve Solar Calculations<i class="fa fa-pencil"></i>
                                 </span>
                             </button>
                             
