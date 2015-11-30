@@ -187,7 +187,7 @@ define([
         // Add existing solar installations to the map
         var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
           id: 'georss',
-          pointSymbol: config.sunSymbol
+          pointSymbol: config.installationSymbol
         });
         
         this.map.addLayer(installationsLayer);
@@ -357,9 +357,21 @@ define([
       },
 
       showAlert: function(alertType, headline, message) {
-          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
           $('#alert').toggleClass('in');
           //window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
+        },
+
+      formatMoney: function(nStr) {
+          nStr += '';
+          x = nStr.split('.');
+          x1 = x[0];
+          x2 = x.length > 1 ? '.' + x[1] : '';
+          var rgx = /(\d+)(\d{3})/;
+          while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+          }
+          return '$' + x1;
         },
 
       checkUrlParams: function(){

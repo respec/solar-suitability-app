@@ -342,10 +342,10 @@ define([
         // create histos
         // 
         // create Solar Insol histo
-        this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
+//        this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
 
         // // create Sun Hrs histo
-        // this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
+        this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
 
         // store results
         app.solarObj = solarObj;
@@ -387,6 +387,7 @@ define([
         app.reportModel.set({'lowCostSystem': lowCostSystem});
         app.reportModel.set({'highCostSystem': highCostSystem});
         app.reportModel.set({'averageCostSystem': parseFloat(averageCostSystem)});
+        app.reportModel.set({'averageCostSystemAsCurrency': app.formatMoney(averageCostSystem)});
 
         // system size
         // averagePerDay

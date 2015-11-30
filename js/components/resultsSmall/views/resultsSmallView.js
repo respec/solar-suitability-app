@@ -45,9 +45,11 @@ define([
           solarGardens: config.mnCertsSolarGardens,
           mnIncentives: config.mnIncentives,
           mnInstallers: config.mnInstallers,
+          madeInMn: config.madeInMn,
           solarPercent: app.reportModel.get('percentElectricGoal'),
           systemSize: app.reportModel.get('systemSize'),
           averageSystemCost: app.reportModel.get('averageCostSystem'),
+          averageCostSystemAsCurrency: app.reportModel.get('averageCostSystemAsCurrency'),
           payback: app.reportModel.get('paybackWithMim')
         };
 
@@ -62,7 +64,7 @@ define([
 
       initComponents: function() {
         // Initalize event to close results with close X div
-        $('#closeResults').on('click',function(){
+        $('#closeResultsTop, #closeResultsRight').on('click',function(){
           $('#resultsSmall').hide();
         });
 
