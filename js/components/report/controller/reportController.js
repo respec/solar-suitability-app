@@ -10,6 +10,8 @@ define([
   'components/query/controller/queryController',
 
   'esri/layers/ArcGISImageServiceLayer',
+  'esri/layers/ImageServiceParameters',
+  'esri/layers/RasterFunction',
   'esri/map',
   'esri/toolbars/edit'
 
@@ -22,7 +24,7 @@ define([
 
     mapController, imageUri, queryController,
 
-    ImageLayer, Map, Edit
+    ImageLayer, ImageParams, RasterFunction, Map, Edit
     ) {
 
   return {
@@ -143,8 +145,18 @@ define([
 
     buildMap: function(mapName, el, basemap){
 
+      var params = new ImageParams();
+
+      // Direct call to raster function to symbolize imagery with color ramp (setting default was unreliable)
+      var rasterFunction = new RasterFunction();
+      rasterFunction.functionName = 'solarColorRamp';
+      rasterFunction.variableName = 'Raster';
+      params.renderingRule = rasterFunction;
+      params.noData = 0;
+
       var solarLayer = new ImageLayer(config.solarImageryUrl, {
           id: 'solar',
+          imageServiceParameters: params,
           showAttribution: false,
           opacity: 1.0
         });
