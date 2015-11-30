@@ -6080,8 +6080,12 @@ ul.dropdown-menu, a.dropdown-menu {
   text-align: center; }
 
 .docModal-body {
-  background: url("../images/docBody2.png");
-  background-position: 0 60%; }
+  background-color: #616161; }
+
+.helpModal-body {
+  height: 50vh;
+  max-height: 345px;
+  overflow-y: auto; }
 
 .docModal-header {
   background: url("../images/docHeader.png");
@@ -6323,7 +6327,7 @@ ul.dropdown-menu, a.dropdown-menu {
 .modal-dialog {
   overflow-y: initial !important; }
 
-.docModal-body {
+.helpModal-body {
   height: 50vh;
   max-height: 345px;
   overflow-y: auto; }

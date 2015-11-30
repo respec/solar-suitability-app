@@ -269,8 +269,14 @@ ul.dropdown-menu,a.dropdown-menu {
 }
 
 .docModal-body {
-  background: url('../images/docBody2.png');
-  background-position: 0 60%;
+  // background: url('../images/docBody2.png');
+  // background-position: 0 60%;
+  background-color: $doc-gray;
+}
+.helpModal-body{
+    height: 50vh;
+    max-height: 345px;
+    overflow-y: auto;
 }
 
 .docModal-header {
