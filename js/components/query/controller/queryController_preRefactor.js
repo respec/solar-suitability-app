@@ -80,10 +80,10 @@ define([
             //then check if clicked point is within a bare earth county, if so add disclaimer
             if (bareEarth === 1) {
               warning = '**';
-              warningMsg = '<p>**<span id="smText">The lidar data available for ' + county + ' County includes only bare earth points. Hence, this insolation value does not take shade from nearby surface features into consideration.</span></p>';
+              warningMsg = '<p>**<span class="small">The lidar data available for ' + county + ' County includes only bare earth points. Hence, this insolation value does not take shade from nearby surface features into consideration.</span></p>';
 
               if (county === 'Pine') {
-                warningMsg = '<p>**<span id="smText">The lidar data available for ' + county + ' County was inconsistently classified across different flight lines. Hence, insolation accuracy is variable as shade from nearby surface features may not be taken into consideration.</span></p>';
+                warningMsg = '<p>**<span class="small">The lidar data available for ' + county + ' County was inconsistently classified across different flight lines. Hence, insolation accuracy is variable as shade from nearby surface features may not be taken into consideration.</span></p>';
               }
 
             } else {
@@ -166,7 +166,7 @@ define([
 
           } else {
             // clicked point is outside of the state
-            result = '<H3><strong>INSOLATION (kWh/m<sup>2</sup>)</strong></H3><p>Total per Year: Unknown**<br />Avg per Day: Unknown**</p><p>**<span id="smText">This point is out of the study area. Click within the State of Minnesota or try searching for something like "Target Field".</span></p><span class="closeSplash">(X) CLOSE</span> </p>';
+            result = '<H3><strong>INSOLATION (kWh/m<sup>2</sup>)</strong></H3><p>Total per Year: Unknown**<br />Avg per Day: Unknown**</p><p>**<span class="small">This point is out of the study area. Click within the State of Minnesota or try searching for something like "Target Field".</span></p><span class="closeSplash">(X) CLOSE</span> </p>';
             //alert('This location is outside of the study area. Please refine your search to be limited to the state of Minnesota.');
             app.showAlert("danger","This location is outside of the study area:","Please refine your search to the state of Minnesota");
           }
