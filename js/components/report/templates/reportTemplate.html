@@ -8,128 +8,70 @@
                         <div class="col-md-1">
                             <img src="assets/images/solar-app-transparent220x235.png" alt="MN Solar Logo">
                         </div>
-                        <div class="col-md-11">
+                        <div class="col-md-10">
                             <div class="row">
                                 <div class="col-md-10 noGutter">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h4 class="modal-title reportSiteTitle">
-                                                Minnesota Solar Suitability Location Report
+                                                <%=siteTitle%>
                                             </h4>
                                         </div>
                                     </div>
-                                    
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="close" data-dismiss="modal" data-target="#reportModal" aria-label="Close">
-                                        <span aria-hidden="true">
-                                            <i class="fa fa-times fa-1x"></i>
-                                        </span>
-                                    </button>
                                 </div>
                             </div>
 
                             <div class="row">
-
                                 <div class="col-md-12">
-                                    <%=siteTitle%>
+                                    Latitude: <%=coords.y.toFixed(6)%> &nbsp;Longitude: <%=coords.x.toFixed(6)%> 
+                                    
                                 </div>
-
                             </div>
 
+                        </div>
+                        <div class="col-md-1">
+                            <button data-target="#reportModal" aria-label="Close" data-dismiss="modal" class="close closeButton pull-right" style="color:black;" type="button"></button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body reportModal-body">
                 <div class="container-fluid">
+
                     <div class="row">
-                        <div class="col-md-9 reportHeading">
-                            Site Details:
-                        </div>
-                        <div class="col-md-3">
-                            
-                            <button type="button" class="btn editSiteDetails editButton" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-link editSiteDetails pull-right" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">
                                 <span aria-hidden="true">
-                                    Edit Site Details <i class="fa fa-pencil"></i>
+                                    Customize Report <i class="fa fa-pencil"></i>
                                 </span>
                             </button>
-
-                        </div>
-
-                        <div class="col-md-1"></div>
-                    </div>
-
-                    <hr />
-
-                    <div class="row" id="siteDetailsRow">
-                        <div class="col-md-12">
-                            <%=siteName%>
-                        </div>
-                        <div class="col-md-12">
-                            <%=siteNotes%>
-                        </div>
-
-                        <div class="col-md-2">
-                            Latitude:
-                        </div>
-                        <div class="col-md-4">
-                            <div id="">
-                                <%=coords.y.toFixed(4)%>
+                            <div>
+                                <strong><%=siteName%></strong><br />
+                                <%=siteNotes%>
                             </div>
                         </div>
-                        <div class="col-md-6"></div>
-
-                        <div class="col-md-2">
-                            Longitude:
-                        </div>
-                        <div class="col-md-4">
-                            <div id="">
-                                <%=coords.x.toFixed(4)%>
-                            </div>
-                        </div>
-                        <div class="col-md-6"></div>
-
-                        <!-- <input type="text" class="form-control" id="reportSiteName" placeholder="Enter Site Name">
-                        <input type="textarea" class="form-control" id="reportSiteDetails" placeholder="Enter Site Details"> -->
                     </div>
 
                     <hr />
 
-                    <div class="row">
-                        <div class="col-md-9 reportHeading">
-                            Site Maps:
-                        </div>
-                        <div class="col-md-3">
-                            
-                            <button type="button" class="btn addSolarPanels editButton" data-dismiss="modal" data-toggle="modal" data-target=".addSolarPanelsModal" aria-label="Edit">
-                                <span aria-hidden="true">
-                                    Add Solar Panels <i class="fa fa-pencil"></i>
-                                </span>
-                            </button>
-
-                        </div>
-                    </div>
-
-                    <hr />
-
-                    <div class="row">
-                        <div class="col-md-12 reportTopicDescription">
-                            Copy will go here explaining topic.
-                        </div>
-                    </div>
+                    <!-- Start Maps -->
                     <div class="row" id="siteImagesRow">
                         <div class="col-md-6 resultsImage">
                             <div>
-                                Solar Map
+                                <strong>Solar Map</strong>
                             </div>
                             <div id="reportSolarMap-container">
                             </div>
                         </div>
                         <div class="col-md-6 resultsImage">
                             <div>
-                                Aerial Map
+                            <button type="button" class="btn btn-link addSolarPanels editButton pull-right" data-dismiss="modal" data-toggle="modal" data-target=".addSolarPanelsModal" aria-label="Edit">
+                                <span aria-hidden="true">
+                                    Draw Solar Array <i class="fa fa-pencil"></i>
+                                </span>
+                            </button>
+                                <strong>Aerial Map</strong>
                             </div>
 
                             <div id="reportAerialMap-container">
@@ -150,23 +92,11 @@
                                 -->
                             </div>
                         </div>
-                    </div>
+                    </div><!-- /.row -->
+                    <!-- End Maps -->
 
                     <hr />
 
-                    <div class="row" id="reportResultsRow">
-                        <div class="col-md-12 reportHeading">
-                            Solar Details:
-                        </div>
-                    </div>
-
-                    <hr /> 
-
-                    <div class="row">
-                        <div class="col-md-12 reportTopicDescription">
-                            Copy will go here explaining topic.
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="reportResults-container">
@@ -176,162 +106,151 @@
 
                     <hr />
 
+                    <!-- Start Solar Calculator -->
                     <div class="row">
-                        <div class="col-md-9 reportHeading">
-                            Solar Calculator:
-                        </div>
-                        <div class="col-md-3">
-                            
-                            <button type="button" class="btn editSolarCalculator editButton" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">
+                        <div class="col-md-12 reportHeading">
+                            <button type="button" class="btn btn-link editSolarCalculator pull-right" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">
                                 <span aria-hidden="true">
-                                    Edit Solar Calculator Values<i class="fa fa-pencil"></i>
+                                    Improve Solar Calculations <i class="fa fa-pencil"></i>
                                 </span>
                             </button>
-                            
-                        </div>
-
-                        <div class="col-md-1"></div>
-
-                    </div>
-
-                    <hr />
-
-                    <div class="row">
-                        <div class="col-md-12 reportTopicDescription">
-                            Copy will go here explaining topic.
+                            Solar Calculator:
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md-12">
                                     Average solar insolation per day <%=averagePerDay%> kWh/m<sup>2</sup>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Inputs
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Average utility use (per month) <%=averageUsePerMonth%> kWh
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Cost / kWh  $<%=costPerkWh%>/kWh
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Percent of electricity you want covered by solar <%=percentElectricGoal%>%
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Outputs
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Size of system needed <%=systemSize.toFixed(2)%> kW
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Average system cost estimate $<%=averageCostSystem.toFixed(2)%>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Payback without incentives <%=paybackWithoutIncentives.toFixed(2)%> years
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Payback with Tax Credit <%=paybackWithTaxCredit.toFixed(2)%> years
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Payback with Tax Credit and MiM Incentive <%=paybackWithMim.toFixed(2)%> years
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            </div> -->
+                            <table class="table table-bordered table-responsive table-striped table-condensed" style="width:100%; min-width: 450px;">
+                                <thead>
+                                  <tr class="success">
+                                    <th style="width: 35%;">User Input</th>
+                                    <th style="width: 15%;">Value</th>
+                                    <th style="width: 50%;">Tips and Notes</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Average utility use (per month)</td>
+                                    <td class="userVal"><%=averageUsePerMonth%> kWh</td>
+                                    <td><small>The average Minnesotan uses 800 kWh/month (residential). If you know your own monthly usage, fill it in <a type="button" class="editSolarCalculator" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">here</a>.</small></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Cost / kWh</td>
+                                    <td class="userVal">$<%=costPerkWh%>/kWh</td>
+                                    <td><small>Minnesota's average residential cost of electricity is $0.12/kWh. If you know your exact cost of electricity enter it <a type="button" class="editSolarCalculator" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">here</a>.</small></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Desired percent of electricity covered by solar</td>
+                                    <td class="userVal"><%=percentElectricGoal%>%</td>
+                                    <td><small>Experiment with different percentages <a type="button" class="editSolarCalculator" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">here</a> to see how system cost varies. Think about how energy efficiency improvements  bring down the cost of your solar system.</small></td>
+                                  </tr>
+                                </tbody>
+                                <thead>
+                                  <tr class="warning">
+                                    <th>Outputs</th>
+                                    <th>Value</th>
+                                    <th>Tips and Notes</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Size of system needed</td>
+                                        <td class="outputVal"><%=systemSize.toFixed(2)%> kW</td>
+                                        <td><small>Result is based on values provided for monthly electricity use and desired percentage covered by solar. It also includes a derate of 0.77.</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td>System cost estimate</td>
+                                        <td class="outputVal"><%=averageCostSystemAsCurrency%></td>
+                                        <td><small>Result is based on an average Made-In Minnesota system cost of $3,750 per kW.</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payback without incentives</td>
+                                        <td class="outputVal"><%=paybackWithoutIncentives.toFixed(2)%> years</td>
+                                        <td><small>Result assumes that electricity costs will rise 3.5% each year over 25 years.</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payback with Tax Credit</td>
+                                        <td class="outputVal"><%=paybackWithTaxCredit.toFixed(2)%> years</td>
+                                        <td><small>Your system may be eligible for a federal tax credit (through December 2016). This result shows the payback of your system with the 30% tax credit applied.</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payback with Tax Credit and MiM Incentive</td>
+                                        <td class="outputVal"><%=paybackWithMim.toFixed(2)%> years</td>
+                                        <td><small>The Made in Minnesota Solar program is a performance-based incentive for solar systems manufactured in Minnesota. Incentives are awarded through a lottery process and on average cover 40% of installed costs. <a href="<%=madeInMn%>" target="_blank">Read More &raquo;</a></small></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                    <!-- End Solar Calculator -->
 
-                    <hr />
-
+                    <!-- Start Histograms -->
                     <div class="row">
-                        <div class="col-md-12 reportHeading">
-                            More Information:
-                        </div>
-                    </div>
+                        <div class="col-md-12"> 
 
-                    <div class="row">
-                        <div class="col-md-12 reportTopicDescription">
-                            Copy will go here explaining topic.
-                        </div>
-                    </div>
+                            <div class="row reportHisto">
+                                <div class="col-md-6 reportHisto">
+                                    <div class="reportTitle">
+                                        Insolation Chart
+                                    </div>
+                                    <div id="reportResultsHisto">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 reportHisto" id="reportResultsTable">
+                                    Insol Table
+                                    <table class="reportTable">
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                    <div class="row reportHisto">
-                        <div class="col-md-6 reportHisto">
-                            <div class="reportTitle">
-                                Insolation
+                            <div class="row reportHisto">
+                                <div class="col-md-6 reportHisto">
+                                    <div class="reportTitle">
+                                        Sun Hours Chart
+                                    </div>
+                                    <div id="reportSunHrsHisto">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 reportHisto" id="reportSunHrsTable">
+                                    Sun Hours Table
+                                    <table class="reportTable">
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div id="reportResultsHisto">
-                            </div>
-                        </div>
-                        <div class="col-md-6 reportHisto" id="reportResultsTable">
-                            Insol Table
-                            <table class="reportTable">
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
-                    <div class="row reportHisto">
-                        <div class="col-md-6 reportHisto">
-                            <div class="reportTitle">
-                                Sun Hours
-                            </div>
-                            <div id="reportSunHrsHisto">
-                            </div>
-                        </div>
-                        <div class="col-md-6 reportHisto" id="reportSunHrsTable">
-                            Sun Hours Table
-                            <table class="reportTable">
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                            <div class="row reportHisto">
+                                <div class="col-md-6 reportHisto">
+                                    <div class="reportTitle">
+                                        Shade Hours Chart
+                                    </div>
+                                    <div id="reportShadeHrsHisto">
+                                    </div>
+                                </div>
 
-                    <div class="row reportHisto">
-                        <div class="col-md-6 reportHisto">
-                            <div class="reportTitle">
-                                Shade Hours
+                                <div class="col-md-6 reportHisto" id="reportShadeHrsTable">
+                                    Shade Hours Table
+                                    <table class="reportTable">
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div id="reportShadeHrsHisto">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 reportHisto" id="reportShadeHrsTable">
-                            Shade Hours Table
-                            <table class="reportTable">
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div> <!-- /.modal-body -->
+        
+            <div class="modal-footer reportFooter">
                 <!-- <button type="button" class="btn btn-default downloadButton">Download PDF</button> -->
-                <!-- <button type="button" class="btn btn-default printButton">Print PDF</button> -->
+                <button type="button" id="pdfButton" class="btn btn-primary printButton">PDF</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
 

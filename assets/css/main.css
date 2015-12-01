@@ -5882,7 +5882,7 @@ a:visited {
   position: fixed;
   width: 50%;
   opacity: 0.9;
-  z-index: 1050;
+  z-index: 9999;
   transition: left 0.6s ease-out 0s; }
 
 .flyover.in {
@@ -5894,6 +5894,19 @@ a:visited {
 
 .flyover-bottom {
   bottom: 10px; }
+
+.flyover-close:before {
+  content: "\f057";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  background-color: transparent;
+  box-shadow: none;
+  border-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  color: inherit; }
 
 /* Make text not selectable */
 .noselect {
@@ -5947,6 +5960,9 @@ button.close {
   font-style: normal;
   font-weight: normal;
   text-decoration: inherit; }
+
+.btnInverse {
+  color: #000; }
 
 /* force aspect ratio - 8.5x11 */
 .letterSize {
@@ -6064,8 +6080,12 @@ ul.dropdown-menu, a.dropdown-menu {
   text-align: center; }
 
 .docModal-body {
-  background: url("../images/docBody2.png");
-  background-position: 0 60%; }
+  background-color: #616161; }
+
+.helpModal-body {
+  height: 50vh;
+  max-height: 345px;
+  overflow-y: auto; }
 
 .docModal-header {
   background: url("../images/docHeader.png");
@@ -6307,7 +6327,7 @@ ul.dropdown-menu, a.dropdown-menu {
 .modal-dialog {
   overflow-y: initial !important; }
 
-.modal-body {
+.helpModal-body {
   height: 50vh;
   max-height: 345px;
   overflow-y: auto; }
@@ -6359,7 +6379,19 @@ a.madeInMn:hover {
   margin: 3px; }
 
 .badData {
-  color: #217BDB; }
+  color: #217BDB;
+  cursor: pointer; }
+
+.close {
+  opacity: .8;
+  color: #fff; }
+
+.close:hover, .close:focus {
+  color: #fff;
+  opacity: .4; }
+
+#closeResults {
+  margin-top: 10px; }
 
 /* Preview results drawer column formatting */
 #resultsSmall {
@@ -6629,18 +6661,29 @@ ul.dropdown-menu li {
   margin-bottom: 5px; }
 
 #reportModal {
-  width: 65%;
+  width: 80%;
+  max-width: 960px;
   margin: auto;
   height: auto;
-  max-height: 90%;
-  overflow-y: scroll; }
+  max-height: 90vh; }
+
+.reportModal-body {
+  max-height: -webkit-calc(90vh - (85px + 60px));
+  max-height: -moz-calc(90vh - (85px + 60px));
+  max-height: calc(90vh - (85px + 60px));
+  height: -webkit-calc((90vh - 5vh) - (85px + 60px));
+  height: -moz-calc((90vh - 5vh) - (85px + 60px));
+  height: calc((90vh - 5vh) - (85px + 60px));
+  overflow-y: auto; }
 
 #reportHeader {
   height: 85px; }
 
+.reportFooter {
+  height: 60px; }
+
 #reportHeader img {
   float: left;
-  width: 62px;
   height: 65px; }
 
 #reportHeader .modal-title {
@@ -6670,6 +6713,9 @@ ul.dropdown-menu li {
 #siteImagesRow {
   margin-bottom: 30px; }
 
+.reportSiteTitle {
+  padding-top: 8px; }
+
 .reportHeading {
   font-size: 1.5em;
   font-weight: bold;
@@ -6694,14 +6740,21 @@ ul.dropdown-menu li {
 .reportTable {
   height: 100%; }
 
-.editButton {
-  float: right;
-  margin-right: 15%; }
-
 .editSiteDetailsModal, .editSolarCalculatorModal {
   width: 60%;
   margin: auto;
   height: 60%; }
+
+.editSolarCalculator {
+  cursor: pointer; }
+
+.userVal {
+  font-weight: bold;
+  color: #549125; }
+
+.outputVal {
+  font-weight: bold;
+  color: #ff7400; }
 
 #calculator {
   background-color: rgba(0, 0, 0, 0.75);

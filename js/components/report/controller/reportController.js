@@ -10,6 +10,8 @@ define([
   'components/query/controller/queryController',
 
   'esri/layers/ArcGISImageServiceLayer',
+  'esri/layers/ImageServiceParameters',
+  'esri/layers/RasterFunction',
   'esri/map',
   'esri/toolbars/edit'
 
@@ -22,7 +24,7 @@ define([
 
     mapController, imageUri, queryController,
 
-    ImageLayer, Map, Edit
+    ImageLayer, ImageParams, RasterFunction, Map, Edit
     ) {
 
     return {
@@ -33,14 +35,18 @@ define([
 
       // set values for lat/lng
       if (app.query.latLngPt){
-        $('#reportLat').text(app.query.latLngPt.y);
-        $('#reportLng').text(app.query.latLngPt.x);
+        myY = app.query.latLngPt.y;
+        $('#reportLat').text(myY.toFixed(6));
+        $('#reportLng').text(app.query.latLngPt.x.toFixed(6));
       } else {
         $('#reportLat').text(0.0);
         $('#reportLng').text(0.0);
       }
 
+      $('#pdfButton').on('click', this.underConstruction);
+
       this.buildResults();
+
       this.buildMap('reportSolarMap', 'reportSolarMap-container', 'solar');
       this.buildMap('reportAerialMap','reportAerialMap-container', 'hybrid');
 
@@ -125,7 +131,21 @@ define([
 
     buildMap: function(mapName, el, basemap){
 
-      var solarLayer = app.map.getLayer('solar');
+      var params = new ImageParams();
+
+      // Direct call to raster function to symbolize imagery with color ramp (setting default was unreliable)
+      var rasterFunction = new RasterFunction();
+      rasterFunction.functionName = 'solarColorRamp';
+      rasterFunction.variableName = 'Raster';
+      params.renderingRule = rasterFunction;
+      params.noData = 0;
+
+      var solarLayer = new ImageLayer(config.solarImageryUrl, {
+          id: 'solar',
+          imageServiceParameters: params,
+          showAttribution: false,
+          opacity: 1.0
+        });
 
       if (!app[mapName]){
         app[mapName] = new Map(el, {
@@ -188,6 +208,10 @@ define([
             )
           );
       });
+    },
+
+    underConstruction: function(){
+      app.showAlert('danger','NOTICE:','This feature is currently under construction.');
     },
 
     createPdf: function(){
@@ -264,9 +288,9 @@ saveToPdf: function(doc){
   doc.save(docName);
 },
 
-printPdf: function(doc){
-      // console.log('printPDF');
-      // doc.autoPrint();
+    printPdf: function(doc){
+      console.log('printPDF');
+      doc.autoPrint();
     },
 
     initEdit: function(){

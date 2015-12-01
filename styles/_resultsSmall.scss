@@ -32,6 +32,21 @@ a.madeInMn:hover {
 
 .badData {
     color: $doc-blue;
+    cursor: pointer;
+}
+
+.close {
+    opacity: .8;
+    color: $close-color;
+}
+
+.close:hover, .close:focus {
+    color: $close-color;
+    opacity: .4;
+}
+
+#closeResults {
+    margin-top:10px;
 }
 
 /* Preview results drawer column formatting */
