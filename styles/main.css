@@ -6742,6 +6742,9 @@ ul.dropdown-menu li {
   margin: auto;
   height: 60%; }
 
+.editSolarCalculator {
+  cursor: pointer; }
+
 .userVal {
   font-weight: bold;
   color: #549125; }

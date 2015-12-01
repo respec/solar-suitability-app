@@ -1,6 +1,4 @@
 
-
-
 $headHeight: 85px;
 $footHeight: 60px;
 $modalHeight: 90vh;
@@ -105,6 +103,10 @@ $modalHeight: 90vh;
   width: 60%;
   margin: auto;
   height: 60%;
+}
+
+.editSolarCalculator {
+  cursor: pointer;
 }
 
 .userVal {
