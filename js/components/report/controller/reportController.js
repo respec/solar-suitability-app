@@ -288,15 +288,9 @@ saveToPdf: function(doc){
   doc.save(docName);
 },
 
-<<<<<<< HEAD
     printPdf: function(doc){
       console.log('printPDF');
       doc.autoPrint();
-=======
-printPdf: function(doc){
-      // console.log('printPDF');
-      // doc.autoPrint();
->>>>>>> dev
     },
 
     initEdit: function(){
