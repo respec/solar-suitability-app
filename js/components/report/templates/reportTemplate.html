@@ -76,7 +76,7 @@
                         </div>
                         <div class="col-md-4">
                             <div id="">
-                                <%=lat.toFixed(4)%>
+                                <%=coords.y.toFixed(4)%>
                             </div>
                         </div>
                         <div class="col-md-6"></div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-md-4">
                             <div id="">
-                                <%=lng.toFixed(4)%>
+                                <%=coords.x.toFixed(4)%>
                             </div>
                         </div>
                         <div class="col-md-6"></div>
@@ -235,12 +235,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    Size of system needed <%=systemSize%> kW
+                                    Size of system needed <%=systemSize.toFixed(2)%> kW
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    Average system cost estimate $<%=averageCostSystem%>
+                                    Average system cost estimate $<%=averageCostSystem.toFixed(2)%>
                                 </div>
                             </div>
                             <div class="row">
