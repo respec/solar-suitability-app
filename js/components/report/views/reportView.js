@@ -51,11 +51,10 @@ define([
         var template = _.template(reportTemplate);
 
         var options = {
-          siteTitle: app.reportModel.attributes.siteTitle,
-          siteName: app.reportModel.attributes.siteName,
-          siteNotes: app.reportModel.attributes.siteNotes,
-          lat: app.reportModel.attributes.latLngPt.y,
-          lng: app.reportModel.attributes.latLngPt.x,
+          siteTitle: app.reportModel.get('siteTitle'),
+          siteName: app.reportModel.get('siteName'),
+          siteNotes: app.reportModel.get('siteNotes'),
+          coords: app.model.get('latLngPt'),
           averagePerDay: app.reportModel.get('averagePerDay'),
           averagePerMonth: app.reportModel.get('averagePerMonth'),
           averageUsePerMonth: app.reportModel.get('averageUsePerMonth'),

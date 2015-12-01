@@ -52,8 +52,36 @@
                                 <strong><%=siteName%></strong><br />
                                 <%=siteNotes%>
                             </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row" id="siteDetailsRow">
+                        <div class="col-md-12">
+                            <%=siteName%>
+                        </div>
+                        <div class="col-md-12">
+                            <%=siteNotes%>
                         </div>
 
+                        <div class="col-md-2">
+                            Latitude:
+                        </div>
+                        <div class="col-md-4">
+                            <div id="">
+                                <%=coords.y.toFixed(4)%>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+
+                        <div class="col-md-2">
+                            Longitude:
+                        </div>
+                        <div class="col-md-4">
+                            <div id="">
+                                <%=coords.x.toFixed(4)%>
+                            </div>
+                        </div>
                     </div>
 
                     
@@ -125,6 +153,7 @@
                                 <div class="col-md-12">
                                     Average solar insolation per day <%=averagePerDay%> kWh/m<sup>2</sup>
                                 </div>
+<<<<<<< HEAD
                             </div> -->
                             <table class="table table-bordered table-responsive table-striped table-condensed" style="width:100%; min-width: 450px;">
                                 <thead>
@@ -189,6 +218,61 @@
             
             </div> <!-- /.col-md-12 -->
         </div> <!-- /.row -->
+=======
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Inputs
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Average utility use (per month) <%=averageUsePerMonth%> kWh
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Cost / kWh  $<%=costPerkWh%>/kWh
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Percent of electricity you want covered by solar <%=percentElectricGoal%>%
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Outputs
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Size of system needed <%=systemSize.toFixed(2)%> kW
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Average system cost estimate $<%=averageCostSystem.toFixed(2)%>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Payback without incentives <%=paybackWithoutIncentives.toFixed(2)%> years
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Payback with Tax Credit <%=paybackWithTaxCredit.toFixed(2)%> years
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Payback with Tax Credit and MiM Incentive <%=paybackWithMim.toFixed(2)%> years
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+>>>>>>> dev
 
         <div class="row">
             <div class="col-md-12"> 

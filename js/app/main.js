@@ -128,6 +128,7 @@ define([
           showAttribution: false,
           opacity: 1.0
         });
+
         //solarLayer.hide();
 
         // Create aerial layer and load hidden
