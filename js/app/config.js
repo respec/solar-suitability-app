@@ -4,8 +4,8 @@ define(['esri/symbols/PictureMarkerSymbol'],
 
     var pinSymbol = new PMS({
       'angle': 0,
-      'xoffset': 0,
-      'yoffset': 8,
+      'xoffset': -1,
+      'yoffset': 12,
       'type': 'esriPMS',
       'url': 'http://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png',
       'contentType': 'image/png',
@@ -24,23 +24,23 @@ define(['esri/symbols/PictureMarkerSymbol'],
       'height': 30
     });
 
-    var sunSymbol = new PMS({
-      'angle': 0,
-      'xoffset': 0,
-      'yoffset': 8,
-      'type': 'esriPMS',
-      'url': 'assets/images/sunicon.png',
-      'contentType': 'image/png',
-      'width': 25,
-      'height': 25
-    });
+    // var sunSymbol = new PMS({
+    //   'angle': 0,
+    //   'xoffset': 0,
+    //   'yoffset': 8,
+    //   'type': 'esriPMS',
+    //   'url': 'assets/images/existing-install.png',
+    //   'contentType': 'image/png',
+    //   'width': 25,
+    //   'height': 25
+    // });
 
     var installationSymbol = new PMS({
       'angle': 0,
       'xoffset': 0,
       'yoffset': 8,
       'type': 'esriPMS',
-      'url': 'assets/images/solar_panel_icon.png',
+      'url': 'assets/images/existing-install.png',
       'contentType': 'image/png',
       'width': 30,
       'height': 30
@@ -110,7 +110,6 @@ define(['esri/symbols/PictureMarkerSymbol'],
       // countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/5',
       // certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',
 
-
       /*MPLS*/
       // centerLat: 44.971795,
       // centerLng: -93.243322,
@@ -122,10 +121,9 @@ define(['esri/symbols/PictureMarkerSymbol'],
       defaultZoom: 7,
       queryZoom: 18,
 
-
       pinSymbol: pinSymbol,
       solarPanelSymbol: solarPanelSymbol,
-      sunSymbol: sunSymbol
+      installationSymbol: installationSymbol
 
     };
   });

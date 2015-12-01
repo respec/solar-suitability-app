@@ -486,6 +486,7 @@ define([
         app.reportModel.set({'lowCostSystem': lowCostSystem});
         app.reportModel.set({'highCostSystem': highCostSystem});
         app.reportModel.set({'averageCostSystem': parseFloat(averageCostSystem)});
+        app.reportModel.set({'averageCostSystemAsCurrency': app.formatMoney(averageCostSystem)});
 
         // system size
         // averagePerDay

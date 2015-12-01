@@ -18,16 +18,48 @@ html {
     min-height:100%
 }
 
+/* Media Queries for Responsiveness */
+@media(max-width:767px){
+  .logo {
+    max-height: 30px;
+  }
+  .modal {
+    border-radius: 30px !important;
+  }
+}
+
+@media(min-width:768px){
+  .closeResultsTop {
+    display: inline;
+  }
+  .closeResultsRight {
+    display: none;
+  }
+}
+@media(min-width:992px){
+  .closeResultsTop {
+    display: none;
+  }
+  .closeResultsRight {
+    display: inline;
+  }
+}
+//@media(min-width:1200px){}
+
+/* Hyperlinks */
 a {
   color: $doc-blue;
 }
 a:hover {
   color: $doc-green;
-  text-decoration: none;
+  text-decoration: underline;
 }
-a:active, a:visited {
+a:active {
   color: $doc-green;
   text-decoration: underline;
+}
+a:visited {
+  color: $doc-blue;
 }
 
 /* Fading Alert */
@@ -61,21 +93,39 @@ a:active, a:visited {
     user-select:none
 }
 
-/* Custom button style */
+/* Buttons */
 .btn-solar {
     // args - color, background, border
     @include button-variant($secondary-color, $primary-color, $secondary-color);
+}
+
+button.close {
+    padding-right: 0;
+    padding-top: 10px;
+}
+.closeResultsTop {
+    padding-top: 0 !important;
+}
+.closeButton:before {
+    content: "\f057";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
 }
 
 /* force aspect ratio - 8.5x11 */
 .letterSize{
     @include aspect-ratio(4, 3);
 }
-/* remove 30px top/bottom margin on modal dialogs - overflow-scroll looks weird without it */
 
+/* remove 30px top/bottom margin on modal dialogs - overflow-scroll looks weird without it */
 .modal-dialog {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+.modal {
+    border-radius: 15px;
 }
 
 /* remove left/right padding on rows */
@@ -97,10 +147,6 @@ a:active, a:visited {
   text-align: center;
   width: 100px;
   z-index: 9999;
-}
-
-.floatRight{
-  float:right;
 }
 
 .paragraphIndent {
@@ -187,19 +233,6 @@ ul.dropdown-menu,a.dropdown-menu {
 .iconLabel {
     font-size:12px
 }
- 
-// // resultsSmall
-// #viewReport, #emailReport, #closeResults, #calculateButton{
-//   text-align: right !important;
-//   margin-top:3px;
-// }
-
-// resultsSmall
-// #closeResults{
-//   text-align: right !important;
-//   // margin-top:3px;
-//   margin-right:6px;
-// }
 
 // resultsSmall
 #viewReport svg, #emailReport svg, #closeResults svg{
