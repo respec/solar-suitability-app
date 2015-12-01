@@ -6379,7 +6379,19 @@ a.madeInMn:hover {
   margin: 3px; }
 
 .badData {
-  color: #217BDB; }
+  color: #217BDB;
+  cursor: pointer; }
+
+.close {
+  opacity: .8;
+  color: #fff; }
+
+.close:hover, .close:focus {
+  color: #fff;
+  opacity: .4; }
+
+#closeResults {
+  margin-top: 10px; }
 
 /* Preview results drawer column formatting */
 #resultsSmall {
