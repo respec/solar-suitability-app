@@ -24,6 +24,7 @@ define([
   'esri/config',
   'esri/layers/FeatureLayer',
   'esri/layers/GeoRSSLayer',
+  'esri/layers/GraphicsLayer',
   'esri/layers/ArcGISTiledMapServiceLayer',
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/ImageServiceParameters',
@@ -44,7 +45,7 @@ define([
 
     QueryModel, ReportModel,
 
-    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
+    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
     ) {
 
@@ -164,6 +165,10 @@ define([
         });
         maskLayer.setOpacity(0.8);
 
+        var solarArrayLayer = new GraphicsLayer({
+          id: 'solarArray'
+        });
+
         // Add aerial to the map
         this.map.addLayer(aerialLayer);
 
@@ -182,8 +187,11 @@ define([
         // Add water to the map
         this.map.addLayer(waterLayer);
 
-        // Add lidar to the map
+        // Add mask to the map
         this.map.addLayer(maskLayer);
+
+        // Add solar array graphics layer
+        this.map.addLayer(solarArrayLayer);
 
         // Add existing solar installations to the map
         var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
