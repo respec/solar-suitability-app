@@ -36,7 +36,7 @@ define([
       // init layout
       this.layoutReport();
 
-      $('#pdfButton').on('click', this.underConstruction);
+      
 
       this.buildResults();
 
@@ -385,82 +385,42 @@ define([
     },
 
     createPdf: function(){
-      /* orientation, units, format*/
-      var doc = new jsPDF('portrait', 'in', 'letter');
-      doc.page = 1;
-      this. footer();
+      console.log('create');
+      var pdf = new jsPDF('portrait', 'in', 'letter');
+      // pdf.page = 1;
 
-      /* USED TO SKIP A EL IF DRAWN FROM HTML */
-      // var specialElementHandlers = {
-      //   // '#skipMe': function(element, renderer){
-      //   //   return true;
-      //   // }
-      // };
+      source = $('#reportContent');
+      // var source = '<html><body>Hello <strong> World</strong></body></html>';
 
-      // var html = $('.modal-content').html();
-      
-      /* NEEDS ADDITIONAL LIBRARIES */
-      // doc.addHTML(html, function(){
-      //   doc.save('test.pdf');
-      // })
-
-/* ONLY TAKES TEXT */
-      // doc.fromHTML(
-      //   $('.modal-content').get(0),  // source
-      //   15,                       // xcoord
-      //   15,                       // y coord
-      //   {
-      //     'width': 800,             // max width of content on PDF
-      //     'elementHandlers': specialElementHandlers
-      //   }
-      // );
-
-var solarLogo = imageUri.solarLogo;
-
-doc.addImage(
-              solarLogo,    // source
-              'JPEG',       // type
-              0.25,           // x coord
-              0.25,           // y coord
-              1,           // width
-              1           // height
-              );
-
-doc.setFontSize(18);
-doc.text(
-              1.5,                     // x coord
-              0.5,                     // y coord
-              'Minnesota Solar Suitability Location Report'  // value
-              );
-
-doc.setLineWidth(0.0005);
-doc.line(
-  0, 1.5,
-  8.5, 1.5
-  );
-
-return doc;
-},
-
-footer: function(){
-      // console.log('footer');
-      doc.setFontSize(8);
-      doc.text(8, 10.75, 'page ' + doc.page);
-      doc.page ++;
+      console.log($('#reportContent'));
+      margins = {
+        top: 80,
+        bottom: 60,
+        left: 40,
+        width: 522
+      };
+      // all coords and widths are in jsPDF instance's declared units
+      // 'inches' in this case
+      pdf.fromHTML(
+        source, // HTML string or DOM elem ref.
+        margins.left, // x coord
+        margins.top, {// y coord
+          'width': margins.width // max width of content on PDF
+          // 'elementHandlers': specialElementHandlers
+        },
+        function(dispose) {
+        // dispose: object with X, Y of the last line add to the PDF 
+        //          this allow the insertion of new lines after html
+          pdf.save('Test.pdf');
+        });
+      // this.footer();
     },
 
-    saveToPdf: function(doc){
-      var docName = 'default.pdf';
-      if (app.query.siteName){
-        docName = app.query.siteName + '.pdf';
-      }
-      doc.save(docName);
-    },
-
-    printPdf: function(doc){
-      console.log('printPDF');
-      doc.autoPrint();
-    },
+    footer: function(){
+      pdf.setFontSize(8);
+      pdf.text(8, 10.75, 'page ' + pdf.page);
+      pdf.page ++;
+    }
 
   };
 });
