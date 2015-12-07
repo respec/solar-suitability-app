@@ -3,7 +3,6 @@ define([
   'app/config',
 
   'components/map/controller/mapController',
-  'components/report/views/resultsView',
   'components/report/controller/reportController',
   'components/query/controller/queryController',
 
@@ -20,7 +19,7 @@ define([
   function(
     config,
 
-    mapController, Results, reportController, queryController,
+    mapController, reportController, queryController,
 
     ReportModel,
 
@@ -72,10 +71,26 @@ define([
           paybackWithoutIncentives: app.reportModel.get('paybackWithoutIncentives'),
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
           paybackWithMim: app.reportModel.get('paybackWithMim'),
-          madeInMn: config.madeInMn
+          madeInMn: config.madeInMn,
+
+          totalPerYear: app.reportModel.get('totalPerYear'),
+          quality: app.reportModel.get('quality'),
+          lidarCollect: app.reportModel.get('lidarCollect'),
+          utilityCompany: app.reportModel.get('utilityCompany'),
+          mnInstallers: config.mnInstallers,
+          mnIncentives: config.mnIncentives
         };
 
         this.$el.html(template(options));
+
+        // console.log($('#reportSolarMap-container'));
+
+        // if (app.query.latLngPt){
+        //   console.log('here');
+        //   reportController.buildSolarMap();
+        //   reportController.buildAerialMap();
+        // }
+        
         this.startup();
       },
 
@@ -102,11 +117,6 @@ define([
         //   var doc = reportController.createPdf();
         //   reportController.printPdf(doc);
         // });
-
-        // results template
-        this.results = new Results({
-          el: $('.reportResults-container'),
-        });
 
         // $('#reportAngleBox').on('input', function(){
         //   mapController.rotatePoint();
@@ -192,6 +202,7 @@ define([
             app.reportModel.set(param);
           }
         });
+
       },
 
       saveSolarCalculatorValues: function(){
@@ -205,7 +216,7 @@ define([
           if (savedValue != currentValue){
             var param = {};
             param[id] = parseFloat(savedValue);
-            console.log(param);
+            // console.log(param);
             app.reportModel.set(param);
           }
         });
