@@ -33,129 +33,83 @@ define([
     return {
 
       buildReport: function(){
-      // init layout
-      this.layoutReport();
+        this.buildSolarMap();
+        this.buildAerialMap();
 
-      
+        // Sync maps
+        app.reportSolarMap.on('pan-end', function(){
+          var extent = app.reportSolarMap.extent;
+          app.reportAerialMap.setExtent(extent);
+        });
 
-      this.buildResults();
-
-      this.buildSolarMap();
-      this.buildAerialMap();
-
-      // this.buildMap('reportSolarMap', 'reportSolarMap-container', 'solar');
-      // this.buildMap('reportAerialMap','reportAerialMap-container', 'hybrid');
-
-      // Sync maps
-      app.reportSolarMap.on('pan-end', function(){
-        var extent = app.reportSolarMap.extent;
-        app.reportAerialMap.setExtent(extent);
-      });
-
-      // Second map is causing stack issue, researching how to resolve
-      // app.reportAerialMap.on('pan-end', function(){
-      //   var extent = app.reportAerialMap.extent;
-      //   app.reportSolarMap.setExtent(extent);
-      // });
+        // Second map is causing stack issue, researching how to resolve
+        // app.reportAerialMap.on('pan-end', function(){
+        //   var extent = app.reportAerialMap.extent;
+        //   app.reportSolarMap.setExtent(extent);
+        // });
 
 
-      // create histos
-      // 
-      // clear content (from previous click)
-      queryController.clearDiv($('#reportResultsHisto'));
-      queryController.clearDiv($('#reportSunHrsHisto'));
-      queryController.clearDiv($('#reportShadeHrsHisto'));
+        // create histos
+        // 
+        // clear content (from previous click)
+        queryController.clearDiv($('#reportResultsHisto'));
+        queryController.clearDiv($('#reportSunHrsHisto'));
+        queryController.clearDiv($('#reportShadeHrsHisto'));
 
-      // draw insol hours chart
-      var reportInsolChart = app.charts.insolChart;
-      reportInsolChart.el = '#reportResultsHisto';
-      reportInsolChart.className = 'reportChart';
-      queryController.drawChart(reportInsolChart);
+        // draw insol hours chart
+        var reportInsolChart = app.charts.insolChart;
+        reportInsolChart.el = '#reportResultsHisto';
+        reportInsolChart.className = 'reportChart';
+        queryController.drawChart(reportInsolChart);
 
-      // draw sun hours chart
-      var reportSunHrsChart = app.charts.sunHrsChart;
-      reportSunHrsChart.el = '#reportSunHrsHisto';
-      reportSunHrsChart.className = 'reportChart';
-      queryController.drawChart(reportSunHrsChart);
+        // draw sun hours chart
+        var reportSunHrsChart = app.charts.sunHrsChart;
+        reportSunHrsChart.el = '#reportSunHrsHisto';
+        reportSunHrsChart.className = 'reportChart';
+        queryController.drawChart(reportSunHrsChart);
 
-      // draw shade hours chart
-      var reportShadeHrsChart = app.charts.shadeHrsChart;
-      reportShadeHrsChart.el = '#reportShadeHrsHisto';
-      reportShadeHrsChart.className = 'reportChart';
-      queryController.drawChart(reportShadeHrsChart);
+        // draw shade hours chart
+        var reportShadeHrsChart = app.charts.shadeHrsChart;
+        reportShadeHrsChart.el = '#reportShadeHrsHisto';
+        reportShadeHrsChart.className = 'reportChart';
+        queryController.drawChart(reportShadeHrsChart);
 
-      this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
-      this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
-      this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
-      
-    },
+        this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
+        this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+        this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
 
-    layoutReport: function(){
-    },
+      },
 
-    buildResults: function(){
-      // Set solar values
-      $('#reportTotalPerYear').html(
-        parseFloat(app.query.totalPerYear).toFixed(2) + ' kWh/m<sup>2</sup>'
-        );
-      $('#reportAveragePerDay').html(
-        parseFloat(app.query.averagePerDay).toFixed(2) + ' kWh/m<sup>2</sup>'
-        );
+      buildSolarMap: function(){
+        var params = new ImageParams();
 
-      $('#collectDate').text(app.query.collectDate);
-      $('#quality').text(app.query.quality);
+        // Direct call to raster function to symbolize imagery with color ramp (setting default was unreliable)
+        var rasterFunction = new RasterFunction();
+        rasterFunction.functionName = 'solarColorRamp';
+        rasterFunction.variableName = 'Raster';
+        params.renderingRule = rasterFunction;
+        params.noData = 0;
 
-      // Set get started link
-      var getStarted = '<a href="' + config.mnInstallers + app.query.utilityCompany.zip + '" target="_blank">Contact a Local Installer</a>';
-      $('#reportGetStarted').html(getStarted);
-      var incentives = '<a href="' + config.mnIncentives + '" target="_blank">MN Solar Incentives</a>';
-      $('#reportIncentives').html(incentives);
-
-      // Set utilities
-      $('#reportUtilityName').text(app.query.utilityCompany.fullName);
-      $('#reportUtilityStreet').text(app.query.utilityCompany.street);
-      $('#reportUtilityCityStateZip').text(app.query.utilityCompany.city + ', MN ' + app.query.utilityCompany.zip);
-      $('#reportUtilityPhone').text(app.query.utilityCompany.phone);
-
-      //console.log(app.query.results);
-      //queryController.displayResults(app.query.results);
-      // console.log(app.solarObj);
-      // this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
-      // this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
-      // this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
-    },
-
-    buildSolarMap: function(){
-      var params = new ImageParams();
-
-      // Direct call to raster function to symbolize imagery with color ramp (setting default was unreliable)
-      var rasterFunction = new RasterFunction();
-      rasterFunction.functionName = 'solarColorRamp';
-      rasterFunction.variableName = 'Raster';
-      params.renderingRule = rasterFunction;
-      params.noData = 0;
-
-      var solarLayer = new ImageLayer(config.solarImageryUrl, {
-        id: 'solar',
-        imageServiceParameters: params,
-        showAttribution: false,
-        opacity: 1.0
-      });
-
-      if (!app.reportSolarMap){
-        app.reportSolarMap = new Map('reportSolarMap-container', {
-          basemap: 'solar',
-          center: [app.query.latLngPt.x, app.query.latLngPt.y],
+        var solarLayer = new ImageLayer(config.solarImageryUrl, {
+          id: 'solar',
+          imageServiceParameters: params,
           showAttribution: false,
-          zoom: 18,
-          minZoom: 18,
+          opacity: 1.0
         });
-        app.reportSolarMap.addLayer(solarLayer);
-        app.reportSolarMap.on('load', function(){
-          mapController.placePoint(app.query.latLngPt, app.reportSolarMap, config.pinSymbol);
-        });
-      } else {
 
+        if (!app.reportSolarMap){
+          app.reportSolarMap = new Map('reportSolarMap-container', {
+            basemap: 'solar',
+            center: [app.query.latLngPt.x, app.query.latLngPt.y],
+            showAttribution: false,
+            zoom: 18,
+            minZoom: 18,
+          });
+          app.reportSolarMap.addLayer(solarLayer);
+          app.reportSolarMap.on('load', function(){
+            mapController.placePoint(app.query.latLngPt, app.reportSolarMap, config.pinSymbol);
+          });
+        } else {
         // Remove old point, move map to new point, add new point
         mapController.clearGraphics(app.reportSolarMap);
         mapController.centerMap(app.query.latLngPt, app.reportSolarMap);
@@ -411,8 +365,8 @@ define([
         function(dispose) {
         // dispose: object with X, Y of the last line add to the PDF 
         //          this allow the insertion of new lines after html
-          pdf.save('Test.pdf');
-        });
+        pdf.save('Test.pdf');
+      });
       // this.footer();
     },
 
