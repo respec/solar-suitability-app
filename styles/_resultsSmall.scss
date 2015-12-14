@@ -226,12 +226,16 @@ div.progress-labels > div {
     z-index:1
 }
 
-.chart rect {
+.chart .bar {
     fill:#ff7400
 }
 
-.chart rect:hover {
+.chart .bar:hover {
     fill:#ff4500
+}
+
+.chart .backgroundBar {
+    fill:#808080
 }
 
 .chart text {

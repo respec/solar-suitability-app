@@ -16,7 +16,7 @@ define([
       events: {},
 
       initialize: function() {
-        this.render();
+        // this.render();
       },
 
       render: function() {

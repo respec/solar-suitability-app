@@ -252,6 +252,7 @@ define([
         var sunTotal = 0;
         var insolList = [];
         var sunHrList = [];
+        var maxSunHrList = [];
         var shadeHrList = [];
         var months = [];
 
@@ -282,11 +283,13 @@ define([
           }
 
           solarObj[month.abbr] = monthObj;
+
         }
 
         solarObj.sunHrList = sunHrList;
         solarObj.insolList = insolList;
         solarObj.months = months;
+
 
         var nearestLat = Math.round(app.query.latLngPt.y);
         var annualPercentSun = 0;
@@ -308,9 +311,11 @@ define([
           annualPercentSun += percentSun;
 
           shadeHrList.push(month.shadeHrValue);
+          maxSunHrList.push(value);
         });
 
         solarObj.shadeHrList = shadeHrList;
+        solarObj.maxSunHrList = maxSunHrList;
 
         // Convert to average, float, 2 decimal points (percent)
         annualPercentSun = parseFloat((annualPercentSun/12).toFixed(2));
@@ -361,7 +366,7 @@ define([
         // 
         // create Solar Insol histo
         this.buildCharts();
-        
+
         this.drawChart(app.charts.sunHrsChart);
 
         resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
@@ -412,6 +417,7 @@ define([
         var sunHrsChart = {
           data: app.solarObj,
           attributes: app.solarObj.sunHrList,
+          attributes2: app.solarObj.maxSunHrList,
           maxValue: 500,
           el: '#sunHrsHisto',
           className: 'chart',
@@ -624,6 +630,24 @@ define([
         .style('font-size', '16px')
         .text(chartObj.title.title);
 
+        // if second set of values, add
+        //  - example - max sun hours behind sun hours, show lost potential
+        if (chartObj.attributes2){
+          var backgroundRect = svgContainer.selectAll('.backgroundBar').data(chartObj.attributes2).enter().append('rect');
+          backgroundRect.attr('class', 'backgroundBar')
+          .attr('x', function(d, i) {
+            return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
+          })
+          .attr('y', function(d) {
+            return y(d);
+          })
+          .attr('width', barWidth)
+          .attr('height', function(d) {
+            return height - y(d);
+          });
+        }
+
+        // Iterate .data(values) and create bars
         var rect = svgContainer.selectAll('.bar').data(chartObj.attributes).enter().append('rect');
         rect.attr('class', 'bar')
         .attr('x', function(d, i) {
@@ -636,7 +660,7 @@ define([
         .attr('height', function(d) {
           return height - y(d);
         });
-
+        
         // CREATE TOOL TIP
         if (chartObj.tip){
           var tip = d3.tip()
