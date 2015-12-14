@@ -1,32 +1,35 @@
 /* global define, app, Backbone, _ */
 define([
-    'app/config',
+  'app/config',
 
-    'components/map/controller/mapController',
-    'components/report/views/resultsView',
-    'components/report/controller/reportController',
-    'components/query/controller/queryController',
+  'components/map/controller/mapController',
+  'components/report/controller/reportController',
+  'components/query/controller/queryController',
 
-    'components/report/model/reportModel',
+  'components/report/model/reportModel',
 
-    'esri/layers/ArcGISImageServiceLayer',
-    'esri/map',
+  'dojo/_base/lang',
 
-    'dojo/text!../templates/reportTemplate.html'
+  'esri/layers/ArcGISImageServiceLayer',
+  'esri/map',
+
+  'dojo/text!../templates/reportTemplate.html'
   ],
 
   function(
     config,
 
-    mapController, Results, reportController, queryController,
+    mapController, reportController, queryController,
 
     ReportModel,
+
+    lang,
 
     ImageLayer, Map,
 
     reportTemplate
 
-  ) {
+    ) {
     var report = Backbone.View.extend({
 
       events: {
@@ -35,7 +38,8 @@ define([
         'change #siteTitle': 'setSiteTitle',
         'click .saveEditModal': 'saveSolarCalculatorValues',
         'click .saveSiteDetailsModal': 'saveSiteDetails',
-        'click .restoreDefaultsButton': 'resetDefaultSolarCalculatorValues'
+        'click .restoreDefaultsButton': 'resetDefaultSolarCalculatorValues',
+        'click .addSolarPanels': 'handleDrawSolarArray'
       },
 
       initialize: function() {
@@ -67,10 +71,26 @@ define([
           paybackWithoutIncentives: app.reportModel.get('paybackWithoutIncentives'),
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
           paybackWithMim: app.reportModel.get('paybackWithMim'),
-          madeInMn: config.madeInMn
+          madeInMn: config.madeInMn,
+
+          totalPerYear: app.reportModel.get('totalPerYear'),
+          quality: app.reportModel.get('quality'),
+          lidarCollect: app.reportModel.get('lidarCollect'),
+          utilityCompany: app.reportModel.get('utilityCompany'),
+          mnInstallers: config.mnInstallers,
+          mnIncentives: config.mnIncentives
         };
 
         this.$el.html(template(options));
+
+        // console.log($('#reportSolarMap-container'));
+
+        // if (app.query.latLngPt){
+        //   console.log('here');
+        //   reportController.buildSolarMap();
+        //   reportController.buildAerialMap();
+        // }
+        
         this.startup();
       },
 
@@ -88,36 +108,42 @@ define([
           app.query.siteNotes = $(this).val();
         });
 
-        $('.downloadButton').on('click', function(){
-          var doc = reportController.createPdf();
-          reportController.saveToPdf(doc);
+        // $('.downloadButton').on('click', function(){
+        //   var doc = reportController.createPdf();
+        //   reportController.saveToPdf(doc);
+        // });
+
+        // $('.printButton').on('click', function(){
+        //   var doc = reportController.createPdf();
+        //   reportController.printPdf(doc);
+        // });
+
+        // $('#reportAngleBox').on('input', function(){
+        //   mapController.rotatePoint();
+        // });
+
+        // $('.angleUpButton').on('click', function(){
+        //   reportController.increaseAngle();
+        //   mapController.rotatePoint();
+        // });
+
+        // $('.angleDownButton').on('click', function(){
+        //   reportController.decreaseAngle();
+        //   mapController.rotatePoint();
+        // });
+
+        $('#finishedDrawSolarArrayButton').on('click', function(){
+          reportController.handleReturnFromSolarArray();
         });
 
-        $('.printButton').on('click', function(){
-          var doc = reportController.createPdf();
-          reportController.printPdf(doc);
-        });
+        $('#clearSolarArrayButton').on('click', lang.hitch(this, function(){
+          this.clearSolarArray();
+        }));
 
-        // results template
-        this.results = new Results({
-          el: $('.reportResults-container'),
+        $('#pdfButton').on('click', function(){
+          reportController.underConstruction();
+          // reportController.createPdf();
         });
-
-        $('#reportAngleBox').on('input', function(){
-          mapController.rotatePoint();
-        });
-
-        $('.angleUpButton').on('click', function(){
-          reportController.increaseAngle();
-          mapController.rotatePoint();
-        });
-
-        $('.angleDownButton').on('click', function(){
-          reportController.decreaseAngle();
-          mapController.rotatePoint();
-        });
-
-        
 
         // var solarMap = new Map('reportSolarMap-container', {
         //   basemap: 'solar',
@@ -146,7 +172,7 @@ define([
         //   zoom: 13
         //     // extent: new Extent(this.config.extent)
         // });
-      },
+},
 
       // editTitle: function() {
       //   $('#siteTitle').val($('.reportSiteTitle').text());
@@ -176,6 +202,7 @@ define([
             app.reportModel.set(param);
           }
         });
+
       },
 
       saveSolarCalculatorValues: function(){
@@ -189,7 +216,7 @@ define([
           if (savedValue != currentValue){
             var param = {};
             param[id] = parseFloat(savedValue);
-            console.log(param);
+            // console.log(param);
             app.reportModel.set(param);
           }
         });
@@ -210,8 +237,35 @@ define([
         $('.costPerkWh').val(costPerkWh);
         $('.percentElectricGoal').val(percentElectricGoal);
 
+      },
+
+      handleDrawSolarArray: function(){
+        reportController.prepareForSolarArray();
+        // reportController.drawSolarArray();
+      },
+
+      handleReturnFromSolarArray: function(){
+        // show resultsSmallDrawer
+        $resultsSmall = $('#resultsSmall');
+        $resultsSmall.show();
+
+        // hide edit toolbar
+        // $editToolbar = $('.editToolbar');
+        // $editToolbar.hide();
+        
+        // hide finished drawing button
+        $finishedDrawing = $('.finishedDrawSolarArrayRow');
+        $finishedDrawing.hide();
+
+        // restore report modal
+        $('#reportModal').modal('show');
+      },
+
+      clearSolarArray: function(){
+        mapController.clearGraphics(app.map, ['solarArray']);
+        mapController.clearGraphics(app.reportAerialMap, ['reportSolarArray']);
       }
 
     });
-    return report;
-  });
+return report;
+});

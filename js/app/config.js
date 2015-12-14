@@ -1,6 +1,12 @@
-define(['esri/symbols/PictureMarkerSymbol'],
+define(
+  [
+  'esri/Color',
+  'esri/symbols/PictureMarkerSymbol',
+  'esri/symbols/SimpleFillSymbol',
+  'esri/symbols/SimpleLineSymbol'
+  ],
 
-  function(PMS) {
+  function(Color, PMS, SFS, SLS) {
 
     var pinSymbol = new PMS({
       'angle': 0,
@@ -13,16 +19,16 @@ define(['esri/symbols/PictureMarkerSymbol'],
       'height': 30
     });
 
-    var solarPanelSymbol = new PMS({
-      'angle': 90,
-      'xoffset': 0,
-      'yoffset': 8,
-      'type': 'esriPMS',
-      'url': 'assets/images/solar-panel-flash-drive.png',
-      'contentType': 'image/png',
-      'width': 30,
-      'height': 30
-    });
+    // var solarPanelSymbol = new PMS({
+    //   'angle': 90,
+    //   'xoffset': 0,
+    //   'yoffset': 8,
+    //   'type': 'esriPMS',
+    //   'url': 'assets/images/solar-panel-flash-drive.png',
+    //   'contentType': 'image/png',
+    //   'width': 30,
+    //   'height': 30
+    // });
 
     // var sunSymbol = new PMS({
     //   'angle': 0,
@@ -45,6 +51,11 @@ define(['esri/symbols/PictureMarkerSymbol'],
       'width': 30,
       'height': 30
     });
+
+    var solarPanelSymbol = new SFS(SFS.STYLE_SOLID,
+    new SLS(SLS.STYLE_DASHDOT,
+    new Color([255,0,0]), 2),new Color([255,255,0,0.25])
+  );
 
     return {
       

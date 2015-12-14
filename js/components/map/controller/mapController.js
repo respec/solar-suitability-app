@@ -28,9 +28,9 @@ define([
       mapName.graphics.add(graphic);
     },
 
-    removePoint: function (mapName){
-      mapName.graphics.clear();
-    },
+    // removePoint: function (mapName){
+    //   mapName.graphics.clear();
+    // },
 
     rotatePoint: function (){
       var graphicPt;
@@ -46,12 +46,15 @@ define([
       this.placePoint(graphicPt, app.reportAerialMap, config.solarPanelSymbol);
     },
 
-    clearGraphics: function(graphicLayers){
+    clearGraphics: function(map, graphicLayers){
       if (graphicLayers){
-        //.. need to handle graphics layers, if applicable
+        // clear specific layer graphics
+        _.each(graphicLayers, function(graphicLayer){
+          map.getLayer(graphicLayer).clear();
+        });
       } else {
         // clear all map graphics
-        app.map.graphics.clear();
+        map.graphics.clear();
       }
     },
 

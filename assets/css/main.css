@@ -6548,11 +6548,14 @@ div.progress-labels > div {
   color: #000;
   z-index: 1; }
 
-.chart rect {
+.chart .bar {
   fill: #ff7400; }
 
-.chart rect:hover {
+.chart .bar:hover {
   fill: #ff4500; }
+
+.chart .backgroundBar {
+  fill: #808080; }
 
 .chart text {
   fill: #fff;
@@ -6577,13 +6580,21 @@ div.progress-labels > div {
 .appIcon {
   display: inline-block; }
 
-.finishedNearbySolarRow {
+.finishedNearbySolarRow, .finishedDrawSolarArrayRow, .toolbarDrawSolarArrayRow {
   display: none;
   position: absolute;
   top: 70px;
   left: 0;
   right: 0;
   z-index: 100; }
+
+.toolbarDrawSolarArrayRow {
+  /* overwrite height */
+  top: 113px; }
+
+.finishedNearbySolarRow button, .finishedDrawSolarArrayRow button, .toolbarDrawSolarArrayRow button {
+  /* override btn-solar margin */
+  margin: 0; }
 
 #basemapDropdownContent, #vectorLayersDropdownContent {
   top: 50px;

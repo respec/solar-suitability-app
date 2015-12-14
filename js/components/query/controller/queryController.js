@@ -58,7 +58,7 @@ define([
 
       handleMap: function(){
         // removes all previous graphics (previous click)
-        mapController.clearGraphics();
+        mapController.clearGraphics(app.map);
         mapController.placePoint(app.query.point, app.map, config.pinSymbol);
 
         // Bare earth also checks if click in MN, otherwise handleQueries won't run
