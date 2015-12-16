@@ -13,7 +13,7 @@
                                 <div class="col-md-10 noGutter">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h4 class="modal-title reportSiteTitle">
+                                            <h4 class="modal-title reportSiteTitle" id="myTitle">
                                                 <%=siteTitle%>
                                             </h4>
                                         </div>
@@ -41,15 +41,51 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-link editSiteDetails pull-right" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">
+                            <!--<button type="button" class="btn btn-link editSiteDetails pull-right" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">-->
+                            <button type="button" class="btn btn-link editSiteDetails pull-right"  aria-label="Edit">
                                 <span aria-hidden="true">
                                     Customize Report <i class="fa fa-pencil"></i>
                                 </span>
                             </button>
-                            <div>
-                                <strong><%=siteName%></strong><br />
-                                <%=siteNotes%>
+                            <div class="customDetails">
+                                <strong><span id="myName"><%=siteName%></span></strong><br />
+                                <span id="myNotes"><%=siteNotes%></span>
                             </div>
+
+
+
+                <div class="panel panel-default customizeReportForm">
+                    <div class="panel-body">
+                        <div>
+                            Site Title:
+                        </div>
+                        <div>
+                            <input type="text" class="form-control siteDetailsValue" id="siteTitle" value="<%=siteTitle%>">
+                        </div>
+                    
+                        <div>
+                            Site Name:
+                        </div>
+                        <div>
+                            <input type="text" class="form-control siteDetailsValue" id="siteName" value="<%=siteName%>">
+                        </div>
+                   
+                        <div>
+                            Site Notes:
+                        </div>
+                        <div>
+                            <input type="textarea" class="form-control siteDetailsValue" id="siteNotes" value="<%=siteNotes%>">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default cancelEditModal">Cancel</button>
+                <button type="button" class="btn btn-default saveCustomDetails">Save</button>
+                </div>
+
+
+
+
+
+
                         </div>
                     </div>
 

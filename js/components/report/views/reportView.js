@@ -34,10 +34,12 @@ define([
 
       events: {
         'click .editTitle': 'editTitle',
+        'click .editSiteDetails': 'showCustomDetailsForm',
         'click .closeSplash': 'hideEditTitleModal',
         'change #siteTitle': 'setSiteTitle',
         'click .saveEditModal': 'saveSolarCalculatorValues',
         'click .saveSiteDetailsModal': 'saveSiteDetails',
+        'click .saveCustomDetails': 'saveCustomDetails',
         'click .restoreDefaultsButton': 'resetDefaultSolarCalculatorValues',
         'click .addSolarPanels': 'handleDrawSolarArray'
       },
@@ -81,6 +83,10 @@ define([
           mnIncentives: config.mnIncentives
         };
 
+        // if ("reportSolarMap" in app && $("#reportSolarMap-container").is(':empty')){
+        //   $("#reportSolarMap-container").append(app.reportSolarMap); 
+        // }
+
         this.$el.html(template(options));
 
         // console.log($('#reportSolarMap-container'));
@@ -90,6 +96,7 @@ define([
         //   reportController.buildSolarMap();
         //   reportController.buildAerialMap();
         // }
+
         
         this.startup();
       },
@@ -99,7 +106,7 @@ define([
       },
 
       initComponents: function() {
-
+        $('.customizeReportForm').hide();
         $('#siteName').on('keyup', function(){
           app.query.siteName = $(this).val();
         });
@@ -204,7 +211,38 @@ define([
         });
 
       },
+      showCustomDetailsForm: function(){
+        $('.customizeReportForm').show();
+        $('.customDetails').hide();
+      },
 
+      saveCustomDetails: function(){
+        $("#myTitle").text($('#siteTitle').val());
+        $("#myNotes").text($('#siteNotes').val());
+        $("#myName").text($('#siteName').val());
+
+        app.reportModel.attributes.siteTitle = $('#siteTitle').val();
+        app.reportModel.attributes.siteNotes = $('#siteNotes').val();
+        app.reportModel.attributes.siteName = $('#siteName').val();
+
+        $('.customizeReportForm').hide();
+        $('.customDetails').show();
+        // var siteDetails = $('.siteDetailsValue');
+
+        // _.each(siteDetails, function(div){
+        //   var $div = $(div);
+        //   var savedValue = $div.val();
+        //   var id = $div.attr('id');
+        //   var currentValue = app.reportModel.get(id);
+        //   if (savedValue != currentValue){
+        //     var param = {};
+        //     param[id] = savedValue;
+        //     $div.val(savedValue);
+        //     //app.reportModel.set(param);
+        //   }
+        // });
+
+      },
       saveSolarCalculatorValues: function(){
         var solarCalculatorValues = $('.solarCalculatorValue');
 
