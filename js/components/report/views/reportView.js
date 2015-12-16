@@ -148,8 +148,8 @@ define([
         }));
 
         $('#pdfButton').on('click', function(){
-          reportController.underConstruction();
-          // reportController.createPdf();
+          //reportController.underConstruction();
+          reportController.createPdf();
         });
 
         // var solarMap = new Map('reportSolarMap-container', {
