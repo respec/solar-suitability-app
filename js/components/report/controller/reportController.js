@@ -102,7 +102,7 @@ define([
             basemap: 'solar',
             center: [app.query.latLngPt.x, app.query.latLngPt.y],
             showAttribution: false,
-            zoom: 18,
+            zoom: 19,
             minZoom: 18,
           });
           app.reportSolarMap.addLayer(solarLayer);
@@ -124,7 +124,7 @@ define([
           basemap: 'hybrid',
           center: [app.query.latLngPt.x, app.query.latLngPt.y],
           showAttribution: false,
-          zoom: 18,
+          zoom: 19,
           minZoom: 18,
         });
 
@@ -280,7 +280,7 @@ define([
       $toolbar.show();
 
       // Center and zoom main map on point
-      app.map.centerAndZoom([app.query.latLngPt.x, app.query.latLngPt.y], 18);
+      app.map.centerAndZoom([app.query.latLngPt.x, app.query.latLngPt.y], 19);
 
       // handle drawing
       this.handleSolarArrayDrawing();
