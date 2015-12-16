@@ -9,7 +9,9 @@
                             <button aria-label="Close" data-dismiss="modal" class="close closeSplash invert-btn pull-right" type="button">
                                 <span aria-hidden="true"><i class="fa fa-times fa-1x"></i></span>
                             </button>
+                            <div class='appTitle'>
                             Email Report
+                            </div>
                         </div>
                         
                     </div>
@@ -17,77 +19,60 @@
             </div>
 
             <div class="modal-body docModal-body">
-                <div class="container-fluid">
-                    <div class="emailBody">
-                        <form class="form-horizontal emailForm">
+                <div class="emailBody">
+                    <form class="form-horizontal emailForm">
 
+                    <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="emailName">Your Name:</label>
+                            <div class="controls">
+                                <input id="emailName" name="emailName" type="text" placeholder="  Enter name..." class="input-xlarge fullField" required="">
+                            </div>
+                        </div>
+
+                    <!-- Text input-->
+                        <div class="control-group">
+                            <label class="control-label" for="emailEmail">Your Email:</label>
+                            <div class="controls">
+                                <input id="emailEmail" name="emailEmail" type="email" placeholder="  Enter email..." class="input-xlarge fullField" required>
+                        
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-11">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="emailReportToMe"> 
+                                        <span class="emailReportToMeLabel">
+                                            Send the report to me!
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
                         <!-- Text input-->
-                            <div class="control-group">
-                                <label class="control-label" for="emailName">Your Name:</label>
-                                <div class="controls">
-                                    <input id="emailName" name="emailName" type="text" placeholder="  Enter name..." class="input-xlarge fullField" required="">
-                                </div>
+                        <div class="control-group">
+                            <label class="control-label" for="recipEmail">Recipient Email:</label>
+                            <div class="controls">
+                                <input id="recipEmail" name="recipEmail" type="email" placeholder="  Enter email..." class="input-xlarge fullField" required>
+                        
                             </div>
+                        </div>
 
-                        <!-- Text input-->
-                            <div class="control-group">
-                                <label class="control-label" for="emailEmail">Your Email:</label>
-                                <div class="controls">
-                                    <input id="emailEmail" name="emailEmail" type="email" placeholder="  Enter email..." class="input-xlarge fullField" required>
-                            
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-1 col-sm-11">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" class="emailReportToMe"> 
-                                            <span class="emailReportToMeLabel">
-                                                Send the report to me!
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-                            <!-- Text input-->
-                            <div class="control-group">
-                                <label class="control-label" for="recipEmail">Recipient Email:</label>
-                                <div class="controls">
-                                    <input id="recipEmail" name="recipEmail" type="email" placeholder="  Enter email..." class="input-xlarge fullField" required>
-                            
-                                </div>
-                            </div>
-
-                            <!-- Textarea -->
-                            <div class="control-group">
-                              <label class="control-label" for="customMsg">Custom Message:</label>
-                              <div class="controls">                      
-                                <textarea class="form-control input-xlarge fullField" id="customMsg" name="customMsg"></textarea>
-                              </div>
-                            </div>
-
-                        <!-- Button -->
-                            <div class="control-group">
-                                <label class="control-label" for="emailSubmit"></label>
-                                <div class="controls">
-                                    <button id="emailSubmit" name="emailSubmit" class="btn btn-success emailSubmit" type="button">Submit</button>
-                                    <!-- <a id="emailSubmit"  name="emailSubmit" class="btn btn-success" role="button"> -->
-                                        <!-- Submit -->
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        <!-- Textarea -->
+                        <div class="control-group">
+                          <label class="control-label" for="customMsg">Custom Message:</label>
+                          <div class="controls">                      
+                            <textarea class="form-control input-xlarge fullField" id="customMsg" name="customMsg"></textarea>
+                          </div>
+                        </div>             
+                    </form>
                 </div>
             </div>
 
             <div class="modal-footer docModal-footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        
-                    </div>
-                </div>
+                <button id="emailSubmit" name="emailSubmit" class="btn btn-default btn-solar emailSubmit" type="button">Submit</button>
             </div>
 
         </div><!-- /.modal-content -->

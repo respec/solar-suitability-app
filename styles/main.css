@@ -5860,6 +5860,10 @@ html {
 
   .closeResultsRight {
     display: inline; } }
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  /* 3 for galaxy s4 and s5, 2 for galaxy s3iphone 5 and 6, but there are edge cases where u*/
+  .appHelp, .appIssues, .dataIssues {
+    font-size: 180%; } }
 /* Hyperlinks */
 a {
   color: #217BDB; }
@@ -6094,7 +6098,8 @@ ul.dropdown-menu, a.dropdown-menu {
 .docModal-footer {
   height: 55px;
   background: url("../images/docBody.jpg");
-  background-position: 0 40%; }
+  background-position: 0 40%;
+  padding-top: 9px; }
 
 #loader {
   display: none;
@@ -6802,18 +6807,22 @@ ul.dropdown-menu li {
   max-height: 75%;
   margin: auto; }
 
+/* Important part */
+.modal-dialog {
+  overflow-y: initial !important; }
+
 .dataIssues {
   background-color: rgba(0, 0, 0, 0.75);
   color: #fff; }
 
+.dataIssuesBody {
+  height: 50vh;
+  max-height: 345px;
+  overflow-y: auto; }
+
 .dataIssuesForm {
-  width: 75%;
+  width: 100%;
   background-color: #fff;
-  border-radius: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  padding-top: 20px;
   padding-bottom: 20px; }
 
 .dataIssuesForm .control-group {
@@ -6842,7 +6851,7 @@ ul.dropdown-menu li {
   color: red; }
 
 #dataIssuesDescription {
-  height: 200px; }
+  height: 115px; }
 
 .dataIssuesLocationGroup, .selectBadDataSuccess, .selectBadDataWarning, .selectBadDataError {
   display: none; }
@@ -6855,23 +6864,23 @@ ul.dropdown-menu li {
   width: 50%; }
 
 .appIssuesModal {
-  width: 40%;
+  width: 80%;
   height: auto;
   max-height: 75%;
   margin: auto; }
+
+.appIssuesBody {
+  height: 50vh;
+  max-height: 545px;
+  overflow-y: auto; }
 
 .appIssues {
   background-color: rgba(0, 0, 0, 0.75);
   color: #fff; }
 
 .appIssuesForm {
-  width: 75%;
+  width: 100%;
   background-color: #fff;
-  border-radius: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  padding-top: 20px;
   padding-bottom: 20px; }
 
 .appIssuesForm .control-group {
@@ -6890,7 +6899,7 @@ ul.dropdown-menu li {
   margin-left: 15px; }
 
 .emailModal {
-  width: 40%;
+  width: 80%;
   height: auto;
   max-height: 75%;
   margin: auto; }
@@ -6899,20 +6908,18 @@ ul.dropdown-menu li {
   background-color: rgba(0, 0, 0, 0.75);
   color: #fff; }
 
+.emailBody {
+  height: 47vh;
+  max-height: 358px;
+  overflow-y: auto; }
+
 .emailForm {
-  width: 75%;
+  width: 100%;
   background-color: #fff;
-  border-radius: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px; }
+  padding: 21px; }
 
 .emailForm .control-group {
-  color: #000;
-  padding-left: 30px;
-  padding-right: 30px; }
+  color: #000; }
 
 .emailReportToMeLabel {
   color: black; }

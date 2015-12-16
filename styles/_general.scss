@@ -45,6 +45,15 @@ html {
   }
 }
 //@media(min-width:1200px){}
+//Increase text size on retina phone displays
+@media screen and (
+-webkit-min-device-pixel-ratio: 2){ 
+  /* 3 for galaxy s4 and s5, 2 for galaxy s3iphone 5 and 6, but there are edge cases where u*/
+  .appHelp, .appIssues, .dataIssues {
+    font-size: 180%;
+  }
+}
+
 
 /* Hyperlinks */
 a {
@@ -288,4 +297,5 @@ ul.dropdown-menu,a.dropdown-menu {
   height: 55px;
   background: url('../images/docBody.jpg');
   background-position: 0 40%;
+  padding-top: 9px;
 }
