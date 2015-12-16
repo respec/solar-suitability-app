@@ -295,6 +295,8 @@ define([
         $finishedDrawing = $('.finishedDrawSolarArrayRow');
         $finishedDrawing.hide();
 
+        $("#clearSolarArrayButton").hide();
+
         // restore report modal
         $('#reportModal').modal('show');
       },

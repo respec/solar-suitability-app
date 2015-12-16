@@ -46,13 +46,13 @@ html {
 }
 //@media(min-width:1200px){}
 //Increase text size on retina phone displays
-@media screen and (
--webkit-min-device-pixel-ratio: 2){ 
-  /* 3 for galaxy s4 and s5, 2 for galaxy s3iphone 5 and 6, but there are edge cases where u*/
-  .appHelp, .appIssues, .dataIssues {
-    font-size: 180%;
-  }
-}
+// @media screen and (
+// -webkit-min-device-pixel-ratio: 2){ 
+//    //3 for galaxy s4 and s5, 2 for galaxy s3iphone 5 and 6, but there are edge cases where u
+//   .appHelp, .appIssues, .dataIssues {
+//     font-size: 180%;
+//   }
+// }
 
 
 /* Hyperlinks */
@@ -119,6 +119,10 @@ a:visited {
 .btn-solar {
     // args - color, background, border
     @include button-variant($secondary-color, $primary-color, $secondary-color);
+}
+
+.btn-large {
+  font-size: 120%;
 }
 
 button.close {

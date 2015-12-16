@@ -5860,10 +5860,6 @@ html {
 
   .closeResultsRight {
     display: inline; } }
-@media screen and (-webkit-min-device-pixel-ratio: 2) {
-  /* 3 for galaxy s4 and s5, 2 for galaxy s3iphone 5 and 6, but there are edge cases where u*/
-  .appHelp, .appIssues, .dataIssues {
-    font-size: 180%; } }
 /* Hyperlinks */
 a {
   color: #217BDB; }
@@ -5950,6 +5946,9 @@ a:visited {
   .btn-solar .badge {
     color: #474343;
     background-color: #fff; }
+
+.btn-large {
+  font-size: 120%; }
 
 button.close {
   padding-right: 0;
@@ -6805,6 +6804,7 @@ ul.dropdown-menu li {
   width: 60%;
   height: auto;
   max-height: 75%;
+  max-width: 625px;
   margin: auto; }
 
 /* Important part */
@@ -6867,6 +6867,7 @@ ul.dropdown-menu li {
   width: 80%;
   height: auto;
   max-height: 75%;
+  max-width: 625px;
   margin: auto; }
 
 .appIssuesBody {
@@ -6902,6 +6903,7 @@ ul.dropdown-menu li {
   width: 80%;
   height: auto;
   max-height: 75%;
+  max-width: 525px;
   margin: auto; }
 
 .email {

@@ -108,6 +108,7 @@ define([
           app.reportSolarMap.addLayer(solarLayer);
           app.reportSolarMap.on('load', function(){
             mapController.placePoint(app.query.latLngPt, app.reportSolarMap, config.pinSymbol);
+            app.reportSolarMap.disableMapNavigation();
           });
         } else {
         // Remove old point, move map to new point, add new point
@@ -131,6 +132,9 @@ define([
           id: 'reportSolarArray'
         });
         app.reportAerialMap.addLayer(reportSolarArrayLayer);
+        app.reportAerialMap.on('load', function(){
+            app.reportAerialMap.disableMapNavigation();
+          });
       } else {
         // Move map
         mapController.centerMap(app.query.latLngPt, app.reportAerialMap);
@@ -322,6 +326,7 @@ define([
       // hide edit toolbar
       // $editToolbar = $('.editToolbar');
       // $editToolbar.hide();
+      $("#clearSolarArrayButton").hide();
       
       // Show solar layer
       app.map.getLayer('solar').show();
