@@ -156,7 +156,8 @@ define([
         eusaLayer.setOpacity(0.65);
 
         var waterLayer = new FeatureLayer(config.waterUrl, {
-          id: 'water'
+          id: 'water',
+          minScale: 72223.819286
         });
         waterLayer.hide();
 
