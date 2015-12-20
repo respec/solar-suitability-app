@@ -579,6 +579,10 @@ define([
           }
         });
 
+        var chartData = {
+          'mainData': chartObj.attributes
+        };
+
         var x = d3.scale.ordinal()
         // SET X AXIS
         .domain(months.map(function(d) {
@@ -633,7 +637,8 @@ define([
         // if second set of values, add
         //  - example - max sun hours behind sun hours, show lost potential
         if (chartObj.attributes2){
-          var backgroundRect = svgContainer.selectAll('.backgroundBar').data(chartObj.attributes2).enter().append('rect');
+          chartData['backgroundData'] = chartObj.attributes2;
+          var backgroundRect = svgContainer.selectAll('.backgroundBar').data(chartData.backgroundData).enter().append('rect');
           backgroundRect.attr('class', 'backgroundBar')
           .attr('x', function(d, i) {
             return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
@@ -645,10 +650,24 @@ define([
           .attr('height', function(d) {
             return height - y(d);
           });
+
+          // Built percents
+          chartData['percentSun'] = chartObj.attributes.map(function(_,i) {
+            // Get percent (max sun/actual sun * 100)
+            percentSunValue = parseFloat((chartObj.attributes[i]/chartObj.attributes2[i] * 100).toFixed(2));
+
+            // Limit return to 100%
+            if (percentSunValue >= 100){
+              return 100;
+            } else {
+              return percentSunValue;
+            }
+          });
+
         }
 
         // Iterate .data(values) and create bars
-        var rect = svgContainer.selectAll('.bar').data(chartObj.attributes).enter().append('rect');
+        var rect = svgContainer.selectAll('.bar').data(chartData.mainData).enter().append('rect');
         rect.attr('class', 'bar')
         .attr('x', function(d, i) {
           return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
@@ -660,14 +679,15 @@ define([
         .attr('height', function(d) {
           return height - y(d);
         });
-        
+
         // CREATE TOOL TIP
         if (chartObj.tip){
+          console.log(chartData);
           var tip = d3.tip()
           .attr('class', 'd3-tip')
           .offset([-10, 0])
           .html(function(d) {
-            return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
+            return '<strong>Value:</strong> <span style="color:red">' + d.percentSun + '</span>';
           });
 
           svgContainer.call(tip);
