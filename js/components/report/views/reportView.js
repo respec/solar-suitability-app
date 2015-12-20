@@ -52,9 +52,6 @@ define([
       },
 
       initialize: function() {
-        // this.model = new ReportModel();
-        // app.reportModel = this.model;
-        // this.listenTo(app.reportModel, 'change', this.render);
         this.render();
       },
 
@@ -68,7 +65,6 @@ define([
           siteName: app.reportModel.get('siteName'),
           siteAddress: app.reportModel.get('siteAddress'),
           siteNotes: app.reportModel.get('siteNotes'),
-          // coords: app.model.get('latLngPt'),
           averageUsePerMonth: app.reportModel.get('averageUsePerMonth'),
           costPerkWh: app.reportModel.get('costPerkWh'),
           percentElectricGoalRaw: app.reportModel.get('percentElectricGoal'),
@@ -81,10 +77,6 @@ define([
           paybackWithMim: app.reportModel.get('paybackWithMim'),
           madeInMn: config.madeInMn,
         };
-
-        // if ("reportSolarMap" in app && $("#reportSolarMap-container").is(':empty')){
-        //   $("#reportSolarMap-container").append(app.reportSolarMap); 
-        // }
 
         this.$el.html(template(options));
 
@@ -105,13 +97,13 @@ define([
       },
 
       initComponents: function() {
-        $('#siteName').on('keyup', function(){
-          app.query.siteName = $(this).val();
-        });
+        // $('#siteName').on('keyup', function(){
+        //   app.query.siteName = $(this).val();
+        // });
 
-        $('#siteNotes').on('keyup', function(){
-          app.query.siteNotes = $(this).val();
-        });
+        // $('#siteNotes').on('keyup', function(){
+        //   app.query.siteNotes = $(this).val();
+        // });
 
         // init site details template
         this.navbar = new SiteDetails({
