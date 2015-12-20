@@ -693,7 +693,6 @@ define([
 
         // CREATE TOOL TIP
         if (chartObj.tip){
-          console.log(chartData);
           var tip = d3.tip()
           .attr('class', 'd3-tip')
           .offset([-10, 0])
