@@ -579,9 +579,14 @@ define([
           }
         });
 
-        var chartData = {
-          'mainData': chartObj.attributes
-        };
+        // var chartData = [chartObj.attributes];
+        var chartData = [];
+        
+        // create 2d array for D3
+        _.each(chartObj.attributes, function(attr){
+          var attrList = [attr];
+          chartData.push(attrList);
+        });
 
         var x = d3.scale.ordinal()
         // SET X AXIS
@@ -637,47 +642,53 @@ define([
         // if second set of values, add
         //  - example - max sun hours behind sun hours, show lost potential
         if (chartObj.attributes2){
-          chartData['backgroundData'] = chartObj.attributes2;
-          var backgroundRect = svgContainer.selectAll('.backgroundBar').data(chartData.backgroundData).enter().append('rect');
-          backgroundRect.attr('class', 'backgroundBar')
-          .attr('x', function(d, i) {
-            return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
-          })
-          .attr('y', function(d) {
-            return y(d);
-          })
-          .attr('width', barWidth)
-          .attr('height', function(d) {
-            return height - y(d);
-          });
 
           // Built percents
-          chartData['percentSun'] = chartObj.attributes.map(function(_,i) {
+          percentSunList = chartObj.attributes.map(function(_,i) {
             // Get percent (max sun/actual sun * 100)
-            percentSunValue = parseFloat((chartObj.attributes[i]/chartObj.attributes2[i] * 100).toFixed(2));
+            percentSunValue = parseFloat((chartObj.attributes[i]/chartObj.attributes2[i]).toFixed(2));
 
             // Limit return to 100%
-            if (percentSunValue >= 100){
-              return 100;
+            if (percentSunValue >= 1){
+              return 1;
             } else {
               return percentSunValue;
             }
           });
 
+          _.each(chartObj.attributes2, function(attr, i){
+            // build 2d array [main data, background data, tooltip data]
+            chartData[i].push(chartObj.attributes2[i]);
+            chartData[i].push(percentSunList[i]);
+          });
+
+          var backgroundRect = svgContainer.selectAll('.backgroundBar').data(chartData).enter().append('rect');
+          backgroundRect.attr('class', 'backgroundBar')
+          .attr('x', function(d, i) {
+            return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
+          })
+          .attr('y', function(d) {
+            return y(d[1]);
+          })
+          .attr('width', barWidth)
+          .attr('height', function(d) {
+            return height - y(d[1]);
+          });
+          
         }
 
         // Iterate .data(values) and create bars
-        var rect = svgContainer.selectAll('.bar').data(chartData.mainData).enter().append('rect');
+        var rect = svgContainer.selectAll('.bar').data(chartData).enter().append('rect');
         rect.attr('class', 'bar')
         .attr('x', function(d, i) {
           return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
         })
         .attr('y', function(d) {
-          return y(d);
+          return y(d[0]);
         })
         .attr('width', barWidth)
         .attr('height', function(d) {
-          return height - y(d);
+          return height - y(d[0]);
         });
 
         // CREATE TOOL TIP
@@ -687,7 +698,7 @@ define([
           .attr('class', 'd3-tip')
           .offset([-10, 0])
           .html(function(d) {
-            return '<strong>Value:</strong> <span style="color:red">' + d.percentSun + '</span>';
+            return '<strong>Value:</strong> <span style="color:red">' + d3.format('%')(d[2]) + '</span>';
           });
 
           svgContainer.call(tip);
