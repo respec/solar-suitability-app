@@ -66,6 +66,7 @@ define([
         var options = {
           siteTitle: app.reportModel.get('siteTitle'),
           siteName: app.reportModel.get('siteName'),
+          siteAddress: app.reportModel.get('siteAddress'),
           siteNotes: app.reportModel.get('siteNotes'),
           // coords: app.model.get('latLngPt'),
           averageUsePerMonth: app.reportModel.get('averageUsePerMonth'),
@@ -232,15 +233,22 @@ define([
         var $siteTitle = $('#siteTitle');
         var $siteNotes = $('#siteNotes');
         var $siteName = $('#siteName');
+        var $siteAddress = $('#siteAddress');
 
         app.reportModel.set({siteTitle: $siteTitle.val()});
         app.reportModel.set({siteNotes: $siteNotes.val()});
         app.reportModel.set({siteName: $siteName.val()});
+        app.reportModel.set({siteAddress: $siteAddress.val()});
 
-        // Switch these to .gets from the model
-        $('#myTitle').text($siteTitle.val());
-        $('#myNotes').text($siteNotes.val());
-        $('#myName').text($siteName.val());
+        $('#myTitle').text(app.reportModel.get('siteTitle'));
+        $('#myNotes').text(app.reportModel.get('siteNotes'));
+        $('#myName').text(app.reportModel.get('siteName'));
+        $('#myAddress').text(app.reportModel.get('siteAddress'));
+
+        // $('#myTitle').text($siteTitle.val());
+        // $('#myNotes').text($siteNotes.val());
+        // $('#myName').text($siteName.val());
+        // $('#myAddress').text($siteAddress.val());
 
         $('.customizeReportForm').hide();
         $('.customDetails').show();
