@@ -37,7 +37,7 @@
                             </div>
 
                             <div class="topSpace">
-                                <p class="paragraphIndent">
+                                <p class="paragraphIndent" id="solarCalcText">
                                     Your site is <span class="valueHelp"><%=quality%></span>. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> solar PV system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power. This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. With <a href="<%=madeInMn%>" target="_blank" class="madeInMn">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=payback.toFixed(1)%> years</span>.<!-- Display warning ** -->
                                 
                                 </p>
@@ -82,6 +82,7 @@
                         </div>
                         <div class="paragraphIndent topSpace">
                         <ol class="getstarted">
+                            <li><a href="<%= learnMoreAboutSolar %>" target="_blank">Learn More About Solar</a></li>
                             <% if(quality === 'Poor'){%>
                                 <li>
                                     Location not ideal, consider <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>

@@ -74,6 +74,7 @@ define([
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
           paybackWithMim: app.reportModel.get('paybackWithMim'),
           madeInMn: config.madeInMn,
+          learnMoreAboutSolar: config.learnMoreAboutSolar,
 
           totalPerYear: app.reportModel.get('totalPerYear'),
           quality: app.reportModel.get('quality'),

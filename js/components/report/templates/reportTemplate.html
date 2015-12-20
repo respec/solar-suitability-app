@@ -175,39 +175,42 @@
                                             <%=lidarCollect%>
                                         </div>
                                     </div>
-                                    <div class="row">&nbsp;</div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <span id="reportGetStarted">
-                                                <a href="<%=mnInstallers + utilityCompany.zip%>" target="_blank">Contact a Local Installer</a>
-                                            </span> | 
-                                            <span id="reportIncentives">
-                                                <a href="<%=mnIncentives%>" target="_blank">MN Solar Incentives</a>
-                                            </span>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="col-md-6">
 
                                     <div class="row">
                                         <div class="col-md-12">
                                             <strong>Utility Service Proider:</strong>
-                                        </div>
-                                        <div class="col-md-12" id="reportUtilityName">
-                                            <%=utilityCompany.fullName%>
-                                        </div>
-                                        <div class="col-md-12" id="reportUtilityStreet">
-                                            <%=utilityCompany.street%>
-                                        </div>
-                                        <div class="col-md-12" id="reportUtilityCityStateZip">
-                                            <%=utilityCompany.city% + ', MN ' + utilityCompany.zip%>
-                                        </div>
-                                        <div class="col-md-12" id="reportUtilityPhone">
-                                            <%=utilityCompany.phone%>
+                                        
+                                            <div id="reportUtilityName">
+                                                <%=utilityCompany.fullName%>
+                                            </div>
+                                            <div id="reportUtilityStreet">
+                                                <%=utilityCompany.street%>
+                                            </div>
+                                            <div id="reportUtilityCityStateZip">
+                                                <%=utilityCompany.city% + ', MN ' + utilityCompany.zip%>
+                                            </div>
+                                            <div id="reportUtilityPhone">
+                                                <%=utilityCompany.phone%>
+                                            </div>
                                         </div>
                                     </div>
 
                                 </div>
+                            </div><!-- ./row-->
+                            <div class="row top-lg">
+                                    <div class="col-md-12">
+                                        <span id="reportGetStarted">
+                                            <a href="<%=learnMoreAboutSolar%>" target="_blank">Learn More About Solar</a>
+                                        </span> |
+                                        <span id="reportGetStarted">
+                                            <a href="<%=mnInstallers + utilityCompany.zip%>" target="_blank">Contact a Local Installer</a>
+                                        </span> | 
+                                        <span id="reportIncentives">
+                                            <a href="<%=mnIncentives%>" target="_blank">MN Solar Incentives</a>
+                                        </span>
+                                    </div>
                             </div>
                         </div>
                     </div>
