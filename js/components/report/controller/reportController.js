@@ -356,7 +356,7 @@ define([
       //source = $('#reportContent').html();
       var source = '<html><body>Hello <strong> World</strong></body></html>';
 
-      //console.log($('#reportContent'));
+      console.log($('#reportContent'));
       margins = {
         top: 80,
         bottom: 60,
@@ -368,9 +368,10 @@ define([
       var doc = new jsPDF();
 
       doc.setFontSize(40);
-//doc.text(35, 25, "MN Solar Suitability Report");
-doc.addImage(imgData, 'JPEG', 15, 40, 200, 35);
-doc.save('MnSolarReport.pdf');
+      //doc.text(35, 25, "MN Solar Suitability Report");
+      doc.addImage(imgData, 'JPEG', 15, 40, 200, 35);
+      doc.save('MnSolarReport.pdf');
+
       // all coords and widths are in jsPDF instance's declared units
       // 'inches' in this case
       // pdf.fromHTML(
