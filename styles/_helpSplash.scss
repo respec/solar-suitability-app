@@ -1,27 +1,23 @@
 .appHelpModal {
-  width: 60%;
+  width: 80%;
   height: auto;
   max-height: 75%;
   margin: auto;
-  border-radius: 15px;
+  max-width: 820px;
 }
-
-// .appHelpModal .modal-dialog {
-//   margin-top: 0px;
-//   margin-bottom: 0px;
-// }
-
-.logos {
-  padding-top:20px;
+/* Important part */
+.modal-dialog{
+    overflow-y: initial !important
+}
+.helpModal-body{
+    height: 50vh;
+    max-height: 345px;
+    overflow-y: auto;
 }
 
 .appHelp {
   background-color:$overlay;
   color: $text-color;
-}
-
-.appHelpBody {
-
 }
 
 .appHelpFooter {
@@ -37,13 +33,21 @@
 }
 
 #colorRamp {
-  text-align: center;
+  text-align: left;
   padding: 10px;
-//     display:block;
-//     margin-left:25%;
-//     margin-right:25%;
-//     width:auto;
-//     height:70px
+}
+
+.logo {
+  max-height: 75px;
+  max-width: 90%;
+  display:inline-block;
+  margin: 7px;
+}
+
+.pull-middle {
+    // display: inline-block;
+    // vertical-align: middle;
+    // float: none;
 }
 
 // #colorRamp img {

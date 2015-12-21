@@ -50,13 +50,15 @@ define([
 
         // store point as lat/lng
         app.query.latLngPt = mp;
+        app.model.set('latLngPt', mp);
+        app.reportModel.set('latLngPt', mp);
 
         this.handleMap();
       },
 
       handleMap: function(){
         // removes all previous graphics (previous click)
-        mapController.clearGraphics();
+        mapController.clearGraphics(app.map);
         mapController.placePoint(app.query.point, app.map, config.pinSymbol);
 
         // Bare earth also checks if click in MN, otherwise handleQueries won't run
@@ -205,15 +207,16 @@ define([
           'PointY': point.y,
           'File_Name': tile
         };
-        gp.execute(params, lang.hitch(this, this.displayResults));
+        gp.execute(params, lang.hitch(this, this.buildResults));
       },
 
-      displayResults: function(results) {
+      buildResults: function(results) {
 
         app.query.results = results;
+
         //empty div so histo doesn't duplicate
-        $('#resultsHisto').html('');
-        $('#sunHrHisto').html('');
+        this.clearDiv('#resultsHisto');
+        this.clearDiv('#sunHrHisto');
 
         //parse the results
         var insolResults = results[0].value.split('\n');
@@ -249,6 +252,8 @@ define([
         var sunTotal = 0;
         var insolList = [];
         var sunHrList = [];
+        var maxSunHrList = [];
+        var shadeHrList = [];
         var months = [];
 
         for (var i = 0; i < 12; i++) {
@@ -278,26 +283,39 @@ define([
           }
 
           solarObj[month.abbr] = monthObj;
+
         }
 
         solarObj.sunHrList = sunHrList;
         solarObj.insolList = insolList;
         solarObj.months = months;
 
+
         var nearestLat = Math.round(app.query.latLngPt.y);
         var annualPercentSun = 0;
 
-        _.each(sunHours[nearestLat], function(value, month){
-          solarObj[month].maxSunHrValue = value;
+        _.each(sunHours[nearestLat], function(value, mon){
+          var month = solarObj[mon];
+          month.maxSunHrValue = value;
+
+          month.shadeHrValue = 0;
 
           // Calculate percent sun 
-          var percentSun = solarObj[month].sunHrValue/value;
+          var percentSun = month.sunHrValue/value;
           if (percentSun > 1){
             percentSun = 1;
+          } else {
+            month.shadeHrValue = month.maxSunHrValue - month.sunHrValue;
           }
-          solarObj[month].percentSun = percentSun;
+          month.percentSun = percentSun;
           annualPercentSun += percentSun;
+
+          shadeHrList.push(month.shadeHrValue);
+          maxSunHrList.push(value);
         });
+
+        solarObj.shadeHrList = shadeHrList;
+        solarObj.maxSunHrList = maxSunHrList;
 
         // Convert to average, float, 2 decimal points (percent)
         annualPercentSun = parseFloat((annualPercentSun/12).toFixed(2));
@@ -333,36 +351,123 @@ define([
         app.model.set('quality', quality);
 
         // Populate gradient
-        var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toFixed().toString() + '%';
+        var gradient = (annualPercentSun*100).toString() + '%';
+        // .toFixed().toString + '%';
+        // var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toFixed().toString() + '%';
         
         var $showGradient = $('.showGradient');
         $showGradient.css('width', gradient);
         $('.showGradient>span').text(gradient);
 
+        // store results
+        app.solarObj = solarObj;
+
         // create histos
         // 
         // create Solar Insol histo
-        this.drawChart(solarObj, solarObj.insolList, 220, '#resultsHisto', '', 2, 20);
+        this.buildCharts();
 
-        // // create Sun Hrs histo
-        // this.drawChart(solarObj, solarObj.sunHrList, 500, '#sunHrHisto', '', 2, -40);
+        this.drawChart(app.charts.sunHrsChart);
 
-        // store results
-        app.solarObj = solarObj;
         resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
         resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
 
-
-        this.displayResults2();
-      },
-
-      displayResults2: function(){
         // Calculate solar calculator
         this.calculateSystemData();
 
+        this.displayResults();
+      },
+
+      displayResults: function(){
         //show results & hide loader
         loadSplashController.hideLoader();
         resultsSmallController.showResults();
+      },
+
+      buildCharts: function(){
+        app.charts = {};
+
+        var insolChart = {
+          data: app.solarObj,
+          attributes: app.solarObj.insolList,
+          maxValue: 220,
+          el: '#resultsHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+          tip: true
+        };
+
+        app.charts.insolChart = insolChart;
+
+        var sunHrsChart = {
+          data: app.solarObj,
+          attributes: app.solarObj.sunHrList,
+          attributes2: app.solarObj.maxSunHrList,
+          maxValue: 500,
+          el: '#sunHrsHisto',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+          tip: true
+        };
+
+        app.charts.sunHrsChart = sunHrsChart;
+
+        var shadeHrsChart = {
+          data: app.solarObj,
+          attributes: app.solarObj.shadeHrList,
+          maxValue: 500,
+          el: '',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+          tip: false
+        };
+
+        app.charts.shadeHrsChart = shadeHrsChart;
       },
 
       calculateSystemData: function(){
@@ -387,6 +492,7 @@ define([
         app.reportModel.set({'lowCostSystem': lowCostSystem});
         app.reportModel.set({'highCostSystem': highCostSystem});
         app.reportModel.set({'averageCostSystem': parseFloat(averageCostSystem)});
+        app.reportModel.set({'averageCostSystemAsCurrency': app.formatMoney(averageCostSystem)});
 
         // system size
         // averagePerDay
@@ -457,63 +563,61 @@ define([
         }
       },
 
-      drawChart: function (data, dataAttr, max, div, title, titleOffset, titleModifier) {
-        titleOffset = parseInt(titleOffset, 10);
-        var margin = {
-          'top': 10,
-          'right': 10,
-          'bottom': 50,
-          'left': 50
-        },
-        width = 600,
-        height = 260;
-        var barWidth = 20;
+      drawChart: function (chartObj) {
 
+        var titleOffset = parseInt(chartObj.title.offset, 10);
+        var margin = chartObj.margin;
+        var width = chartObj.size.width;
+        var height = chartObj.size.height;
+        var barWidth = chartObj.size.barWidth;
         var months = [];
-        _.each(data, function(items){
+
+        // Build months
+        _.each(chartObj.data, function(items){
           if(items.month){
             months.push(items.month);
           }
         });
 
-        var x = d3.scale.ordinal()
-        .domain(months.map(function(d) {
-            // return d.substring(0, 3);
-            return d;
-          }))
-        .rangeRoundBands([0, width / 2], 0);
-          // .rangeRoundBands([margin.left, width - margin.right], 0);
-
-          var y = d3.scale.linear()
-          // SET Y AXIS HEIGHT
-          .domain([0, (max)])
-          .range([height, 0]);
-
-          var xAxis = d3.svg.axis()
-          .scale(x)
-          .orient('bottom');
-
-          var yAxis = d3.svg.axis()
-          .scale(y)
-          .orient('left');
-
-          var svgContainer = d3.select(div).append('svg')
-          .attr('class', 'chart')
-          .attr('width', width + margin.left + margin.right)
-          .attr('height', height + margin.top + margin.bottom).append('g')
-          .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
-
-        // CREATE TOOL TIP
-        var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-          return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
-
+        // var chartData = [chartObj.attributes];
+        var chartData = [];
+        
+        // create 2d array for D3
+        _.each(chartObj.attributes, function(attr){
+          var attrList = [attr];
+          chartData.push(attrList);
         });
 
-        svgContainer.call(tip);
+        var x = d3.scale.ordinal()
+        // SET X AXIS
+        .domain(months.map(function(d) {
+          return d;
+        }))
+        .rangeRoundBands([0, width / 2], 0);
 
+        var y = d3.scale.linear()
+        // SET Y AXIS HEIGHT
+        .domain([0, (chartObj.maxValue)])
+        .range([height, 0]);
+
+        // define x-axis
+        var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient('bottom');
+
+        // define y-axis
+        var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient('left');
+
+        // adds chart SVG to element and defines sizes, etc.
+        var svgContainer = d3.select(chartObj.el).append('svg')
+        .attr('class', chartObj.className)
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom).append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
+
+        // adds x-axis and labels
         svgContainer.append('g')
         .attr('class', 'x axis')
         .attr('transform', 'translate( 0,' + height + ')')
@@ -529,32 +633,83 @@ define([
         svgContainer.append('g')
         .attr('class', 'y axis').call(yAxis)
         .append('text')
-        .attr('x', (width / titleOffset + titleModifier))
+        .attr('x', (width / chartObj.title.offset + chartObj.title.modifier))
         .attr('y', 10)
         .attr('text-anchor', 'center')
         .style('font-size', '16px')
-        .text(title);
+        .text(chartObj.title.title);
 
-        svgContainer.selectAll('.bar').data(dataAttr).enter().append('rect')
-        .attr('class', 'bar')
+        // if second set of values, add
+        //  - example - max sun hours behind sun hours, show lost potential
+        if (chartObj.attributes2){
+
+          // Built percents
+          percentSunList = chartObj.attributes.map(function(_,i) {
+            // Get percent (max sun/actual sun * 100)
+            percentSunValue = parseFloat((chartObj.attributes[i]/chartObj.attributes2[i]).toFixed(2));
+
+            // Limit return to 100%
+            if (percentSunValue >= 1){
+              return 1;
+            } else {
+              return percentSunValue;
+            }
+          });
+
+          _.each(chartObj.attributes2, function(attr, i){
+            // build 2d array [main data, background data, tooltip data]
+            chartData[i].push(chartObj.attributes2[i]);
+            chartData[i].push(percentSunList[i]);
+          });
+
+          var backgroundRect = svgContainer.selectAll('.backgroundBar').data(chartData).enter().append('rect');
+          backgroundRect.attr('class', 'backgroundBar')
+          .attr('x', function(d, i) {
+            return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
+          })
+          .attr('y', function(d) {
+            return y(d[1]);
+          })
+          .attr('width', barWidth)
+          .attr('height', function(d) {
+            return height - y(d[1]);
+          });
+          
+        }
+
+        // Iterate .data(values) and create bars
+        var rect = svgContainer.selectAll('.bar').data(chartData).enter().append('rect');
+        rect.attr('class', 'bar')
         .attr('x', function(d, i) {
           return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
         })
         .attr('y', function(d) {
-          return y(d);
+          return y(d[0]);
         })
         .attr('width', barWidth)
         .attr('height', function(d) {
-          return height - y(d);
-        })
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide);
+          return height - y(d[0]);
+        });
 
+        // CREATE TOOL TIP
+        if (chartObj.tip){
+          var tip = d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            return '<strong>Value:</strong> <span style="color:red">' + d3.format('%')(d[2]) + '</span>';
+          });
+
+          svgContainer.call(tip);
+          rect.on('mouseover', tip.show)
+          .on('mouseout', tip.hide);
+        }
+        
       },
 
       clearDiv: function(div){
-        div.html('');
+        $(div).html('');
       }
-      
+
     };
   });

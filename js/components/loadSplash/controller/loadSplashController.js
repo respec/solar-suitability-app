@@ -23,6 +23,7 @@ define([],
       },
 
       showLoader: function(){
+        $("#alert").removeClass('in');
         $('#loader').show();
         $('#resultsButton').show();
       },

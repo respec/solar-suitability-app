@@ -24,6 +24,7 @@ define([
   'esri/config',
   'esri/layers/FeatureLayer',
   'esri/layers/GeoRSSLayer',
+  'esri/layers/GraphicsLayer',
   'esri/layers/ArcGISTiledMapServiceLayer',
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/ImageServiceParameters',
@@ -44,7 +45,7 @@ define([
 
     QueryModel, ReportModel,
 
-    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
+    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
 
     ) {
 
@@ -113,6 +114,8 @@ define([
             // extent: new Extent(this.config.extent)
           });
 
+
+
         var params = new ImageParams();
 
         // Direct call to raster function to symbolize imagery with color ramp (setting default was unreliable)
@@ -128,6 +131,7 @@ define([
           showAttribution: false,
           opacity: 1.0
         });
+
         //solarLayer.hide();
 
         // Create aerial layer and load hidden
@@ -154,7 +158,8 @@ define([
         eusaLayer.setOpacity(0.65);
 
         var waterLayer = new FeatureLayer(config.waterUrl, {
-          id: 'water'
+          id: 'water',
+          minScale: 72223.819286
         });
         waterLayer.hide();
 
@@ -162,6 +167,16 @@ define([
           id: 'mask'
         });
         maskLayer.setOpacity(0.8);
+
+        var solarArrayLayer = new GraphicsLayer({
+          id: 'solarArray'
+        });
+
+        // Add existing solar installations to the map
+        var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
+          id: 'georss',
+          pointSymbol: config.installationSymbol
+        });
 
         // Add aerial to the map
         this.map.addLayer(aerialLayer);
@@ -181,19 +196,31 @@ define([
         // Add water to the map
         this.map.addLayer(waterLayer);
 
-        // Add lidar to the map
+        // Add mask to the map
         this.map.addLayer(maskLayer);
 
-        // Add existing solar installations to the map
-        var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
-          id: 'georss',
-          pointSymbol: config.sunSymbol
-        });
-        
+        // Add solar array graphics layer
+        this.map.addLayer(solarArrayLayer);
+
+        // Add solar installations layer
         this.map.addLayer(installationsLayer);
 
         installationsLayer.on('load',function(){
           app.map.getLayer('georss').setVisibility(false);
+        });
+
+        this.map.on('zoom-end', function(){
+          var currentZoom = app.map.getZoom();
+          var $waterToggle = $('#waterToggle');
+
+          // if zoom is greater or equal to zoom level 13, toggle water layer on
+          if (currentZoom >= 13){
+            $waterToggle.bootstrapToggle('on');
+            app.map.getLayer('water').show();
+          } else {
+            $waterToggle.bootstrapToggle('off');
+            app.map.getLayer('water').hide();
+          }
         });
 
         // // Read URL Parameters
@@ -357,9 +384,21 @@ define([
       },
 
       showAlert: function(alertType, headline, message) {
-          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><button type="button" class="close" data-dismiss="alert">×</button><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
           $('#alert').toggleClass('in');
-          //window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
+          window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
+        },
+
+      formatMoney: function(nStr) {
+          nStr += '';
+          x = nStr.split('.');
+          x1 = x[0];
+          x2 = x.length > 1 ? '.' + x[1] : '';
+          var rgx = /(\d+)(\d{3})/;
+          while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+          }
+          return '$' + x1;
         },
 
       checkUrlParams: function(){

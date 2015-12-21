@@ -1,11 +1,27 @@
+/* Links and buttons */
+
 #viewReport a:visited, #viewReport a:hover, #viewReport a:link, #viewReport a:active{
-  //font-size: 18px;
   color: #fff;
   text-decoration:none;
 }
 
+a.madeInMn {
+    color: $text-color;
+    font-style: italic;
+    text-decoration: none;
+}
+a.madeInMn:hover {
+    color: $text-color;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.reportControls {
+    width:130px;
+    margin-top:20px;
+}
+
 #resultsSmall button a{
-    //font-size: 14px;
     color: $text-color;
     text-decoration: none;
 }
@@ -15,7 +31,7 @@
 }
 
 .badData {
-    color: $brand-primary;
+    color: $doc-blue;
     cursor: pointer;
 }
 
@@ -29,16 +45,36 @@
     opacity: .4;
 }
 
-// #emailReport a:visited, #emailReport a:hover, #emailReport a:link, #emailReport a:active{
-//   font-size: 18px;
-//   color: #fff;
-//   text-decoration:none;
-// }
+#closeResults {
+    margin-top:10px;
+}
 
-.resultsDisplay {
+/* Preview results drawer column formatting */
+
+#resultsSmall {
+    background-color:$overlay;
+    font-size:18px;
+    color:#fff;
+    z-index:299;
+    border-top:1px solid #fff;
+    height:400px;
+    width:100%;
+    position:absolute;
+    bottom: 0;
+    overflow: scroll;
+}
+
+.resultsPreview1 {
+    display:inline-block;
+    color:#fff;
+    z-index:5;
+    padding-top:10px;
+    // margin-left:50px
+}
+
+.resultsPreview2 {
     display:inline-block;
     font-size:14px;
-   /* background-color:#474343; */
     color:#fff;
     z-index:5;
     padding-top:10px;
@@ -53,29 +89,8 @@
     padding-top:15px;
 }
 
-// .resultsTable {
-//     margin-left:50px
-// }
-
-.resultsButtonToolbar{
-    float:right;
-    margin-top: 3px;
-}
-
-#resultsSmall {
-    // display:none;
-    background-color:$overlay;
-    font-size:18px;
-    color:#fff;
-    z-index:299;
-    border-top:1px solid #fff;
-    height:400px;
-    width:100%;
-    position:absolute;
-    bottom: 0;
-    overflow: scroll;
-    // Add top gutter to match right/left
-    // padding-top:15px;
+ol.getstarted > li {
+    margin:0 0 10px 0;
 }
 
 .resultsGeneral {
@@ -83,7 +98,6 @@
 }
 
 .chartTitle{
-    //text-align: center;
     padding-left: 50px;
 }
 
@@ -92,30 +106,17 @@
     margin-top: 10px;
     color: $secondary-color;
     margin-bottom: 10px;
-    //text-align: center;
 }
+
+/* Text formatting */
 
 .valueHelp {
     color: $link-color;
     font-weight: bold;
     font-size: 18px;
-    padding: 3px;
 }
 
-#closeResults {
-    margin-top:10px;
-}
-
-.reportControls {
-    float:left;
-    width:130px;
-    margin-top:20px;
-}
-
-.resultsTables {
-    height:300px;
-    overflow:auto;
-}
+/* Progress bar */
 
 .gradient {
     height: 40px;
@@ -145,23 +146,34 @@
     line-height: 40px;
 }
 
-.zeroPercent {
-    float:left;
-    margin-right: 5px;
+.progress-width {
+    width: 98%;
 }
 
-.hundredPercent {
-    float:right;
-    margin-left: 5px;
+.progress {
+  margin-bottom: 0px;
 }
 
-.progress{
-    width: 90%;
+/* Poor<->Optimal labels */
+.progress-labels {
+    font-size:10px;
+    margin-top:-1px;
 }
 
-// .hideGradient {
-//     background-color: black;
-// }
+div.progress-labels > div {
+    border-left: 2px solid white;
+    display:inline-block;
+}
+
+#labelPoor {
+    width: 70%;
+}
+#labelFair, #labelGood, #labelOptimal {
+    width: 10%;
+}
+#labelOptimal {
+    border-right: 2px solid white;
+}
 
 /* D3 customization */
 
@@ -214,12 +226,16 @@
     z-index:1
 }
 
-.chart rect {
+.chart .bar {
     fill:#ff7400
 }
 
-.chart rect:hover {
+.chart .bar:hover {
     fill:#ff4500
+}
+
+.chart .backgroundBar {
+    fill:#808080
 }
 
 .chart text {
@@ -230,13 +246,4 @@
 
 .chart {
     margin-left: 50px;
-}
-
-.shadowCSS { 
-  box-shadow: 12px 12px 7px rgba(0,0,0,0.5); 
-  }
-  
-.shadowfilter { 
-  -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
-  filter: url(shadow.svg#drop-shadow); 
 }

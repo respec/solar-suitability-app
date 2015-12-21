@@ -2,7 +2,13 @@
   width: 60%;
   height: auto;
   max-height: 75%;
+  max-width: 625px;
   margin: auto;
+}
+
+/* Important part */
+.modal-dialog{
+    overflow-y: initial !important
 }
 
 .dataIssues {
@@ -11,17 +17,19 @@
 }
 
 .dataIssuesBody {
-
+  height: 50vh;
+    max-height: 345px;
+    overflow-y: auto;
 }
 
 .dataIssuesForm {
-  width:75%;
+  width:100%;
   background-color: #fff;
-  border-radius: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top:20px;
-  padding-top:20px;
+  // border-radius: 30px;
+  // margin-left: auto;
+  // margin-right: auto;
+  // margin-top:20px;
+  // padding-top:20px;
   padding-bottom: 20px;
   
 }
@@ -59,7 +67,7 @@
 }
 
 #dataIssuesDescription {
-  height:200px;
+  height:115px;
 }
 
 .dataIssuesLocationGroup, .selectBadDataSuccess, .selectBadDataWarning, .selectBadDataError {

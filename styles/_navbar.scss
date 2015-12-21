@@ -16,13 +16,23 @@
   display: inline-block;
 }
 
-.finishedNearbySolarRow {
+.finishedNearbySolarRow, .finishedDrawSolarArrayRow, .toolbarDrawSolarArrayRow {
   display: none;
   position: absolute;
   top: 70px;
   left: 0;
   right: 0;
   z-index: 100;
+}
+
+.toolbarDrawSolarArrayRow {
+  /* overwrite height */
+  top: 113px
+}
+
+.finishedNearbySolarRow button, .finishedDrawSolarArrayRow button, .toolbarDrawSolarArrayRow button{
+  /* override btn-solar margin */
+  margin:0;
 }
 
 #basemapDropdownContent, #vectorLayersDropdownContent {
