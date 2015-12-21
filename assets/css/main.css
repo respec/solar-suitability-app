@@ -6691,6 +6691,9 @@ ul.dropdown-menu li {
   height: calc((90vh - 5vh) - (85px + 60px));
   overflow-y: auto; }
 
+.customizeReportForm, .customizeSolarCalculatorForm {
+  display: none; }
+
 #reportHeader {
   height: 85px; }
 
