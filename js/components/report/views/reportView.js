@@ -75,8 +75,7 @@ define([
           paybackWithoutIncentives: app.reportModel.get('paybackWithoutIncentives'),
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
           paybackWithMim: app.reportModel.get('paybackWithMim'),
-          madeInMn: config.madeInMn,
-          learnMoreAboutSolar: config.learnMoreAboutSolar
+          madeInMn: config.madeInMn
         };
 
         this.$el.html(template(options));
