@@ -10,6 +10,7 @@ function(
         defaults: {
           siteTitle: 'Solar Suitability Report',
           siteName: 'Site Name',
+          siteAddress: 'Site Address',
           siteNotes: 'Site Notes',
           latLngPt: {
             x:0,

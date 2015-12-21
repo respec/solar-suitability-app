@@ -50,6 +50,12 @@ module.exports = function(grunt) {
             expand: true,
             src: 'index.html',
             dest: 'release',
+          },
+          {
+            cwd: 'api',
+            src: ['**'],
+            dest: 'release/api',
+            expand: true
           }
         ]
       },
