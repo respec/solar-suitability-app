@@ -579,6 +579,15 @@ define([
           }
         });
 
+        // var chartData = [chartObj.attributes];
+        var chartData = [];
+        
+        // create 2d array for D3
+        _.each(chartObj.attributes, function(attr){
+          var attrList = [attr];
+          chartData.push(attrList);
+        });
+
         var x = d3.scale.ordinal()
         // SET X AXIS
         .domain(months.map(function(d) {
@@ -633,41 +642,62 @@ define([
         // if second set of values, add
         //  - example - max sun hours behind sun hours, show lost potential
         if (chartObj.attributes2){
-          var backgroundRect = svgContainer.selectAll('.backgroundBar').data(chartObj.attributes2).enter().append('rect');
+
+          // Built percents
+          percentSunList = chartObj.attributes.map(function(_,i) {
+            // Get percent (max sun/actual sun * 100)
+            percentSunValue = parseFloat((chartObj.attributes[i]/chartObj.attributes2[i]).toFixed(2));
+
+            // Limit return to 100%
+            if (percentSunValue >= 1){
+              return 1;
+            } else {
+              return percentSunValue;
+            }
+          });
+
+          _.each(chartObj.attributes2, function(attr, i){
+            // build 2d array [main data, background data, tooltip data]
+            chartData[i].push(chartObj.attributes2[i]);
+            chartData[i].push(percentSunList[i]);
+          });
+
+          var backgroundRect = svgContainer.selectAll('.backgroundBar').data(chartData).enter().append('rect');
           backgroundRect.attr('class', 'backgroundBar')
           .attr('x', function(d, i) {
             return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
           })
           .attr('y', function(d) {
-            return y(d);
+            return y(d[1]);
           })
           .attr('width', barWidth)
           .attr('height', function(d) {
-            return height - y(d);
+            return height - y(d[1]);
           });
+          
         }
 
         // Iterate .data(values) and create bars
-        var rect = svgContainer.selectAll('.bar').data(chartObj.attributes).enter().append('rect');
+        var rect = svgContainer.selectAll('.bar').data(chartData).enter().append('rect');
         rect.attr('class', 'bar')
         .attr('x', function(d, i) {
           return i * x.rangeBand() + (x.rangeBand() / 2) - (barWidth / 2);
         })
         .attr('y', function(d) {
-          return y(d);
+          return y(d[0]);
         })
         .attr('width', barWidth)
         .attr('height', function(d) {
-          return height - y(d);
+          return height - y(d[0]);
         });
-        
+
         // CREATE TOOL TIP
         if (chartObj.tip){
           var tip = d3.tip()
           .attr('class', 'd3-tip')
           .offset([-10, 0])
           .html(function(d) {
-            return '<strong>Value:</strong> <span style="color:red">' + parseFloat(d).toFixed(2) + '</span>';
+            return '<strong>Value:</strong> <span style="color:red">' + d3.format('%')(d[2]) + '</span>';
           });
 
           svgContainer.call(tip);
