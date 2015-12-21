@@ -114,6 +114,8 @@ define([
             // extent: new Extent(this.config.extent)
           });
 
+
+
         var params = new ImageParams();
 
         // Direct call to raster function to symbolize imagery with color ramp (setting default was unreliable)
@@ -170,6 +172,12 @@ define([
           id: 'solarArray'
         });
 
+        // Add existing solar installations to the map
+        var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
+          id: 'georss',
+          pointSymbol: config.installationSymbol
+        });
+
         // Add aerial to the map
         this.map.addLayer(aerialLayer);
 
@@ -194,16 +202,25 @@ define([
         // Add solar array graphics layer
         this.map.addLayer(solarArrayLayer);
 
-        // Add existing solar installations to the map
-        var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
-          id: 'georss',
-          pointSymbol: config.installationSymbol
-        });
-        
+        // Add solar installations layer
         this.map.addLayer(installationsLayer);
 
         installationsLayer.on('load',function(){
           app.map.getLayer('georss').setVisibility(false);
+        });
+
+        this.map.on('zoom-end', function(){
+          var currentZoom = app.map.getZoom();
+          var $waterToggle = $('#waterToggle');
+
+          // if zoom is greater or equal to zoom level 13, toggle water layer on
+          if (currentZoom >= 13){
+            $waterToggle.bootstrapToggle('on');
+            app.map.getLayer('water').show();
+          } else {
+            $waterToggle.bootstrapToggle('off');
+            app.map.getLayer('water').hide();
+          }
         });
 
         // // Read URL Parameters
