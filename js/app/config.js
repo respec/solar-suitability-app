@@ -78,6 +78,13 @@ define(
       lowCostPerkWh: 2500,
       highCostPerkWh: 5000,
 
+      // External links used throughout app
+      mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&technology=7&',
+      mnCertsSolarGardens: 'http://mncerts.org/solargardens',
+      mnInstallers: 'http://www.cleanenergyprojectbuilder.org/directory?title=&field_category_tid=208&field_geofield_distance%5Borigin%5D=',
+      madeInMn: 'https://mn.gov/commerce/consumers/your-home/save-energy-money/mim.jsp',
+      learnMoreAboutSolar: 'https://mn.gov/commerce/consumers/your-home/energy-info/solar/#3',
+
       // Esri Basemap Urls
       imagery: 'http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer',
       streets: 'http://server.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/',
@@ -85,11 +92,6 @@ define(
       // Esri defaults
       geometryService: 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer',
 
-      // Other links
-      mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&technology=7&',
-      mnCertsSolarGardens: 'http://mncerts.org/solargardens',
-      mnInstallers: 'http://www.cleanenergyprojectbuilder.org/directory?title=&field_category_tid=208&field_geofield_distance%5Borigin%5D=',
-      madeInMn: 'https://mn.gov/commerce/consumers/your-home/save-energy-money/mim.jsp',
       // Solar data
       //gpTool: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/SolarPointQuery_fast/GPServer/Script',
       //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',
