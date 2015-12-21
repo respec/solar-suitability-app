@@ -2,6 +2,9 @@
 define([
   'app/config',
 
+  'components/report/views/siteDetailsView',
+  'components/report/views/solarCalculatorView',
+
   'components/map/controller/mapController',
   'components/report/controller/reportController',
   'components/query/controller/queryController',
@@ -19,6 +22,8 @@ define([
   function(
     config,
 
+    SiteDetails, SolarCalculator,
+
     mapController, reportController, queryController,
 
     ReportModel,
@@ -35,19 +40,18 @@ define([
       events: {
         'click .editTitle': 'editTitle',
         'click .editSiteDetails': 'showCustomDetailsForm',
+        'click .editSolarCalculator': 'showCustomSolarCalculatorForm',
         'click .closeSplash': 'hideEditTitleModal',
         'change #siteTitle': 'setSiteTitle',
-        'click .saveEditModal': 'saveSolarCalculatorValues',
+        // 'click .saveEditModal': 'saveSolarCalculatorValues',
         'click .saveSiteDetailsModal': 'saveSiteDetails',
         'click .saveCustomDetails': 'saveCustomDetails',
+        'click .saveCustomSolarCalculator': 'saveSolarCalculatorValues',
         'click .restoreDefaultsButton': 'resetDefaultSolarCalculatorValues',
         'click .addSolarPanels': 'handleDrawSolarArray'
       },
 
       initialize: function() {
-        // this.model = new ReportModel();
-        // app.reportModel = this.model;
-        this.listenTo(app.reportModel, 'change', this.render);
         this.render();
       },
 
@@ -59,10 +63,8 @@ define([
         var options = {
           siteTitle: app.reportModel.get('siteTitle'),
           siteName: app.reportModel.get('siteName'),
+          siteAddress: app.reportModel.get('siteAddress'),
           siteNotes: app.reportModel.get('siteNotes'),
-          coords: app.model.get('latLngPt'),
-          averagePerDay: app.reportModel.get('averagePerDay'),
-          averagePerMonth: app.reportModel.get('averagePerMonth'),
           averageUsePerMonth: app.reportModel.get('averageUsePerMonth'),
           costPerkWh: app.reportModel.get('costPerkWh'),
           percentElectricGoalRaw: app.reportModel.get('percentElectricGoal'),
@@ -74,18 +76,7 @@ define([
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
           paybackWithMim: app.reportModel.get('paybackWithMim'),
           madeInMn: config.madeInMn,
-
-          totalPerYear: app.reportModel.get('totalPerYear'),
-          quality: app.reportModel.get('quality'),
-          lidarCollect: app.reportModel.get('lidarCollect'),
-          utilityCompany: app.reportModel.get('utilityCompany'),
-          mnInstallers: config.mnInstallers,
-          mnIncentives: config.mnIncentives
         };
-
-        // if ("reportSolarMap" in app && $("#reportSolarMap-container").is(':empty')){
-        //   $("#reportSolarMap-container").append(app.reportSolarMap); 
-        // }
 
         this.$el.html(template(options));
 
@@ -106,13 +97,22 @@ define([
       },
 
       initComponents: function() {
-        $('.customizeReportForm').hide();
-        $('#siteName').on('keyup', function(){
-          app.query.siteName = $(this).val();
+        // $('#siteName').on('keyup', function(){
+        //   app.query.siteName = $(this).val();
+        // });
+
+        // $('#siteNotes').on('keyup', function(){
+        //   app.query.siteNotes = $(this).val();
+        // });
+
+        // init site details template
+        this.navbar = new SiteDetails({
+          el: $('.siteDetails-container')
         });
 
-        $('#siteNotes').on('keyup', function(){
-          app.query.siteNotes = $(this).val();
+        // init solar calculator template
+        this.navbar = new SolarCalculator({
+          el: $('.solarCalculator-container')
         });
 
         // $('.downloadButton').on('click', function(){
@@ -216,48 +216,47 @@ define([
         $('.customDetails').hide();
       },
 
-      saveCustomDetails: function(){
-        $("#myTitle").text($('#siteTitle').val());
-        $("#myNotes").text($('#siteNotes').val());
-        $("#myName").text($('#siteName').val());
+      showCustomSolarCalculatorForm: function(){
+        $('.solarCalculatorTable').hide();
+        $('.customizeSolarCalculatorForm').show();
+      },
 
-        app.reportModel.attributes.siteTitle = $('#siteTitle').val();
-        app.reportModel.attributes.siteNotes = $('#siteNotes').val();
-        app.reportModel.attributes.siteName = $('#siteName').val();
+      saveCustomDetails: function(){
+        var $siteTitle = $('#siteTitle');
+        var $siteNotes = $('#siteNotes');
+        var $siteName = $('#siteName');
+        var $siteAddress = $('#siteAddress');
+
+        app.reportModel.set({siteTitle: $siteTitle.val()});
+        app.reportModel.set({siteNotes: $siteNotes.val()});
+        app.reportModel.set({siteName: $siteName.val()});
+        app.reportModel.set({siteAddress: $siteAddress.val()});
+
+        $('#myTitle').text(app.reportModel.get('siteTitle'));
+        $('#myNotes').text(app.reportModel.get('siteNotes'));
+        $('#myName').text(app.reportModel.get('siteName'));
+        $('#myAddress').text(app.reportModel.get('siteAddress'));
+
+        // $('#myTitle').text($siteTitle.val());
+        // $('#myNotes').text($siteNotes.val());
+        // $('#myName').text($siteName.val());
+        // $('#myAddress').text($siteAddress.val());
 
         $('.customizeReportForm').hide();
         $('.customDetails').show();
-        // var siteDetails = $('.siteDetailsValue');
-
-        // _.each(siteDetails, function(div){
-        //   var $div = $(div);
-        //   var savedValue = $div.val();
-        //   var id = $div.attr('id');
-        //   var currentValue = app.reportModel.get(id);
-        //   if (savedValue != currentValue){
-        //     var param = {};
-        //     param[id] = savedValue;
-        //     $div.val(savedValue);
-        //     //app.reportModel.set(param);
-        //   }
-        // });
-
       },
-      saveSolarCalculatorValues: function(){
-        var solarCalculatorValues = $('.solarCalculatorValue');
 
-        _.each(solarCalculatorValues, function(div){
-          var $div = $(div);
-          var savedValue = $div.val();
-          var id = $div.attr('id');
-          var currentValue = app.reportModel.get(id);
-          if (savedValue != currentValue){
-            var param = {};
-            param[id] = parseFloat(savedValue);
-            // console.log(param);
-            app.reportModel.set(param);
-          }
-        });
+      saveSolarCalculatorValues: function(){
+        var $averageUsePerMonth = $('#editAverageUsePerMonth');
+        var $costPerkWh = $('#editCostPerkWh');
+        var $percentElectricGoal = $('#editPercentElectricGoal');
+
+        app.reportModel.set({averageUsePerMonth: $averageUsePerMonth.val()});
+        app.reportModel.set({costPerkWh: $costPerkWh.val()});
+        app.reportModel.set({percentElectricGoal: $percentElectricGoal.val()/100});
+
+        $('.solarCalculatorTable').show();
+        $('.customizeSolarCalculatorForm').hide();
       },
 
       resetDefaultSolarCalculatorValues: function(){
