@@ -50,13 +50,14 @@ define([
         $('.emailSubmit').on('click', function(){
           $('.emailSubmit').html('<i class="fa fa-spinner fa-spin"></i> Sending ...');
           var emailLink = emailController.buildEmailLink();
+          console.log(emailLink);
           var emailData = {
                             to: $('#recipEmail').val(),
                             to_name: '',
                             from: $('#emailEmail').val(),
                             from_name: $('#emailName').val(),
                             subject: 'Solar Suitability Report',
-                            body: '<p>A Solar Suitability Analysis Report has been shared with you. Click the link below to view:</p><p><a href="' + emailLink + '">' + emailLink + '</a></p><p>' + $('#customMsg').val() + '</p>',
+                            body: '<p>A Solar Suitability Analysis Report has been shared with you. Click the link below to view:</p><p><a href="' + emailLink + '">' + emailLink + '</a></p><p>' + $('#solarCalcText').html() + '</p><p>' + $('#customMsg').val() + '</p>',
                             skey: config.appEmailKey
                           };
 

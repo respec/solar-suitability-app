@@ -46,6 +46,7 @@ define([
           mnIncentives: config.mnIncentives,
           mnInstallers: config.mnInstallers,
           madeInMn: config.madeInMn,
+          learnMoreAboutSolar: config.learnMoreAboutSolar,
           solarPercent: app.reportModel.get('percentElectricGoal'),
           systemSize: app.reportModel.get('systemSize'),
           averageSystemCost: app.reportModel.get('averageCostSystem'),

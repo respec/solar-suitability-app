@@ -30,7 +30,8 @@ define([
           lidarCollect: app.reportModel.get('lidarCollect'),
           utilityCompany: app.reportModel.get('utilityCompany'),
           mnInstallers: config.mnInstallers,
-          mnIncentives: config.mnIncentives
+          mnIncentives: config.mnIncentives,
+          learnMoreAboutSolar: config.learnMoreAboutSolar
         };
 
         this.$el.html(template(options));
