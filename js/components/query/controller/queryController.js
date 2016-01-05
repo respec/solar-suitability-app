@@ -337,7 +337,11 @@ define([
           quality = 'Fair';
           break;
 
-          case (annualPercentSun < 0.7):
+          case (annualPercentSun >= 0.5):
+          quality = 'Marginal';
+          break;
+
+          case (annualPercentSun < 0.5):
           quality = 'Poor';
           break;
 
