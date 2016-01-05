@@ -5874,18 +5874,18 @@ html {
     display: inline; } }
 /* Hyperlinks */
 a {
-  color: #217BDB; }
+  color: #3b84b8; }
 
 a:hover {
-  color: #549125;
+  color: #003f6b;
   text-decoration: underline; }
 
 a:active {
-  color: #549125;
+  color: #003f6b;
   text-decoration: underline; }
 
 a:visited {
-  color: #217BDB; }
+  color: #3b84b8; }
 
 /* Fading Alert */
 .flyover {
@@ -6103,13 +6103,11 @@ ul.dropdown-menu, a.dropdown-menu {
   overflow-y: auto; }
 
 .docModal-header {
-  background: url("../images/docHeader.png");
-  background-position: 0 60%; }
+  background-color: #003f6b; }
 
 .docModal-footer {
   height: 55px;
-  background: url("../images/docBody.jpg");
-  background-position: 0 40%;
+  background-color: #3b84b8;
   padding-top: 9px; }
 
 #loader {
@@ -6204,45 +6202,45 @@ ul.dropdown-menu, a.dropdown-menu {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #549125;
+    background-color: #003f6b;
     -moz-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #549125;
+    background-color: #003f6b;
     -moz-transform: translateY(-42px); } }
 @-webkit-keyframes bubblingG1 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #549125;
+    background-color: #003f6b;
     -webkit-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #549125;
+    background-color: #003f6b;
     -webkit-transform: translateY(-42px); } }
 @-ms-keyframes bubblingG1 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #549125;
+    background-color: #003f6b;
     -ms-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #549125;
+    background-color: #003f6b;
     -ms-transform: translateY(-42px); } }
 @-o-keyframes bubblingG1 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #549125;
+    background-color: #003f6b;
     -o-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #549125;
+    background-color: #003f6b;
     -o-transform: translateY(-42px); } }
 @-moz-keyframes bubblingG2 {
   0% {
@@ -6292,45 +6290,45 @@ ul.dropdown-menu, a.dropdown-menu {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #217BDB;
+    background-color: #3b84b8;
     -moz-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #217BDB;
+    background-color: #3b84b8;
     -moz-transform: translateY(-42px); } }
 @-webkit-keyframes bubblingG3 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #217BDB;
+    background-color: #3b84b8;
     -webkit-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #217BDB;
+    background-color: #3b84b8;
     -webkit-transform: translateY(-42px); } }
 @-ms-keyframes bubblingG3 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #217BDB;
+    background-color: #3b84b8;
     -ms-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #217BDB;
+    background-color: #3b84b8;
     -ms-transform: translateY(-42px); } }
 @-o-keyframes bubblingG3 {
   0% {
     width: 20px;
     height: 20px;
-    background-color: #217BDB;
+    background-color: #3b84b8;
     -o-transform: translateY(0); }
   100% {
     width: 48px;
     height: 48px;
-    background-color: #217BDB;
+    background-color: #3b84b8;
     -o-transform: translateY(-42px); } }
 .appHelpModal {
   width: 80%;
@@ -6345,7 +6343,7 @@ ul.dropdown-menu, a.dropdown-menu {
 
 .helpModal-body {
   height: 50vh;
-  max-height: 345px;
+  max-height: 365px;
   overflow-y: auto; }
 
 .appHelp {
@@ -6360,7 +6358,7 @@ ul.dropdown-menu, a.dropdown-menu {
   padding: 10px; }
 
 .logo {
-  max-height: 75px;
+  max-height: 55px;
   max-width: 90%;
   display: inline-block;
   margin: 7px; }
@@ -6395,7 +6393,7 @@ a.madeInMn:hover {
   margin: 3px; }
 
 .badData {
-  color: #217BDB;
+  color: #3b84b8;
   cursor: pointer; }
 
 .close {
@@ -6780,7 +6778,7 @@ ul.dropdown-menu li {
 
 .userVal {
   font-weight: bold;
-  color: #549125; }
+  color: #003f6b; }
 
 .outputVal {
   font-weight: bold;
