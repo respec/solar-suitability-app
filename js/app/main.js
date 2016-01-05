@@ -221,6 +221,14 @@ define([
             $waterToggle.bootstrapToggle('off');
             app.map.getLayer('water').hide();
           }
+
+          // Esri base maps not available beyond zoom level 19 so warn user and re-enable solar
+          if (currentZoom > 19 && app.map.getLayer('solar').visible === false){
+            app.showAlert("danger","Warning:","Basemap is not available at this zoom level, solar data will be re-enabled.");
+            app.map.getLayer('solar').show();
+            $('#solarToggle').bootstrapToggle('on');
+          }
+         
         });
 
         // // Read URL Parameters
