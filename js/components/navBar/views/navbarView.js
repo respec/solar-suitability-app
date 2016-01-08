@@ -57,7 +57,7 @@ define([
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
           } else {
             //alert('Browser doesn\'t support Geolocation.  Visit http: //caniuse.com to see browser support for the Geolocation API.');
-            app.showAlert('danger','Your browser doesn\'t support Geolocation:','isit http: //caniuse.com to see browser support for the Geolocation API');
+            app.showAlert('danger','Your browser doesn\'t support Geolocation:','Visit http://caniuse.com to see browser support for the Geolocation API');
           }
         });
 
@@ -66,7 +66,7 @@ define([
           var pt = new Point(location.coords.longitude, location.coords.latitude);
           app.map.centerAndZoom(pt, config.queryZoom);
           draw.addGraphic(pt);
-          app.showAlert('success','Location Found. Next Step:','Tap rooftop or point of interest near you to view solar potential.');
+          app.showAlert('success','Location Found. Next Step:','Tap rooftop or point of interest near you to view solar potential. Double-tap to zoom in, click and drag to pan map.',0);
         }
 
         function locationError(error) {

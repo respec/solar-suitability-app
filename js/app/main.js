@@ -391,10 +391,14 @@ define([
         // });
       },
 
-      showAlert: function(alertType, headline, message) {
+      // Show a floating fade in/out alert message, a duration of 0 forces the user to dismiss the alert
+      showAlert: function(alertType, headline, message, duration) {
+          alertDuration = duration || 3700;
           $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
           $('#alert').toggleClass('in');
-          window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
+          if (duration > 0){
+            window.setTimeout(function () { $("#alert").toggleClass('in'); }, alertDuration);
+          }
         },
 
       formatMoney: function(nStr) {

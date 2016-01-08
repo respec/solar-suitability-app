@@ -5826,6 +5826,21 @@ button.close {
     color: #000000;
     background-color: #fff; }
 
+.no-padding-left {
+  padding-left: 0 !important; }
+
+.no-padding-right {
+  padding-right: 0 !important; }
+
+.no-padding-top {
+  padding-top: 0 !important; }
+
+.no-padding-bottom {
+  padding-bottom: 0 !important; }
+
+.no-padding {
+  padding: 0 !important; }
+
 html, body, #mapContainer {
   height: 100%;
   width: 100%;
@@ -6358,13 +6373,16 @@ ul.dropdown-menu, a.dropdown-menu {
   padding: 10px; }
 
 .logo {
-  max-height: 55px;
+  max-height: 50px;
   max-width: 90%;
-  display: inline-block;
-  margin: 7px; }
+  display: inline-block; }
+
+.logo-doc {
+  max-height: 65px;
+  display: inline-block; }
 
 #website {
-  padding: 10px; }
+  padding: 60px; }
 
 /* Links and buttons */
 #viewReport a:visited, #viewReport a:hover, #viewReport a:link, #viewReport a:active {
@@ -6494,6 +6512,15 @@ ol.getstarted > li {
 .showGradient > span {
   line-height: 40px; }
 
+.gradientLabel {
+  height: 40px;
+  font-size: 10px;
+  display: table-cell;
+  vertical-align: middle; }
+
+.gradientTable {
+  display: table; }
+
 .progress-width {
   width: 98%; }
 
@@ -6510,7 +6537,10 @@ div.progress-labels > div {
   display: inline-block; }
 
 #labelPoor {
-  width: 70%; }
+  width: 50%; }
+
+#labelMarginal {
+  width: 20%; }
 
 #labelFair, #labelGood, #labelOptimal {
   width: 10%; }

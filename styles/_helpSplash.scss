@@ -13,6 +13,10 @@
     height: 50vh;
     max-height: 365px;
     overflow-y: auto;
+    // background-image: url("../images/solar-app-transparent220x235.png");
+    // background-repeat: no-repeat;
+    // background-attachment: fixed;
+    // background-position: center; 
 }
 
 .appHelp {
@@ -38,10 +42,14 @@
 }
 
 .logo {
-  max-height: 55px;
+  max-height: 50px;
   max-width: 90%;
   display:inline-block;
-  margin: 7px;
+}
+
+.logo-doc {
+  max-height: 65px;
+  display:inline-block;
 }
 
 .pull-middle {
@@ -79,7 +87,7 @@
 // }
 
 #website {
-  padding:10px;
+  padding:60px;
 //     position:relative;
 //     z-index:55;
 //     max-width:200px;
