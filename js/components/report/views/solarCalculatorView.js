@@ -32,8 +32,8 @@ define([
           paybackWithoutIncentives: app.reportModel.get('paybackWithoutIncentives'),
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
           paybackWithMim: app.reportModel.get('paybackWithMim'),
-          madeInMn: config.madeInMn
-
+          madeInMn: config.madeInMn,
+          derateDefined: config.derateDefined
         };
 
         this.$el.html(template(options));
