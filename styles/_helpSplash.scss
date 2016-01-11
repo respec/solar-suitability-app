@@ -11,8 +11,9 @@
 }
 .helpModal-body{
     height: 50vh;
-    max-height: 413px;
+    max-height: 375px;
     overflow-y: auto;
+    margin-left: -5px;
     // background-image: url("../images/solar-app-transparent220x235.png");
     // background-repeat: no-repeat;
     // background-attachment: fixed;
@@ -87,7 +88,8 @@
 // }
 
 #website {
-  padding:60px;
+  padding-top: 10px;
+  padding-left: 40px;
 //     position:relative;
 //     z-index:55;
 //     max-width:200px;
