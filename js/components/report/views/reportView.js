@@ -41,6 +41,7 @@ define([
         'click .editTitle': 'editTitle',
         'click .editSiteDetails': 'showCustomDetailsForm',
         'click .editSolarCalculator': 'showCustomSolarCalculatorForm',
+        'click .cancelSolarCalculatorEdit': 'cancelSolarCalculatorForm',
         'click .closeSplash': 'hideEditTitleModal',
         'change #siteTitle': 'setSiteTitle',
         // 'click .saveEditModal': 'saveSolarCalculatorValues',
@@ -255,6 +256,11 @@ define([
         app.reportModel.set({costPerkWh: $costPerkWh.val()});
         app.reportModel.set({percentElectricGoal: $percentElectricGoal.val()/100});
 
+        $('.solarCalculatorTable').show();
+        $('.customizeSolarCalculatorForm').hide();
+      },
+
+      cancelSolarCalculatorForm: function(){
         $('.solarCalculatorTable').show();
         $('.customizeSolarCalculatorForm').hide();
       },

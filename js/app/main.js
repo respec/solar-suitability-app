@@ -358,9 +358,9 @@ define([
       showAlert: function(alertType, headline, message, duration) {
           alertDuration = duration || 3700;
           $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
-          $('#alert').toggleClass('in');
+          $('#alert').addClass('in');
           if (duration > 0){
-            window.setTimeout(function () { $('#alert').toggleClass('in'); }, alertDuration);
+            window.setTimeout(function () { $('#alert').removeClass('in'); }, alertDuration);
           }
         },
 

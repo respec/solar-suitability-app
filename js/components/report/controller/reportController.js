@@ -294,6 +294,9 @@ define([
     handleSolarArrayDrawing: function(){
       console.log('handleSolarArrayDrawing');
       this.createToolbar();
+      esri.bundle.toolbars.draw.start = "Click and release to begin drawing";
+      esri.bundle.toolbars.draw.resume = "Click and release to continue drawing";
+
       app.editToolbar.activate(Draw['POLYGON']);
     },
 
