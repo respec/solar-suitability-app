@@ -37,7 +37,7 @@
 
 #basemapDropdownContent, #vectorLayersDropdownContent {
   top:50px;
-  width: 410px;
+  width: 450px;
 }
 
 .basemapGrid{
@@ -63,10 +63,13 @@
 /* Controls active basemap in both menu versions */
 .dropdown-menu li.activeButton {
   background-color: $active-color;
+  /* add right margin to match default li bootstrap style*/
+  margin-right: 10px
 }
 
 ul.dropdown-menu li {
-    margin-left:10px
+    margin-left:10px;
+    margin-right:10px;
 }
 
 // .dropdown-menu li.activeButton >a {
@@ -76,6 +79,20 @@ ul.dropdown-menu li {
 
 #menuDropdown {
   width: 275px;
+}
+
+#menuDropdownSmall {
+  width: 425px;
+}
+
+.menuSmallToggle {
+  display: inline-block;
+}
+
+.menuSmallTopic {
+  height: 30px;
+  color: $text-color;
+  font-size: 16px;
 }
 
 .menuTopic {
