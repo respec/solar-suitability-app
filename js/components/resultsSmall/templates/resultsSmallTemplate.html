@@ -53,7 +53,17 @@
                             <div class="topSpace">
                                 <p class="paragraphIndent" id="solarCalcText">
                                     <% if (quality !== 'Poor'){%>
-                                        Your site is <span class="valueHelp"><%=quality%></span>. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> solar PV system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power. This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. With <a href="<%=madeInMn%>" target="_blank" class="madeInMn">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=payback.toFixed(1)%> years</span>.<!-- Display warning ** -->
+                                        Your site is <span class="valueHelp"><%=quality%></span>. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> solar PV system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power.  This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. 
+
+                                        <% if (madeInMnCounty){%>
+                                        <!-- MiM county -->
+                                        With <a href="<%=madeInMn%>" target="_blank" class="madeInMn">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=mimPayback.toFixed(1)%> years</span>.
+
+                                        <%} else { %>
+                                        <!-- non-MiM county -->
+                                        System payback is <span class="valueHelp"><%=nonMimPayback.toFixed(1)%> years </span>after tax credit.
+                                        <% } %>
+
                                     <% } else {%>
                                         Your site is <span class="valueHelp"><%=quality%></span>.  Because of this, you might want to consider subscribing to a <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>, which allows you to directly benefit from a solar PV installation in a sunny location nearby.
                                     <% } %>

@@ -143,6 +143,15 @@ define([
           // Store returned utility info
           app.query.utilityCompany = utilityCompany;
           app.model.set('utilityCompany', utilityCompany);
+
+          // Determine if EUSA is a MiM county
+          _.find(config.madeInMnCounties, function(county){
+            if (utilityCompany.abbreviatedName === county){
+              return app.reportModel.set('madeInMNCounty', true);
+            } else {
+              app.reportModel.set('madeInMNCounty', false);
+            }
+          });
         });
       },
 
