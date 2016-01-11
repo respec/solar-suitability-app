@@ -196,7 +196,7 @@ define([
 
     buildTable: function(el, data, values, ref){
       // empty the previous table
-      var tableRows = el + 'tbody tr';
+      var tableRows = el + ' tbody tr.monthData';
       $(tableRows).remove();
 
       var $table = $(el);
@@ -204,7 +204,7 @@ define([
         var shortMonth = mon.abbr;
         var longMonth = mon.full;
         $table.find('tbody')
-        .append($('<tr>')
+        .append($('<tr class="monthData">')
           .append($('<td style="width:50%">')
             .text(longMonth)
             )
@@ -294,6 +294,9 @@ define([
     handleSolarArrayDrawing: function(){
       console.log('handleSolarArrayDrawing');
       this.createToolbar();
+      esri.bundle.toolbars.draw.start = "Click and release to begin drawing";
+      esri.bundle.toolbars.draw.resume = "Click and release to continue drawing";
+
       app.editToolbar.activate(Draw['POLYGON']);
     },
 

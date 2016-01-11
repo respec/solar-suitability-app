@@ -13,7 +13,7 @@
                     <div class="col-md-4">
                         <button id="closeResultsTop" aria-label="Close" data-dismiss="modal" class="close closeButton pull-right closeResultsTop" type="button"></button>
                         <div class="resultHeader">
-                            <span>Results Preview</span>
+                            <span>Report Preview</span>
                         </div>
                         <div class="resultsPreview1 noselect" id="results">
                             <div>
@@ -51,7 +51,7 @@
                             </div>
 
                             <div class="topSpace">
-                                <p class="paragraphIndent" id="solarCalcText">
+                                <p class="paragraphIndent" id="solarCalcText">                            
                                     <% if (quality !== 'Poor'){%>
                                         Your site is <span class="valueHelp"><%=quality%></span>. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> solar PV system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power.  This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. 
 
@@ -65,7 +65,7 @@
                                         <% } %>
 
                                     <% } else {%>
-                                        Your site is <span class="valueHelp"><%=quality%></span>.  Because of this, you might want to consider subscribing to a <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>, which allows you to directly benefit from a solar PV installation in a sunny location nearby.
+                                        This site is <span class="valueHelp"><%=quality%></span>.  Because of this, you might want to consider subscribing to a <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>, which allows you to directly benefit from a solar PV installation in a sunny location nearby.
                                     <% } %>
 
                                 </p>
@@ -128,7 +128,7 @@
                                     <% } %>
 
                                     <li>
-                                        <a href="<%= mnIncentives %>" target="_blank">MN Incentives/Policies for Solar</a>
+                                        <a href="<%= mnIncentives + utilityCompany.zip %>" target="_blank">MN Incentives/Policies for Solar</a>
                                     </li>
 
                                     <li>
@@ -149,7 +149,7 @@
                                     <small><em>The <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank"><%=lidarCollect%> MN Lidar</a> source data available for <span class="valueHelp"><%=county%> County</span> contains only bare earth points. Hence, these results do not take shade from nearby features into consideration.</em></small>
                                 </div>
                                 <% } else { %>
-                                <div class="small topSpace">
+                                <div class="small topSpace paragraphIndent">
                                     Source Data: <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar (<%=lidarCollect%>)</a>
                                 </div>
                                 <% } %>

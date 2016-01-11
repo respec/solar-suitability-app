@@ -72,10 +72,14 @@ define([
           }
         });
 
-        $('.closeSplash').on('click', function(){
-          $('.appHelpModal').modal('hide');
-        });
+        // $('.closeSplash').on('click', function(){
+        //   $('.appHelpModal').modal('hide');
+        //   app.showAlert("Success","To get started:","Enter an address above or click the > icon to use your current location.");
+        // });
 
+        $('.appHelpModal').on('hidden.bs.modal', function () {
+          app.showAlert("success","To get started:","Search for an address above, click on the map, or use the <i class='fa fa-location-arrow fa-1x'></i> button to find your current location.",4000);
+        });
       }
 
     });

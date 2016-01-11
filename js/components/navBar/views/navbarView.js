@@ -111,6 +111,12 @@ define([
           $('.aerialButton').addClass('activeButton');
           toggleBasemapView();
           aerialLayer.show();
+
+          // hide solar layer and ramp
+          $('#solarToggle').bootstrapToggle('off');
+          $('#solarToggleSmall').bootstrapToggle('off');
+          app.map.getLayer('solar').hide();
+          $('.headerColorRamp').hide();
         });
 
         $('.streetButton').on('click', function() {
@@ -120,6 +126,12 @@ define([
           $('.streetButton').addClass('activeButton');
           toggleBasemapView();
           streetLayer.show();
+
+          // hide solar layer and ramp
+          $('#solarToggle').bootstrapToggle('off');
+          $('#solarToggleSmall').bootstrapToggle('off');
+          app.map.getLayer('solar').hide();
+          $('.headerColorRamp').hide();
         });
 
         function buttonClassRemove() {
@@ -146,7 +158,6 @@ define([
           $('.appIssuesModal').modal('show');
         });
         
-        
         // enable toggles
         $('.vectorToggle').bootstrapToggle();
 
@@ -155,7 +166,26 @@ define([
           var input = $(this).find('input');
           input.bootstrapToggle('toggle');
           // get layer name
-          var layerName = input.attr('id').slice(0, -6);
+          var id = input.attr('id');
+          var layerName, otherToggle;
+
+          // determine which layer to use based on id
+          // remove ToggleSmall
+          if (id.slice(-5) === 'Small'){
+            layerName = id.slice(0, -11);
+
+            // set otherToggle to [layer]Toggle
+            otherToggle = $('#' + id.slice(0, -5));
+          } else {
+            // remove Toggle
+            layerName = id.slice(0, -6);
+            // set otherToggle to [layer]Toggle
+            otherToggle = $('#'+ id + 'Small');
+          }
+
+          // handle toggle in other menu
+          otherToggle.bootstrapToggle('toggle');
+          
           //get layer from app.map
           var mapLayer = app.map.getLayer(layerName);
           //check visibility and hide/show

@@ -83,11 +83,12 @@ define(
       highCostPerkWh: 5000,
 
       // External links used throughout app
-      mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&technology=7&',
+      mnIncentives: 'http://programs.dsireusa.org/system/program?zip=',
       mnCertsSolarGardens: 'http://mncerts.org/solargardens',
       mnInstallers: 'http://www.cleanenergyprojectbuilder.org/directory?title=&field_category_tid=208&field_geofield_distance%5Borigin%5D=',
       madeInMn: 'https://mn.gov/commerce/consumers/your-home/save-energy-money/mim.jsp',
       learnMoreAboutSolar: 'https://mn.gov/commerce/consumers/your-home/energy-info/solar/#3',
+      derateDefined: 'http://rredc.nrel.gov/solar/calculators/pvwatts/system.html',
 
       // Esri Basemap Urls
       imagery: 'http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer',

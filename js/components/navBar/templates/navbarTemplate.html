@@ -10,12 +10,12 @@
                             <i class="fa fa-bars fa-2x" data-toggle="tooltip" data-placement="right" title="Menu"></i>
                         </button>
 
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown" style="top:50px" id="menuDropdown">
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown" style="top:50px" id="menuDropdownSmall">
 
                             <!-- XS collapsed menu -->
                             <div class="visible-xs-block">
                                 <div class="menuTopic">Tools</div>
-                                <li role="presentation" class="divider"></li>
+                                <li role="seperator" class="divider"></li>
                                 <li role="presentation" class="menuItem homeButton">
                                     <div class="helpMenu">
                                         <a role="menuitem" tabindex="-1" href="#">Home</a>
@@ -26,18 +26,18 @@
                                         <a role="menuitem" tabindex="-1" href="#">Find Me</a>
                                     </div>
                                 </li>
-                                <li role="presentation" class="divider"></li>
+                                <li role="seperator" class="divider"></li>
 
                                 <!-- Basemaps -->
-                                <div class="menuTopic">Basemaps</div>
-                                <li role="presentation" class="divider"></li>
+                                <div class="menuTopic">Basemaps:</div>
+                                <li role="seperator" class="divider"></li>
 
-                                <li role="presentation" class="menuItem solarButton activeButton">
+                                <!-- <li role="presentation" class="menuItem solarButton activeButton">
                                     <div class="helpMenu">
                                         <a role="menuitem" tabindex="-1" href="#">Solar</a>
                                     </div>
-                                </li>
-                                <li role="presentation" class="menuItem aerialButton">
+                                </li> -->
+                                <li role="presentation" class="menuItem aerialButton activeButton">
                                     <div class="helpMenu">
                                         <a role="menuitem" tabindex="-1" href="#">Aerial</a>
                                     </div>
@@ -48,35 +48,67 @@
                                     </div>
                                 </li>
 
-                                <li role="presentation" class="divider"></li>
+                                <li role="seperator" class="divider"></li>
 
                                 <!-- Vector -->
-                                <div class="menuTopic">Vector</div>
-                                <li role="presentation" class="divider"></li>
+                                <div class="menuTopic">Map Layers:</div>
+                                <li role="seperator" class="divider"></li>
 
                                 <li role="presentation" class="menuItem solarButton">
+                                    <div class="helpMenu menuSmallTopic">
+                                        Solar Visualization
+                                        <div class="pull-right menuSmallToggle">
+                                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="solarToggleSmall">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li role="presentation" class="menuItem solarButton">
+                                    <div class="helpMenu menuSmallTopic">
+                                        Existing Solar Installations
+                                        <div class="pull-right menuSmallToggle">
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="georssToggleSmall">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li role="presentation" class="menuItem solarButton">
+                                    <div class="helpMenu menuSmallTopic">
+                                        Counties
+                                        <div class="pull-right menuSmallToggle">
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="countiesToggleSmall">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li role="presentation" class="menuItem solarButton">
+                                    <div class="helpMenu menuSmallTopic">
+                                        Electric Utility Service Areas
+                                        <div class="pull-right menuSmallToggle">
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="eusaToggleSmall">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li role="presentation" class="menuItem solarButton">
+                                    <div class="helpMenu menuSmallTopic">
+                                        Water (Lakes, Rivers, etc.)
+                                        <div class="pull-right menuSmallToggle">
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="waterToggleSmall">
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- <li role="presentation" class="menuItem solarButton">
                                     <div class="helpMenu">
                                         Solar
                                         <div class="pull-right">
                                             <input type="checkbox" checked data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="solarToggleSmall">
                                         </div>
                                     </div>
-                                </li>
-                                <li role="presentation" class="menuItem solarButton">
-                                    <div class="helpMenu">
-                                        Solar
-                                        <div class="pull-right">
-                                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="solarToggleSmall">
-                                        </div>
-                                    </div>
-                                </li>
+                                </li> -->
 
-                                <li role="presentation" class="divider"></li>
+                                <li role="seperator" class="divider"></li>
                             </div>
 
                             <!-- Default menu -->
                             <div class="menuTopic">Information</div>
-                            <li role="presentation" class="divider"></li>
+                            <li role="seperator" class="divider"></li>
                             <li role="presentation" class="menuItem helpMenu">
                                 <div class="appHelp">
                                     <a role="menuitem" tabindex="-1" href="#">How to use the app?</a>
@@ -88,9 +120,9 @@
                                     <a role="menuitem" tabindex="-1" href="#">Issues with the app?</a>
                                 </div>
                             </li>
-                            <li role="presentation" class="divider"></li>
+                            <li role="seperator" class="divider"></li>
                             <div class="menuTopic">Credits</div>
-                            <li role="presentation" class="divider"></li>
+                            <li role="seperator" class="divider"></li>
                             <li role="presentation" class="menuItem helpMenu">
                                 <div>
                                     <a href="http://mn.gov/commerce/energy/businesses/energy-leg-initiatives/made-in-minnesota/" target="_blank">
@@ -99,7 +131,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li role="presentation" class="divider"></li>
+                            <li role="seperator" class="divider"></li>
                             <li role="presentation" class="menuItem helpMenu">
                                 <div>
                                     <a href="http://www.cleanenergyresourceteams.org/" target="_blank">
@@ -107,7 +139,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li role="presentation" class="divider"></li>
+                            <li role="seperator" class="divider"></li>
                             <li role="presentation" class="menuItem helpMenu">
                                 <div>
                                     <a href="http://solar.maps.umn.edu" target="_blank">
@@ -115,7 +147,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li role="presentation" class="divider"></li>
+                            <li role="seperator" class="divider"></li>
                             <li role="presentation" class="menuItem">
                                 <div class="helpImage pull-left">
                                     
@@ -147,39 +179,17 @@
                         <i class="fa fa-home fa-2x"></i>
                     </button>
 
-                    <button type="button" class="btn btn-default menuButton appButton iconButton findMe hidden-xs"data-toggle="tooltip" data-placement="right" title="Find my location">
+                    <button type="button" class="btn btn-default menuButton appButton iconButton findMe hidden-xs" data-toggle="tooltip" data-placement="right" title="Find my location">
                       <i class="fa fa-location-arrow fa-2x"></i>
                     </button>
 
                     <!-- Basemap Dropdown -->
-                    <div class="btn-group hidden-xs">
+                    <!-- <div class="btn-group hidden-xs">
                         <button type="button" class="btn btn-default dropdown-toggle menuButton appButton iconButton noBorder" data-toggle="dropdown" id="basemapDropdown">
                             <i class="fa fa-globe fa-2x" data-toggle="tooltip" data-placement="right" title="Select basemap"></i>
                         </button>
 
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown" id="basemapDropdownContent">
-                            <li role="presentation">
-                                <div id="basemapSelectorText">
-                                    Basemap Selector:
-                                </div>
-                            </li>
-                            <li role="presentation" class="divider"></li>
-                            <!-- <li role="presentation" class="activeButton solarButton">
-                                <a href="#">
-                                    <div class="container-fluid">
-                                        <div class="row no-gutter">
-                                            <div class="col-md-6 basemapGrid basemapImage">
-                                                <img src="assets/images/solarBasemap.PNG">
-                                            </div>
-                                            <div class="col-md-6 basemapGrid basemapText">
-                                                Solar
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </a>
-                            </li> -->
-                            <li role="presentation" class="divider"></li>
                             <li role="presentation" class="activeButton aerialButton">
                                 <a href="#">
                                     <div class="container-fluid">
@@ -210,21 +220,61 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
 
                     <!-- Vector Dropdown -->
                     <div class="dropdown hidden-xs" style="display:inline-block">
-                        <button class="btn btn-default dropdown-toggle menuButton appButton iconButton noBorder" type="button" id="vectorLayersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <button class="btn btn-default dropdown-toggle menuButton appButton iconButton noBorder" type="button" id="vectorLayersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Change basemap, turn map layers on/off">
                             <img src="./assets/images/layerIcon.svg">
                         </button>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="vectorLayersDropdownContent">
+
+                            <!-- Basemaps -->
+                            <li role="presentation">
+                                <div id="basemapSelectorText">
+                                    Basemap Selector:
+                                </div>
+                            </li>
+                            <li role="seperator" class="divider"></li>
+                            <li role="presentation" class="activeButton aerialButton">
+                                <a href="#">
+                                    <div class="container-fluid">
+                                        <div class="row no-gutter">
+                                            <div class="col-md-6 basemapGrid basemapImage">
+                                                <img src="assets/images/aerialBasemap.PNG">
+                                            </div>
+                                            <div class="col-md-6 basemapGrid basemapText">
+                                                Aerial (Imagery)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li role="seperator" class="divider"></li>
+                            <li role="presentation" class="streetButton">
+                                <a href="#">
+                                    <div class="container-fluid">
+                                        <div class="row no-gutter">
+                                            <div class="col-md-6 basemapGrid basemapImage">
+                                                <img src="assets/images/streetsBasemap.PNG">
+                                            </div>
+                                            <div class="col-md-6 basemapGrid basemapText">
+                                                Streets
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li role="seperator" class="divider"></li>
+
+                            <!-- Vector layers -->
                             <li role="presentation">
                                 <div id="vectorLayersSelectorText">
                                     Map Layers:
                                 </div>
                             </li>
-                            <li role="presentation" class="divider"></li>
+                            <li role="seperator" class="divider"></li>
                             <li>
                                 <div class="container-fluid">
                                     <div class="row no-gutter vectorRow">
@@ -301,17 +351,7 @@
                 </div>
             </div>
 
-            <!-- <div class="col-md-4">
-                <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group baseMapToggle">
-                        <button type="button" id="solarButton" class="btn btn-default btn-group_leftButton activeButton appButton">Solar</button>
-                        <button type="button" id="aerialButton" class="btn btn-default appButton">Aerial</button>
-                        <button type="button" id="streetButton" class="btn btn-default appButton btn-group_rightButton">Streets</button>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="col-md-4 visible-lg centerColumn">
+            <div class="col-md-4 visible-md visible-lg centerColumn">
                 <img src="assets/images/color_ramp_white_text.png" class="headerColorRamp">
             </div>
 
