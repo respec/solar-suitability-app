@@ -390,7 +390,7 @@ define([
         app.model.set('quality', quality);
 
         // Populate gradient
-        var gradient = (annualPercentSun * 100).toString() + '%';
+        var gradient = (annualPercentSun * 100).toFixed(0).toString() + '%';
         // .toFixed().toString + '%';
         // var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toFixed().toString() + '%';
 
