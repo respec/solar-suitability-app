@@ -286,9 +286,6 @@ define([
           el: this.layout.$el.find('.email-container')
         });
 
-        /* Handle splash display */
-        helpSplashController.checkDontShow();
-
         /* Enable tool tips */
         // $('[data-toggle='tooltip']').tooltip();
 
@@ -391,7 +388,7 @@ define([
         var lat = parseFloat(getParameterByName('lat'));
         
         if (lng && lat){
-          $('.appHelpModal').modal('hide');
+          //$('.appHelpModal').modal('hide');
           
           app.map.centerAndZoom([lng, lat - 0.0003], 19);
           var point = new Point (lng, lat, app.map.spatialReference);
@@ -399,6 +396,9 @@ define([
           var pseudoEventPt = {mapPoint: mp};
 
           query.pixelQuery(pseudoEventPt);
+        } else {
+          /* Handle splash display */
+          helpSplashController.checkDontShow();
         }
 
       }

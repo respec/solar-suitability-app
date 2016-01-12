@@ -52,7 +52,11 @@ define([
         app.query.latLngPt = mp;
         app.model.set('latLngPt', mp);
         app.reportModel.set('latLngPt', mp);
-
+        //console.log(mp);
+        var myTitle = "Solar Report for " + mp.y + ", " + mp.x;
+        var myUrl = "?lat=" + mp.y + "&long="+mp.x;
+        history.pushState(null,myTitle,myUrl);
+        console.log(config.appDomain + "/" + myUrl);
         this.handleMap();
       },
 
