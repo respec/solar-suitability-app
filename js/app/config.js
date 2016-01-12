@@ -121,6 +121,9 @@ define(
       // Existing solar installations GeoRSS xml source
       certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',
 
+      // Made in Minnesota counties
+      madeInMnCounties: ['XCEL', 'Minnesota Power', 'Otter Tail Power'],
+
       //OLD SERVICE:
       // waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/1',
       // eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/2',
