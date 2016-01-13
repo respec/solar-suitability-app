@@ -35,7 +35,8 @@ define([
 
         var template = _.template(viewTemplate);
         var options = {
-          title: config.applicationTitle
+          title: config.applicationTitle,
+          madeInMn: config.madeInMn
         };
         this.$el.html(template(options));
         this.startup();
