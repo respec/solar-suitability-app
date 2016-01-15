@@ -153,6 +153,10 @@ define([
           reportController.createPdf();
         });
 
+        // $('#resultsText').append($('#solarCalcText').html());
+        //$('#resultsText').append($(".barChart").html());
+        //$("#sunPercentHisto").append($("#sunHrsHisto").html());
+
         // var solarMap = new Map('reportSolarMap-container', {
         //   basemap: 'solar',
         //   center: [app.query.point.x, app.query.point.y],

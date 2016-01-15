@@ -16,27 +16,17 @@
                             <span>Report Preview</span>
                         </div>
                         <div class="resultsPreview1 noselect" id="results">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-1 gradientTable text-right no-padding-right">
-                                        <span class="gradientLabel">Full<br />Shade</span>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div class="progressBar progress progress-width gradient center">
-
+                                <div id="percentSunBar" class="row">
+                                <div class="col-md-12">
+                                
+                                    <div class="gradientLabel sunBar">Full<br />Shade</div>
+                                    <div class="progress-width sunBar">
+                                        <div class="progressBar progress gradient center">
                                             <div class="progress-bar showGradient" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                                 <span class="center"></span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-1 gradientTable no-padding-left">
-                                        <span class="gradientLabel">Full<br />Sun</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-10 col-md-offset-1">
-                                        <div id="progress-labels" class="progress-width center bottomSpace progress-labels"><!-- Do not remove these comments (needed to eliminate space between inline block elements)
+                                        <div id="progress-labels" class="center bottomSpace progress-labels"><!-- Do not remove these comments (needed to eliminate space between inline block elements)
                                         --><div id="labelPoor">Poor</div><!-- removing space
                                             --><div id="labelMarginal">Marginal</div><!-- removing space
                                             --><div id="labelFair">Fair</div><!-- removing space
@@ -44,26 +34,15 @@
                                             --><div id="labelOptimal">Optimal</div><!-- removing space
                                         --></div>
                                     </div>
+                                    <div class="gradientLabel gradientLabelRight sunBar">Full<br />Sun</div>
+                                    </div>
+                                    
                                 </div>
-                                <div class="center bottomSpace">
-                                    Percent of Total Available Solar<% if(bareEarth === 1) { %>**<% } %>
-                                </div>
-                            </div>
+                           
 
                             <div class="topSpace">
                                 <p class="paragraphIndent" id="solarCalcText">                            
-                                    <% if (quality !== 'Poor'){%>
-                                        Your site is <span class="valueHelp"><%=quality%></span>. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> solar PV system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power.  This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. 
-
-                                        <% if (madeInMnCounty){%>
-                                        <!-- MiM county -->
-                                        With <a href="<%=madeInMn%>" target="_blank" class="madeInMn">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=mimPayback.toFixed(1)%> years</span>.
-
-                                        <%} else { %>
-                                        <!-- non-MiM county -->
-                                        System payback is <span class="valueHelp"><%=nonMimPayback.toFixed(1)%> years </span>after tax credit.
-                                        <% } %>
-
+                                    <% if (quality !== 'Poor'){%>Your site is <span class="valueHelp"><%=quality%></span>. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> solar PV system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power.  This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. <% if (madeInMnCounty){%><!-- MiM county -->With <a href="<%=madeInMn%>" target="_blank" class="madeInMn">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=mimPayback.toFixed(1)%> years</span>.<%} else { %><!-- non-MiM county -->System payback is <span class="valueHelp"><%=nonMimPayback.toFixed(1)%> years </span>after tax credit.<% } %>
                                     <% } else {%>
                                         This site is <span class="valueHelp"><%=quality%></span>.  Because of this, you might want to consider subscribing to a <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>, which allows you to directly benefit from a solar PV installation in a sunny location nearby.
                                     <% } %>
@@ -93,7 +72,7 @@
                     </div> <!-- end col -->
 
                     <!-- histogram -->
-                    <div class="col-md-4">
+                    <div class="col-md-4 barChart">
                         <div class="resultHeader">
                             <div class="chartTitle">Percent Sun Hours By Month</div>
                         </div>
