@@ -32,6 +32,7 @@ define([
   'esri/map',
   'esri/geometry/Point',
   'esri/geometry/webMercatorUtils',
+  'esri/SpatialReference',
 
   'dojo/_base/lang'
 
@@ -47,7 +48,7 @@ define([
 
     QueryModel, ReportModel,
 
-    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils,
+    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils, SpatialReference,
 
     lang
 
@@ -118,6 +119,10 @@ define([
           zoom: config.defaultZoom
             // extent: new Extent(this.config.extent)
           });
+
+        // Create Web Mercator SR
+        var sr = new SpatialReference(102100);
+        app.map.webMercator = sr;
 
         var params = new ImageParams();
 
