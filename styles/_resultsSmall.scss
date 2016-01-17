@@ -148,9 +148,20 @@ a.madeInMn:hover {
 
 .gradientLabel {
   height: 40px;
+  //width: 8%;
   font-size:10px;
-  display: table-cell;
-  vertical-align: middle;
+  //display: table-cell;
+  padding-top:8px;
+  vertical-align: top;
+  text-align: right;
+}
+
+.sunBar {
+  display:inline-block;
+}
+
+.gradientLabelRight {
+  text-align: left;
 }
 
 .gradientTable {
@@ -158,7 +169,7 @@ a.madeInMn:hover {
 }
 
 .progress-width {
-  width: 98%;
+  width: 80%;
 }
 
 .progress {

@@ -103,7 +103,7 @@ define(
       //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',
       gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
 
-      /* Solar raster - query*/
+      /* Solar raster - query */
       // solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/',
       solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/',
       dsmImageryUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnDSMRef/ImageServer',
@@ -111,13 +111,13 @@ define(
       // imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/identify',
       imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/identify',
       // Vector data for querying vector datasets
-      vectorDataUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/',
-      canadaUsMaskUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/0',
-      countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/1',
-      waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/2',
-      bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/3',
-      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/4',
-      countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/5',
+      vectorDataUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/',
+      canadaUsMaskUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/0',
+      countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/1',
+      waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/2',
+      bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/3',
+      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/4',
+      countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/5',
 
       // Existing solar installations GeoRSS xml source
       certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',

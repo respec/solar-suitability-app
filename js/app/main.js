@@ -114,6 +114,7 @@ define([
           basemap: 'topo',
           center: [config.centerLng, config.centerLat],
           showAttribution: false,
+          showLabels : true,
           zoom: config.defaultZoom
             // extent: new Extent(this.config.extent)
           });
@@ -155,24 +156,28 @@ define([
         streetLayer.hide();
 
         var countiesLayer = new FeatureLayer(config.countiesUrl, {
-          id: 'counties'
+          id: 'counties',
+          showLabels : false
         });
         countiesLayer.hide();
 
         var eusaLayer = new FeatureLayer(config.eusaUrl, {
-          id: 'eusa'
+          id: 'eusa',
+          showLabels : true
         });
         eusaLayer.hide();
         eusaLayer.setOpacity(0.65);
 
         var waterLayer = new FeatureLayer(config.waterUrl, {
           id: 'water',
+          showLabels : false,
           minScale: 72223.819286
         });
         waterLayer.hide();
 
         var maskLayer = new FeatureLayer(config.canadaUsMaskUrl, {
-          id: 'mask'
+          id: 'mask',
+          showLabels : false
         });
         maskLayer.setOpacity(0.8);
 

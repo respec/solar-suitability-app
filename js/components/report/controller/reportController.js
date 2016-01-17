@@ -83,6 +83,14 @@ define([
         this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
         this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
 
+        $('#sunPercentHisto').html("");
+        $('#resultsText').html("");
+        $('#sunPercentHisto').append($("#sunHrsHisto").html());
+        $('#resultsText').append($('#solarCalcText').html());
+        $('#progressBar').append($('#percentSunBar').html());
+        $("#resultsText").find("a").css('color','black');
+        $('#sunPercentHisto').find('.tick > text').css({ fill: "#000" });
+
       },
 
       buildSolarMap: function(){
