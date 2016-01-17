@@ -54,6 +54,7 @@ define([
 
       initialize: function() {
         this.render();
+        this.listenTo(app.reportModel, 'change', this.render);
       },
 
       render: function() {
@@ -76,7 +77,8 @@ define([
           paybackWithoutIncentives: app.reportModel.get('paybackWithoutIncentives'),
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
           paybackWithMim: app.reportModel.get('paybackWithMim'),
-          madeInMn: config.madeInMn
+          madeInMn: config.madeInMn,
+          utilityCompany: app.reportModel.get('utilityCompany')
         };
 
         this.$el.html(template(options));

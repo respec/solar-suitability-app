@@ -135,9 +135,27 @@
                 <hr />
                 <div class="row">
                     <div class="col-md-6">
-                        <div id="progressBar"></div>
+                        <div class="row" id="progressBar"></div>
                         <div id="resultsText"></div>
+                        
+                        <div id="EUSA" class="topSpace">
+                            <strong>Utility Service Provider:</strong>
+                        
+                            <div id="reportUtilityName">
+                                <%=utilityCompany.fullName%>
+                            </div>
+                            <div id="reportUtilityStreet">
+                                <%=utilityCompany.street%>
+                            </div>
+                            <div id="reportUtilityCityStateZip">
+                                <%=utilityCompany.city + ', MN ' + utilityCompany.zip%>
+                            </div>
+                            <div id="reportUtilityPhone">
+                                <%=utilityCompany.phone%>
+                            </div>
+                        </div>
                     </div>
+                
                     <div class="col-md-6">
                         <div style="padding-left:15px;"><strong>Percent Sun Hours By Month</strong></div>
                         <div id="sunPercentHisto"></div>
