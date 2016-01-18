@@ -47,20 +47,43 @@ define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 				// Create Deferred for current image loading.
 				deferred = new Deferred();
 				// Setup map service image export parameters.
-				exportParams = {
-					f: "image",
-					size: [map.width, map.height].join(","),
-					bbox: [map.extent.xmin, map.extent.ymin, map.extent.xmax, map.extent.ymax].join(","),
-					bboxSR: map.extent.spatialReference.wkid,
-					format: "png",
-					transparent: true
-				};
-				// Convert params to query string.
-				exportParams = objToQuery(exportParams);
-				// Create the export URL.
-				url = [layer.url, "/export?", exportParams].join("");
-				// Eliminate double slashes before "export".
-				url = url.replace("//export", "/export");
+
+				if(layer.url.search("ImageServer") > 0){
+					// Handle Image Service such as:
+	//http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/exportImage?f=image&size=400%2C400&bbox=-10464673.23355842%2C5553260.881672794%2C-10464553.80070176%2C5553380.3145294525&bboxSR=102100&format=png&transparent=true&renderingRule={%22rasterFunction%22%20:%20%22solarColorRamp%22}
+
+					exportParams = {
+						f: "image",
+						size: [map.width, map.height].join(","),
+						bbox: [map.extent.xmin, map.extent.ymin, map.extent.xmax, map.extent.ymax].join(","),
+						bboxSR: map.extent.spatialReference.wkid,
+						format: "png",
+						transparent: true
+					};
+					// Convert params to query string.
+					exportParams = objToQuery(exportParams);
+					// Create the export URL.
+					url = [layer.url, "/exportImage?", exportParams, "&renderingRule={%22rasterFunction%22%20:%20%22solarColorRamp%22}"].join("");
+					// Eliminate double slashes before "export".
+					url = url.replace("//exportImage", "/exportImage");
+
+				} else {
+
+					exportParams = {
+						f: "image",
+						size: [map.width, map.height].join(","),
+						bbox: [map.extent.xmin, map.extent.ymin, map.extent.xmax, map.extent.ymax].join(","),
+						bboxSR: map.extent.spatialReference.wkid,
+						format: "png",
+						transparent: true
+					};
+					// Convert params to query string.
+					exportParams = objToQuery(exportParams);
+					// Create the export URL.
+					url = [layer.url, "/export?", exportParams].join("");
+					// Eliminate double slashes before "export".
+					url = url.replace("//export", "/export");
+				}
 
 				// Create the image element.
 				image = new Image(map.width, map.height);

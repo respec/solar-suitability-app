@@ -372,9 +372,8 @@ define([
      removeContainer:true
     }); 
 },
-takeScreenshot: function(){
-    var canvas = document.getElementById("screenshotCanvas");
-    mapToCanvas(app.reportAerialMap, canvas).then(function () {
+takeScreenshot: function(elem,canvas){
+    mapToCanvas(elem, canvas).then(function () {
       // Update the data URL.
       var url;
       try {
@@ -389,7 +388,17 @@ takeScreenshot: function(){
     });
   },
     createPdf: function(){
-      this.takeScreenshot();
+      $('.canvasMap').width(400);
+      $('.canvasMap').height(400);
+      var canvas = document.getElementById("aerialMapCanvas");
+      var elem = app.reportAerialMap;
+      mapToCanvas(elem,canvas);
+      canvas = document.getElementById("solarMapCanvas");
+      elem = app.reportSolarMap;
+      mapToCanvas(elem,canvas);
+
+
+      $('.hidden-print').hide();
 
       var f = $('#reportModal');
       // var m = document.getElementById("reportAerialMap-container_gc");
@@ -401,18 +410,18 @@ takeScreenshot: function(){
       // // And trigger a download of the rendered image.
       // simg.download();
 
-      this.getCanvas().then(function(canvas){
-        var 
-        img = canvas.toDataURL("image/png"),
-        doc = new jsPDF({
-                unit:'px', 
-                format:'letter'
-              });     
-              doc.addImage(img, 'JPEG', 20, 20);
-              doc.addImage(document.getElementById("dataLink").href, 'PNG',20,140);
-              doc.save('techumber-html-to-pdf.pdf');
-              f.width(907);
-       });
+      // this.getCanvas().then(function(canvas){
+      //   var 
+      //   img = canvas.toDataURL("image/png"),
+      //   doc = new jsPDF({
+      //           unit:'px', 
+      //           format:'letter'
+      //         });     
+      //         doc.addImage(img, 'JPEG', 20, 20);
+      //         //doc.addImage(document.getElementById("dataLink").href, 'PNG',20,140);
+      //         doc.save('techumber-html-to-pdf.pdf');
+      //         f.width(907);
+      //  });
 
 
 

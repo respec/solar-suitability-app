@@ -30,7 +30,7 @@
 
                         </div>
                         <div class="col-md-1">
-                            <button data-target="#reportModal" aria-label="Close" data-dismiss="modal" class="close closeButton pull-right" style="color:black;" type="button"></button>
+                            <button data-target="#reportModal" aria-label="Close" data-dismiss="modal" class="close closeButton pull-right hidden-print" style="color:black;" type="button"></button>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <!--<button type="button" class="btn btn-link editSiteDetails pull-right" data-dismiss="modal" data-toggle="modal" data-target=".editSiteDetailsModal" aria-label="Edit">-->
-                            <button type="button" class="btn btn-link editSiteDetails pull-right"  aria-label="Edit">
+                            <button type="button" class="btn btn-link editSiteDetails hidden-print pull-right"  aria-label="Edit">
                                 <span aria-hidden="true">
                                     Customize Report <i class="fa fa-pencil"></i>
                                 </span>
@@ -91,32 +91,27 @@
                     </div>
 
                     <hr />
-                    <div class="row">
-                    <div class="col-md-12">
-                    <canvas id="screenshotCanvas" width="200" height="133"></canvas>
-                    <p><a id="dataLink" href="#" target="_blank">link</a></p>
-                    </div>
-                    </div>
                     <!-- Start Maps -->
                     <div class="row" id="siteImagesRow">
                         <div class="col-md-6 resultsImage">
                             <div>
                                 <strong>Solar Map</strong>
                             </div>
-                            <div id="reportSolarMap-container">
+                            <div id="reportSolarMap-container" class="hidden-print">
                             </div>
+                            <canvas id="solarMapCanvas" class="canvasMap" width="0" height="0"></canvas>
                         </div>
                         <div class="col-md-6 resultsImage">
                             <div>
-                                <button type="button" class="btn btn-link addSolarPanels editButton pull-right" data-dismiss="modal"aria-label="Edit">
+                                <button type="button" class="btn btn-link addSolarPanels editButton hidden-print pull-right" data-dismiss="modal"aria-label="Edit">
                                     <span aria-hidden="true">
                                         Draw Solar Array <i class="fa fa-pencil"></i>
                                     </span>
                                 </button>
                                 <strong>Aerial Map</strong>
                             </div>
-
-                            <div id="reportAerialMap-container">
+                            
+                            <div id="reportAerialMap-container" class="hidden-print">
                                 <!--
                                 <div id="reportAngleControls" class="input-group">
                                     <span class="input-group-btn">
@@ -133,6 +128,7 @@
                                 </div>
                             -->
                         </div>
+                        <canvas id="aerialMapCanvas" class="canvasMap" width="0" height="0"></canvas>
                     </div>
                 </div><!-- /.row -->
                 <!-- End Maps -->
@@ -143,7 +139,7 @@
                         <div class="row" id="progressBar"></div>
                         <div id="resultsText"></div>
                         
-                        <div id="EUSA" class="topSpace">
+                        <div id="EUSA" class="top-lg">
                             <strong>Utility Service Provider:</strong>
                         
                             <div id="reportUtilityName">
@@ -177,9 +173,7 @@
                 <!-- Start Solar Calculator -->
                 <div class="row">
                     <div class="col-md-12 reportHeading">
-                    <canvas id="screenshotCanvas" width="200" height="133"></canvas>
-                    <p><a id="dataLink" href="#" target="_blank">link</a></p>
-                        <button type="button" class="btn btn-link editSolarCalculator pull-right">
+                        <button type="button" class="btn btn-link editSolarCalculator hidden-print pull-right">
                             <span aria-hidden="true">
                                 Improve Solar Calculations <i class="fa fa-pencil"></i>
                             </span>
@@ -261,7 +255,7 @@
             </div><!-- /.container-fluid -->
         </div> <!-- /.modal-body -->
 
-        <div class="modal-footer reportFooter">
+        <div class="modal-footer reportFooter hidden-print">
             <!-- <button type="button" class="btn btn-default downloadButton">Download PDF</button> -->
             <button type="button" id="pdfButton" class="btn btn-primary printButton">PDF</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
