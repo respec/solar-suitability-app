@@ -306,15 +306,15 @@ define([
         $finishedDrawing = $('.finishedDrawSolarArrayRow');
         $finishedDrawing.hide();
 
-        $("#clearSolarArrayButton").hide();
+        $('#clearSolarArrayButton').hide();
 
         // restore report modal
         $('#reportModal').modal('show');
       },
 
       clearSolarArray: function(){
-        mapController.clearGraphics(app.map, ['solarArray']);
-        mapController.clearGraphics(app.reportAerialMap, ['reportSolarArray']);
+        mapController.clearGraphics(app.map);
+        mapController.clearGraphics(app.reportAerialMap);
       }
 
     });
