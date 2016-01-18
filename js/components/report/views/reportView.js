@@ -83,15 +83,6 @@ define([
 
         this.$el.html(template(options));
 
-        // console.log($('#reportSolarMap-container'));
-
-        // if (app.query.latLngPt){
-        //   console.log('here');
-        //   reportController.buildSolarMap();
-        //   reportController.buildAerialMap();
-        // }
-
-        
         this.startup();
       },
 

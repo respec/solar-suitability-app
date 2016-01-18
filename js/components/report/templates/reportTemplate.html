@@ -185,11 +185,24 @@
                 </div>
                 <!-- End Solar Calculator -->
 
+                <hr />
+                
                 <!-- Start Histograms -->
                 <div class="row">
                     <div class="col-md-12"> 
 
                         <div class="row reportHisto">
+                            <div class="col-md-6 reportHisto" id="reportResultsTable">
+                                <table class="reportTable table table-bordered table-striped">
+                                    <tbody>
+                                    <tr class="info center">
+                                        <td>Month</td>
+                                        <td>Percent Sun<br />(Unshaded)</td>
+                                        <td>Actual Sun<br />(kWh/m<sup>2</sup> per month)</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <div class="col-md-6 reportHisto">
                                 <div class="reportTitle">
                                     <strong>Insolation by Month</strong>
@@ -197,17 +210,10 @@
                                 <div id="reportResultsHisto">
                                 </div>
                             </div>
-                            <div class="col-md-6 reportHisto" id="reportResultsTable">
-                                
-                                <table class="reportTable">
-                                    <tbody>
-                                    <tr><th style="width:50%">Month</th><th>kWh/m<sup>2</sup></th></tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            
                         </div>
 
-                        <div class="row reportHisto">
+                        <!-- <div class="row reportHisto">
                             <div class="col-md-6 reportHisto">
                                 <div class="reportTitle">
                                     <strong>Sun Hours by Month</strong>
@@ -242,7 +248,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
