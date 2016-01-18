@@ -270,7 +270,6 @@ define([
       },
 
       addToMap: function(evt) {
-        console.log(evt.geometry);
         var symbol = config.solarPanelSymbol;
 
         // add to main map
