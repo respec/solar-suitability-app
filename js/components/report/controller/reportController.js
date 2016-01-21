@@ -93,6 +93,7 @@ define([
         $('.progress-labels').find("div").css('border-left','1px solid black');
         $("#resultsText").find("a").css('color','black');
         $('#sunPercentHisto').find('.tick > text').css({ fill: "#000" });
+        $(".backgroundBar").hide();
 
       },
 
@@ -391,19 +392,20 @@ takeScreenshot: function(elem,canvas){
     }); 
 },
     createPdf: function(){
+
+      // track pdf compenents as they're generated, ultimately this should be replaced with Deffered() objects
       var pdfparts = 0;
+
+      // write SVG charts to canvas elements
       canvg();
-      // Portrait letter pdf 612 x 792
+
+      // Setup portrait letter pdf 612 x 792 px
       var doc = new jsPDF({
                             unit:'px', 
                             format:'letter'
                           });
-      // Convert mini maps to canvas elements
-      $('.canvasMap').width(400);
-      $('.canvasMap').height(400);
-      var airCanvas = document.getElementById("aerialMapCanvas");
-      var airElem = app.reportAerialMap;
       
+      // 1) Report header w/ logo
       var h = $('#reportHeader');
       html2canvas(h,{
        imageTimeout:2000,
@@ -414,15 +416,11 @@ takeScreenshot: function(elem,canvas){
                 pdfparts++;
               });
 
-      // var sunH = $('#sunPercentHisto');
-      // html2canvas(sunH,{
-      //  imageTimeout:2000,
-      //  removeContainer:true
-      // }).then(
-      //       function(chartcanvas){
-      //           doc.addImage(chartcanvas,'PNG',240,350,200,200);
-      //           pdfparts++;
-      //         });
+      // 2) % Sun Historgram D3 chart
+      var sunH = $("#sunPercentHisto").children()[0];
+      doc.text(260,350,"Percent Sun Hours By Month");
+      doc.addImage(sunH,'PNG',240,370);
+      pdfparts++;
 
       // var wid = 660, hei = 320;
       // var svg = d3.select("svg")[0][0],
@@ -441,6 +439,13 @@ takeScreenshot: function(elem,canvas){
       //doc.addImage(sH,'PNG',240,350,200,200);
       // pdfparts++;
 
+
+      // Convert mini maps to canvas elements
+      $('.canvasMap').width(400);
+      $('.canvasMap').height(400);
+      var airCanvas = document.getElementById("aerialMapCanvas");
+      var airElem = app.reportAerialMap;
+      
       mapToCanvas(airElem,airCanvas).then( 
         function (){
 
@@ -462,8 +467,9 @@ takeScreenshot: function(elem,canvas){
                   //   sol = solCanvas.toDataURL();
                   // } catch (e) {
                   //   console.log("Error generating image URL", e.message);
-                  //   //alert(e.message);
+                  //   solCanvas = airCanvas; // when sol map is tainted use air map instead
                   // }
+
 
                   $('.hidden-print').hide();
 
@@ -495,9 +501,9 @@ doc.fromHTML($('.customDetails').get(0), 35, 60, {
                               doc.fromHTML($('#EUSA').get(0), 22, 450, {
   'width': 200  
 });
-                              doc.text(22,530,$("#siteDetails").text());
+                              doc.text(22,530,"Hello\nWorld");
                               console.log(pdfparts);                      
-                              setTimeout(doc.save('techumber-html-to-pdf.pdf'), 2000);
+                              setTimeout(doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ","") + '.pdf'), 2000);
                               //  f.width(907);
                         });
                     // this.getCanvas(f).then(function(canvas){

@@ -63,7 +63,7 @@ define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 					// Convert params to query string.
 					exportParams = objToQuery(exportParams);
 					// Create the export URL.
-					url = [layer.url, "/exportImage?", exportParams, "&renderingRule={%22rasterFunction%22%20:%20%22solarColorRamp%22}"].join("");
+					url = [layer.url, "/exportImage?", exportParams, "&renderingRule={%22rasterFunction%22%20:%20%22solarColorRamp%22}&" + new Date().getTime()].join("");
 					// Eliminate double slashes before "export".
 					url = url.replace("//exportImage", "/exportImage");
 
