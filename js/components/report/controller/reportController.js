@@ -88,6 +88,9 @@ define([
         $('#sunPercentHisto').append($("#sunHrsHisto").html());
         $('#resultsText').append($('#solarCalcText').html());
         $('#progressBar').append($('#percentSunBar').html());
+        $('#progressBar').find(".showGradient").css('border-right','2px solid black');
+        $('#progressBar').find(".gradient").css('border','1px solid black');
+        $('.progress-labels').find("div").css('border-left','1px solid black');
         $("#resultsText").find("a").css('color','black');
         $('#sunPercentHisto').find('.tick > text').css({ fill: "#000" });
 
@@ -363,15 +366,7 @@ define([
       $('#reportModal').modal('show');
     },
 
-    // create canvas object
- getCanvas: function(){
-  var f = $('#reportHeader');
- $('#reportModal').width((595*1.33333) -80).css('max-width','none');
- return html2canvas(f,{
-     imageTimeout:2000,
-     removeContainer:true
-    }); 
-},
+ 
 takeScreenshot: function(elem,canvas){
     mapToCanvas(elem, canvas).then(function () {
       // Update the data URL.
@@ -387,20 +382,144 @@ takeScreenshot: function(elem,canvas){
       }
     });
   },
+     // create canvas object
+ getCanvas: function(elem){
+ //$('#reportModal').width((595*1.33333) -80).css('max-width','none');
+ return html2canvas(elem,{
+     imageTimeout:2000,
+     removeContainer:true
+    }); 
+},
     createPdf: function(){
+      var pdfparts = 0;
+      canvg();
+      // Portrait letter pdf 612 x 792
+      var doc = new jsPDF({
+                            unit:'px', 
+                            format:'letter'
+                          });
+      // Convert mini maps to canvas elements
       $('.canvasMap').width(400);
       $('.canvasMap').height(400);
-      var canvas = document.getElementById("aerialMapCanvas");
-      var elem = app.reportAerialMap;
-      mapToCanvas(elem,canvas);
-      canvas = document.getElementById("solarMapCanvas");
-      elem = app.reportSolarMap;
-      mapToCanvas(elem,canvas);
+      var airCanvas = document.getElementById("aerialMapCanvas");
+      var airElem = app.reportAerialMap;
+      
+      var h = $('#reportHeader');
+      html2canvas(h,{
+       imageTimeout:2000,
+       removeContainer:true
+      }).then(
+            function(canvas){
+                doc.addImage(canvas, 'PNG', 10, 10);
+                pdfparts++;
+              });
 
+      // var sunH = $('#sunPercentHisto');
+      // html2canvas(sunH,{
+      //  imageTimeout:2000,
+      //  removeContainer:true
+      // }).then(
+      //       function(chartcanvas){
+      //           doc.addImage(chartcanvas,'PNG',240,350,200,200);
+      //           pdfparts++;
+      //         });
 
-      $('.hidden-print').hide();
+      // var wid = 660, hei = 320;
+      // var svg = d3.select("svg")[0][0],
+      // img = new Image(),
+      // serializer = new XMLSerializer(),
+      // svgStr = serializer.serializeToString(svg);
+      // img.src = 'data:image/svg+xml;base64,'+window.btoa(unescape(encodeURIComponent(svgStr)));
+      // var sunPercentHistoCanvas = document.createElement("canvas");
+      // document.getElementById('sunPercentHisto').appendChild(sunPercentHistoCanvas);
 
-      var f = $('#reportModal');
+      // sunPercentHistoCanvas.width = wid;
+      // sunPercentHistoCanvas.height = hei;
+      // sunPercentHistoCanvas.getContext("2d").drawImage(img,0,0,wid,hei);
+      
+      //var sH = $("#sunPercentHisto").find("canvas");
+      //doc.addImage(sH,'PNG',240,350,200,200);
+      // pdfparts++;
+
+      mapToCanvas(airElem,airCanvas).then( 
+        function (){
+
+          // var air;
+          // try {
+          //   air = airCanvas.toDataURL();
+          // } catch (e) {
+          //   console.log("Error generating image URL", e.message);
+          //   //alert(e.message);
+          // }
+
+          solCanvas = document.getElementById("solarMapCanvas");
+          solElem = app.reportSolarMap;
+          secondFunc = mapToCanvas(solElem,solCanvas).then(
+                function (){
+                  
+                  // var sol;
+                  // try {
+                  //   sol = solCanvas.toDataURL();
+                  // } catch (e) {
+                  //   console.log("Error generating image URL", e.message);
+                  //   //alert(e.message);
+                  // }
+
+                  $('.hidden-print').hide();
+
+                  var f = $('#progressBar');
+                  html2canvas(f,{
+                   imageTimeout:2000,
+                   removeContainer:true
+                  }).then(
+                        function(canvas){
+                              //var 
+                              //rptHeader = canvas.toDataURL("image/png");
+                              //doc.addImage(canvas, 'PNG', 15, 12);
+                              
+// All units are in the set measurement for the document
+// This can be changed to "pt" (points), "mm" (Default), "cm", "in"
+doc.fromHTML($('.customDetails').get(0), 35, 60, {
+  'width': 700  
+});
+
+                              
+                              doc.addImage(airCanvas, 'PNG',22,130,200,200);
+                              doc.addImage(airCanvas, 'PNG',240,130,200,200);
+
+                              doc.addImage(canvas, 'PNG', 5, 350);
+
+                              doc.fromHTML($('#resultsText').get(0), 22, 390, {
+  'width': 200  
+});
+                              doc.fromHTML($('#EUSA').get(0), 22, 450, {
+  'width': 200  
+});
+                              doc.text(22,530,$("#siteDetails").text());
+                              console.log(pdfparts);                      
+                              setTimeout(doc.save('techumber-html-to-pdf.pdf'), 2000);
+                              //  f.width(907);
+                        });
+                    // this.getCanvas(f).then(function(canvas){
+                    //   var 
+                    //   img = canvas.toDataURL("image/png"),
+                    //   doc = new jsPDF({
+                    //           unit:'px', 
+                    //           format:'letter'
+                    //         });     
+                    //         doc.addImage(img, 'JPEG', 20, 20);
+                    //         //doc.addImage(document.getElementById("dataLink").href, 'PNG',20,140);
+                    //         doc.save('techumber-html-to-pdf.pdf');
+                    //         f.width(907);
+                    //  });
+
+                }
+              );
+
+        }
+      );
+
+      //var f = $('#reportModal');
       // var m = document.getElementById("reportAerialMap-container_gc");
       // var simg = new Simg(m);
 
@@ -409,8 +528,8 @@ takeScreenshot: function(elem,canvas){
 
       // // And trigger a download of the rendered image.
       // simg.download();
-
-      // this.getCanvas().then(function(canvas){
+      // var f = $('#reportHeader');
+      // this.getCanvas(f).then(function(canvas){
       //   var 
       //   img = canvas.toDataURL("image/png"),
       //   doc = new jsPDF({
