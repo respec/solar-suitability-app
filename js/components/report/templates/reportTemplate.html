@@ -133,7 +133,35 @@
                 <!-- End Maps -->
 
                 <hr />
-
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row" id="progressBar"></div>
+                        <div id="resultsText"></div>
+                        
+                        <div id="EUSA" class="topSpace">
+                            <strong>Utility Service Provider:</strong>
+                        
+                            <div id="reportUtilityName">
+                                <%=utilityCompany.fullName%>
+                            </div>
+                            <div id="reportUtilityStreet">
+                                <%=utilityCompany.street%>
+                            </div>
+                            <div id="reportUtilityCityStateZip">
+                                <%=utilityCompany.city + ', MN ' + utilityCompany.zip%>
+                            </div>
+                            <div id="reportUtilityPhone">
+                                <%=utilityCompany.phone%>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <div style="padding-left:15px;"><strong>Percent Sun Hours By Month</strong></div>
+                        <div id="sunPercentHisto"></div>
+                    </div>
+                </div>
+                
                 <!-- Start Site Results Template-->
                 <div class="siteDetails-container">
                 </div>
@@ -157,39 +185,47 @@
                 </div>
                 <!-- End Solar Calculator -->
 
+                <hr />
+                
                 <!-- Start Histograms -->
                 <div class="row">
                     <div class="col-md-12"> 
 
                         <div class="row reportHisto">
+                            <div class="col-md-6 reportHisto" id="reportResultsTable">
+                                <table class="reportTable table table-bordered table-striped">
+                                    <tbody>
+                                    <tr class="info center">
+                                        <td>Month</td>
+                                        <td>Percent Sun<br />(Unshaded)</td>
+                                        <td>Actual Sun<br />(kWh/m<sup>2</sup> per month)</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <div class="col-md-6 reportHisto">
                                 <div class="reportTitle">
-                                    Insolation Chart
+                                    <strong>Insolation by Month</strong>
                                 </div>
                                 <div id="reportResultsHisto">
                                 </div>
                             </div>
-                            <div class="col-md-6 reportHisto" id="reportResultsTable">
-                                Insol Table
-                                <table class="reportTable">
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
+                            
                         </div>
 
-                        <div class="row reportHisto">
+                        <!-- <div class="row reportHisto">
                             <div class="col-md-6 reportHisto">
                                 <div class="reportTitle">
-                                    Sun Hours Chart
+                                    <strong>Sun Hours by Month</strong>
                                 </div>
                                 <div id="reportSunHrsHisto">
                                 </div>
                             </div>
                             <div class="col-md-6 reportHisto" id="reportSunHrsTable">
-                                Sun Hours Table
+                                
                                 <table class="reportTable">
                                     <tbody>
+                                    <tr><th style="width:50%">Month</th><th>Sun Hours</th></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -198,20 +234,21 @@
                         <div class="row reportHisto">
                             <div class="col-md-6 reportHisto">
                                 <div class="reportTitle">
-                                    Shade Hours Chart
+                                    <strong>Shade Hours by Month</strong>
                                 </div>
                                 <div id="reportShadeHrsHisto">
                                 </div>
                             </div>
 
                             <div class="col-md-6 reportHisto" id="reportShadeHrsTable">
-                                Shade Hours Table
+                               
                                 <table class="reportTable">
                                     <tbody>
+                                    <tr><th style="width:50%">Month</th><th>Shade Hours</th></tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->

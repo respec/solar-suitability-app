@@ -59,13 +59,17 @@ define(
 
     return {
       
-      applicationTitle: 'MN Solar App',
+      applicationTitle: 'mn.gov/solarapp',
       apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
+      // Live App:
+      //appEmail: 'energy.info@state.mn.us',
+      //appDomain: 'http://mn.gov/solarapp',
+
+      // Development Debugging:
       appEmail: 'andywalz@gmail.com',
-      appDomain: 'http://solar.maps.umn.edu/app',
-      appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq',
+      appDomain: 'http://solar.maps.umn.edu/dev',
 
       // Solar Calculator Defaults
       systemLife: 25,
@@ -79,11 +83,13 @@ define(
       highCostPerkWh: 5000,
 
       // External links used throughout app
-      mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&technology=7&',
+      //mnIncentives: 'http://programs.dsireusa.org/system/program?zip=',
+      mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&',
       mnCertsSolarGardens: 'http://mncerts.org/solargardens',
       mnInstallers: 'http://www.cleanenergyprojectbuilder.org/directory?title=&field_category_tid=208&field_geofield_distance%5Borigin%5D=',
-      madeInMn: 'https://mn.gov/commerce/consumers/your-home/save-energy-money/mim.jsp',
+      madeInMn: 'https://mn.gov/commerce/consumers/your-home/save-energy-money/mim/',
       learnMoreAboutSolar: 'https://mn.gov/commerce/consumers/your-home/energy-info/solar/#3',
+      derateDefined: 'http://rredc.nrel.gov/solar/calculators/pvwatts/system.html',
 
       // Esri Basemap Urls
       imagery: 'http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer',
@@ -97,7 +103,7 @@ define(
       //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',
       gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
 
-      /* Solar raster - query*/
+      /* Solar raster - query */
       // solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/',
       solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/',
       dsmImageryUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnDSMRef/ImageServer',
@@ -105,16 +111,19 @@ define(
       // imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/identify',
       imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/identify',
       // Vector data for querying vector datasets
-      vectorDataUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/',
-      canadaUsMaskUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/0',
-      countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/1',
-      waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/2',
-      bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/3',
-      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/4',
-      countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnVectorData/MapServer/5',
+      vectorDataUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/',
+      canadaUsMaskUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/0',
+      countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/1',
+      waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/2',
+      bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/3',
+      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/4',
+      countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/5',
 
       // Existing solar installations GeoRSS xml source
       certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',
+
+      // Made in Minnesota counties
+      madeInMnCounties: ['XCEL', 'Minnesota Power', 'Otter Tail Power'],
 
       //OLD SERVICE:
       // waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/1',
@@ -137,7 +146,9 @@ define(
 
       pinSymbol: pinSymbol,
       solarPanelSymbol: solarPanelSymbol,
-      installationSymbol: installationSymbol
+      installationSymbol: installationSymbol,
+
+      appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
 
     };
   });

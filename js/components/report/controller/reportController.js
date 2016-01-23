@@ -68,20 +68,28 @@ define([
         queryController.drawChart(reportInsolChart);
 
         // draw sun hours chart
-        var reportSunHrsChart = app.charts.sunHrsChart;
-        reportSunHrsChart.el = '#reportSunHrsHisto';
-        reportSunHrsChart.className = 'reportChart';
-        queryController.drawChart(reportSunHrsChart);
+        // var reportSunHrsChart = app.charts.sunHrsChart;
+        // reportSunHrsChart.el = '#reportSunHrsHisto';
+        // reportSunHrsChart.className = 'reportChart';
+        // queryController.drawChart(reportSunHrsChart);
 
-        // draw shade hours chart
-        var reportShadeHrsChart = app.charts.shadeHrsChart;
-        reportShadeHrsChart.el = '#reportShadeHrsHisto';
-        reportShadeHrsChart.className = 'reportChart';
-        queryController.drawChart(reportShadeHrsChart);
+        // // draw shade hours chart
+        // var reportShadeHrsChart = app.charts.shadeHrsChart;
+        // reportShadeHrsChart.el = '#reportShadeHrsHisto';
+        // reportShadeHrsChart.className = 'reportChart';
+        // queryController.drawChart(reportShadeHrsChart);
 
-        this.buildTable('#reportResultsTable', app.solarObj, 'insolValue', app.solarObj.months);
-        this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
-        this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
+        this.buildTable('#reportResultsTable', app.solarObj, 'percentSun', 'insolValue', app.solarObj.months);
+        // this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+        // this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
+
+        $('#sunPercentHisto').html("");
+        $('#resultsText').html("");
+        $('#sunPercentHisto').append($("#sunHrsHisto").html());
+        $('#resultsText').append($('#solarCalcText').html());
+        $('#progressBar').append($('#percentSunBar').html());
+        $("#resultsText").find("a").css('color','black');
+        $('#sunPercentHisto').find('.tick > text').css({ fill: "#000" });
 
       },
 
@@ -194,9 +202,9 @@ define([
 
     // },
 
-    buildTable: function(el, data, values, ref){
+    buildTable: function(el, data, col1, col2, ref){
       // empty the previous table
-      var tableRows = el + 'tbody tr';
+      var tableRows = el + ' tbody tr.monthData';
       $(tableRows).remove();
 
       var $table = $(el);
@@ -204,14 +212,18 @@ define([
         var shortMonth = mon.abbr;
         var longMonth = mon.full;
         $table.find('tbody')
-        .append($('<tr>')
-          .append($('<td style="width:50%">')
+        .append($('<tr class="monthData center">')
+          .append($('<td>')
             .text(longMonth)
             )
           .append($('<td>')
-            .text(data[shortMonth][values].toFixed(2))
+            .text((data[shortMonth][col1]*100).toFixed() + '%')
+            )
+          .append($('<td>')
+            .text(data[shortMonth][col2].toFixed(2))
             )
           );
+        console.log();
       });
     },
 
@@ -294,6 +306,9 @@ define([
     handleSolarArrayDrawing: function(){
       console.log('handleSolarArrayDrawing');
       this.createToolbar();
+      esri.bundle.toolbars.draw.start = "Click and release to begin drawing";
+      esri.bundle.toolbars.draw.resume = "Click and release to continue drawing";
+
       app.editToolbar.activate(Draw['POLYGON']);
     },
 

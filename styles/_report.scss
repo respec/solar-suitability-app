@@ -77,6 +77,11 @@
   // margin-bottom: 15px;
 }
 
+/* match margin above hr applied by .table */
+.row.reportHisto {
+  margin-top:20px;
+}
+
 .reportHisto text {
     fill: $overlay;
 }
@@ -90,12 +95,16 @@
   margin-bottom: 10px;
 }
 
+.reportChart .bar {
+  fill:#ff7400
+}
+
 .reportTable tbody, tr, td{
   color: $overlay;
 }
 
 .reportTable{
-  width: 250px;
+  width: 100%;
 }
 
 .reportTable {
@@ -115,11 +124,18 @@
 .userVal {
   font-weight: bold;
   color: $doc-green;
+  text-align: right;
 }
 
 .outputVal {
   font-weight: bold;
   color: $link-color;
+  text-align: right;
+}
+
+.textWithTooltip {
+  font-style: italic;
+  border: none;
 }
 
 // #reportSolarMap-container_root, #reportAerialMap-container_root{

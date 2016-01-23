@@ -6,122 +6,122 @@
 }
 
 a.madeInMn {
-    color: $text-color;
-    font-style: italic;
-    text-decoration: none;
+  color: $text-color;
+  font-style: italic;
+  text-decoration: none;
 }
 a.madeInMn:hover {
-    color: $text-color;
-    font-style: italic;
-    text-decoration: underline;
+  color: $text-color;
+  font-style: italic;
+  text-decoration: underline;
 }
 
 .reportControls {
-    width:130px;
-    margin-top:20px;
+  width:130px;
+  margin-top:20px;
 }
 
 #resultsSmall button a{
-    color: $text-color;
-    text-decoration: none;
+  color: $text-color;
+  text-decoration: none;
 }
 
 .btn-solar {
-    margin: 3px;
+  margin: 3px;
 }
 
 .badData {
-    color: $doc-blue;
-    cursor: pointer;
+  color: $doc-blue;
+  cursor: pointer;
 }
 
 .close {
-    opacity: .8;
-    color: $close-color;
+  opacity: .8;
+  color: $close-color;
 }
 
 .close:hover, .close:focus {
-    color: $close-color;
-    opacity: .4;
+  color: $close-color;
+  opacity: .4;
 }
 
 #closeResults {
-    margin-top:10px;
+  margin-top:10px;
 }
-
+ 
 /* Preview results drawer column formatting */
 
 #resultsSmall {
-    background-color:$overlay;
-    font-size:18px;
-    color:#fff;
-    z-index:299;
-    border-top:1px solid #fff;
-    height:400px;
-    width:100%;
-    position:absolute;
-    bottom: 0;
-    overflow: scroll;
+  background-color:$overlay;
+  font-size:18px;
+  color:#fff;
+  z-index:299;
+  border-top:1px solid #fff;
+  height:400px;
+  width:100%;
+  position:absolute;
+  bottom: 0;
+  overflow: scroll;
 }
 
 .resultsPreview1 {
-    display:inline-block;
-    color:#fff;
-    z-index:5;
-    padding-top:10px;
-    // margin-left:50px
+  display:inline-block;
+  color:#fff;
+  z-index:5;
+  padding-top:10px;
+  // margin-left:50px
 }
 
-.resultsPreview2 {
+  .resultsPreview2 {
     display:inline-block;
     font-size:14px;
     color:#fff;
     z-index:5;
     padding-top:10px;
     // margin-left:50px
-}
+  }
 
-.bottomSpace {
+  .bottomSpace {
     margin-bottom: 10px;
-}
+  }
 
-.topSpace {
+  .topSpace {
     padding-top:15px;
-}
+  }
 
-ol.getstarted > li {
+  ol.getstarted > li {
     margin:0 0 10px 0;
-}
+  }
 
-.resultsGeneral {
+  .resultsGeneral {
     text-align:center;
-}
+  }
 
-.chartTitle{
+  .chartTitle{
     padding-left: 50px;
-}
+  }
 
-.resultHeader{
+  .resultHeader{
     font-weight: bold;
     margin-top: 10px;
     color: $secondary-color;
     margin-bottom: 10px;
-}
+  }
 
 /* Text formatting */
 
 .valueHelp {
-    color: $link-color;
-    font-weight: bold;
-    font-size: 18px;
+  color: $link-color;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 /* Progress bar */
 
 .gradient {
-    height: 40px;
-    text-align: center;
-    border: 2px solid white;
+  height: 40px;
+  text-align: center;
+  border: 2px solid white;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#141414+0,bd4600+50,ffffc4+100 */
     background: #141414; /* Old browsers */
     background: -moz-linear-gradient(left,  #141414 0%, #bd4600 50%, #ffffc4 100%); /* FF3.6+ */
@@ -131,9 +131,9 @@ ol.getstarted > li {
     background: -ms-linear-gradient(left,  #141414 0%,#bd4600 50%,#ffffc4 100%); /* IE10+ */
     background: linear-gradient(to right,  #141414 0%,#bd4600 50%,#ffffc4 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141414', endColorstr='#ffffc4',GradientType=1 ); /* IE6-9 */
-}
+  }
 
-.showGradient {
+  .showGradient {
   box-shadow: 0px 0px 0px 2000px grey;   /* white or whatever color you like */
   background-image: none !important;
   background-color: transparent !important;
@@ -143,11 +143,33 @@ ol.getstarted > li {
 }
 
 .showGradient>span {
-    line-height: 40px;
+  line-height: 40px;
+}
+
+.gradientLabel {
+  height: 40px;
+  //width: 8%;
+  font-size:10px;
+  //display: table-cell;
+  padding-top:8px;
+  vertical-align: top;
+  text-align: right;
+}
+
+.sunBar {
+  display:inline-block;
+}
+
+.gradientLabelRight {
+  text-align: left;
+}
+
+.gradientTable {
+  display: table;
 }
 
 .progress-width {
-    width: 98%;
+  width: 80%;
 }
 
 .progress {
@@ -156,94 +178,98 @@ ol.getstarted > li {
 
 /* Poor<->Optimal labels */
 .progress-labels {
-    font-size:10px;
-    margin-top:-1px;
+  font-size:10px;
+  margin-top:-1px;
 }
 
 div.progress-labels > div {
-    border-left: 2px solid white;
-    display:inline-block;
+  border-left: 2px solid white;
+  display:inline-block;
 }
 
 #labelPoor {
-    width: 70%;
+  width: 50%;
 }
+#labelMarginal {
+  width: 20%;
+}
+
 #labelFair, #labelGood, #labelOptimal {
-    width: 10%;
+  width: 10%;
 }
 #labelOptimal {
-    border-right: 2px solid white;
+  border-right: 2px solid white;
 }
 
 /* D3 customization */
 
 .x.axis text,.y.axis text {
-    font-family:sans-serif;
-    font-size:14px
+  font-family:sans-serif;
+  font-size:14px
 }
 
 .x.axis text {
-    margin-left:-2px
+  margin-left:-2px
 }
 
 .d3-tip {
-    line-height:1;
-    font-weight:700;
-    padding:12px;
-    background:rgba(0,0,0,0.8);
-    color:#fff;
-    border-radius:2px;
-    z-index:500
+  line-height:1;
+  font-weight:700;
+  padding:12px;
+  background:rgba(0,0,0,0.8);
+  color:#fff;
+  border-radius:2px;
+  z-index:500
 }
 
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
-    box-sizing:border-box;
-    display:inline;
-    font-size:10px;
-    width:100%;
-    line-height:1;
-    color:rgba(0,0,0,0.8);
-    content:"\25BC";
-    position:absolute;
-    text-align:center
+  box-sizing:border-box;
+  display:inline;
+  font-size:10px;
+  width:100%;
+  line-height:1;
+  color:rgba(0,0,0,0.8);
+  content:"\25BC";
+  position:absolute;
+  text-align:center
 }
 
 /* Style northward tooltips differently */
 .d3-tip.n:after {
-    margin:-1px 0 0;
-    top:100%;
-    left:0
+  margin:-1px 0 0;
+  top:100%;
+  left:0
 }
 
 .chart div {
-    font:10px sans-serif;
-    background-color:#4682b4;
-    text-align:right;
-    padding:3px;
-    margin:auto;
-    color:#000;
-    z-index:1
+  font:10px sans-serif;
+  background-color:#4682b4;
+  text-align:right;
+  padding:3px;
+  margin:auto;
+  color:#000;
+  z-index:1
 }
 
 .chart .bar {
-    fill:#ff7400
+  fill:#ff7400
 }
 
 .chart .bar:hover {
-    fill:#ff4500
+  fill:#ff4500
 }
 
 .chart .backgroundBar {
-    fill:#808080
+  fill:#808080
 }
 
 .chart text {
-    fill:#fff;
-    font:10px sans-serif;
-    text-anchor:end
+  fill:#fff;
+  font:10px sans-serif;
+  text-anchor:end
 }
 
 .chart {
-    margin-left: 50px;
+  margin-left: 50px;
 }

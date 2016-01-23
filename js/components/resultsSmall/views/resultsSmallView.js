@@ -43,6 +43,7 @@ define([
           utilityCompany: app.model.get('utilityCompany'),
           lidarCollect: app.model.get('lidarCollect'),
           solarGardens: config.mnCertsSolarGardens,
+          madeInMnCounty: app.reportModel.get('madeInMNCounty'),
           mnIncentives: config.mnIncentives,
           mnInstallers: config.mnInstallers,
           madeInMn: config.madeInMn,
@@ -51,7 +52,8 @@ define([
           systemSize: app.reportModel.get('systemSize'),
           averageSystemCost: app.reportModel.get('averageCostSystem'),
           averageCostSystemAsCurrency: app.reportModel.get('averageCostSystemAsCurrency'),
-          payback: app.reportModel.get('paybackWithMim')
+          mimPayback: app.reportModel.get('paybackWithMim'),
+          nonMimPayback: app.reportModel.get('paybackWithTaxCredit')
         };
 
         this.$el.html(template(options));

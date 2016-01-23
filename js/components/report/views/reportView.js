@@ -41,6 +41,7 @@ define([
         'click .editTitle': 'editTitle',
         'click .editSiteDetails': 'showCustomDetailsForm',
         'click .editSolarCalculator': 'showCustomSolarCalculatorForm',
+        'click .cancelSolarCalculatorEdit': 'cancelSolarCalculatorForm',
         'click .closeSplash': 'hideEditTitleModal',
         'change #siteTitle': 'setSiteTitle',
         // 'click .saveEditModal': 'saveSolarCalculatorValues',
@@ -53,6 +54,7 @@ define([
 
       initialize: function() {
         this.render();
+        this.listenTo(app.reportModel, 'change', this.render);
       },
 
       render: function() {
@@ -75,20 +77,12 @@ define([
           paybackWithoutIncentives: app.reportModel.get('paybackWithoutIncentives'),
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
           paybackWithMim: app.reportModel.get('paybackWithMim'),
-          madeInMn: config.madeInMn
+          madeInMn: config.madeInMn,
+          utilityCompany: app.reportModel.get('utilityCompany')
         };
 
         this.$el.html(template(options));
 
-        // console.log($('#reportSolarMap-container'));
-
-        // if (app.query.latLngPt){
-        //   console.log('here');
-        //   reportController.buildSolarMap();
-        //   reportController.buildAerialMap();
-        // }
-
-        
         this.startup();
       },
 
@@ -151,6 +145,10 @@ define([
           //reportController.underConstruction();
           reportController.createPdf();
         });
+
+        // $('#resultsText').append($('#solarCalcText').html());
+        //$('#resultsText').append($(".barChart").html());
+        //$("#sunPercentHisto").append($("#sunHrsHisto").html());
 
         // var solarMap = new Map('reportSolarMap-container', {
         //   basemap: 'solar',
@@ -255,6 +253,11 @@ define([
         app.reportModel.set({costPerkWh: $costPerkWh.val()});
         app.reportModel.set({percentElectricGoal: $percentElectricGoal.val()/100});
 
+        $('.solarCalculatorTable').show();
+        $('.customizeSolarCalculatorForm').hide();
+      },
+
+      cancelSolarCalculatorForm: function(){
         $('.solarCalculatorTable').show();
         $('.customizeSolarCalculatorForm').hide();
       },

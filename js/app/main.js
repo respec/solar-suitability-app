@@ -31,7 +31,9 @@ define([
   'esri/layers/RasterFunction',
   'esri/map',
   'esri/geometry/Point',
-  'esri/geometry/webMercatorUtils'
+  'esri/geometry/webMercatorUtils',
+
+  'dojo/_base/lang'
 
   ],
 
@@ -45,7 +47,9 @@ define([
 
     QueryModel, ReportModel,
 
-    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils
+    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils,
+
+    lang
 
     ) {
 
@@ -107,14 +111,13 @@ define([
         };
 
         this.map = new Map('mapContainer', {
-          basemap: 'solar',
+          basemap: 'topo',
           center: [config.centerLng, config.centerLat],
           showAttribution: false,
+          showLabels : true,
           zoom: config.defaultZoom
             // extent: new Extent(this.config.extent)
           });
-
-
 
         var params = new ImageParams();
 
@@ -132,6 +135,12 @@ define([
           opacity: 1.0
         });
 
+        // NOT QUITE WORKING YET
+        // NEED TO TAKE RASTER OFFLINE TO TEST
+        solarLayer.on('error', function(err){
+          console.log('oops -', err);
+        });
+
         //solarLayer.hide();
 
         // Create aerial layer and load hidden
@@ -147,24 +156,28 @@ define([
         streetLayer.hide();
 
         var countiesLayer = new FeatureLayer(config.countiesUrl, {
-          id: 'counties'
+          id: 'counties',
+          showLabels : false
         });
         countiesLayer.hide();
 
         var eusaLayer = new FeatureLayer(config.eusaUrl, {
-          id: 'eusa'
+          id: 'eusa',
+          showLabels : true
         });
         eusaLayer.hide();
         eusaLayer.setOpacity(0.65);
 
         var waterLayer = new FeatureLayer(config.waterUrl, {
           id: 'water',
+          showLabels : false,
           minScale: 72223.819286
         });
         waterLayer.hide();
 
         var maskLayer = new FeatureLayer(config.canadaUsMaskUrl, {
-          id: 'mask'
+          id: 'mask',
+          showLabels : false
         });
         maskLayer.setOpacity(0.8);
 
@@ -173,7 +186,7 @@ define([
         });
 
         // Add existing solar installations to the map
-        var installationsLayer = new GeoRSSLayer('http://www.cleanenergyprojectbuilder.org/solar-projects.xml', {
+        var installationsLayer = new GeoRSSLayer(config.certsGeoRssUrl, {
           id: 'georss',
           pointSymbol: config.installationSymbol
         });
@@ -221,51 +234,15 @@ define([
             $waterToggle.bootstrapToggle('off');
             app.map.getLayer('water').hide();
           }
+
+          // Esri base maps not available beyond zoom level 19 so warn user and re-enable solar
+          if (currentZoom > 19 && app.map.getLayer('solar').visible === false){
+            app.showAlert('danger','Warning:','Basemap is not available at this zoom level, solar data will be re-enabled.');
+            app.map.getLayer('solar').show();
+            $('#solarToggle').bootstrapToggle('on');
+          }
+         
         });
-
-        // // Read URL Parameters
-        // function getParameterByName(name) {
-        //   name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        //   var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
-        //     results = regex.exec(location.search);
-        //   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-        // }
-
-        // // // If coords supplied via param, zoom to them
-        // if (getParameterByName('long') < -75 && getParameterByName('lat') > 35) {
-
-        //   var map = new Map('mapContainer', {
-        //     basemap: 'solar',
-        //     center: [getParameterByName('long'), getParameterByName('lat')],
-        //     showAttribution: false,
-        //     zoom: 13
-        //   });
-
-        // //   setTimeout(function() {
-        // //     zoomToCoords(getParameterByName('long'), getParameterByName('lat'), 15);
-        // //   }, 4000);
-
-        // //   // if getParameterByName('q') = 1 then call solar query here
-
-        // //   if (getParameterByName('q') == 1) {
-
-        // //     var pt = new Point(getParameterByName('long'), getParameterByName('lat'));
-
-        // //     pixelQuery(pt);
-
-        // //   }
-
-        // } else {
-
-        // Setup solar imageservice layer
-        // var map = new Map('mapContainer', {
-        //   basemap: 'solar',
-        //   center: [-93.243322, 44.971795],
-        //   showAttribution: false,
-        //   zoom: 13
-        // });
-        // }
-
 
         this.initComponents();
       },
@@ -314,15 +291,11 @@ define([
           el: this.layout.$el.find('.email-container')
         });
 
-        /* Handle splash display */
-        helpSplashController.checkDontShow();
-
         /* Enable tool tips */
         // $('[data-toggle='tooltip']').tooltip();
 
         this.mapController();
 
-        
       },
 
       mapController: function() {
@@ -383,10 +356,14 @@ define([
         // });
       },
 
-      showAlert: function(alertType, headline, message) {
+      // Show a floating fade in/out alert message, a duration of 0 forces the user to dismiss the alert
+      showAlert: function(alertType, headline, message, duration) {
+          alertDuration = duration || 3700;
           $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
-          $('#alert').toggleClass('in');
-          window.setTimeout(function () { $("#alert").toggleClass('in'); }, 3700);
+          $('#alert').addClass('in');
+          if (duration > 0){
+            window.setTimeout(function () { $('#alert').removeClass('in'); }, alertDuration);
+          }
         },
 
       formatMoney: function(nStr) {
@@ -416,7 +393,7 @@ define([
         var lat = parseFloat(getParameterByName('lat'));
         
         if (lng && lat){
-          $('.appHelpModal').modal('hide');
+          //$('.appHelpModal').modal('hide');
           
           app.map.centerAndZoom([lng, lat - 0.0003], 19);
           var point = new Point (lng, lat, app.map.spatialReference);
@@ -424,6 +401,9 @@ define([
           var pseudoEventPt = {mapPoint: mp};
 
           query.pixelQuery(pseudoEventPt);
+        } else {
+          /* Handle splash display */
+          helpSplashController.checkDontShow();
         }
 
       }

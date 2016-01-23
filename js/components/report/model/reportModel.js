@@ -42,7 +42,9 @@ function(
             website: '',
             abbreviatedName: '',
             zip: ''
-          }
+          },
+
+          madeInMNCounty: false
 
         }
 
