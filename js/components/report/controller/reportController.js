@@ -388,7 +388,7 @@ define([
         });
       },
       createPdf: function() {
-        var parent = this;
+        $('#pdfButton').html('<i class="fa fa-spinner fa-spin"></i> Saving...');
         // track pdf compenents as they're generated, ultimately this should be replaced with Deffered() objects
         app.pdfparts = 0;
 
@@ -397,74 +397,107 @@ define([
           unit: 'px',
           format: 'letter'
         });
-        app.doc.setFont('helvetica', 'normal');
+        //app.doc.setFont('helvetica', 'normal');
+        //app.doc.setFont("courier", "italic");
+        this.pdfSolarHistoToCanvas();
 
-        // write all SVG charts to canvas elements
+      },
+      pdfSolarHistoToCanvas: function(){
+        // write SVG chart to canvas element
         var serializer = new XMLSerializer();
         var string = serializer.serializeToString($('.chart')[0]);
 
+        // sun hours histogram
         var cvg = canvg('cvgCanvas', string, {
-          renderCallback: this.buildPDF()
+          renderCallback: this.pdfMonthlyHistoToCanvas()
         });
-
-        //console.log(app.pdfparts); 
-
-        //
-        // all([cvg]).then(lang.hitch(this, 
-        //   
-        // ));
-
       },
-      buildPDF: function() {
-        console.log("you made it");
-        //var requests = [this.pdfMakeHeader(), this.pdfAddSunHisto(), this.pdfMakeAirMap()];
-        //var requests = [this.pdfMakeHeader()];
+      pdfMonthlyHistoToCanvas: function(){
+        var serializer = new XMLSerializer();
+        var rc = serializer.serializeToString($('.reportChart')[0]);
 
-        // var text = this.pdfAddSunHisto();
-
-        // text.then(function(results){
-        //   console.log('then');
-        //   console.log(results);
-        // })
-
-        all([this.pdfMakeHeader(), this.pdfAddSunHisto()]).then(lang.hitch(this, function(res) {
-          app.doc.addImage(res[0], 'PNG', 10, 10);
+        // monthly histogram
+        var mc = canvg('monthlyCanvas', rc, {
+          renderCallback: this.pdfPageOne()
+        });
+      },
+      pdfPageOne: function() {
+        console.log("Starting to buildPDF");
+        pdfPageOne = [
+            this.pdfMakeHeader(), 
+            this.pdfAddSunHisto(), 
+            this.pdfMakeAirMap(), 
+            this.pdfMakeSolarMap(), 
+            this.pdfMakeSunBar(),
+            this.pdfSiteDetails()
+          ];
+        all(pdfPageOne).then(lang.hitch(this, function(res) {
+          app.doc.addImage(res[0], 'PNG', 10, 10); // add header to pdf
+          app.doc.addImage(res[4], 'PNG', 5, 350); // add sun % bar to pdf
+          app.doc.addPage();
+          this.pdfPageTwo();
+        }));
+      },
+      pdfPageTwo: function() {
+        pdfPageTwo = [
+            this.pdfSolarCalc()
+          ];
+        all(pdfPageTwo).then(lang.hitch(this, function(res) {
+          app.doc.addPage();
+          this.pdfPageThree();
+        }));
+      },
+      pdfPageThree: function(){
+        pdfPageThree = [
+            this.pdfAddMonthlyHisto(), 
+            this.pdfMoreResults()
+          ];
+        all(pdfPageThree).then(lang.hitch(this, function(res) {
           this.writePdf();
         }));
       },
       pdfAddSunHisto: function() {
 
         var def = new Deferred();
+
         setTimeout(function() {
           var sunH = $('#cvgCanvas')[0];
-          app.doc.text(260, 350, 'Percent Sun Hours By Month');
+          //app.doc.setFontStyle('bold');
+          // app.doc.setFont('helvetica', 'bold');
+          // app.doc.text(275, 360, 'Percent Sun Hours By Month');
+
+          app.doc.fromHTML("<h3>Percent Sun Hours By Month</h3>", 278, 355, { 'width':200});
+
           app.doc.addImage(sunH, 'PNG', 240, 370);
           app.pdfparts++;
           def.resolve();
         }, 1000);
+
         return def.promise;
 
+      },
+      pdfAddMonthlyHisto: function() {
+
+        var def = new Deferred();
+
+        setTimeout(function() {
+          var sunH = $('#monthlyCanvas')[0];
+          //app.doc.setFontStyle('bold');
+          // app.doc.setFont('helvetica', 'bold');
+          // app.doc.text(275, 360, 'Percent Sun Hours By Month');
+
+          app.doc.fromHTML("<h3>Insolation by Month</h3>", 165, 335, { 'width':200});
+          app.doc.addImage(sunH, 'PNG', 120, 350);
+          def.resolve();
+        }, 1000);
+
+        return def.promise;
       },
       pdfMakeHeader: function() {
         // 1) Report header w/ logo
         var h = $('#reportHeader');
         var makeH = html2canvas(h);
-        // .then( 
-        //       function(canvas){
-        //           console.log(canvas);
-        //           //$('#reportHeader').append(canvas);
-        //           app.doc.addImage(canvas, 'PNG', 10, 10);
-        //           app.pdfparts++;
-        //           // this.pdfAddSunHisto();
-        //         },
-        //         function (){
-        //           console.log("header ffailed");
-        //         }
-        //         );
-
         return makeH;
-        // TODO retry lang.hitch and
-        //pdfFailedPart("header failed")));
       },
       pdfMakeAirMap: function() {
         // Convert mini maps to canvas elements
@@ -477,65 +510,53 @@ define([
 
         var makeAirMap = mapToCanvas(airElem, airCanvas).then(lang.hitch(this,
           function() {
-            // var air;
-            // try {
-            //   air = airCanvas.toDataURL();
-            // } catch (e) {
-            //   console.log("Error generating image URL", e.message);
-            //   //alert(e.message);
-            // }
             app.doc.addImage(airCanvas, 'PNG', 240, 130, 200, 200);
             app.pdfparts++;
           },
-          this.pdfFailedPart("Air map to canvas failed.")));
+          function (){
+              console.log("Air map to canvas failed. " + app.pdfparts);
+          }));
 
         return makeAirMap;
       },
+      pdfMakeSolarMap: function(){
+         // 4) solar map
+        var solCanvas = document.getElementById("solarMapCanvas");
+        var solElem = app.reportSolarMap;
+        var makeSolMap = mapToCanvas(solElem,solCanvas).then(
+          function (){
+              //CURRENTLY THERE IS A CORS ISSUE PREVENTING THIS FROM WORKING -AJW
+              var sol;
+              try {
+                sol = solCanvas.toDataURL();
+              } catch (e) {
+                console.log("Error generating image URL", e.message);
+                solCanvas = document.getElementById("aerialMapCanvas"); // when sol map is tainted use air map instead
+              }
+              app.doc.addImage(solCanvas, 'PNG',22,130,200,200);
+              console.log("Sol map added");
+              app.pdfparts++;
+          },
+          function (){
+              console.log("Solar map failed " + app.pdfparts);
+          });
 
-      pdfFailedPart: function(msg) {
-        console.log(msg);
+        return makeSolMap;
       },
-      /*
-            // 4) solar map
-            var solCanvas = document.getElementById("solarMapCanvas");
-            var solElem = app.reportSolarMap;
-            mapToCanvas(solElem,solCanvas).then(
-              function (success){
-                  // CURRENTLY THERE IS A CORS ISSUE PREVENTING THIS FROM WORKING -AJW
-                  // var sol;
-                  // try {
-                  //   sol = solCanvas.toDataURL();
-                  // } catch (e) {
-                  //   console.log("Error generating image URL", e.message);
-                  //   solCanvas = airCanvas; // when sol map is tainted use air map instead
-                  // }
-                  app.doc.addImage(solCanvas, 'PNG',22,130,200,200);
-                  app.pdfparts++;
-              },
-              function (failure){
-                  console.log("solar map failed " + app.pdfparts);
-                  app.doc.addImage(airCanvas, 'PNG',22,130,200,200);
-                  app.pdfparts++;
-              });
+      pdfMakeSunBar: function() {
+        // 5) Solar progress bar graphic
+          $('.hidden-print').hide();
+          var f = $('#progressBar');
+          var makeBar = html2canvas(f);
+          console.log("hi from pdfMakerSunBar",makeBar);
+          return makeBar;
+      },
+      pdfSiteDetails: function() {
 
-              // Hide all non printing items
-              $('.hidden-print').hide();
+        var def = new Deferred();
 
-              // 5) Solar progress bar graphic
-              var f = $('#progressBar');
-              html2canvas(f,{
-               imageTimeout:2000,
-               removeContainer:true
-              }).then(
-                  function(sunBarCanvas){
-                      app.doc.addImage(sunBarCanvas, 'PNG', 5, 350);
-                      app.pdfparts++;
-                  },
-                    function(failure){
-                      console.log("report header failed " + app.pdfparts);
-                      app.pdfparts++;
-                    });
-              
+        setTimeout(function() {
+          
               // 6) Site details
               app.doc.fromHTML($('.customDetails').get(0), 35, 60, {
                 'width': 700  
@@ -555,25 +576,42 @@ define([
               app.pdfparts++;
 
               // 9) site details
-              app.doc.text(22,530,"Site Details");
+              //app.doc.text(22,530,"Site Details");
+              app.doc.fromHTML("<div><strong>Site Details:</strong></div> " +
+                "<div>Total Annual Insolation: " + app.model.attributes.totalPerYear + " kWh/m^2</div>" +
+                "<div>Avg Insolation per Day: " + app.model.attributes.averagePerDay + " kWh/m^2</div>" +
+                //"<div>Site Quality: " + app.model.attributes.quality + "</div>" +
+                "<div>Source Data: " + app.model.attributes.lidarCollect + "</div>", 22,530, { 'width':200});
               app.pdfparts++;
 
-              console.log(app.pdfparts);                      
-              setTimeout(app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ","") + '.pdf'), 2000);
-              */
-      //  TODO: remove simg, install cdn resources locally
+          def.resolve();
+        }, 2000);
 
-      // margins = {
-      //   top: 80,
-      //   bottom: 60,
-      //   left: 40,
-      //   width: 522
-      // };
-      // this.footer();
+        return def.promise;
+
+      },
+      pdfSolarCalc: function() {
+
+        app.doc.fromHTML("<h3>Solar Calculator</h3>", 25, 10, { 'width':200});
+        app.doc.fromHTML($('#solarCalc').get(0),25,25,{'width':600});
+
+        //app.doc.fromHTML($('#solarCalcOutputs').get(0),20,220,{'width':650});
+      },
+      pdfMoreResults: function(){
+        app.doc.fromHTML("<h3>Monthly Insolation</h3>", 25, 10, { 'width':200});
+        app.doc.fromHTML($('#reportResultsTable').get(0),25,25,{'width':600});
+      },
+      pdfFailedPart: function(msg) {
+        console.log(msg);
+      },
+
       writePdf: function() {
-        console.log("its done!");
-        //setTimeout( function(){ app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ","") + '.pdf');},3000);
-        app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ", "") + '.pdf');
+        console.log("Now writing PDF!");
+        setTimeout( function(){ 
+          app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ","") + '.pdf');
+          $('#pdfButton').html('PDF');
+        },3000);
+        //app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ", "") + '.pdf');
       },
 
       footer: function() {

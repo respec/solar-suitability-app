@@ -209,8 +209,8 @@
                                 <div class="reportTitle">
                                     <strong>Insolation by Month</strong>
                                 </div>
-                                <div id="reportResultsHisto">
-                                </div>
+                                <div id="reportResultsHisto"></div>
+                                <canvas id="monthlyCanvas" width="200" height="200"></canvas>
                             </div>
                             
                         </div>
@@ -256,7 +256,7 @@
             </div><!-- /.container-fluid -->
         </div> <!-- /.modal-body -->
 
-        <div class="modal-footer reportFooter hidden-print">
+        <div class="modal-footer reportFooter">
             <!-- <button type="button" class="btn btn-default downloadButton">Download PDF</button> -->
             <button type="button" id="pdfButton" class="btn btn-primary printButton">PDF</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

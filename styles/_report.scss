@@ -13,7 +13,8 @@
   height: -webkit-calc((#{$modalHeight} - 5vh) - (#{$headHeight} + #{$footHeight}));
   height: -moz-calc((#{$modalHeight} - 5vh) - (#{$headHeight} + #{$footHeight}));
   height: calc((#{$modalHeight} - 5vh) - (#{$headHeight} + #{$footHeight}));
-  overflow-y: auto; 
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .customizeReportForm, .customizeSolarCalculatorForm {
