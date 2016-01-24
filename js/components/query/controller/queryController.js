@@ -54,8 +54,8 @@ define([
         app.reportModel.set('latLngPt', mp);
         //console.log(mp);
         var myTitle = "Solar Report for " + mp.y + ", " + mp.x;
-        var myUrl = "?lat=" + mp.y + "&long="+mp.x;
-        history.pushState(null,myTitle,myUrl);
+        var myUrl = "?lat=" + mp.y + "&long=" + mp.x;
+        history.pushState(null, myTitle, myUrl);
         console.log(config.appDomain + "/" + myUrl);
         this.handleMap();
       },
@@ -165,8 +165,8 @@ define([
           app.model.set('utilityCompany', utilityCompany);
 
           // Determine if EUSA is a MiM county
-          _.find(config.madeInMnCounties, function(county){
-            if (utilityCompany.abbreviatedName === county){
+          _.find(config.madeInMnCounties, function(county) {
+            if (utilityCompany.abbreviatedName === county) {
               return app.reportModel.set('madeInMNCounty', true);
             } else {
               app.reportModel.set('madeInMNCounty', false);
@@ -730,7 +730,8 @@ define([
             .attr('width', barWidth)
             .attr('height', function(d) {
               return height - y(d[1]);
-            });
+            })
+            .attr('fill', config.backgroundBarColor);
 
         }
 
@@ -746,7 +747,8 @@ define([
           .attr('width', barWidth)
           .attr('height', function(d) {
             return height - y(d[0]);
-          });
+          })
+          .attr('fill', config.barColor);
 
         // CREATE TOOL TIP
         if (chartObj.tip) {
