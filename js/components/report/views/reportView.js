@@ -40,6 +40,7 @@ define([
       events: {
         'click .editTitle': 'editTitle',
         'click .editSiteDetails': 'showCustomDetailsForm',
+        'click .cancelEditSiteDetails': 'cancelEditSiteDetailsForm',
         'click .editSolarCalculator': 'showCustomSolarCalculatorForm',
         'click .cancelSolarCalculatorEdit': 'cancelSolarCalculatorForm',
         'click .closeSplash': 'hideEditTitleModal',
@@ -138,7 +139,7 @@ define([
         });
 
         $('#clearSolarArrayButton').on('click', lang.hitch(this, function(){
-          this.clearSolarArray();
+          reportController.clearSolarArray();
         }));
 
         $('#pdfButton').on('click', function(){
@@ -244,6 +245,11 @@ define([
         $('.customDetails').show();
       },
 
+      cancelEditSiteDetailsForm: function() {
+        $('.customizeReportForm').hide();
+        $('.customDetails').show();
+      },
+
       saveSolarCalculatorValues: function(){
         var $averageUsePerMonth = $('#editAverageUsePerMonth');
         var $costPerkWh = $('#editCostPerkWh');
@@ -282,30 +288,6 @@ define([
       handleDrawSolarArray: function(){
         reportController.prepareForSolarArray();
         // reportController.drawSolarArray();
-      },
-
-      handleReturnFromSolarArray: function(){
-        // show resultsSmallDrawer
-        $resultsSmall = $('#resultsSmall');
-        $resultsSmall.show();
-
-        // hide edit toolbar
-        // $editToolbar = $('.editToolbar');
-        // $editToolbar.hide();
-        
-        // hide finished drawing button
-        $finishedDrawing = $('.finishedDrawSolarArrayRow');
-        $finishedDrawing.hide();
-
-        $("#clearSolarArrayButton").hide();
-
-        // restore report modal
-        $('#reportModal').modal('show');
-      },
-
-      clearSolarArray: function(){
-        mapController.clearGraphics(app.map, ['solarArray']);
-        mapController.clearGraphics(app.reportAerialMap, ['reportSolarArray']);
       }
 
     });
