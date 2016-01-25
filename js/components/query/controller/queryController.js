@@ -80,7 +80,7 @@ define([
       },
 
       serverError: function(error) {
-        app.showAlert('danger', 'There appears to be something wrong with the server.', 'Please try again later.  If the error persists, please contact us at OUR EMAIL');
+        app.showAlert('danger', 'Uffdah! There appears to be something wrong with our server.', 'Please try again soon.  If the issue persists, contact us at <a href="mailto:' + config.appEmail + '">' + config.appEmail + '</a>');
         loadSplashController.hideLoader();
       },
 

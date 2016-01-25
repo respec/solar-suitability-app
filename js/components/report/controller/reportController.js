@@ -60,8 +60,8 @@ define([
         // 
         // clear content (from previous click)
         queryController.clearDiv($('#reportResultsHisto'));
-        queryController.clearDiv($('#reportSunHrsHisto'));
-        queryController.clearDiv($('#reportShadeHrsHisto'));
+        //queryController.clearDiv($('#reportSunHrsHisto'));
+        //queryController.clearDiv($('#reportShadeHrsHisto'));
 
         // draw insol hours chart
         var reportInsolChart = app.charts.insolChart;
@@ -85,19 +85,30 @@ define([
         // this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
         // this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
 
-        $('#sunPercentHisto').html("");
-        $('#resultsText').html("");
-        $('#sunPercentHisto').append($("#sunHrsHisto").html());
-        $('#resultsText').append($('#solarCalcText').html());
-        $('#progressBar').append($('#percentSunBar').html());
-        $('#progressBar').find(".showGradient").css('border-right', '2px solid black');
-        $('#progressBar').find(".gradient").css('border', '1px solid black');
-        $('.progress-labels').find("div").css('border-left', '1px solid black');
-        $("#resultsText").find("a").css('color', 'black');
-        $('#sunPercentHisto').find('.tick > text').css({
+        // Clear & Copy preview drawer elements into report
+        $('#sunPercentHistoRpt').html("");
+        $('#resultsTextRpt').html("");
+        $('#progressBarRpt').html("");
+
+        $('#sunPercentHistoRpt').append($("#sunHrsHisto").html());
+        $('#resultsTextRpt').append($('#solarCalcText').html());
+        $('#progressBarRpt').append($('#percentSunBar').html());
+
+        // Alter styles to handle white background
+        $('#progressBarRpt').find(".showGradient").addClass('showGradientRpt');
+        $('#progressBarRpt').find(".gradient").addClass('gradientRpt');
+        $('#progressBarRpt').find('.barClass').addClass('barClassRpt');
+        $("#resultsTextRpt").find("a").toggleClass('madeInMn mimLinkRpt');
+        //$('#progressBar').find(".showGradient").css('border-right', '2px solid black');
+        //$('#progressBar').find(".gradient").css('border', '1px solid black');
+        //$('.progress-labels').find("div").css('border-left', '1px solid black');
+        //$("#resultsText").find("a").css('color', 'black');
+        $('#sunPercentHistoRpt').find('.tick > text').css({
           fill: "#000"
         });
-        $(".backgroundBar").hide();
+        
+        // Hide ideal sun bars until we figure out svg fill issue
+        $('#sunPercentHistoRpt').find(".backgroundBar").hide();
 
       },
 
@@ -391,7 +402,7 @@ define([
         $('#pdfButton').html('<i class="fa fa-spinner fa-spin"></i> Saving...');
         // track pdf compenents as they're generated, ultimately this should be replaced with Deffered() objects
         app.pdfparts = 0;
-
+        app.canvas = {};
         // Setup portrait letter pdf 612 x 792 px
         app.doc = new jsPDF({
           unit: 'px',
@@ -406,18 +417,18 @@ define([
         // write SVG chart to canvas element
         var serializer = new XMLSerializer();
         var string = serializer.serializeToString($('.chart')[0]);
-
+        app.canvas.sunH = document.createElement("CANVAS");
         // sun hours histogram
-        var cvg = canvg('cvgCanvas', string, {
+        var cvg = canvg(app.canvas.sunH, string, {
           renderCallback: this.pdfMonthlyHistoToCanvas()
         });
       },
       pdfMonthlyHistoToCanvas: function(){
         var serializer = new XMLSerializer();
         var rc = serializer.serializeToString($('.reportChart')[0]);
-
+        app.canvas.monthlyInsol = document.createElement("CANVAS");
         // monthly histogram
-        var mc = canvg('monthlyCanvas', rc, {
+        var mc = canvg(app.canvas.monthlyInsol, rc, {
           renderCallback: this.pdfPageOne()
         });
       },
@@ -461,14 +472,15 @@ define([
         var def = new Deferred();
 
         setTimeout(function() {
-          var sunH = $('#cvgCanvas')[0];
+          //var sunH = $('#cvgCanvas')[0];
+          
           //app.doc.setFontStyle('bold');
           // app.doc.setFont('helvetica', 'bold');
           // app.doc.text(275, 360, 'Percent Sun Hours By Month');
 
-          app.doc.fromHTML("<h3>Percent Sun Hours By Month</h3>", 278, 355, { 'width':200});
+          app.doc.fromHTML("<h3>Sun Hours By Month</h3>", 300, 347, { 'width':200});
 
-          app.doc.addImage(sunH, 'PNG', 240, 370);
+          app.doc.addImage(app.canvas.sunH, 'PNG', 240, 370);
           app.pdfparts++;
           def.resolve();
         }, 1000);
@@ -481,13 +493,10 @@ define([
         var def = new Deferred();
 
         setTimeout(function() {
-          var sunH = $('#monthlyCanvas')[0];
-          //app.doc.setFontStyle('bold');
-          // app.doc.setFont('helvetica', 'bold');
-          // app.doc.text(275, 360, 'Percent Sun Hours By Month');
+          //var sunH = $('#monthlyCanvas')[0];
 
-          app.doc.fromHTML("<h3>Insolation by Month</h3>", 165, 335, { 'width':200});
-          app.doc.addImage(sunH, 'PNG', 120, 350);
+          app.doc.fromHTML("<h3>Insolation by Month</h3>", 165, 310, { 'width':200});
+          app.doc.addImage(app.canvas.monthlyInsol, 'PNG', 120, 325);
           def.resolve();
         }, 1000);
 
@@ -501,16 +510,19 @@ define([
       },
       pdfMakeAirMap: function() {
         // Convert mini maps to canvas elements
-        $('.canvasMap').width(400);
-        $('.canvasMap').height(400);
+        //$('.canvasMap').width(400);
+        //$('.canvasMap').height(400);
 
         // 3) Aerial photo map with solar panels
-        var airCanvas = document.getElementById("aerialMapCanvas");
+        //var airCanvas = document.getElementById("aerialMapCanvas");
+        app.canvas.airCanvas = document.createElement("CANVAS");
+        app.canvas.airCanvas.width = 400;
+        app.canvas.airCanvas.height = 400;
         var airElem = app.reportAerialMap;
 
-        var makeAirMap = mapToCanvas(airElem, airCanvas).then(lang.hitch(this,
+        var makeAirMap = mapToCanvas(airElem, app.canvas.airCanvas).then(lang.hitch(this,
           function() {
-            app.doc.addImage(airCanvas, 'PNG', 240, 130, 200, 200);
+            app.doc.addImage(app.canvas.airCanvas, 'PNG', 240, 125, 200, 200);
             app.pdfparts++;
           },
           function (){
@@ -521,19 +533,22 @@ define([
       },
       pdfMakeSolarMap: function(){
          // 4) solar map
-        var solCanvas = document.getElementById("solarMapCanvas");
+        app.canvas.solCanvas = document.createElement("CANVAS");
+        app.canvas.solCanvas.width = 400;
+        app.canvas.solCanvas.height = 400;
         var solElem = app.reportSolarMap;
-        var makeSolMap = mapToCanvas(solElem,solCanvas).then(
+
+        var makeSolMap = mapToCanvas(solElem,app.canvas.solCanvas).then(
           function (){
               //CURRENTLY THERE IS A CORS ISSUE PREVENTING THIS FROM WORKING -AJW
               var sol;
               try {
-                sol = solCanvas.toDataURL();
+                sol = app.canvas.solCanvas.toDataURL();
               } catch (e) {
-                console.log("Error generating image URL", e.message);
-                solCanvas = document.getElementById("aerialMapCanvas"); // when sol map is tainted use air map instead
+                console.log("Solar map could not be added to PDF due to CORS issue. ", e.message);
+                app.canvas.solCanvas = app.canvas.airCanvas; // when sol map is tainted use air map instead
               }
-              app.doc.addImage(solCanvas, 'PNG',22,130,200,200);
+              app.doc.addImage(app.canvas.solCanvas, 'PNG',22,125,200,200);
               console.log("Sol map added");
               app.pdfparts++;
           },
@@ -545,8 +560,8 @@ define([
       },
       pdfMakeSunBar: function() {
         // 5) Solar progress bar graphic
-          $('.hidden-print').hide();
-          var f = $('#progressBar');
+          //$('.hidden-print').hide();
+          var f = $('#progressBarRpt');
           var makeBar = html2canvas(f);
           console.log("hi from pdfMakerSunBar",makeBar);
           return makeBar;
@@ -564,13 +579,13 @@ define([
               app.pdfparts++;
 
               // 7) results text paragraph
-              app.doc.fromHTML($('#resultsText').get(0), 22, 390, {
+              app.doc.fromHTML($('#resultsTextRpt').get(0), 22, 380, {
                 'width': 200  
               });
               app.pdfparts++;
 
               // 8) utility contact info
-              app.doc.fromHTML($('#EUSA').get(0), 22, 450, {
+              app.doc.fromHTML($('#EUSA').get(0), 22, 445, {
                 'width': 200  
               });
               app.pdfparts++;
@@ -593,13 +608,13 @@ define([
       pdfSolarCalc: function() {
 
         app.doc.fromHTML("<h3>Solar Calculator</h3>", 25, 10, { 'width':200});
-        app.doc.fromHTML($('#solarCalc').get(0),25,25,{'width':600});
+        app.doc.fromHTML($('#solarCalc').get(0),25,30,{'width':700});
 
         //app.doc.fromHTML($('#solarCalcOutputs').get(0),20,220,{'width':650});
       },
       pdfMoreResults: function(){
         app.doc.fromHTML("<h3>Monthly Insolation</h3>", 25, 10, { 'width':200});
-        app.doc.fromHTML($('#reportResultsTable').get(0),25,25,{'width':600});
+        app.doc.fromHTML($('#reportResultsTable').get(0),25,30,{'width':700});
       },
       pdfFailedPart: function(msg) {
         console.log(msg);
@@ -610,7 +625,7 @@ define([
         setTimeout( function(){ 
           app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ","") + '.pdf');
           $('#pdfButton').html('PDF');
-        },3000);
+        },2000);
         //app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ", "") + '.pdf');
       },
 

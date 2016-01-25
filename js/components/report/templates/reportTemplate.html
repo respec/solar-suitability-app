@@ -97,9 +97,9 @@
                             <div>
                                 <strong>Solar Map</strong>
                             </div>
-                            <div id="reportSolarMap-container" class="hidden-print">
+                            <div id="reportSolarMap-container">
                             </div>
-                            <canvas id="solarMapCanvas" class="canvasMap" width="0" height="0"></canvas>
+                            <!-- <canvas id="solarMapCanvas" class="canvasMap" width="0" height="0"></canvas> -->
                         </div>
                         <div class="col-md-6 resultsImage">
                             <div>
@@ -111,7 +111,7 @@
                                 <strong>Aerial Map</strong>
                             </div>
                             
-                            <div id="reportAerialMap-container" class="hidden-print">
+                            <div id="reportAerialMap-container">
                                 <!--
                                 <div id="reportAngleControls" class="input-group">
                                     <span class="input-group-btn">
@@ -128,7 +128,7 @@
                                 </div>
                             -->
                         </div>
-                        <canvas id="aerialMapCanvas" class="canvasMap" width="0" height="0"></canvas>
+                        <!-- <canvas id="aerialMapCanvas" class="canvasMap" width="0" height="0"></canvas> -->
                     </div>
                 </div><!-- /.row -->
                 <!-- End Maps -->
@@ -136,8 +136,8 @@
                 <hr />
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="row" id="progressBar"></div>
-                        <div id="resultsText"></div>
+                        <div class="row" id="progressBarRpt"></div>
+                        <div id="resultsTextRpt" class="top-lg"></div>
                         
                         <div id="EUSA" class="top-lg">
                             <strong>Utility Service Provider:</strong>
@@ -154,13 +154,16 @@
                             <div id="reportUtilityPhone">
                                 <%=utilityCompany.phone%>
                             </div>
+                            <div id="reportUtilityWebsite">
+                                <a href="http://<%=utilityCompany.website%>"><%=utilityCompany.website%></a>
+                            </div>
                         </div>
                     </div>
                 
                     <div class="col-md-6">
-                        <div style="padding-left:15px;"><strong>Percent Sun Hours By Month</strong></div>
-                        <div id="sunPercentHisto"></div>
-                        <canvas id="cvgCanvas" width="200" height="200"></canvas>
+                        <div class="reportTitle"><strong>Sun Hours By Month</strong></div>
+                        <div id="sunPercentHistoRpt"></div>
+                       <!-- <canvas id="cvgCanvas" width="200" height="200"></canvas> -->
                     </div>
                 </div>
                 
@@ -195,12 +198,12 @@
 
                         <div class="row reportHisto">
                             <div class="col-md-6 reportHisto" id="reportResultsTable">
-                                <table class="reportTable table table-bordered table-striped">
+                                <table class="reportTable table table-bordered table-condensed table-striped">
                                     <tbody>
                                     <tr class="info center">
-                                        <td>Month</td>
-                                        <td>Percent Sun<br />(Unshaded)</td>
-                                        <td>Actual Sun<br />(kWh/m<sup>2</sup> per month)</td>
+                                        <th>Month</th>
+                                        <th>Percent Sun <br />(Unshaded)</th>
+                                        <th>Total Insolation <br />(kWh/m<sup>2</sup> per month)</th>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -210,7 +213,7 @@
                                     <strong>Insolation by Month</strong>
                                 </div>
                                 <div id="reportResultsHisto"></div>
-                                <canvas id="monthlyCanvas" width="200" height="200"></canvas>
+                               <!-- <canvas id="monthlyCanvas" width="200" height="200"></canvas> -->
                             </div>
                             
                         </div>

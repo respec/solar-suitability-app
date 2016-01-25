@@ -24,14 +24,14 @@
                         <%=averagePerDay%> kWh/m<sup>2</sup>
                     </div>
                 </div>
-                <div class="row">
+               <!--  <div class="row">
                     <div class="col-md-5">
                         Site Quality:
                     </div>
                     <div class="col-md-6" id="quality">
                         <%=quality%>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-5">
                         Source Data:
@@ -41,8 +41,26 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5">
+                    <div class="row top-lg hidden-print">
+                        <div class="col-md-12">
+                            <div id="reportGetStarted">
+                                <a href="<%=learnMoreAboutSolar%>" target="_blank">Learn More About Solar</a>
+                            </div>
+                            <div id="reportGetStarted">
+                                <a href="<%=mnInstallers + utilityCompany.zip%>" target="_blank">Contact a Local Installer</a>
+                            </div>
+                            <div id="reportIncentives">
+                                <a href="<%=mnIncentives + utilityCompany.zip%>" target="_blank">MN Solar Incentives</a>
+                            </div>
+                        </div>
+                </div>
+            </div>
         </div><!-- ./row-->
-        <div class="row top-lg hidden-print">
+
+       <!--  <div class="row top-lg hidden-print">
                 <div class="col-md-12">
                     <span id="reportGetStarted">
                         <a href="<%=learnMoreAboutSolar%>" target="_blank">Learn More About Solar</a>
@@ -54,6 +72,6 @@
                         <a href="<%=mnIncentives + utilityCompany.zip%>" target="_blank">MN Solar Incentives</a>
                     </span>
                 </div>
-        </div>
+        </div> -->
     </div>
 </div>
