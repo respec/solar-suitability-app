@@ -311,9 +311,8 @@ define([
         $finishedDrawing = $('.finishedDrawSolarArrayRow');
         $finishedDrawing.show();
 
-        // Show toolbar row
-        $toolbar = $('.toolbarDrawSolarArrayRow');
-        $toolbar.show();
+        // Show toolbar row if graphics exist
+        this.handleClearSolarArrayButton();
 
         // Center and zoom main map on point
         app.map.centerAndZoom([app.query.latLngPt.x, app.query.latLngPt.y], 19);
@@ -325,8 +324,8 @@ define([
       handleSolarArrayDrawing: function() {
         console.log('handleSolarArrayDrawing');
         this.createToolbar();
-        esri.bundle.toolbars.draw.start = "Click and release to begin drawing";
-        esri.bundle.toolbars.draw.resume = "Click and release to continue drawing";
+        esri.bundle.toolbars.draw.start = 'Click and release to begin drawing';
+        esri.bundle.toolbars.draw.resume = 'Click and release to continue drawing';
 
         app.editToolbar.activate(Draw['POLYGON']);
       },
@@ -340,19 +339,18 @@ define([
       },
 
       addToMap: function(evt) {
-        console.log(evt.geometry);
         var symbol = config.solarPanelSymbol;
-        console.log(symbol);
-        var graphic = new Graphic(evt.geometry, symbol);
-        console.log(graphic);
-        var solarArrayLayer = app.map.getLayer('solarArray');
-        var reportSolarArrayLayer = app.reportAerialMap.getLayer('reportSolarArray');
-        // console.log('adding', graphic, 'to main');
 
-        solarArrayLayer.add(graphic);
+        // add to main map
+        var graphic = new Graphic(evt.geometry, symbol);
+        app.map.graphics.add(graphic);
+
+        // add to report map
         graphic = new Graphic(evt.geometry, symbol);
-        // console.log('adding', graphic, 'to small');
-        reportSolarArrayLayer.add(graphic);
+        app.reportAerialMap.graphics.add(graphic);
+
+        this.handleClearSolarArrayButton();
+
       },
 
       handleReturnFromSolarArray: function() {
@@ -365,7 +363,7 @@ define([
         // hide edit toolbar
         // $editToolbar = $('.editToolbar');
         // $editToolbar.hide();
-        $("#clearSolarArrayButton").hide();
+        // 
 
         // Show solar layer
         app.map.getLayer('solar').show();
@@ -374,12 +372,40 @@ define([
         $finishedDrawing = $('.finishedDrawSolarArrayRow');
         $finishedDrawing.hide();
 
+        $toolbar = $('.toolbarDrawSolarArrayRow');
+        $toolbar.hide();
+
         // add drawing to report map
-        var solarArrayLayer = app.map.getLayer('solarArray');
-        app.reportAerialMap.addLayer(solarArrayLayer);
+        // var solarArrayLayer = app.map.getLayer('solarArray');
+        // app.reportAerialMap.addLayer(solarArrayLayer);
 
         // restore report modal
         $('#reportModal').modal('show');
+      },
+
+      handleClearSolarArrayButton: function() {
+        console.log('handle');
+        var $toolbar = $('.toolbarDrawSolarArrayRow');
+        var graphicsLength = app.map.graphics.graphics.length;
+        if ( graphicsLength > 1) {
+          console.log('show', graphicsLength);
+          $toolbar.show();
+        } else {
+          console.log('hide', graphicsLength);
+          $toolbar.hide();
+        }
+      },
+
+      clearSolarArray: function(){
+        mapController.clearGraphics(app.map);
+        mapController.clearGraphics(app.reportAerialMap);
+
+        // replace select point on main map
+        mapController.placePoint(app.query.latLngPt, app.map, config.pinSymbol);
+
+        // hide clear button
+        $toolbar = $('.toolbarDrawSolarArrayRow');
+        $toolbar.hide();
       },
 
 
