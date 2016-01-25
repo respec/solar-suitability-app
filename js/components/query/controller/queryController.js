@@ -78,11 +78,9 @@ define([
           this.solarGPTool();
         }
       },
-
-      serverError: function(error, service) {
-        console.log(error);
-        console.log(service);
-        app.showAlert('danger', 'There appears to be something wrong with the server.', 'Please try again later.  If the error persists, please contact us <a href="mailto:' + config.appEmail + '&subject=Server%20Error&body=Please%20take%20a%20look%20at%20service:%20' + service + '.%20%20It%20appears%20to%20be%20not%20working.">here</a>.');
+      
+      serverError: function(error) {
+        app.showAlert('danger', 'Uffdah! There appears to be something wrong with our server.', 'Please try again soon.  If the issue persists, contact us at <a href="mailto:' + config.appEmail + '&subject=Server%20Error&body=Please%20take%20a%20look%20at%20service:%20' + service + '.%20%20It%20appears%20to%20be%20not%20working.">' + config.appEmail + '</a>');
         loadSplashController.hideLoader();
       },
 
