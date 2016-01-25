@@ -115,11 +115,18 @@
 .userVal {
   font-weight: bold;
   color: $doc-green;
+  text-align: right;
 }
 
 .outputVal {
   font-weight: bold;
   color: $link-color;
+  text-align: right;
+}
+
+.textWithTooltip {
+  font-style: italic;
+  border: none;
 }
 
 // #reportSolarMap-container_root, #reportAerialMap-container_root{

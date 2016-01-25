@@ -35,7 +35,8 @@ define([
 
         var template = _.template(viewTemplate);
         var options = {
-          title: config.applicationTitle
+          title: config.applicationTitle,
+          madeInMn: config.madeInMn
         };
         this.$el.html(template(options));
         this.startup();
@@ -57,7 +58,7 @@ define([
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
           } else {
             //alert('Browser doesn\'t support Geolocation.  Visit http: //caniuse.com to see browser support for the Geolocation API.');
-            app.showAlert('danger','Your browser doesn\'t support Geolocation:','isit http: //caniuse.com to see browser support for the Geolocation API');
+            app.showAlert('danger','Your browser doesn\'t support Geolocation:','Visit http://caniuse.com to see browser support for the Geolocation API');
           }
         });
 
@@ -66,7 +67,7 @@ define([
           var pt = new Point(location.coords.longitude, location.coords.latitude);
           app.map.centerAndZoom(pt, config.queryZoom);
           draw.addGraphic(pt);
-          app.showAlert('success','Location Found. Next Step:','Tap rooftop or point of interest near you to view solar potential.');
+          app.showAlert('success','Location Found. Next Step:','Tap rooftop or point of interest near you to view solar potential. Double-tap to zoom in, click and drag to pan map.',0);
         }
 
         function locationError(error) {
@@ -111,6 +112,12 @@ define([
           $('.aerialButton').addClass('activeButton');
           toggleBasemapView();
           aerialLayer.show();
+
+          // hide solar layer and ramp
+          $('#solarToggle').bootstrapToggle('off');
+          $('#solarToggleSmall').bootstrapToggle('off');
+          app.map.getLayer('solar').hide();
+          $('.headerColorRamp').hide();
         });
 
         $('.streetButton').on('click', function() {
@@ -120,6 +127,12 @@ define([
           $('.streetButton').addClass('activeButton');
           toggleBasemapView();
           streetLayer.show();
+
+          // hide solar layer and ramp
+          $('#solarToggle').bootstrapToggle('off');
+          $('#solarToggleSmall').bootstrapToggle('off');
+          app.map.getLayer('solar').hide();
+          $('.headerColorRamp').hide();
         });
 
         function buttonClassRemove() {
@@ -146,7 +159,6 @@ define([
           $('.appIssuesModal').modal('show');
         });
         
-        
         // enable toggles
         $('.vectorToggle').bootstrapToggle();
 
@@ -155,7 +167,26 @@ define([
           var input = $(this).find('input');
           input.bootstrapToggle('toggle');
           // get layer name
-          var layerName = input.attr('id').slice(0, -6);
+          var id = input.attr('id');
+          var layerName, otherToggle;
+
+          // determine which layer to use based on id
+          // remove ToggleSmall
+          if (id.slice(-5) === 'Small'){
+            layerName = id.slice(0, -11);
+
+            // set otherToggle to [layer]Toggle
+            otherToggle = $('#' + id.slice(0, -5));
+          } else {
+            // remove Toggle
+            layerName = id.slice(0, -6);
+            // set otherToggle to [layer]Toggle
+            otherToggle = $('#'+ id + 'Small');
+          }
+
+          // handle toggle in other menu
+          otherToggle.bootstrapToggle('toggle');
+          
           //get layer from app.map
           var mapLayer = app.map.getLayer(layerName);
           //check visibility and hide/show

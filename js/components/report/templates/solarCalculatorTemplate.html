@@ -11,18 +11,18 @@
             <tbody>
                 <tr>
                     <td>Average utility use (per month)</td>
-                    <td class="userVal"><%=averageUsePerMonth%> kWh</td>
-                    <td><small>The average Minnesotan uses 800 kWh/month (residential). If you know your own monthly usage, fill it in <a type="button" class="editSolarCalculator" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">here</a>.</small></td>
+                    <td class="userVal"><a type="button" class="editSolarCalculator"><%=averageUsePerMonth%> kWh <i class="fa fa-pencil"></i></a></td>
+                    <td><small>The average residential household uses 800 kWh/month. If you know your  monthly usage, fill it in <a type="button" class="editSolarCalculator">here</a>.</small></td>
                 </tr>
                 <tr>
                     <td>Cost / kWh</td>
-                    <td class="userVal">$<%=costPerkWh%>/kWh</td>
-                    <td><small>Minnesota's average residential cost of electricity is $0.12/kWh. If you know your exact cost of electricity enter it <a type="button" class="editSolarCalculator" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">here</a>.</small></td>
+                    <td class="userVal"><a type="button" class="editSolarCalculator">$<%=costPerkWh%>/kWh <i class="fa fa-pencil"></i></a></td>
+                    <td><small>Minnesota's average residential cost of electricity is $0.12/kWh. If you know your cost of electricity enter it <a type="button" class="editSolarCalculator">here</a>.</small></td>
                 </tr>
                 <tr>
-                    <td>Desired percent of electricity provided by solar</td>
-                    <td class="userVal"><%=percentElectricGoal%>%</td>
-                    <td><small>Experiment with different percentages <a type="button" class="editSolarCalculator" data-dismiss="modal" data-toggle="modal" data-target=".editSolarCalculatorModal" aria-label="Edit">here</a> to see how system cost varies. Think about how energy efficiency improvements  bring down the cost of your solar system.</small></td>
+                    <td>Percent of electricity provided by solar</td>
+                    <td class="userVal"><a type="button" class="editSolarCalculator"><%=percentElectricGoal%>% <i class="fa fa-pencil"></i></a></td>
+                    <td><small>Experiment with different percentages <a type="button" class="editSolarCalculator">here</a> to see how system cost varies. Think about how energy efficiency improvements  bring down the cost of your solar system.</small></td>
                 </tr>
             </tbody>
             <thead>
@@ -36,12 +36,12 @@
                 <tr>
                     <td>Size of system needed</td>
                     <td class="outputVal"><%=systemSize.toFixed(2)%> kW</td>
-                    <td><small>Result is based on values provided for monthly electricity use and desired percentage covered by solar. It also includes a derate of 0.77.</small></td>
+                    <td><small>Result is based on values provided for monthly electricity use and desired percentage covered by solar. It also includes a <a class="textWithTooltip" data-toggle="tooltip" data-placement="right" title="A factor accounting for conversion of the array's DC nameplate capacity to the system's AC power rating at Standard Test Condition. The default value is 0.77." href="<%=derateDefined%>" target="_blank">derate</a> of 0.77.</small></td>
                 </tr>
                 <tr>
                     <td>System cost estimate</td>
                     <td class="outputVal"><%=averageCostSystemAsCurrency%></td>
-                    <td><small>Result is based on an average Made-In Minnesota system cost of $3,750 per kW.</small></td>
+                    <td><small>Result is based on an average Made in Minnesota system cost of $3,750 per kW.</small></td>
                 </tr>
                 <tr>
                     <td>Payback without incentives</td>
@@ -51,13 +51,15 @@
                 <tr>
                     <td>Payback with Tax Credit</td>
                     <td class="outputVal"><%=paybackWithTaxCredit.toFixed(2)%> years</td>
-                    <td><small>Your system may be eligible for a federal tax credit (through December 2016). This result shows the payback of your system with the 30% tax credit applied.</small></td>
+                    <td><small>Your system may be eligible for a federal tax credit (through December 2020). This result shows the payback of your system with the 30% tax credit applied.</small></td>
                 </tr>
+                <% if (madeInMnCounty){ %>
                 <tr>
                     <td>Payback with Tax Credit and MiM Incentive</td>
                     <td class="outputVal"><%=paybackWithMim.toFixed(2)%> years</td>
-                    <td><small>The Made in Minnesota Solar program is a performance-based incentive for solar systems manufactured in Minnesota. Incentives are awarded through a lottery process and on average cover 40% of installed costs. <a href="<%=madeInMn%>" target="_blank">Read More &raquo;</a></small></td>
+                    <td><small>The Made in Minnesota Solar Incentive Program utilizes a performance-based incentive (PBI) for solar systems that use solar modules manufactured in Minnesota.  A PBI pays an incentive based on the amount of energy (kWh) generated by the system.  The more shading a system has the lower the PBI will be.  Applications are accepted January - February each year through 2023.<a href="<%=madeInMn%>" target="_blank">Read More &raquo;</a></small></td>
                 </tr>
+                <% } %>
             </tbody>
         </table>
 
@@ -84,7 +86,7 @@
                     <input type="textarea" class="form-control siteDetailsValue" id="editPercentElectricGoal" value="<%=percentElectricGoal%>">
                 </div>
             </div>
-            <button type="button" class="btn btn-default cancelEditModal">Cancel</button>
+            <button type="button" class="btn btn-default cancelSolarCalculatorEdit">Cancel</button>
             <button type="button" class="btn btn-default saveCustomSolarCalculator">Save</button>
         </div>
     </div><!-- /.col -->

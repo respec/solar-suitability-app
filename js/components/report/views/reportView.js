@@ -40,7 +40,9 @@ define([
       events: {
         'click .editTitle': 'editTitle',
         'click .editSiteDetails': 'showCustomDetailsForm',
+        'click .cancelEditSiteDetails': 'cancelEditSiteDetailsForm',
         'click .editSolarCalculator': 'showCustomSolarCalculatorForm',
+        'click .cancelSolarCalculatorEdit': 'cancelSolarCalculatorForm',
         'click .closeSplash': 'hideEditTitleModal',
         'change #siteTitle': 'setSiteTitle',
         // 'click .saveEditModal': 'saveSolarCalculatorValues',
@@ -53,6 +55,7 @@ define([
 
       initialize: function() {
         this.render();
+        this.listenTo(app.reportModel, 'change', this.render);
       },
 
       render: function() {
@@ -75,7 +78,8 @@ define([
           paybackWithoutIncentives: app.reportModel.get('paybackWithoutIncentives'),
           paybackWithTaxCredit: app.reportModel.get('paybackWithTaxCredit'),
           paybackWithMim: app.reportModel.get('paybackWithMim'),
-          madeInMn: config.madeInMn
+          madeInMn: config.madeInMn,
+          utilityCompany: app.reportModel.get('utilityCompany')
         };
 
         this.$el.html(template(options));
@@ -144,13 +148,17 @@ define([
         });
 
         $('#clearSolarArrayButton').on('click', lang.hitch(this, function(){
-          this.clearSolarArray();
+          reportController.clearSolarArray();
         }));
 
         $('#pdfButton').on('click', function(){
           //reportController.underConstruction();
           reportController.createPdf();
         });
+
+        // $('#resultsText').append($('#solarCalcText').html());
+        //$('#resultsText').append($(".barChart").html());
+        //$("#sunPercentHisto").append($("#sunHrsHisto").html());
 
         // var solarMap = new Map('reportSolarMap-container', {
         //   basemap: 'solar',
@@ -246,6 +254,11 @@ define([
         $('.customDetails').show();
       },
 
+      cancelEditSiteDetailsForm: function() {
+        $('.customizeReportForm').hide();
+        $('.customDetails').show();
+      },
+
       saveSolarCalculatorValues: function(){
         var $averageUsePerMonth = $('#editAverageUsePerMonth');
         var $costPerkWh = $('#editCostPerkWh');
@@ -255,6 +268,11 @@ define([
         app.reportModel.set({costPerkWh: $costPerkWh.val()});
         app.reportModel.set({percentElectricGoal: $percentElectricGoal.val()/100});
 
+        $('.solarCalculatorTable').show();
+        $('.customizeSolarCalculatorForm').hide();
+      },
+
+      cancelSolarCalculatorForm: function(){
         $('.solarCalculatorTable').show();
         $('.customizeSolarCalculatorForm').hide();
       },
@@ -279,30 +297,6 @@ define([
       handleDrawSolarArray: function(){
         reportController.prepareForSolarArray();
         // reportController.drawSolarArray();
-      },
-
-      handleReturnFromSolarArray: function(){
-        // show resultsSmallDrawer
-        $resultsSmall = $('#resultsSmall');
-        $resultsSmall.show();
-
-        // hide edit toolbar
-        // $editToolbar = $('.editToolbar');
-        // $editToolbar.hide();
-        
-        // hide finished drawing button
-        $finishedDrawing = $('.finishedDrawSolarArrayRow');
-        $finishedDrawing.hide();
-
-        $("#clearSolarArrayButton").hide();
-
-        // restore report modal
-        $('#reportModal').modal('show');
-      },
-
-      clearSolarArray: function(){
-        mapController.clearGraphics(app.map, ['solarArray']);
-        mapController.clearGraphics(app.reportAerialMap, ['reportSolarArray']);
       }
 
     });
