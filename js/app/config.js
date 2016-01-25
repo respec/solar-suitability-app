@@ -64,11 +64,11 @@ define(
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
       // Live App:
-      //appEmail: 'energy.info@state.mn.us',
+      appEmail: 'energy.info@state.mn.us',
       //appDomain: 'http://mn.gov/solarapp',
 
       // Development Debugging:
-      appEmail: 'andywalz@gmail.com',
+      //appEmail: 'andywalz@gmail.com',
       appDomain: 'http://solar.maps.umn.edu/dev',
 
       // Solar Calculator Defaults
