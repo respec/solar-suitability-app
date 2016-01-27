@@ -139,25 +139,9 @@
                         <div class="row" id="progressBarRpt"></div>
                         <div id="resultsTextRpt" class="top-lg"></div>
                         
-                        <div id="EUSA" class="top-lg">
-                            <strong>Utility Service Provider:</strong>
-                        
-                            <div id="reportUtilityName">
-                                <%=utilityCompany.fullName%>
-                            </div>
-                            <div id="reportUtilityStreet">
-                                <%=utilityCompany.street%>
-                            </div>
-                            <div id="reportUtilityCityStateZip">
-                                <%=utilityCompany.city + ', MN ' + utilityCompany.zip%>
-                            </div>
-                            <div id="reportUtilityPhone">
-                                <%=utilityCompany.phone%>
-                            </div>
-                            <div id="reportUtilityWebsite">
-                                <a href="http://<%=utilityCompany.website%>"><%=utilityCompany.website%></a>
-                            </div>
-                        </div>
+                        <!-- Start EUSA Template-->
+                        <div id="EUSA" class="top-lg eusa-container"></div>
+                        <!-- End EUSA Template-->
                     </div>
                 
                     <div class="col-md-6">

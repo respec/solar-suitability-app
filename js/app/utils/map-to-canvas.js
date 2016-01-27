@@ -102,6 +102,7 @@ define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 				});
 				// Set the image's src attribute. This will begin the image loading.
 				image.src = url;
+				console.log("layer: " + layerId + " " +url);
 			} else {
 				// If the layer doesn't have a URL property, log info to console.
 				console.log("No URL for layer: " + layerId);
@@ -122,7 +123,9 @@ define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 
 			for (var i = 0, l = canvases.length; i < l; i++) {
 				tempCanvas = canvases[i];
-				ctx.drawImage(tempCanvas, 0, 0);
+				if(canvases[i].id != "reportSolarMap-container_graphics_layer") {
+					ctx.drawImage(tempCanvas, 0, 0);
+				}
 			}
 			// Save the canvas image. (This allows the user to revert this version if further changes are made.)
 			ctx.save();

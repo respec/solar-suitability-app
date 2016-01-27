@@ -58,11 +58,13 @@ define([
 
       startup: function() {
         app = this;
-        this.initDojo();
+        this.initSettings();
       },
 
-      initDojo: function() {
+      initSettings: function() {
         this.initLayout();
+        var corsEnabledServers = esriConfig.defaults.io.corsEnabledServers;
+        corsEnabledServers.push(config.solarImageryUrl);
       },
 
       /**

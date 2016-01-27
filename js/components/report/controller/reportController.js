@@ -578,7 +578,7 @@ define([
 
         var makeSolMap = mapToCanvas(solElem,app.canvas.solCanvas).then(
           function (){
-              //CURRENTLY THERE IS A CORS ISSUE PREVENTING THIS FROM WORKING -AJW
+              // CURRENTLY THERE IS A CORS ISSUE PREVENTING THIS FROM WORKING -AJW
               var sol;
               try {
                 sol = app.canvas.solCanvas.toDataURL();

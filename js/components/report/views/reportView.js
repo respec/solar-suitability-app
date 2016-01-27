@@ -4,6 +4,7 @@ define([
 
   'components/report/views/siteDetailsView',
   'components/report/views/solarCalculatorView',
+  'components/report/views/eusaView',
 
   'components/map/controller/mapController',
   'components/report/controller/reportController',
@@ -22,7 +23,7 @@ define([
   function(
     config,
 
-    SiteDetails, SolarCalculator,
+    SiteDetails, SolarCalculator, EusaView,
 
     mapController, reportController, queryController,
 
@@ -55,7 +56,7 @@ define([
 
       initialize: function() {
         this.render();
-        this.listenTo(app.reportModel, 'change', this.render);
+        //this.listenTo(app.reportModel, 'change', this.render);
       },
 
       render: function() {
@@ -108,6 +109,11 @@ define([
         // init solar calculator template
         this.navbar = new SolarCalculator({
           el: $('.solarCalculator-container')
+        });
+
+         // init solar calculator template
+        this.navbar = new EusaView({
+          el: $('.eusa-container')
         });
 
         // $('.downloadButton').on('click', function(){
