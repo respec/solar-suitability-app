@@ -122,7 +122,7 @@ function shortenText($text,$chars) {
 }
 
 
-function send_email($to, $to_name, $body, $subject, $fromaddress="mnsolarsuitability@gmail.com", $fromname="Solar.maps.umn.edu", $replytoaddress="solarp@umn.edu", $replytoname="Solar Team", $cc="", $bcc="", $attachments=false)
+function send_email($to, $to_name, $body, $subject, $fromaddress="mnsolarsuitability@gmail.com", $fromname="mn.gov/solarapp", $replytoaddress="energy.info@state.mn.us", $replytoname="Solar Info", $cc="", $bcc="", $attachments=false)
 	{
 	 	  	  
 	    //error_reporting(E_ALL);
@@ -150,6 +150,13 @@ function send_email($to, $to_name, $body, $subject, $fromaddress="mnsolarsuitabi
 		$mail->Username   = "mnsolarsuitability@gmail.com";  // GMAIL username
 		$mail->Password   = "4sendingemailonly";            // GMAIL password
 		
+		// $mail->SMTPAuth   = true;                  // enable SMTP authentication
+		// $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+		// $mail->Host       = "edge.ead.state.mn.us";      // sets GMAIL as the SMTP server
+		// $mail->Port       = 465;                   // set the SMTP port for the GMAIL server
+		// $mail->Username   = "energyinfo";  // GMAIL username
+		// $mail->Password   = "$Ei10485";            // GMAIL password
+
 		$mail->SetFrom($fromaddress, $fromname);
 		
 		$mail->AddReplyTo($replytoaddress, $replytoname);
