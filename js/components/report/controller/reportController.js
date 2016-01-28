@@ -671,9 +671,9 @@ define([
         setTimeout( function(){ 
 
           if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-             app.doc.output();
              //window.open(URL.createObjectURL(blob));
              //app.doc.output('datauristring');
+             app.doc.output('dataurl');
           } else {
             app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ","") + '.pdf');
           }
