@@ -434,6 +434,13 @@ define([
           unit: 'px',
           format: 'letter'
         });
+        app.doc.setProperties({
+          title: 'MN Solar Suitability Report',
+          subject: app.model.attributes.siteAddress,
+          author: 'mn.gov/solarapp',
+          keywords: 'solar, Made in Minnesota',
+          creator: 'MN Department of Commerce'
+        });
         //app.doc.setFont('helvetica', 'normal');
         //app.doc.setFont("courier", "italic");
         this.pdfSolarHistoToCanvas();
@@ -664,9 +671,9 @@ define([
         setTimeout( function(){ 
 
           if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-             // var blob = app.doc.output();
-             // window.open(URL.createObjectURL(blob));
-             app.doc.output('datauristring');
+             app.doc.output();
+             //window.open(URL.createObjectURL(blob));
+             //app.doc.output('datauristring');
           } else {
             app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ","") + '.pdf');
           }
