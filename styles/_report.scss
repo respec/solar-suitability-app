@@ -24,6 +24,10 @@
 #reportHeader {
   height:$headHeight;
 }
+
+#progressBarRpt {
+  max-width: 560;
+}
 .reportFooter {
   height:$footHeight;
 }
