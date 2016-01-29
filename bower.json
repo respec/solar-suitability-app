@@ -2,7 +2,8 @@
   "name": "solar_refactor",
   "version": "0.1.0",
   "authors": [
-    "Chris Martin <cmartin616@gmail.com>"
+    "Chris Martin <cmartin616@gmail.com>",
+    "Andy Walz <dev@andywalz.com>"
   ],
   "description": "Solar - refactor",
   "license": "MIT",
@@ -18,7 +19,8 @@
     "d3": "~3.5.5",
     "d3-tip": "~0.6.7",
     "jspdf": "1.0.272",
-    "js-cookie": "~2.0.3"
+    "js-cookie": "~2.0.3",
+    "html2canvas": "0.5.0-alpha2"
   },
   "ignore": [
     "**/.*",

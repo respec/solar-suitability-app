@@ -1,11 +1,12 @@
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-bordered table-responsive table-striped table-condensed solarCalculatorTable" style="width:100%; min-width: 450px;">
+        <div id="solarCalc">
+        <table class="table table-bordered table-responsive table-striped table-condensed solarCalculatorTable" style="width:100%; min-width: 590px; margin-bottom:0;">
             <thead>
                 <tr class="success">
-                    <th style="width: 35%;">User Input</th>
+                    <th style="width: 30%;">User Input</th>
                     <th style="width: 15%;">Value</th>
-                    <th style="width: 50%;">Tips and Notes</th>
+                    <th style="width: 55%;">Tips and Notes</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,11 +26,13 @@
                     <td><small>Experiment with different percentages <a type="button" class="editSolarCalculator">here</a> to see how system cost varies. Think about how energy efficiency improvements  bring down the cost of your solar system.</small></td>
                 </tr>
             </tbody>
+            </table>
+            <table class="table table-bordered table-responsive table-striped table-condensed solarCalculatorTable top-sm" style="width:100%; min-width: 590px;" id="solarCalcOutputs">
             <thead>
                 <tr class="warning">
-                    <th>Outputs</th>
-                    <th>Value</th>
-                    <th>Tips and Notes</th>
+                    <th style="width: 30%;">Outputs</th>
+                    <th style="width: 15%;">Value</th>
+                    <th style="width: 55%;">Tips and Notes</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +44,7 @@
                 <tr>
                     <td>System cost estimate</td>
                     <td class="outputVal"><%=averageCostSystemAsCurrency%></td>
-                    <td><small>Result is based on an average Made in Minnesota system cost of $3,750 per kW.</small></td>
+                    <td><small>Result is based on an average 2015 residential Made in Minnesota system cost of $4,810 per kW. Costs will vary depending on the specifics of your system and your location.</small></td>
                 </tr>
                 <tr>
                     <td>Payback without incentives</td>
@@ -62,7 +65,7 @@
                 <% } %>
             </tbody>
         </table>
-
+        </div>
         <div class="panel panel-default customizeSolarCalculatorForm">
             <div class="panel-body">
                 <div>

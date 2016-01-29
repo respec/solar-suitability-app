@@ -78,9 +78,9 @@ define([
           this.solarGPTool();
         }
       },
-
+      
       serverError: function(error) {
-        app.showAlert('danger', 'There appears to be something wrong with the server.', 'Please try again later.  If the error persists, please contact us at OUR EMAIL');
+        app.showAlert('danger', 'Uffdah! There appears to be something wrong with our server.', 'Please try again soon.  If the issue persists, contact us at <a href="mailto:' + config.appEmail + '&subject=Server%20Error&body=Please%20take%20a%20look%20at%20service:%20' + service + '.%20%20It%20appears%20to%20be%20not%20working.">' + config.appEmail + '</a>');
         loadSplashController.hideLoader();
       },
 
@@ -113,7 +113,7 @@ define([
             }
           }),
           lang.hitch(this, function(error) {
-            this.serverError(error);
+            this.serverError(error, 'Bare Earth');
           })
         );
       },
@@ -135,7 +135,7 @@ define([
             console.log('fail');
           }
         }, lang.hitch(this, function(error) {
-          this.serverError(error);
+          this.serverError(error, 'Lidar');
         }));
       },
 
@@ -174,7 +174,7 @@ define([
           });
 
         }, lang.hitch(this, function(error) {
-          this.serverError(error);
+          this.serverError(error, 'EUSA');
         }));
       },
 
@@ -204,7 +204,7 @@ define([
           }
 
         }, lang.hitch(this, function(error) {
-          this.serverError(error);
+          this.serverError(error, 'Solar');
         }));
 
       },
@@ -230,7 +230,7 @@ define([
             this.executeGP(point, tile);
           }
         }), lang.hitch(this, function(error) {
-          this.serverError(error);
+          this.serverError(error, 'Solar GP');
         }));
       },
 

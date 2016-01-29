@@ -55,6 +55,13 @@
   display:inline-block;
 }
 
+@media(max-width:767px){
+  .helpModal-body {
+    height: 56vh;
+    max-height: 460px;
+  }
+}
+
 .pull-middle {
     // display: inline-block;
     // vertical-align: middle;

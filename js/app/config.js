@@ -19,28 +19,6 @@ define(
       'height': 30
     });
 
-    // var solarPanelSymbol = new PMS({
-    //   'angle': 90,
-    //   'xoffset': 0,
-    //   'yoffset': 8,
-    //   'type': 'esriPMS',
-    //   'url': 'assets/images/solar-panel-flash-drive.png',
-    //   'contentType': 'image/png',
-    //   'width': 30,
-    //   'height': 30
-    // });
-
-    // var sunSymbol = new PMS({
-    //   'angle': 0,
-    //   'xoffset': 0,
-    //   'yoffset': 8,
-    //   'type': 'esriPMS',
-    //   'url': 'assets/images/existing-install.png',
-    //   'contentType': 'image/png',
-    //   'width': 25,
-    //   'height': 25
-    // });
-
     var installationSymbol = new PMS({
       'angle': 0,
       'xoffset': 0,
@@ -64,11 +42,11 @@ define(
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
       // Live App:
-      //appEmail: 'energy.info@state.mn.us',
+      appEmail: 'energy.info@state.mn.us',
       //appDomain: 'http://mn.gov/solarapp',
 
       // Development Debugging:
-      appEmail: 'andywalz@gmail.com',
+      //appEmail: 'andywalz@gmail.com',
       appDomain: 'http://solar.maps.umn.edu/dev',
 
       // Solar Calculator Defaults
@@ -79,8 +57,8 @@ define(
       costPerkWh: 0.12,
       percentElectricGoal: 0.50,
       derate: 0.77,
-      lowCostPerkWh: 2500,
-      highCostPerkWh: 5000,
+      lowCostPerkWh: 3560,
+      highCostPerkWh: 6060,
 
       // External links used throughout app
       //mnIncentives: 'http://programs.dsireusa.org/system/program?zip=',

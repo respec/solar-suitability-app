@@ -4,6 +4,7 @@ define([
 
   'components/report/views/siteDetailsView',
   'components/report/views/solarCalculatorView',
+  'components/report/views/eusaView',
 
   'components/map/controller/mapController',
   'components/report/controller/reportController',
@@ -22,7 +23,7 @@ define([
   function(
     config,
 
-    SiteDetails, SolarCalculator,
+    SiteDetails, SolarCalculator, EusaView,
 
     mapController, reportController, queryController,
 
@@ -40,6 +41,7 @@ define([
       events: {
         'click .editTitle': 'editTitle',
         'click .editSiteDetails': 'showCustomDetailsForm',
+        'click .cancelEditSiteDetails': 'cancelEditSiteDetailsForm',
         'click .editSolarCalculator': 'showCustomSolarCalculatorForm',
         'click .cancelSolarCalculatorEdit': 'cancelSolarCalculatorForm',
         'click .closeSplash': 'hideEditTitleModal',
@@ -54,7 +56,7 @@ define([
 
       initialize: function() {
         this.render();
-        this.listenTo(app.reportModel, 'change', this.render);
+        //this.listenTo(app.reportModel, 'change', this.render);
       },
 
       render: function() {
@@ -109,6 +111,11 @@ define([
           el: $('.solarCalculator-container')
         });
 
+         // init solar calculator template
+        this.navbar = new EusaView({
+          el: $('.eusa-container')
+        });
+
         // $('.downloadButton').on('click', function(){
         //   var doc = reportController.createPdf();
         //   reportController.saveToPdf(doc);
@@ -138,7 +145,7 @@ define([
         });
 
         $('#clearSolarArrayButton').on('click', lang.hitch(this, function(){
-          this.clearSolarArray();
+          reportController.clearSolarArray();
         }));
 
         $('#pdfButton').on('click', function(){
@@ -244,6 +251,11 @@ define([
         $('.customDetails').show();
       },
 
+      cancelEditSiteDetailsForm: function() {
+        $('.customizeReportForm').hide();
+        $('.customDetails').show();
+      },
+
       saveSolarCalculatorValues: function(){
         var $averageUsePerMonth = $('#editAverageUsePerMonth');
         var $costPerkWh = $('#editCostPerkWh');
@@ -282,30 +294,6 @@ define([
       handleDrawSolarArray: function(){
         reportController.prepareForSolarArray();
         // reportController.drawSolarArray();
-      },
-
-      handleReturnFromSolarArray: function(){
-        // show resultsSmallDrawer
-        $resultsSmall = $('#resultsSmall');
-        $resultsSmall.show();
-
-        // hide edit toolbar
-        // $editToolbar = $('.editToolbar');
-        // $editToolbar.hide();
-        
-        // hide finished drawing button
-        $finishedDrawing = $('.finishedDrawSolarArrayRow');
-        $finishedDrawing.hide();
-
-        $("#clearSolarArrayButton").hide();
-
-        // restore report modal
-        $('#reportModal').modal('show');
-      },
-
-      clearSolarArray: function(){
-        mapController.clearGraphics(app.map, ['solarArray']);
-        mapController.clearGraphics(app.reportAerialMap, ['reportSolarArray']);
       }
 
     });
