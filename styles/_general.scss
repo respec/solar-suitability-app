@@ -138,6 +138,11 @@ a:visited {
     @include button-variant($secondary-color, $primary-color, $secondary-color);
 }
 
+.btn-solarToggle{
+  // args - color, background, border
+    @include button-variant($secondary-color, $primary-color, $secondary-color);
+}
+
 .btn-large {
   font-size: 120%;
 }
@@ -322,3 +327,4 @@ ul.dropdown-menu,a.dropdown-menu {
   //background-position: 0 40%;
   padding-top: 9px;
 }
+

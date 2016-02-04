@@ -103,6 +103,10 @@ define(
       // Made in Minnesota counties
       madeInMnCounties: ['XCEL', 'Minnesota Power', 'Otter Tail Power'],
 
+      // Color for bar fill
+      barColor: '#ff7400',
+      backgroundBarColor: '#808080',
+
       //OLD SERVICE:
       // waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/1',
       // eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/2',
