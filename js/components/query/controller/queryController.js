@@ -195,6 +195,9 @@ define([
           app.query.totalPerYear = yearlyValue;
           app.query.averagePerDay = dailyValue;
 
+          console.log("Total annual: ",yearlyValue, "kWh/m^2");
+          console.log("Daily avg: ", dailyValue, "kWh/m^2");
+
           if (dailyValue) {
             app.model.set('totalPerYear', yearlyValue.toFixed(2));
             app.model.set('averagePerDay', dailyValue.toFixed(2));
@@ -227,6 +230,7 @@ define([
         queryTask.execute(tileQuery, lang.hitch(this, function(results) {
           if (results.features.length > 0) {
             var tile = results.features[0].attributes.Name + '.img';
+            console.log("DSM Tile: ", tile);
             this.executeGP(point, tile);
           }
         }), lang.hitch(this, function(error) {
@@ -273,6 +277,7 @@ define([
           sunHrValue.push(parseFloat(result));
         });
 
+        console.log("Monthly Wh/m^2: ",insolResults);
         var solarObj = {
           'maxInsol': 0,
           'maxSun': 0,
