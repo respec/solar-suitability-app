@@ -106,10 +106,6 @@ define([
         $('#sunPercentHistoRpt').find('.tick > text').css({
           fill: "#000"
         });
-        
-        // Hide ideal sun bars until we figure out svg fill issue
-        $('#sunPercentHistoRpt').find(".backgroundBar").hide();
-
       },
 
       buildSolarMap: function() {
