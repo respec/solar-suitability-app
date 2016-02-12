@@ -261,13 +261,16 @@ define([
         //parse the results
         var insolResults = results[0].value.split('\n');
         var sunHrResults = results[1].value.split('\n');
+        var idealResults = results[2].value.split('\n');
 
         //remove final value (blank value from new line char)
         insolResults.pop();
         sunHrResults.pop();
+        idealResults.pop();
 
         var insolValue = [];
         var sunHrValue = [];
+        var idealValue = [];
 
         _.each(insolResults, function(result) {
           insolValue.push(parseFloat(result));
@@ -277,8 +280,13 @@ define([
           sunHrValue.push(parseFloat(result));
         });
 
-        console.log("Monthly Wh/m^2: ",insolResults);
-        
+        _.each(idealResults, function(result) {
+          idealValue.push(parseFloat(result));
+        });
+
+        console.log("Monthly Ideal Wh/m^2: ",idealValue);
+        console.log("Monthly Wh/m^2: ",insolValue);
+
         var solarObj = {
           'maxInsol': 0,
           'maxSun': 0,
