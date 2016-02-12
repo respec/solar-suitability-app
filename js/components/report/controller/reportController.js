@@ -81,7 +81,7 @@ define([
         // reportShadeHrsChart.className = 'reportChart';
         // queryController.drawChart(reportShadeHrsChart);
 
-        this.buildTable('#reportResultsTable', app.solarObj, 'percentSun', 'insolValue', app.solarObj.months);
+        this.buildTable('#reportResultsTable', app.solarObj, 'idealPercent', 'percentSun', 'insolValue', app.solarObj.months);
         // this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
         // this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
 
@@ -217,7 +217,7 @@ define([
 
       // },
 
-      buildTable: function(el, data, col1, col2, ref) {
+      buildTable: function(el, data, col1, col2, col3, ref) {
         // empty the previous table
         var tableRows = el + ' tbody tr.monthData';
         $(tableRows).remove();
@@ -235,10 +235,12 @@ define([
                 .text((data[shortMonth][col1] * 100).toFixed() + '%')
               )
               .append($('<td>')
-                .text(data[shortMonth][col2].toFixed(2))
+                .text((data[shortMonth][col2] * 100).toFixed() + '%')
+              )
+              .append($('<td>')
+                .text(data[shortMonth][col3].toFixed(2))
               )
             );
-          console.log();
         });
       },
 
