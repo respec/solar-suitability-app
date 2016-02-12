@@ -515,7 +515,7 @@ define([
           // app.doc.setFont('helvetica', 'bold');
           // app.doc.text(275, 360, 'Percent Sun Hours By Month');
 
-          app.doc.fromHTML("<h3>Sun Hours By Month</h3>", 300, 350, { 'width':200});
+          app.doc.fromHTML("<h3>% Sun By Month</h3>", 300, 350, { 'width':200});
 
           app.doc.addImage(app.canvas.sunH, 'PNG', 240, 380);
           app.pdfparts++;
