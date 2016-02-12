@@ -278,6 +278,7 @@ define([
         });
 
         console.log("Monthly Wh/m^2: ",insolResults);
+        
         var solarObj = {
           'maxInsol': 0,
           'maxSun': 0,
@@ -330,6 +331,7 @@ define([
         solarObj.insolList = insolList;
         solarObj.months = months;
 
+        //console.log(solarObj.insolTotal,solarObj.insolTotal/365);
 
         var nearestLat = Math.round(app.query.latLngPt.y);
         var annualPercentSun = 0;

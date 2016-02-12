@@ -1,4 +1,4 @@
-import arcpy
+import sys, os, arcpy
 from arcpy import env
 from arcpy.sa import *
 
@@ -16,22 +16,29 @@ filename = arcpy.GetParameter(2)	# filename = "3526-11-44_1231.img"
 #pointY = 45.6275948974094
 #filename = "3526-11-44_1231.img"
 
+#import pdb; pdb.set_trace()  # debug if need be
+
 ### New q250k tile scheme
 quad = filename[:4]
 ras = "\\\\files.umn.edu\\US\\GIS\\U-Spatial\\SolarResourceData\\MN_DSM\\DSM_Tiles_q250k\\q" + quad + "\\" + filename
 
 arcpy.env.addOutputsToMap = False
-#arcpy.env.workspace = r'C:\Temp\temp.gdb'
 
-arcpy.env.workspace = "\\\\files.umn.edu\\US\\GIS\\U-Spatial\\SolarResourceData\\gpTool\\SolarPointQuery.gdb"
+# Set Environment Workspace
+arcpy.env.scratchWorkspace = r'C:\Temp'
+ws = arcpy.env.scratchGDB
+#ws = "\\\\files.umn.edu\\US\\GIS\\U-Spatial\\SolarResourceData\\gpTool\\ideal\\results.gdb"
 
+### Ideal shading tables
 in_name = 'inTable'
-out_name = 'outTable'
-output = arcpy.env.workspace + "\\" + out_name
-inTable = arcpy.env.workspace + "\\" + in_name
+out_name = 'idealTotal'
+outputIdeal = os.path.join(ws,out_name)
+#inTable = os.path.join(ws,in_name)
+outputDirect = os.path.join(ws,"idealDirect")
+#outputDiffuse = os.path.join(ws,"idealDiffuse")
 
 ### Create a Table to Store input point and ideal tilt/azimuth
-arcpy.CreateTable_management(arcpy.env.workspace, in_name)
+inTable = arcpy.CreateTable_management(ws, in_name)
 
 ### Add fields
 arcpy.AddField_management(inTable, "x", "FLOAT")
@@ -58,23 +65,30 @@ cursor = arcpy.da.InsertCursor(inTable, fieldsToUpdate)
 cursor.insertRow((x,y,45,180))
 del cursor
 
-##point = arcpy.Point(pointX, pointY)
-##ptGeometry = arcpy.PointGeometry(point)
-
 timeSetting = arcpy.sa.TimeWholeYear(2014)
 #timeSetting = arcpy.sa.TimeSpecialDays()
 
-#arcpy.sa.PointsSolarRadiation(ras,ptGeometry,output,time_configuration=timeSetting,each_interval="INTERVAL",out_direct_duration_features=output_hr)
-arcpy.sa.PointsSolarRadiation(ras,inTable,output,time_configuration=timeSetting,each_interval="INTERVAL",slope_aspect_input_type="FROM_POINTS_TABLE")
+arcpy.sa.PointsSolarRadiation(ras,inTable,outputIdeal,time_configuration=timeSetting,each_interval="INTERVAL",slope_aspect_input_type="FROM_POINTS_TABLE",out_direct_radiation_features=outputDirect)
 
-#row = arcpy.SearchCursor(output).next()
+### Stringify output and set to params
+row = arcpy.SearchCursor(outputIdeal).next()
+result_ideal = ""
+for i in range(0,12):
+    id = "T"+str(i)
+    result_ideal = str(result_ideal) + str(row.getValue(id)) + "\n"
 
-#result = ""
+row = arcpy.SearchCursor(outputDirect).next()
+result_direct = ""
+for i in range(0,12):
+    id = "T"+str(i)
+    result_direct = str(result_direct) + str(row.getValue(id)) + "\n"
 
-#for i in range(0,12):
-# id = "T"+str(i)
-# result = str(result) + str(row.getValue(id)) + "\n"
+arcpy.SetParameter(3,result_ideal)
+#print result_ideal
+arcpy.SetParameter(4,result_direct)
+#print result_direct
 
-#print result
-
-
+### Clean up time!
+arcpy.Delete_management(outputIdeal)
+arcpy.Delete_management(outputDirect)
+arcpy.Delete_management(inTable)
