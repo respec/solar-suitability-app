@@ -231,9 +231,9 @@ define([
               .append($('<td>')
                 .text(longMonth)
               )
-              .append($('<td>')
-                .text((data[shortMonth][col1] * 100).toFixed() + '%')
-              )
+              // .append($('<td>')
+              //   .text((data[shortMonth][col1] * 100).toFixed() + '%')
+              // )
               .append($('<td>')
                 .text((data[shortMonth][col2] * 100).toFixed() + '%')
               )
@@ -475,7 +475,11 @@ define([
           ];
         all(pdfPageOne).then(lang.hitch(this, function(res) {
           app.doc.addImage(res[0], 'PNG', 10, 10); // add header to pdf
-          app.doc.fromHTML("<h2>mn.gov/solarapp</h2>",340,16);
+          app.doc.fromHTML("<h2>mn.gov/solarapp</h2>",340,15);
+          var d = new Date();
+          d = d.toDateString();
+          d = d.substring(0, d.length - 5) + "," + d.substring(d.length - 5);
+          app.doc.fromHTML("<p>" + d + "</p>",340,33);
           app.doc.addImage(res[4], 'PNG', 5, 340); // add sun % bar to pdf
           //app.doc.text(300,565,"Page 1 of 3");
           app.doc.fromHTML("<div>Page 1 of 3</div>",205,565);
@@ -495,7 +499,7 @@ define([
       },
       pdfPageThree: function(){
         pdfPageThree = [
-            this.pdfAddMonthlyHisto(), 
+            //this.pdfAddMonthlyHisto(), 
             this.pdfMoreResults(),
             this.pdfMakeLogo()
           ];
@@ -673,7 +677,13 @@ define([
              //app.doc.output('datauristring');
              app.doc.output('dataurl');
           } else {
-            app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ","") + '.pdf');
+            var fname;
+            if(app.model.attributes.siteAddress == "Site Address"){
+              fname = 'MnSolarRpt_' + app.model.attributes.latLngPt.y.toString().slice(0,7) + "_" + app.model.attributes.latLngPt.x.toString().slice(0,8);
+            } else {
+              fname = 'MnSolarRpt_' + app.model.attributes.siteAddress.replace(" ","");
+            }  
+            app.doc.save(fname + '.pdf');
           }
           $('#pdfButton').html('Save as PDF');
         },2000);

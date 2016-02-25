@@ -87,7 +87,7 @@ for i in range(0,12):
     id = "T"+str(i)
     result_hr = str(result_hr) + str(row.getValue(id)) + "\n"
 
-row = arcpy.SearchCursor(outputDirect).next()
+row = arcpy.SearchCursor(outputIdeal).next()
 result_ideal = ""
 for i in range(0,12):
     id = "T"+str(i)
