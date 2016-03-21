@@ -36,18 +36,18 @@ define(
   );
 
     return {
-      
+
       applicationTitle: 'mn.gov/solarapp',
       apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
       // Live App:
-      appEmail: 'energy.info@state.mn.us',
+      //appEmail: 'energy.info@state.mn.us',
       //appDomain: 'http://mn.gov/solarapp',
 
       // Development Debugging:
-      //appEmail: 'andywalz@gmail.com',
-      appDomain: 'http://solar.maps.umn.edu/dev',
+      appEmail: 'andywalz@gmail.com',
+      appDomain: 'http://solar.maps.umn.edu/app',
 
       // Solar Calculator Defaults
       systemLife: 25,
@@ -79,7 +79,8 @@ define(
       // Solar data
       //gpTool: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/SolarPointQuery_fast/GPServer/Script',
       //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',
-      gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
+      //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
+      gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarappGPTool/GPServer/SolarPointQueryWithIdeal',
 
       /* Solar raster - query */
       // solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/',

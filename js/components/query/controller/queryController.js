@@ -4,6 +4,8 @@ define([
     'app/config',
     'app/utils/dataHandler',
     'app/data/sunHours',
+    'app/data/maxActualInsolation',
+    'app/data/maxIdealInsolation',
 
     'components/resultsSmall/views/resultsSmallView',
 
@@ -23,7 +25,7 @@ define([
   ],
 
   function(
-    config, dataHandler, sunHours,
+    config, dataHandler, sunHours, maxActualInsolation, maxIdealInsolation,
 
     resultsSmallView,
 
@@ -260,24 +262,38 @@ define([
 
         //parse the results
         var insolResults = results[0].value.split('\n');
-        var sunHrResults = results[1].value.split('\n');
+        var sunHrResults = results[0].value.split('\n');
+        var idealResults = results[2].value.split('\n');
 
         //remove final value (blank value from new line char)
         insolResults.pop();
         sunHrResults.pop();
+        idealResults.pop();
 
         var insolValue = [];
         var sunHrValue = [];
+        var idealValue = [];
+        var insolkW = [];
 
         _.each(insolResults, function(result) {
           insolValue.push(parseFloat(result));
         });
 
         _.each(sunHrResults, function(result) {
-          sunHrValue.push(parseFloat(result));
+          sunHrValue.push(parseFloat(result) / 1000);
         });
 
-        console.log("Monthly Wh/m^2: ",insolResults);
+        _.each(idealResults, function(result) {
+          idealValue.push(parseFloat(result) / 1000);
+        });
+
+        _.each(insolResults, function(result) {
+          insolkW.push(parseFloat(result) / 1000);
+        });
+
+        console.log("Monthly Ideal kWh/m^2: ",idealValue);
+        console.log("Monthly Actual kWh/m^2: ",insolkW);
+
         var solarObj = {
           'maxInsol': 0,
           'maxSun': 0,
@@ -308,6 +324,7 @@ define([
           monthObj.month = month.abbr;
           monthObj.insolValue = insolValDiv1000;
           monthObj.sunHrValue = parseFloat(sunHrResults[i]);
+          monthObj.idealValue = parseFloat(idealResults[i]);
           solarObj.insolTotal = solarObj.insolTotal + insolValDiv1000;
           solarObj.sunTotal = solarObj.sunTotal + sunHrValue[i];
 
@@ -330,18 +347,20 @@ define([
         solarObj.insolList = insolList;
         solarObj.months = months;
 
+        //console.log(solarObj.insolTotal,solarObj.insolTotal/365);
 
         var nearestLat = Math.round(app.query.latLngPt.y);
         var annualPercentSun = 0;
 
-        _.each(sunHours[nearestLat], function(value, mon) {
+        _.each(maxActualInsolation[nearestLat], function(value, mon) {
           var month = solarObj[mon];
-          month.maxSunHrValue = value;
+          month.maxSunHrValue = value / 1000;
 
           month.shadeHrValue = 0;
 
           // Calculate percent sun 
           var percentSun = month.sunHrValue / value;
+          
           if (percentSun > 1) {
             percentSun = 1;
           } else {
@@ -351,7 +370,21 @@ define([
           annualPercentSun += percentSun;
 
           shadeHrList.push(month.shadeHrValue);
-          maxSunHrList.push(value);
+          maxSunHrList.push(month.maxSunHrValue);
+        });
+
+        _.each(maxIdealInsolation[nearestLat], function(value, mon) {
+          var month = solarObj[mon];
+          var maxIdeal = value / 1000;
+
+          // Calculate percent sun 
+          var percentIdealSun = (month.idealValue / 1000) / maxIdeal;
+          
+          if (percentIdealSun > 1) {
+            percentIdealSun = 1;
+          }
+
+          month.idealPercent = percentIdealSun;
         });
 
         solarObj.shadeHrList = shadeHrList;
@@ -462,7 +495,7 @@ define([
           data: app.solarObj,
           attributes: app.solarObj.sunHrList,
           attributes2: app.solarObj.maxSunHrList,
-          maxValue: 500,
+          maxValue: 180,
           el: '#sunHrsHisto',
           className: 'chart',
           size: {

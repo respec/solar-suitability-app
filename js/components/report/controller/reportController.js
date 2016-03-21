@@ -81,7 +81,7 @@ define([
         // reportShadeHrsChart.className = 'reportChart';
         // queryController.drawChart(reportShadeHrsChart);
 
-        this.buildTable('#reportResultsTable', app.solarObj, 'percentSun', 'insolValue', app.solarObj.months);
+        this.buildTable('#reportResultsTable', app.solarObj, 'idealPercent', 'percentSun', 'insolValue', app.solarObj.months);
         // this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
         // this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
 
@@ -217,7 +217,7 @@ define([
 
       // },
 
-      buildTable: function(el, data, col1, col2, ref) {
+      buildTable: function(el, data, col1, col2, col3, ref) {
         // empty the previous table
         var tableRows = el + ' tbody tr.monthData';
         $(tableRows).remove();
@@ -231,14 +231,16 @@ define([
               .append($('<td>')
                 .text(longMonth)
               )
+              // .append($('<td>')
+              //   .text((data[shortMonth][col1] * 100).toFixed() + '%')
+              // )
               .append($('<td>')
-                .text((data[shortMonth][col1] * 100).toFixed() + '%')
+                .text((data[shortMonth][col2] * 100).toFixed() + '%')
               )
               .append($('<td>')
-                .text(data[shortMonth][col2].toFixed(2))
+                .text(data[shortMonth][col3].toFixed(2))
               )
             );
-          console.log();
         });
       },
 
@@ -473,7 +475,11 @@ define([
           ];
         all(pdfPageOne).then(lang.hitch(this, function(res) {
           app.doc.addImage(res[0], 'PNG', 10, 10); // add header to pdf
-          app.doc.fromHTML("<h2>mn.gov/solarapp</h2>",340,16);
+          app.doc.fromHTML("<h2>mn.gov/solarapp</h2>",340,15);
+          var d = new Date();
+          d = d.toDateString();
+          d = d.substring(0, d.length - 5) + "," + d.substring(d.length - 5);
+          app.doc.fromHTML("<p>" + d + "</p>",340,33);
           app.doc.addImage(res[4], 'PNG', 5, 340); // add sun % bar to pdf
           //app.doc.text(300,565,"Page 1 of 3");
           app.doc.fromHTML("<div>Page 1 of 3</div>",205,565);
@@ -493,7 +499,7 @@ define([
       },
       pdfPageThree: function(){
         pdfPageThree = [
-            this.pdfAddMonthlyHisto(), 
+            //this.pdfAddMonthlyHisto(), 
             this.pdfMoreResults(),
             this.pdfMakeLogo()
           ];
@@ -513,7 +519,7 @@ define([
           // app.doc.setFont('helvetica', 'bold');
           // app.doc.text(275, 360, 'Percent Sun Hours By Month');
 
-          app.doc.fromHTML("<h3>Sun Hours By Month</h3>", 300, 350, { 'width':200});
+          app.doc.fromHTML("<h3>% Sun By Month</h3>", 300, 350, { 'width':200});
 
           app.doc.addImage(app.canvas.sunH, 'PNG', 240, 380);
           app.pdfparts++;
@@ -671,7 +677,13 @@ define([
              //app.doc.output('datauristring');
              app.doc.output('dataurl');
           } else {
-            app.doc.save('MnSolarRpt-' + app.model.attributes.siteAddress.replace(" ","") + '.pdf');
+            var fname;
+            if(app.model.attributes.siteAddress == "Site Address"){
+              fname = 'MnSolarRpt_' + app.model.attributes.latLngPt.y.toString().slice(0,7) + "_" + app.model.attributes.latLngPt.x.toString().slice(0,8);
+            } else {
+              fname = 'MnSolarRpt_' + app.model.attributes.siteAddress.replace(" ","");
+            }  
+            app.doc.save(fname + '.pdf');
           }
           $('#pdfButton').html('Save as PDF');
         },2000);

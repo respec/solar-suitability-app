@@ -53,20 +53,22 @@ define([
           $('.dataIssuesSubmit').html('<i class="fa fa-spinner fa-spin"></i> Sending ...');
 
           var emailBody;
-
+          emailBody = 'An error was found with the Solar Suitability data.<br><br><b>Description:</b><br>' + $('#dataIssuesDescription').val().replace(/\n/g, "<br />") + '<br><br>';
           // check if there is a badData selection
           if (app.query.badData){
             var badData = app.query.badData;
-            emailBody = 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' in the following extent:<br><br>North: ' + badData.ymax + '<br>West: ' + badData.xmin + '<br>South: ' + badData.ymin + '<br>East: ' + badData.xmax;
+            emailBody += '<b>Extent:</b><br>North: ' + badData.ymax + '<br>West: ' + badData.xmin + '<br>South: ' + badData.ymin + '<br>East: ' + badData.xmax;
           }
           // check if a solar query
           else if (app.query.point){
-            emailBody = 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' at the following point:<br><br>X: ' + app.query.point.x + '<br>Y: ' + app.query.point.y;
+            emailBody += '<b>Location:</b><br>X: ' + app.query.point.x + '<br>Y: ' + app.query.point.y;
           }
           // otherwise send description
           else {
-            emailBody = 'An error was found with the Solar Suitability data.  Please see below for a description:<br><br>' + $('#dataIssuesDescription').val() + ' at the following description.<br><br>' + $('#dataIssuesLocation').val();
+            emailBody += '<b>Location Description:</b><br>' + $('#dataIssuesLocation').val();
           }
+
+          emailBody += '<br><br><b>From:</b><br>' + $(location).attr('href') + '<br><br><b>Submitted by:</b><br>' + $('#dataIssuesName').val() + ' (' + $('#dataIssuesEmail').val() + ')<br>';
 
           var emailData = {
                             to: config.appEmail,
@@ -79,6 +81,7 @@ define([
                           };
 
           $.post('api/email.php', emailData, function(data){
+            $('.dataIssuesSubmit').html('Send');
             $('.dataIssuesModal').modal('hide');
           });
         });
@@ -101,7 +104,7 @@ define([
                 dataIssuesController.hideMessages();
                 error.show();
                 dataIssuesController.createMessage(errorMsg, 'error', 'You have not made a solar query.  Please select another option.');
-                
+
               } else {
                 success = $('.selectBadDataSuccess');
                 successMsg = $('.selectBadDataSuccessMsg');
