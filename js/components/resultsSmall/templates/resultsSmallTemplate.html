@@ -2,70 +2,77 @@
     <div class="container-fluid">
         <!-- Divide buttons from other details-->
         <div class="row">
-            
+
             <!-- Data -->
             <div class="col-md-12">
 
                 <!-- Data Columns -->
                 <div class="row">
-                    
+
                     <!-- Quick solar results -->
                     <div class="col-md-4">
                         <button id="closeResultsTop" aria-label="Close" data-dismiss="modal" class="close closeButton pull-right closeResultsTop" type="button"></button>
                         <div class="resultHeader">
-                            <span>Results Preview</span>
+                            <span>Report Preview</span>
                         </div>
                         <div class="resultsPreview1 noselect" id="results">
-                            <div>
+                                <div id="percentSunBar" class="row">
+                                <div class="col-md-12">
                                 
-                                <div class="progressBar progress progress-width gradient center">
-
-                                    <div class="progress-bar showGradient" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                        <span class="center"></span>
+                                    <div class="gradientLabel sunBar">Full<br />Shade</div>
+                                    <div class="progress-width sunBar">
+                                        <div class="progressBar progress gradient center">
+                                            <div class="progress-bar showGradient" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="center"></span>
+                                            </div>
+                                        </div>
+                                        <div id="progress-labels" class="center bottomSpace progress-labels"><!-- Do not remove these comments (needed to eliminate space between inline block elements)
+                                        --><div id="labelPoor" class="barClass">Poor</div><!-- removing space
+                                            --><div id="labelMarginal" class="barClass">Marginal</div><!-- removing space
+                                            --><div id="labelFair" class="barClass">Fair</div><!-- removing space
+                                            --><div id="labelGood" class="barClass">Good</div><!-- removing space
+                                            --><div id="labelOptimal" class="barClass">Optimal</div><!-- removing space
+                                        --></div>
                                     </div>
+                                    <div class="gradientLabel gradientLabelRight sunBar">Full<br />Sun</div>
+                                    </div>
+                                    
                                 </div>
-                                
-                                <div id="progress-labels" class="progress-width center bottomSpace progress-labels"><!-- Do not remove these comments (needed to eliminate space between inline block elements)
-                                --><div id="labelPoor">Poor</div><!-- removing space
-                                    --><div id="labelFair">Fair</div><!-- removing space
-                                    --><div id="labelGood">Good</div><!-- removing space
-                                    --><div id="labelOptimal">Optimal</div><!-- removing space
-                            --></div>
-                                <div class="center bottomSpace">
-                                    Percent of Total Available Solar<% if(bareEarth === 1) { %>**<% } %>
-                                </div>
-                            </div>
+                           
 
                             <div class="topSpace">
-                                <p class="paragraphIndent" id="solarCalcText">
-                                    Your site is <span class="valueHelp"><%=quality%></span>. You would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> solar PV system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of your power. This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. With <a href="<%=madeInMn%>" target="_blank" class="madeInMn">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=payback.toFixed(1)%> years</span>.<!-- Display warning ** -->
-                                
+                                <p class="paragraphIndent" id="solarCalcText">                            
+                                    <% if (quality !== 'Poor'){%>This site is <span class="valueHelp"><%=quality%></span>. It would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of average household use. This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. <% if (madeInMnCounty){%><!-- MiM county -->With <a href="<%=madeInMn%>" target="_blank" class="madeInMn">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=mimPayback.toFixed(1)%> years</span>.<%} else { %><!-- non-MiM county -->System payback is <span class="valueHelp"><%=nonMimPayback.toFixed(1)%> years </span>after tax credit.<% } %>
+                                    <% } else {%>
+                                        This site is <span class="valueHelp"><%=quality%></span>.  Because of this, you might want to consider subscribing to a <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>, which allows you to directly benefit from a solar PV installation in a sunny location nearby.
+                                    <% } %>
+
                                 </p>
                             </div>
 
                             <!-- Buttons -->
                             <div class="center">
-                            <button type="button" class="btn btn-default btn-solar reportControls" id="viewReport">
-                                <span id="viewReportLink">Full Report</span>
-                                <i class="fa fa-print"></i>
-                            </button>
-                        
-                            <button type="button" class="btn btn-default btn-solar reportControls" id="emailReport">
-                                <span id="emailReportLink">Share Results</span>
-                                <i class="fa fa-envelope-o"></i>
-                            </button>
+                                <button type="button" class="btn btn-default btn-solar reportControls" id="viewReport">
+                                    <span id="viewReportLink">Full Report</span>
+                                    <i class="fa fa-print"></i>
+                                </button>
 
-                            <button type="button" class="btn btn-default btn-solar reportControls" id="dataIssue">
-                                <span id="dataIssuesLink">Problem?</span>
-                                <i class="fa fa-exclamation-circle"></i>
-                            </button>
+                                <button type="button" class="btn btn-default btn-solar reportControls" id="emailReport">
+                                    <span id="emailReportLink">Share Results</span>
+                                    <i class="fa fa-envelope-o"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-default btn-solar reportControls" id="dataIssue">
+                                    <span id="dataIssuesLink">Problem?</span>
+                                    <i class="fa fa-exclamation-circle"></i>
+                                </button>
                             </div>
                         </div>                     
-            
+
                     </div> <!-- end col -->
 
                     <!-- histogram -->
-                    <div class="col-md-4">
+                    <div class="col-md-4 barChart">
                         <div class="resultHeader">
                             <div class="chartTitle">Percent Sun Hours By Month</div>
                         </div>
@@ -81,57 +88,57 @@
                             <span>Next Steps</span>
                         </div>
                         <div class="paragraphIndent topSpace">
-                        <ol class="getstarted">
-                            <li><a href="<%= learnMoreAboutSolar %>" target="_blank">Learn More About Solar</a></li>
-                            <% if(quality === 'Poor'){%>
+                            <ol class="getstarted">
+                                <li><a href="<%= learnMoreAboutSolar %>" target="_blank">Learn More About Solar</a></li>
+                                <% if(quality === 'Poor'){%>
                                 <li>
                                     Location not ideal, consider <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>
                                 </li>
-                            <% } else {%>
+                                <% } else {%>
                                 <li>
                                     <% if (typeof(utilityCompany) !== "undefined"){
                                         if(utilityCompany.hasOwnProperty('zip')) { %>
-                                            <a href="<%= mnInstallers %><%=parseInt(utilityCompany.zip, 10)%>" target="_blank">Contact a Local Installer</a>
+                                        <a href="<%= mnInstallers %><%=parseInt(utilityCompany.zip, 10)%>" target="_blank">Contact a Local Installer</a>
                                         <% } else {%>
-                                            No zip code information available.  Please report bad data <span class="badData">here</span>.
+                                        No zip code information available.  Please report bad data <span class="badData">here</span>.
                                         <% } %>
+                                        <% } %>
+                                    </li>
                                     <% } %>
-                                </li>
-                            <% } %>
 
-                            <li>
-                                <a href="<%= mnIncentives %>" target="_blank">MN Incentives/Policies for Solar</a>
-                            </li>
+                                    <li>
+                                        <a href="<%= mnIncentives + utilityCompany.zip %>" target="_blank">MN Incentives/Policies for Solar</a>
+                                    </li>
 
-                            <li>
-                                <a href="" id="nearbySolarLink">Map nearby solar installations</a>
-                            </li>
-                            <li>Contact your utility service provider: <br>
-                                <% if (typeof(utilityCompany) !== "undefined") {%>
-                                   <a href="http://<%=utilityCompany.website%>" target="_blank"><%=utilityCompany.fullName%></a>
-                                    <!-- <a href="tel:+1-' + <%=utilityCompany.phone.slice(1, 4)%> + '-' + <%=utilityCompany.phone.slice(6, 14)%>"><%=utilityCompany.phone%></a> -->
-                                <% } %>
-                            </li>
-                            </ol>
-                            
-                            <!-- Display bare earth warning msg -->
-                            <% if(bareEarth === 1) { %>
+                                    <li>
+                                        <a href="" id="nearbySolarLink">Map nearby solar installations</a>
+                                    </li>
+                                    <li>Contact your utility service provider: <br>
+                                        <% if (typeof(utilityCompany) !== "undefined") {%>
+                                        <a href="http://<%=utilityCompany.website%>" target="_blank"><%=utilityCompany.fullName%></a>
+                                        <!-- <a href="tel:+1-' + <%=utilityCompany.phone.slice(1, 4)%> + '-' + <%=utilityCompany.phone.slice(6, 14)%>"><%=utilityCompany.phone%></a> -->
+                                        <% } %>
+                                    </li>
+                                </ol>
+
+                                <!-- Display bare earth warning msg -->
+                                <% if(bareEarth === 1) { %>
                                 <div>
                                     **
                                     <small><em>The <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank"><%=lidarCollect%> MN Lidar</a> source data available for <span class="valueHelp"><%=county%> County</span> contains only bare earth points. Hence, these results do not take shade from nearby features into consideration.</em></small>
                                 </div>
-                            <% } else { %>
-                                <div class="small topSpace">
+                                <% } else { %>
+                                <div class="small topSpace paragraphIndent">
                                     Source Data: <a href="http://www.mngeo.state.mn.us/chouse/elevation/lidar.html"  target="_blank">MN Lidar (<%=lidarCollect%>)</a>
                                 </div>
-                            <% } %>
-                           
-                        </div>
+                                <% } %>
+
+                            </div>
                             
-                        
+
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div> <!-- ROW END -->
-    </div> <!-- CONTAINER END --> 
+            </div> <!-- ROW END -->
+        </div> <!-- CONTAINER END --> 
 </div> <!-- END ResultsSmall -->

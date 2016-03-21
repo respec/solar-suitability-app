@@ -13,7 +13,8 @@
   height: -webkit-calc((#{$modalHeight} - 5vh) - (#{$headHeight} + #{$footHeight}));
   height: -moz-calc((#{$modalHeight} - 5vh) - (#{$headHeight} + #{$footHeight}));
   height: calc((#{$modalHeight} - 5vh) - (#{$headHeight} + #{$footHeight}));
-  overflow-y: auto; 
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .customizeReportForm, .customizeSolarCalculatorForm {
@@ -22,6 +23,10 @@
 
 #reportHeader {
   height:$headHeight;
+}
+
+#progressBarRpt {
+  max-width: 560;
 }
 .reportFooter {
   height:$footHeight;
@@ -49,6 +54,10 @@
   position: relative;
 }
 
+#sunPercentHistoRpt {
+  margin-left: -50px;
+}
+
 #reportAngleControls {
   position: absolute;
   right: 10px;
@@ -62,10 +71,6 @@
   text-align: center;
 }
 
-#siteImagesRow {
-  margin-bottom: 30px;
-}
-
 .reportSiteTitle {
   padding-top:8px;
 }
@@ -77,12 +82,17 @@
   // margin-bottom: 15px;
 }
 
+/* match margin above hr applied by .table */
+.row.reportHisto {
+  margin-top:20px;
+}
+
 .reportHisto text {
     fill: $overlay;
 }
 
 .reportTitle {
-  margin-left:20px;
+  margin-left:125px;
 }
 
 .reportTopicDescription{
@@ -90,12 +100,16 @@
   margin-bottom: 10px;
 }
 
+.reportChart .bar {
+  fill:#ff7400
+}
+
 .reportTable tbody, tr, td{
   color: $overlay;
 }
 
 .reportTable{
-  width: 250px;
+  width: 100%;
 }
 
 .reportTable {
@@ -115,11 +129,45 @@
 .userVal {
   font-weight: bold;
   color: $doc-green;
+  text-align: right;
 }
 
 .outputVal {
   font-weight: bold;
   color: $link-color;
+  text-align: right;
+}
+
+.textWithTooltip {
+  font-style: italic;
+  border: none;
+}
+
+.showGradientRpt {
+  border-right: 2px solid black;
+}
+
+.gradientRpt {
+  border: 1px solid black;
+}
+
+.barClassRpt {
+  border-left: 1px solid black;
+}
+
+a.mimLinkRpt {
+  color: #000;
+  font-style: italic;
+  text-decoration: none;
+}
+a.mimLinkRpt:hover {
+  color: #000;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.histoTickRpt {
+  fill: #000;
 }
 
 // #reportSolarMap-container_root, #reportAerialMap-container_root{
