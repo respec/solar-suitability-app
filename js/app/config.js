@@ -36,18 +36,18 @@ define(
   );
 
     return {
-      
+
       applicationTitle: 'mn.gov/solarapp',
       apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
       gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
       // Live App:
-      appEmail: 'energy.info@state.mn.us',
+      //appEmail: 'energy.info@state.mn.us',
       //appDomain: 'http://mn.gov/solarapp',
 
       // Development Debugging:
-      //appEmail: 'andywalz@gmail.com',
-      appDomain: 'http://solar.maps.umn.edu/dev',
+      appEmail: 'andywalz@gmail.com',
+      appDomain: 'http://solar.maps.umn.edu/app',
 
       // Solar Calculator Defaults
       systemLife: 25,

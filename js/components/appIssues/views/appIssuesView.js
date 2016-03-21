@@ -52,12 +52,13 @@ define([
                             to_name: '',
                             from: $('#appIssuesEmail').val(),
                             from_name: $('#appIssuesName').val(),
-                            subject: 'Solar Suitability App Issue',
-                            body: 'An error was found with the Solar Suitability app.  Please see below for a description:<br><br>' + $('#appIssuesDescription').val(),
+                            subject: config.applicationTitle + ' Error Report',
+                            body: 'An error was found in ' + config.applicationTitle + '. <br><br><b>Description:</b><br><br>' + $('#appIssuesDescription').val().replace(/\n/g, "<br />") + '<br><br><b>From:</b><br>' + $(location).attr('href') + '<br><br><b>Submitted by:</b><br> ' + $('#appIssuesName').val() + ' (' + $('#appIssuesEmail').val() + ')<br>',
                             skey: config.appEmailKey
                           };
 
           $.post('api/email.php', emailData, function(data){
+            $('.appIssuesSubmit').html('Send');
             $('.appIssuesModal').modal('hide');
           });
         });
