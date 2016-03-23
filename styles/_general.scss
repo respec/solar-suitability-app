@@ -64,7 +64,7 @@ html {
 //@media(min-width:1200px){}
 //Increase text size on retina phone displays
 // @media screen and (
-// -webkit-min-device-pixel-ratio: 2){ 
+// -webkit-min-device-pixel-ratio: 2){
 //    //3 for galaxy s4 and s5, 2 for galaxy s3iphone 5 and 6, but there are edge cases where u
 //   .appHelp, .appIssues, .dataIssues {
 //     font-size: 180%;
@@ -120,7 +120,7 @@ a:visited {
     cursor: pointer;
     padding: 0;
     color: inherit;
-} 
+}
 
 /* Make text not selectable */
 .noselect {
@@ -307,11 +307,6 @@ ul.dropdown-menu,a.dropdown-menu {
   // background: url('../images/docBody2.png');
   // background-position: 0 60%;
   background-color: $doc-gray;
-}
-.helpModal-body{
-    height: 50vh;
-    max-height: 345px;
-    overflow-y: auto;
 }
 
 .docModal-header {

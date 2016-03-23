@@ -11,7 +11,7 @@
 }
 .helpModal-body{
     height: 50vh;
-    max-height: 375px;
+    max-height: 432px;
     overflow-y: auto;
     padding-left: 15px;
     padding-right: 15px;
@@ -19,7 +19,7 @@
     // background-image: url("../images/solar-app-transparent220x235.png");
     // background-repeat: no-repeat;
     // background-attachment: fixed;
-    // background-position: center; 
+    // background-position: center;
 }
 
 .appHelp {
@@ -55,10 +55,27 @@
   display:inline-block;
 }
 
-@media(max-width:767px){
-  .helpModal-body {
-    height: 56vh;
-    max-height: 460px;
+
+@media(max-width:967px){
+  .modal-dialog {
+    margin:0px;
+    min-width: 333px;
+  }
+  .appHelpModal {
+    width: 95%;
+    max-height: 95%;
+    margin: auto;
+    max-width: 840px;
+  }
+  .helpModal-body{
+    height: 65vh;
+    max-height: 100%;
+  }
+  #solarLogo {
+    text-align:center;
+  }
+  #website {
+    text-align:center;
   }
 }
 
