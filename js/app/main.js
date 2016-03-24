@@ -248,7 +248,7 @@ define([
             app.map.getLayer('solar').show();
             $('#solarToggle').bootstrapToggle('on');
           }
-         
+
         });
 
         this.initComponents();
@@ -319,11 +319,11 @@ define([
           //self.buildToolTip();
           //self.showAlert("success","Notice:","Click anywhere on the map to view solar potential.");
         });
-        
+
       },
 
       buildToolTip: function(){
-        
+
         // dojo.connect(this.map, 'onLoad', function() {
           // dojo.connect(dijit.byId('map'), 'resize', this.map, this.map.resize);
 
@@ -366,7 +366,7 @@ define([
       // Show a floating fade in/out alert message, a duration of 0 forces the user to dismiss the alert
       showAlert: function(alertType, headline, message, duration) {
           alertDuration = duration || 3700;
-          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+          $('#myAlert').html('<div data-dismiss="alert" class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
           $('#alert').addClass('in');
           if (duration > 0){
             window.setTimeout(function () { $('#alert').removeClass('in'); }, alertDuration);
@@ -389,19 +389,19 @@ define([
 
         function getParameterByName(name) {
           name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-          
+
           var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
           results = regex.exec(decodeURIComponent(unescape(location.search)));
-          
+
           return results === null ? '' : results[1].replace(/\+/g, ' ');
         }
 
         var lng = parseFloat(getParameterByName('long'));
         var lat = parseFloat(getParameterByName('lat'));
-        
+
         if (lng && lat){
           //$('.appHelpModal').modal('hide');
-          
+
           app.map.centerAndZoom([lng, lat - 0.0003], 19);
           var point = new Point (lng, lat, app.map.spatialReference);
           var mp = webMercatorUtils.geographicToWebMercator(point);
