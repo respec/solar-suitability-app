@@ -29,6 +29,8 @@ define([
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/ImageServiceParameters',
   'esri/layers/RasterFunction',
+  'esri/layers/LabelClass',
+  "esri/symbols/TextSymbol",
   'esri/map',
   'esri/geometry/Point',
   'esri/geometry/webMercatorUtils',
@@ -48,7 +50,7 @@ define([
 
     QueryModel, ReportModel,
 
-    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils, SpatialReference,
+    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, LabelClass, TextSymbol, Map, Point, webMercatorUtils, SpatialReference,
 
     lang
 
@@ -65,6 +67,7 @@ define([
         this.initLayout();
         var corsEnabledServers = esriConfig.defaults.io.corsEnabledServers;
         corsEnabledServers.push(config.solarImageryUrl);
+        //corsEnabledServers.push(config.mnGeoUrl);
       },
 
       /**
@@ -170,10 +173,25 @@ define([
 
         var eusaLayer = new FeatureLayer(config.eusaUrl, {
           id: 'eusa',
+          outFields: ["*"],
           showLabels : true
         });
         eusaLayer.hide();
         eusaLayer.setOpacity(0.65);
+
+        // create a text symbol to define the style of labels
+        var eusaLabel = new TextSymbol();
+        eusaLabel.font.setSize("14pt");
+        eusaLabel.font.setFamily("arial");
+
+        //create instance of LabelClass (note: multiple LabelClasses can be passed in as an array)
+        var labelClass = new LabelClass({
+          minScale: 3000000,
+          "labelExpressionInfo": {"value": "{FULL_NAME}"}
+        });
+        labelClass.symbol = eusaLabel; // symbol also can be set in LabelClass' json
+        eusaLayer.setLabelingInfo([ labelClass ]);
+
 
         var waterLayer = new FeatureLayer(config.waterUrl, {
           id: 'water',
@@ -248,7 +266,7 @@ define([
             app.map.getLayer('solar').show();
             $('#solarToggle').bootstrapToggle('on');
           }
-         
+
         });
 
         this.initComponents();
@@ -319,11 +337,11 @@ define([
           //self.buildToolTip();
           //self.showAlert("success","Notice:","Click anywhere on the map to view solar potential.");
         });
-        
+
       },
 
       buildToolTip: function(){
-        
+
         // dojo.connect(this.map, 'onLoad', function() {
           // dojo.connect(dijit.byId('map'), 'resize', this.map, this.map.resize);
 
@@ -366,7 +384,7 @@ define([
       // Show a floating fade in/out alert message, a duration of 0 forces the user to dismiss the alert
       showAlert: function(alertType, headline, message, duration) {
           alertDuration = duration || 3700;
-          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+          $('#myAlert').html('<div data-dismiss="alert" class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
           $('#alert').addClass('in');
           if (duration > 0){
             window.setTimeout(function () { $('#alert').removeClass('in'); }, alertDuration);
@@ -389,19 +407,19 @@ define([
 
         function getParameterByName(name) {
           name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-          
+
           var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
           results = regex.exec(decodeURIComponent(unescape(location.search)));
-          
+
           return results === null ? '' : results[1].replace(/\+/g, ' ');
         }
 
         var lng = parseFloat(getParameterByName('long'));
         var lat = parseFloat(getParameterByName('lat'));
-        
+
         if (lng && lat){
           //$('.appHelpModal').modal('hide');
-          
+
           app.map.centerAndZoom([lng, lat - 0.0003], 19);
           var point = new Point (lng, lat, app.map.spatialReference);
           var mp = webMercatorUtils.geographicToWebMercator(point);
