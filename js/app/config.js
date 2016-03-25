@@ -86,6 +86,7 @@ define(
       // solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/',
       solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/',
       dsmImageryUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnDSMRef/ImageServer',
+      mnGeoUrl: 'http://geoserver.state.mn.us',
       //solar data for querying insolation
       // imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/identify',
       imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/identify',
@@ -95,7 +96,8 @@ define(
       countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/1',
       waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/2',
       bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/3',
-      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/4',
+      eusaUrl: 'http://geoserver.state.mn.us/arcgis/rest/services/EUSA/EUSA/MapServer/0',
+      //      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/4',
       countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/5',
 
       // Existing solar installations GeoRSS xml source

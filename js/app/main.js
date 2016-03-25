@@ -29,6 +29,8 @@ define([
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/ImageServiceParameters',
   'esri/layers/RasterFunction',
+  'esri/layers/LabelClass',
+  "esri/symbols/TextSymbol",
   'esri/map',
   'esri/geometry/Point',
   'esri/geometry/webMercatorUtils',
@@ -48,7 +50,7 @@ define([
 
     QueryModel, ReportModel,
 
-    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils, SpatialReference,
+    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, LabelClass, TextSymbol, Map, Point, webMercatorUtils, SpatialReference,
 
     lang
 
@@ -171,10 +173,25 @@ define([
 
         var eusaLayer = new FeatureLayer(config.eusaUrl, {
           id: 'eusa',
+          outFields: ["*"],
           showLabels : true
         });
         eusaLayer.hide();
         eusaLayer.setOpacity(0.65);
+
+        // create a text symbol to define the style of labels
+        var eusaLabel = new TextSymbol();
+        eusaLabel.font.setSize("16pt");
+        eusaLabel.font.setFamily("arial");
+
+        //create instance of LabelClass (note: multiple LabelClasses can be passed in as an array)
+        var labelClass = new LabelClass({
+          minScale: 3000000,
+          "labelExpressionInfo": {"value": "{FULL_NAME}"}
+        });
+        labelClass.symbol = eusaLabel; // symbol also can be set in LabelClass' json
+        eusaLayer.setLabelingInfo([ labelClass ]);
+
 
         var waterLayer = new FeatureLayer(config.waterUrl, {
           id: 'water',
