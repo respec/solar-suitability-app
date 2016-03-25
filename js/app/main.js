@@ -181,7 +181,7 @@ define([
 
         // create a text symbol to define the style of labels
         var eusaLabel = new TextSymbol();
-        eusaLabel.font.setSize("16pt");
+        eusaLabel.font.setSize("14pt");
         eusaLabel.font.setFamily("arial");
 
         //create instance of LabelClass (note: multiple LabelClasses can be passed in as an array)

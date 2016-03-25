@@ -43,6 +43,13 @@ html {
   .flyover {
     width: 92% !important;
   }
+  #reportModal {
+    width: 98% !important;
+  }
+  .reportModal-body {
+    padding: 0px !important;
+    overflow-x: auto !important;
+  }
 }
 
 @media(min-width:768px){
