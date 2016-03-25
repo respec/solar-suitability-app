@@ -65,6 +65,7 @@ define([
         this.initLayout();
         var corsEnabledServers = esriConfig.defaults.io.corsEnabledServers;
         corsEnabledServers.push(config.solarImageryUrl);
+        //corsEnabledServers.push(config.mnGeoUrl);
       },
 
       /**
