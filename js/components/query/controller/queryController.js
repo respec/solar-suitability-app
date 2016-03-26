@@ -80,7 +80,7 @@ define([
           this.solarGPTool();
         }
       },
-      
+
       serverError: function(error) {
         app.showAlert('danger', 'Uffdah! There appears to be something wrong with our server.', 'Please try again soon.  If the issue persists, contact us at <a href="mailto:' + config.appEmail + '&subject=Server%20Error&body=Please%20take%20a%20look%20at%20service:%20' + service + '.%20%20It%20appears%20to%20be%20not%20working.">' + config.appEmail + '</a>');
         loadSplashController.hideLoader();
@@ -134,7 +134,7 @@ define([
             app.query.collectDate = lidarCollect;
             app.model.set('lidarCollect', lidarCollect);
           } else {
-            console.log('fail');
+            console.log('Unable to determine the lidar collect date.');
           }
         }, lang.hitch(this, function(error) {
           this.serverError(error, 'Lidar');
@@ -181,7 +181,7 @@ define([
       },
 
       solarQuery: function() {
-        //setup insolation query
+        // setup pixel value insolation query from solar raster mosaic
         var solarQuery = new Query();
         var solarQueryTask = new QueryTask(config.imgIdentifyUrl);
         solarQuery.geometry = app.query.point;
@@ -214,16 +214,11 @@ define([
 
       },
 
-      // , function(err){
-      //     app.showAlert('danger','There was an error with your request:','Please click OK and try again');
-      //   };
-
       solarGPTool: function() {
+        // lookup the DSM tile filename (it is faster to feed in single tile vs whole mosaic)
         var point = app.query.latLngPt;
-
         var queryTask = new QueryTask(config.dsmImageryUrl);
 
-        //initialize query
         var tileQuery = new Query();
         tileQuery.returnGeometry = false;
         tileQuery.outFields = ['Name'];
@@ -241,7 +236,7 @@ define([
       },
 
       executeGP: function(point, tile) {
-        // Create geoprocessing tool
+        // execute solar gptool to computer monthly values using the DSM
         var gp = new esri.tasks.Geoprocessor(config.gpTool);
 
         var params = {
@@ -358,9 +353,9 @@ define([
 
           month.shadeHrValue = 0;
 
-          // Calculate percent sun 
+          // Calculate percent sun
           var percentSun = month.sunHrValue / value;
-          
+
           if (percentSun > 1) {
             percentSun = 1;
           } else {
@@ -377,9 +372,9 @@ define([
           var month = solarObj[mon];
           var maxIdeal = value / 1000;
 
-          // Calculate percent sun 
+          // Calculate percent sun
           var percentIdealSun = (month.idealValue / 1000) / maxIdeal;
-          
+
           if (percentIdealSun > 1) {
             percentIdealSun = 1;
           }
@@ -440,7 +435,7 @@ define([
         app.solarObj = solarObj;
 
         // create histos
-        // 
+        //
         // create Solar Insol histo
         this.buildCharts();
 
@@ -591,7 +586,7 @@ define([
 
         // Calculate System Payback
         // var averagePerDay = app.reportModel.get('averagePerDay');
-        // 
+        //
         var productionPerYear = averagePerDay * 365;
         var costPerkWh = app.reportModel.get('costPerkWh');
         var savingsPerYear = systemSize * productionPerYear * costPerkWh;
@@ -628,7 +623,7 @@ define([
             'payback25Year': paybackTotal
           });
 
-          // Payback is (average system cost divided by the system life payback total) times system life.  
+          // Payback is (average system cost divided by the system life payback total) times system life.
           // Result is in years
           var paybackWithoutIncentives = (averageCostSystem / paybackTotal) * systemLife;
           app.reportModel.set({
