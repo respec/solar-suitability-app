@@ -257,36 +257,28 @@ define([
 
         //parse the results
         var insolResults = results[0].value.split('\n');
-        var sunHrResults = results[0].value.split('\n');
-        var idealResults = results[2].value.split('\n');
+        var sunHrResults = results[1].value.split('\n');
 
         //remove final value (blank value from new line char)
         insolResults.pop();
         sunHrResults.pop();
-        idealResults.pop();
 
         var insolValue = [];
         var sunHrValue = [];
-        var idealValue = [];
         var insolkW = [];
 
         _.each(insolResults, function(result) {
           insolValue.push(parseFloat(result));
         });
 
-        _.each(sunHrResults, function(result) {
-          sunHrValue.push(parseFloat(result) / 1000);
-        });
-
-        _.each(idealResults, function(result) {
-          idealValue.push(parseFloat(result) / 1000);
-        });
-
         _.each(insolResults, function(result) {
           insolkW.push(parseFloat(result) / 1000);
         });
 
-        console.log("Monthly Ideal kWh/m^2: ",idealValue);
+        _.each(sunHrResults, function(result) {
+          sunHrValue.push(parseFloat(result));
+        });
+
         console.log("Monthly Actual kWh/m^2: ",insolkW);
 
         var solarObj = {
@@ -296,15 +288,14 @@ define([
           'sunTotal': 0
         };
 
-        var insolValueCorrected = [];
         var maxInsol = 0;
         var maxSun = 0;
         var total = 0;
         var sunTotal = 0;
         var insolList = [];
         var sunHrList = [];
-        var maxSunHrList = [];
-        var shadeHrList = [];
+        var maxInsolValList = [];
+        //var shadeHrList = [];
         var months = [];
 
         for (var i = 0; i < 12; i++) {
@@ -319,7 +310,7 @@ define([
           monthObj.month = month.abbr;
           monthObj.insolValue = insolValDiv1000;
           monthObj.sunHrValue = parseFloat(sunHrResults[i]);
-          monthObj.idealValue = parseFloat(idealResults[i]);
+          // monthObj.idealValue = parseFloat(idealResults[i]);
           solarObj.insolTotal = solarObj.insolTotal + insolValDiv1000;
           solarObj.sunTotal = solarObj.sunTotal + sunHrValue[i];
 
@@ -347,43 +338,44 @@ define([
         var nearestLat = Math.round(app.query.latLngPt.y);
         var annualPercentSun = 0;
 
-        _.each(maxActualInsolation[nearestLat], function(value, mon) {
+        // Setup Monthly Insolation Data
+        _.each(config.maxActualInsolationByMonth, function(value, mon) {
           var month = solarObj[mon];
-          month.maxSunHrValue = value / 1000;
+          month.maxInsolValue = value / 1000;
 
-          month.shadeHrValue = 0;
+          //month.actualInsolValue = 0;
 
           // Calculate percent sun
           var percentSun = month.sunHrValue / value;
 
           if (percentSun > 1) {
             percentSun = 1;
-          } else {
-            month.shadeHrValue = month.maxSunHrValue - month.sunHrValue;
           }
+
           month.percentSun = percentSun;
           annualPercentSun += percentSun;
 
-          shadeHrList.push(month.shadeHrValue);
-          maxSunHrList.push(month.maxSunHrValue);
+          //shadeHrList.push(month.shadeHrValue);
+          maxInsolValList.push(month.maxInsolValue);
         });
 
-        _.each(maxIdealInsolation[nearestLat], function(value, mon) {
-          var month = solarObj[mon];
-          var maxIdeal = value / 1000;
+        // // Setup Monthly Duratino Data
+        // _.each(maxIdealInsolation[nearestLat], function(value, mon) {
+        //   var month = solarObj[mon];
+        //   var maxIdeal = value / 1000;
 
-          // Calculate percent sun
-          var percentIdealSun = (month.idealValue / 1000) / maxIdeal;
+        //   // Calculate percent sun
+        //   var percentIdealSun = (month.idealValue / 1000) / maxIdeal;
 
-          if (percentIdealSun > 1) {
-            percentIdealSun = 1;
-          }
+        //   if (percentIdealSun > 1) {
+        //     percentIdealSun = 1;
+        //   }
 
-          month.idealPercent = percentIdealSun;
-        });
+        //   month.idealPercent = percentIdealSun;
+        // });
 
-        solarObj.shadeHrList = shadeHrList;
-        solarObj.maxSunHrList = maxSunHrList;
+        //solarObj.shadeHrList = shadeHrList;
+        solarObj.maxInsolValList = maxInsolValList;
 
         // Convert to average, float, 2 decimal points (percent)
         annualPercentSun = parseFloat((annualPercentSun / 12).toFixed(2));
@@ -450,6 +442,210 @@ define([
         this.displayResults();
       },
 
+      buildResultsWithIdeal: function() {
+        // THIS FUNCTION IS CURRENTLY NOT IN USE. It was an attempt at computing  "ideal" insolation similar to solar pathfinder using 45º tilt and 180º azimuth
+        // app.query.results = results;
+
+        // //empty div so histo doesn't duplicate
+        // this.clearDiv('#resultsHisto');
+        // this.clearDiv('#sunHrHisto');
+
+        // //parse the results
+        // var insolResults = results[0].value.split('\n');
+        // var sunHrResults = results[0].value.split('\n');
+        // var idealResults = results[2].value.split('\n');
+
+        // //remove final value (blank value from new line char)
+        // insolResults.pop();
+        // sunHrResults.pop();
+        // idealResults.pop();
+
+        // var insolValue = [];
+        // var sunHrValue = [];
+        // var idealValue = [];
+        // var insolkW = [];
+
+        // _.each(insolResults, function(result) {
+        //   insolValue.push(parseFloat(result));
+        // });
+
+        // _.each(sunHrResults, function(result) {
+        //   sunHrValue.push(parseFloat(result) / 1000);
+        // });
+
+        // _.each(idealResults, function(result) {
+        //   idealValue.push(parseFloat(result) / 1000);
+        // });
+
+        // _.each(insolResults, function(result) {
+        //   insolkW.push(parseFloat(result) / 1000);
+        // });
+
+        // console.log("Monthly Ideal kWh/m^2: ",idealValue);
+        // console.log("Monthly Actual kWh/m^2: ",insolkW);
+
+        // var solarObj = {
+        //   'maxInsol': 0,
+        //   'maxSun': 0,
+        //   'insolTotal': 0,
+        //   'sunTotal': 0
+        // };
+
+        // var insolValueCorrected = [];
+        // var maxInsol = 0;
+        // var maxSun = 0;
+        // var total = 0;
+        // var sunTotal = 0;
+        // var insolList = [];
+        // var sunHrList = [];
+        // var maxSunHrList = [];
+        // var shadeHrList = [];
+        // var months = [];
+
+        // for (var i = 0; i < 12; i++) {
+        //   var monthObj = {};
+        //   var month = dataHandler.getMonth(i);
+        //   months.push(month);
+
+        //   //convert Wh to kWh
+        //   var insolValDiv1000 = insolResults[i] / 1000;
+
+        //   // build object(s)
+        //   monthObj.month = month.abbr;
+        //   monthObj.insolValue = insolValDiv1000;
+        //   monthObj.sunHrValue = parseFloat(sunHrResults[i]);
+        //   monthObj.idealValue = parseFloat(idealResults[i]);
+        //   solarObj.insolTotal = solarObj.insolTotal + insolValDiv1000;
+        //   solarObj.sunTotal = solarObj.sunTotal + sunHrValue[i];
+
+        //   insolList.push(insolValDiv1000);
+        //   sunHrList.push(sunHrValue[i]);
+
+        //   if (insolValDiv1000 > solarObj.maxInsol) {
+        //     solarObj.maxInsol = insolValDiv1000;
+        //   }
+
+        //   if (parseInt(sunHrValue[i], 10) > maxSun) {
+        //     solarObj.maxSun = parseInt(sunHrValue[i], 10);
+        //   }
+
+        //   solarObj[month.abbr] = monthObj;
+
+        // }
+
+        // solarObj.sunHrList = sunHrList;
+        // solarObj.insolList = insolList;
+        // solarObj.months = months;
+
+        // //console.log(solarObj.insolTotal,solarObj.insolTotal/365);
+
+        // var nearestLat = Math.round(app.query.latLngPt.y);
+        // var annualPercentSun = 0;
+
+        // _.each(maxActualInsolation[nearestLat], function(value, mon) {
+        //   var month = solarObj[mon];
+        //   month.maxSunHrValue = value / 1000;
+
+        //   month.shadeHrValue = 0;
+
+        //   // Calculate percent sun
+        //   var percentSun = month.sunHrValue / value;
+
+        //   if (percentSun > 1) {
+        //     percentSun = 1;
+        //   } else {
+        //     month.shadeHrValue = month.maxSunHrValue - month.sunHrValue;
+        //   }
+        //   month.percentSun = percentSun;
+        //   annualPercentSun += percentSun;
+
+        //   shadeHrList.push(month.shadeHrValue);
+        //   maxSunHrList.push(month.maxSunHrValue);
+        // });
+
+        // _.each(maxIdealInsolation[nearestLat], function(value, mon) {
+        //   var month = solarObj[mon];
+        //   var maxIdeal = value / 1000;
+
+        //   // Calculate percent sun
+        //   var percentIdealSun = (month.idealValue / 1000) / maxIdeal;
+
+        //   if (percentIdealSun > 1) {
+        //     percentIdealSun = 1;
+        //   }
+
+        //   month.idealPercent = percentIdealSun;
+        // });
+
+        // solarObj.shadeHrList = shadeHrList;
+        // solarObj.maxSunHrList = maxSunHrList;
+
+        // // Convert to average, float, 2 decimal points (percent)
+        // annualPercentSun = parseFloat((annualPercentSun / 12).toFixed(2));
+
+        // solarObj.annualPercentSun = annualPercentSun;
+
+        // var quality;
+        // switch (true) {
+
+        //   case (annualPercentSun >= 0.9):
+        //     quality = 'Optimal';
+        //     break;
+
+        //   case (annualPercentSun >= 0.8):
+        //     quality = 'Good';
+        //     break;
+
+        //   case (annualPercentSun >= 0.7):
+        //     quality = 'Fair';
+        //     break;
+
+        //   case (annualPercentSun >= 0.5):
+        //     quality = 'Marginal';
+        //     break;
+
+        //   case (annualPercentSun < 0.5):
+        //     quality = 'Poor';
+        //     break;
+
+        //   default:
+        //     quality = 'No Data';
+        //     break;
+        // }
+
+        // // Store calculated quality values
+        // app.query.quality = quality;
+        // app.model.set('quality', quality);
+
+        // // Populate gradient
+        // var gradient = (annualPercentSun * 100).toFixed(0).toString() + '%';
+        // // .toFixed().toString + '%';
+        // // var gradient = ((app.query.averagePerDay/4).toFixed(2)*100).toFixed().toString() + '%';
+
+        // var $showGradient = $('.showGradient');
+        // $showGradient.css('width', gradient);
+        // $('.showGradient>span').text(gradient);
+
+        // // store results
+        // app.solarObj = solarObj;
+
+        // // create histos
+        // //
+        // // create Solar Insol histo
+        // this.buildCharts();
+
+        // this.drawChart(app.charts.sunHrsChart);
+
+        // resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
+        // resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+
+        // // Calculate solar calculator
+        // this.calculateSystemData();
+
+        // this.displayResults();
+
+      },
+
       displayResults: function() {
         //show results & hide loader
         loadSplashController.hideLoader();
@@ -488,8 +684,8 @@ define([
 
         var sunHrsChart = {
           data: app.solarObj,
-          attributes: app.solarObj.sunHrList,
-          attributes2: app.solarObj.maxSunHrList,
+          attributes: app.solarObj.insolList,
+          attributes2: app.solarObj.maxInsolValList,
           maxValue: 180,
           el: '#sunHrsHisto',
           className: 'chart',
@@ -514,32 +710,32 @@ define([
 
         app.charts.sunHrsChart = sunHrsChart;
 
-        var shadeHrsChart = {
-          data: app.solarObj,
-          attributes: app.solarObj.shadeHrList,
-          maxValue: 500,
-          el: '',
-          className: 'chart',
-          size: {
-            width: 600,
-            height: 260,
-            barWidth: 20
-          },
-          title: {
-            title: '',
-            offset: 2,
-            modifier: 20
-          },
-          margin: {
-            'top': 10,
-            'right': 10,
-            'bottom': 50,
-            'left': 50
-          },
-          tip: false
-        };
+        // var shadeHrsChart = {
+        //   data: app.solarObj,
+        //   attributes: app.solarObj.shadeHrList,
+        //   maxValue: 500,
+        //   el: '',
+        //   className: 'chart',
+        //   size: {
+        //     width: 600,
+        //     height: 260,
+        //     barWidth: 20
+        //   },
+        //   title: {
+        //     title: '',
+        //     offset: 2,
+        //     modifier: 20
+        //   },
+        //   margin: {
+        //     'top': 10,
+        //     'right': 10,
+        //     'bottom': 50,
+        //     'left': 50
+        //   },
+        //   tip: false
+        // };
 
-        app.charts.shadeHrsChart = shadeHrsChart;
+        // app.charts.shadeHrsChart = shadeHrsChart;
       },
 
       calculateSystemData: function() {

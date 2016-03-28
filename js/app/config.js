@@ -77,10 +77,8 @@ define(
       geometryService: 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer',
 
       // Solar data
-      //gpTool: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/SolarPointQuery_fast/GPServer/Script',
-      //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',
-      //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
-      gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarappGPTool/GPServer/SolarPointQueryWithIdeal',
+      gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
+      //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarappGPTool/GPServer/SolarPointQueryWithIdeal',
 
       /* Solar raster - query */
       // solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/',
@@ -110,14 +108,6 @@ define(
       barColor: '#ff7400',
       backgroundBarColor: '#808080',
 
-      //OLD SERVICE:
-      // waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/1',
-      // eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/2',
-      // bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/3',
-      // countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/4',
-      // countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/5',
-      // certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',
-
       /*MPLS*/
       // centerLat: 44.971795,
       // centerLng: -93.243322,
@@ -133,7 +123,22 @@ define(
       solarPanelSymbol: solarPanelSymbol,
       installationSymbol: installationSymbol,
 
-      appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
+      appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq',
+
+      maxActualInsolationByMonth: {
+        Jan: 32700,
+        Feb: 54300,
+        Mar: 103000,
+        Apr: 139500,
+        May: 171500,
+        Jun: 175000,
+        Jul: 176000,
+        Aug: 155000,
+        Sep: 116000,
+        Oct: 69200,
+        Nov: 36800,
+        Dec: 26000
+      }
 
     };
   });
