@@ -333,12 +333,10 @@ define([
         solarObj.insolList = insolList;
         solarObj.months = months;
 
-        //console.log(solarObj.insolTotal,solarObj.insolTotal/365);
-
         var nearestLat = Math.round(app.query.latLngPt.y);
         var annualPercentSun = 0;
 
-        // Setup Monthly Insolation Data
+        // Setup Monthly Insolation Data and track annual percent sun
         _.each(config.maxActualInsolationByMonth, function(value, mon) {
           var month = solarObj[mon];
           month.maxInsolValue = value / 1000;
@@ -346,7 +344,7 @@ define([
           //month.actualInsolValue = 0;
 
           // Calculate percent sun
-          var percentSun = month.sunHrValue / value;
+          var percentSun = month.insolValue / month.maxInsolValue;
 
           if (percentSun > 1) {
             percentSun = 1;
@@ -427,14 +425,12 @@ define([
         app.solarObj = solarObj;
 
         // create histos
-        //
-        // create Solar Insol histo
         this.buildCharts();
 
-        this.drawChart(app.charts.sunHrsChart);
+        this.drawChart(app.charts.percentSunChart);
 
-        resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
-        resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
+        //resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
+        //resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
 
         // Calculate solar calculator
         this.calculateSystemData();
@@ -634,7 +630,7 @@ define([
         // // create Solar Insol histo
         // this.buildCharts();
 
-        // this.drawChart(app.charts.sunHrsChart);
+        // this.drawChart(app.charts.percentSunChart);
 
         // resultsSmallController.buildTable('#insolationTable', app.solarObj, 'insolValue', app.solarObj.months);
         // resultsSmallController.buildTable('#sunHoursTable', app.solarObj, 'sunHrValue', app.solarObj.months);
@@ -655,34 +651,34 @@ define([
       buildCharts: function() {
         app.charts = {};
 
-        var insolChart = {
-          data: app.solarObj,
-          attributes: app.solarObj.insolList,
-          maxValue: 220,
-          el: '#resultsHisto',
-          className: 'chart',
-          size: {
-            width: 600,
-            height: 260,
-            barWidth: 20
-          },
-          title: {
-            title: '',
-            offset: 2,
-            modifier: 20
-          },
-          margin: {
-            'top': 10,
-            'right': 10,
-            'bottom': 50,
-            'left': 50
-          },
-          tip: true
-        };
+        // var insolChart = {
+        //   data: app.solarObj,
+        //   attributes: app.solarObj.insolList,
+        //   maxValue: 220,
+        //   el: '#resultsHisto',
+        //   className: 'chart',
+        //   size: {
+        //     width: 600,
+        //     height: 260,
+        //     barWidth: 20
+        //   },
+        //   title: {
+        //     title: '',
+        //     offset: 2,
+        //     modifier: 20
+        //   },
+        //   margin: {
+        //     'top': 10,
+        //     'right': 10,
+        //     'bottom': 50,
+        //     'left': 50
+        //   },
+        //   tip: true
+        // };
 
-        app.charts.insolChart = insolChart;
+        // app.charts.insolChart = insolChart;
 
-        var sunHrsChart = {
+        var percentSunChart = {
           data: app.solarObj,
           attributes: app.solarObj.insolList,
           attributes2: app.solarObj.maxInsolValList,
@@ -708,34 +704,34 @@ define([
           tip: true
         };
 
-        app.charts.sunHrsChart = sunHrsChart;
+        app.charts.percentSunChart = percentSunChart;
 
-        // var shadeHrsChart = {
-        //   data: app.solarObj,
-        //   attributes: app.solarObj.shadeHrList,
-        //   maxValue: 500,
-        //   el: '',
-        //   className: 'chart',
-        //   size: {
-        //     width: 600,
-        //     height: 260,
-        //     barWidth: 20
-        //   },
-        //   title: {
-        //     title: '',
-        //     offset: 2,
-        //     modifier: 20
-        //   },
-        //   margin: {
-        //     'top': 10,
-        //     'right': 10,
-        //     'bottom': 50,
-        //     'left': 50
-        //   },
-        //   tip: false
-        // };
+        var sunDurationChart = {
+          data: app.solarObj,
+          attributes: app.solarObj.sunHrList,
+          maxValue: 500,
+          el: '',
+          className: 'chart',
+          size: {
+            width: 600,
+            height: 260,
+            barWidth: 20
+          },
+          title: {
+            title: '',
+            offset: 2,
+            modifier: 20
+          },
+          margin: {
+            'top': 10,
+            'right': 10,
+            'bottom': 50,
+            'left': 50
+          },
+          tip: false
+        };
 
-        // app.charts.shadeHrsChart = shadeHrsChart;
+        app.charts.sunDurationChart = sunDurationChart;
       },
 
       calculateSystemData: function() {

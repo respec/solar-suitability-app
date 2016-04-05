@@ -49,60 +49,33 @@ define([
           app.reportAerialMap.setExtent(extent);
         });
 
-        // Second map is causing stack issue, researching how to resolve
-        // app.reportAerialMap.on('pan-end', function(){
-        //   var extent = app.reportAerialMap.extent;
-        //   app.reportSolarMap.setExtent(extent);
-        // });
-
-
-        // create histos
-        // 
         // clear content (from previous click)
         queryController.clearDiv($('#reportResultsHisto'));
         //queryController.clearDiv($('#reportSunHrsHisto'));
         //queryController.clearDiv($('#reportShadeHrsHisto'));
 
-        // draw insol hours chart
-        var reportInsolChart = app.charts.insolChart;
-        reportInsolChart.el = '#reportResultsHisto';
-        reportInsolChart.className = 'reportChart';
-        queryController.drawChart(reportInsolChart);
+        // draw second chart on last page of report
+        var sunDurationHisto = app.charts.sunDurationChart;
+        sunDurationHisto.el = '#reportResultsHisto';
+        sunDurationHisto.className = 'reportChart';
+        queryController.drawChart(sunDurationHisto);
 
-        // draw sun hours chart
-        // var reportSunHrsChart = app.charts.sunHrsChart;
-        // reportSunHrsChart.el = '#reportSunHrsHisto';
-        // reportSunHrsChart.className = 'reportChart';
-        // queryController.drawChart(reportSunHrsChart);
+        // draw table of values on last page of report
+        this.buildTable('#reportResultsTable', app.solarObj, 'percentSun', 'insolValue', 'sunHrValue', app.solarObj.months);
 
-        // // draw shade hours chart
-        // var reportShadeHrsChart = app.charts.shadeHrsChart;
-        // reportShadeHrsChart.el = '#reportShadeHrsHisto';
-        // reportShadeHrsChart.className = 'reportChart';
-        // queryController.drawChart(reportShadeHrsChart);
-
-        this.buildTable('#reportResultsTable', app.solarObj, 'idealPercent', 'percentSun', 'insolValue', app.solarObj.months);
-        // this.buildTable('#reportSunHrsTable', app.solarObj, 'sunHrValue', app.solarObj.months);
-        // this.buildTable('#reportShadeHrsTable', app.solarObj, 'shadeHrValue', app.solarObj.months);
-
-        // Clear & Copy preview drawer elements into report
+        // clear & Copy preview drawer elements into report
         $('#sunPercentHistoRpt').html("");
         $('#resultsTextRpt').html("");
         $('#progressBarRpt').html("");
-
         $('#sunPercentHistoRpt').append($("#sunHrsHisto").html());
         $('#resultsTextRpt').append($('#solarCalcText').html());
         $('#progressBarRpt').append($('#percentSunBar').html());
 
-        // Alter styles to handle white background
+        // alter styles to handle white background
         $('#progressBarRpt').find(".showGradient").addClass('showGradientRpt');
         $('#progressBarRpt').find(".gradient").addClass('gradientRpt');
         $('#progressBarRpt').find('.barClass').addClass('barClassRpt');
         $("#resultsTextRpt").find("a").toggleClass('madeInMn mimLinkRpt');
-        //$('#progressBar').find(".showGradient").css('border-right', '2px solid black');
-        //$('#progressBar').find(".gradient").css('border', '1px solid black');
-        //$('.progress-labels').find("div").css('border-left', '1px solid black');
-        //$("#resultsText").find("a").css('color', 'black');
         $('#sunPercentHistoRpt').find('.tick > text').css({
           fill: "#000"
         });
@@ -231,14 +204,14 @@ define([
               .append($('<td>')
                 .text(longMonth)
               )
-              // .append($('<td>')
-              //   .text((data[shortMonth][col1] * 100).toFixed() + '%')
-              // )
               .append($('<td>')
-                .text((data[shortMonth][col2] * 100).toFixed() + '%')
+                .text((data[shortMonth][col1] * 100).toFixed() + '%')
               )
               .append($('<td>')
-                .text(data[shortMonth][col3].toFixed(2))
+                .text(data[shortMonth][col2].toFixed(2))
+              )
+              .append($('<td>')
+                .text(data[shortMonth][col3].toFixed(1))
               )
             );
         });
@@ -361,7 +334,7 @@ define([
         // hide edit toolbar
         // $editToolbar = $('.editToolbar');
         // $editToolbar.hide();
-        // 
+        //
 
         // Show solar layer
         app.map.getLayer('solar').show();
@@ -466,10 +439,10 @@ define([
       pdfPageOne: function() {
         console.log("Starting to buildPDF");
         pdfPageOne = [
-            this.pdfMakeHeader(), 
-            this.pdfAddSunHisto(), 
-            this.pdfMakeAirMap(), 
-            this.pdfMakeSolarMap(), 
+            this.pdfMakeHeader(),
+            this.pdfAddSunHisto(),
+            this.pdfMakeAirMap(),
+            this.pdfMakeSolarMap(),
             this.pdfMakeSunBar(),
             this.pdfSiteDetails()
           ];
@@ -499,7 +472,7 @@ define([
       },
       pdfPageThree: function(){
         pdfPageThree = [
-            //this.pdfAddMonthlyHisto(), 
+            this.pdfAddMonthlyHisto(),
             this.pdfMoreResults(),
             this.pdfMakeLogo()
           ];
@@ -514,7 +487,7 @@ define([
 
         setTimeout(function() {
           //var sunH = $('#cvgCanvas')[0];
-          
+
           //app.doc.setFontStyle('bold');
           // app.doc.setFont('helvetica', 'bold');
           // app.doc.text(275, 360, 'Percent Sun Hours By Month');
@@ -536,8 +509,8 @@ define([
         setTimeout(function() {
           //var sunH = $('#monthlyCanvas')[0];
 
-          app.doc.fromHTML("<h3>Insolation by Month</h3>", 165, 270, { 'width':200});
-          app.doc.addImage(app.canvas.monthlyInsol, 'PNG', 110, 300);
+          app.doc.fromHTML("<h3>Monthly Sun Duration (Hours)</h3>", 160, 295, { 'width':200});
+          app.doc.addImage(app.canvas.monthlyInsol, 'PNG', 110, 315);
           def.resolve();
         }, 1000);
 
@@ -610,7 +583,7 @@ define([
           //$('.hidden-print').hide();
           var f = $('#progressBarRpt');
           var makeBar = html2canvas(f);
-          
+
           return makeBar;
       },
       pdfSiteDetails: function() {
@@ -618,22 +591,22 @@ define([
         var def = new Deferred();
 
         setTimeout(function() {
-          
+
               // 6) Site details top
               app.doc.fromHTML($('.customDetails').get(0), 35, 60, {
-                'width': 700  
+                'width': 700
               });
               app.pdfparts++;
 
               // 7) results text paragraph
               app.doc.fromHTML($('#resultsTextRpt').get(0), 22, 370, {
-                'width': 200  
+                'width': 200
               });
               app.pdfparts++;
 
               // 8) utility contact info
               app.doc.fromHTML($('#EUSA').get(0), 22, 435, {
-                'width': 200  
+                'width': 200
               });
               app.pdfparts++;
 
@@ -669,8 +642,8 @@ define([
 
       writePdf: function() {
         console.log("Now writing PDF!");
-        
-        setTimeout( function(){ 
+
+        setTimeout( function(){
 
           if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
              //window.open(URL.createObjectURL(blob));
@@ -682,7 +655,7 @@ define([
               fname = 'MnSolarRpt_' + app.model.attributes.latLngPt.y.toString().slice(0,7) + "_" + app.model.attributes.latLngPt.x.toString().slice(0,8);
             } else {
               fname = 'MnSolarRpt_' + app.model.attributes.siteAddress.replace(" ","");
-            }  
+            }
             app.doc.save(fname + '.pdf');
           }
           $('#pdfButton').html('Save as PDF');
