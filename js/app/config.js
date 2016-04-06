@@ -41,13 +41,15 @@ define(
       apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
       gitHub: 'https://github.com/respec/solar-suitability-app',
 
-      // Live App:
+      // Live App Baseurl:
+      appDomain: 'http://mn.gov/solarapp',
+
+      // Contact Us Email Address (Note forms also submit notifications here):
       appEmail: 'energy.info@state.mn.us',
-      //appDomain: 'http://mn.gov/solarapp',
 
       // Development Debugging:
       //appEmail: 'andywalz@gmail.com',
-      appDomain: 'http://solar.maps.umn.edu/app',
+      //appDomain: 'http://solar.maps.umn.edu/app',
 
       // Solar Calculator Defaults
       systemLife: 25,
@@ -61,7 +63,10 @@ define(
       highCostPerkWh: 6060,
 
       // External links used throughout app
+
+      // Zip search disabled 2/2/2016 due to bug in dsire site
       //mnIncentives: 'http://programs.dsireusa.org/system/program?zip=',
+
       mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&',
       mnCertsSolarGardens: 'http://mncerts.org/solargardens',
       mnInstallers: 'http://www.cleanenergyprojectbuilder.org/directory?title=&field_category_tid=208&field_geofield_distance%5Borigin%5D=',
@@ -76,15 +81,15 @@ define(
       // Esri defaults
       geometryService: 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer',
 
-      // Solar data
+      // Solar App Required Services:
+
       gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
       //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarappGPTool/GPServer/SolarPointQueryWithIdeal',
 
-      /* Solar raster - query */
-      // solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/',
       solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/',
       dsmImageryUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnDSMRef/ImageServer',
       mnGeoUrl: 'http://geoserver.state.mn.us',
+
       //solar data for querying insolation
       // imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/identify',
       imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/identify',
@@ -125,16 +130,21 @@ define(
 
       appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq',
 
+      // Max Possible Actual Insolation in each Month
+      // These values were determined by sampling the solar mosaic's "hotest" spots
+      // in MN's 44-46ª latitude range
+      // UPDATE 4/5/2016: May lowered 1% from 171500 to 169800
+      // UPDATE 4/5/2016: Sept raised 1% from 116000 to 117200
       maxActualInsolationByMonth: {
         Jan: 32700,
         Feb: 54300,
         Mar: 103000,
         Apr: 139500,
-        May: 171500,
+        May: 169800,
         Jun: 175000,
         Jul: 176000,
         Aug: 155000,
-        Sep: 116000,
+        Sep: 117200,
         Oct: 69200,
         Nov: 36800,
         Dec: 26000

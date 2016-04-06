@@ -1,4 +1,4 @@
-<div id="resultsSmall">  
+<div id="resultsSmall">
     <div class="container-fluid">
         <!-- Divide buttons from other details-->
         <div class="row">
@@ -18,7 +18,7 @@
                         <div class="resultsPreview1 noselect" id="results">
                                 <div id="percentSunBar" class="row">
                                 <div class="col-md-12">
-                                
+
                                     <div class="gradientLabel sunBar">Full<br />Shade</div>
                                     <div class="progress-width sunBar">
                                         <div class="progressBar progress gradient center">
@@ -36,12 +36,12 @@
                                     </div>
                                     <div class="gradientLabel gradientLabelRight sunBar">Full<br />Sun</div>
                                     </div>
-                                    
+
                                 </div>
-                           
+
 
                             <div class="topSpace">
-                                <p class="paragraphIndent" id="solarCalcText">                            
+                                <p class="paragraphIndent" id="solarCalcText">
                                     <% if (quality !== 'Poor'){%>This site is <span class="valueHelp"><%=quality%></span>. It would need a <span class="valueHelp"><%=systemSize.toFixed(2)%> kW</span> system to generate <span class="valueHelp"><%=solarPercent*100%>%</span> of average household use. This system would cost approximately <span class="valueHelp"><%=averageCostSystemAsCurrency%></span>. <% if (madeInMnCounty){%><!-- MiM county -->With <a href="<%=madeInMn%>" target="_blank" class="madeInMn">Made in Minnesota</a> and other incentives estimated system payback is <span class="valueHelp"><%=mimPayback.toFixed(1)%> years</span>.<%} else { %><!-- non-MiM county -->System payback is <span class="valueHelp"><%=nonMimPayback.toFixed(1)%> years </span>after tax credit.<% } %>
                                     <% } else {%>
                                         This site is <span class="valueHelp"><%=quality%></span>.  Because of this, you might want to consider subscribing to a <a href="<%= solarGardens %>" target="_blank">Community Solar Gardens</a>, which allows you to directly benefit from a solar PV installation in a sunny location nearby.
@@ -67,14 +67,14 @@
                                     <i class="fa fa-exclamation-circle"></i>
                                 </button>
                             </div>
-                        </div>                     
+                        </div>
 
                     </div> <!-- end col -->
 
                     <!-- histogram -->
                     <div class="col-md-4 barChart">
                         <div class="resultHeader">
-                            <div class="chartTitle">Percent Actual Sun (Unshaded) By Month</div>
+                            <div class="chartTitle">Amount Actual Sun (Unshaded)</div>
                         </div>
                         <div class="resultsDisplay noselect" id="sunHrsHisto"></div>
 
@@ -134,11 +134,11 @@
                                 <% } %>
 
                             </div>
-                            
+
 
                         </div>
                     </div>
                 </div>
             </div> <!-- ROW END -->
-        </div> <!-- CONTAINER END --> 
+        </div> <!-- CONTAINER END -->
 </div> <!-- END ResultsSmall -->
