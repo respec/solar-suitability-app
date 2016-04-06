@@ -509,7 +509,7 @@ define([
         setTimeout(function() {
           //var sunH = $('#monthlyCanvas')[0];
 
-          app.doc.fromHTML("<h3>Monthly Sun Duration (Hours)</h3>", 160, 295, { 'width':200});
+          app.doc.fromHTML("<h3>Duration of Direct Sun (Hrs)</h3>", 160, 295, { 'width':200});
           app.doc.addImage(app.canvas.monthlyInsol, 'PNG', 110, 315);
           def.resolve();
         }, 1000);
