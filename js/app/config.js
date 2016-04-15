@@ -130,6 +130,8 @@ define(
 
       appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq',
 
+      chartToolTip: 'This chart displays the amount of solar radiation (insolation) received each month at the point you have selected. Hover over orange bars to see the percentage of the maximum possible solar insolation reaching the selected point. The reduction from 100% is the amount of shading the selected location has. For example, if the bar indicates 90% that would mean that there is 10% shading at that point.',
+
       // Max Possible Actual Insolation in each Month
       // These values were determined by sampling the solar mosaic's "hotest" spots
       // in MN's 44-46ª latitude range

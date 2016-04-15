@@ -1,0 +1,65 @@
+<div class="appIssuesModal modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content appIssues">
+
+            <div class="modal-header docModal-header" id="appIssuesHeader">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button aria-label="Close" data-dismiss="modal" class="close closeButton pull-right" type="button"></button>
+                            <div class='appTitle'>
+                                Report an issue with the Minnesota Solar Suitability App
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body docModal-body">
+                <div class="container-fluid">
+                    <div class="appIssuesBody">
+
+                        <form class="form-horizontal appIssuesForm">
+
+                        <!-- Text input-->
+                            <div class="control-group">
+                                <label class="control-label" for="appIssuesName">Full Name:</label>
+                                <div class="controls">
+                                    <input id="appIssuesName" name="appIssuesName" type="text" placeholder="  Enter name..." class="input-xlarge" required>
+                                </div>
+                            </div>
+
+                        <!-- Text input-->
+                            <div class="control-group">
+                                <label class="control-label" for="appIssuesEmail">Email:</label>
+                                <div class="controls">
+                                    <input id="appIssuesEmail" name="appIssuesEmail" type="email" placeholder="  Enter email..." class="input-xlarge" required>
+
+                                </div>
+                            </div>
+
+                        <!-- Textarea -->
+                            <div class="control-group">
+                                <label class="control-label" for="appIssuesDescription">Description:</label>
+                                <div class="controls">
+                                    <textarea id="appIssuesDescription" name="appIssuesDescription" placeholder="  Issue/bug description..."></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer docModal-footer">
+                <div class="container-fluid">
+                    <div class="row no-gutter">
+                        <div class="controls">
+                            <button id="appIssuesSubmit" name="appIssuesSubmit" class="btn btn-default btn-solar appIssuesSubmit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -691,7 +691,7 @@ define([
             barWidth: 20
           },
           title: {
-            title: '',
+            title: 'kWh/m^2',
             offset: 2,
             modifier: 20
           },
@@ -915,10 +915,12 @@ define([
         svgContainer.append('g')
           .attr('class', 'y axis').call(yAxis)
           .append('text')
-          .attr('x', (width / chartObj.title.offset + chartObj.title.modifier))
-          .attr('y', 10)
+          //.attr('x', (width / chartObj.title.offset + chartObj.title.modifier))
+          .attr('x', 40)
+          .attr('y', 210)
           .attr('text-anchor', 'center')
-          .style('font-size', '16px')
+          .style('font-size', '14px')
+          .attr("transform", "rotate(-90 -36,210)")
           .text(chartObj.title.title);
 
         // if second set of values, add

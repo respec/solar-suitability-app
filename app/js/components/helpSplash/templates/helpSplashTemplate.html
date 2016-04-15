@@ -1,0 +1,87 @@
+<div class="appHelpModal modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content appHelp">
+
+            <div class="modal-header docModal-header" id="appHelpHeader" data-dismiss="modal">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button aria-label="Close" data-dismiss="modal" class="close closeButton pull-right" type="button"></button>
+                            <a href="http://mn.gov/commerce/" target="_blank">
+                                <img src="assets/images/doc_logo.png" class="logo-doc">
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body docModal-body helpModal-body">
+                <div class="row">
+                    <div class="col-sm-8 paragraphIndent">
+                        <h3>WELCOME</h3>
+                        <p>Wondering if a particular site in Minnesota is good for solar energy? The MN Solar App can help. To get started, enter an address in the Search box or click the <i class="fa fa-location-arrow fa-1x"></i> button to use your current location. You can also see existing installations and other features by clicking the layers <img src="./assets/images/layerIcon.svg"> button.</p><p>More complicated sites with more shading should have an onsite solar assessment.</p>
+
+                        <div id="colorRamp">
+                            <strong>SHADE</strong><img src="assets/images/color_ramp_white_text_no_labels.png" style="padding-bottom:10px;padding-top:8px;max-width:250px;"/><strong>SUN</strong>
+                        </div>
+
+                        <div class="row top-md">
+                            <div class="col-md-12">
+                            <span>Supported and funded by MN Dept of Commerce in partnership with:</span>
+                            </div>
+                        </div>
+                        <div class="row top-md">
+                            <div class="col-xs-3 center pull-middle">
+                                    <a href="http://www.umn.edu" target="_blank">
+                                        <img src="assets/images/UMN_M_white.gif" class="logo">
+                                    </a>
+                            </div>
+                            <div class="col-xs-3 center pull-middle">
+                                    <a href="http://respec.com/" target="_blank">
+                                        <img src="assets/images/respec.png" class="logo" style="max-width:110%;padding-top:7px;">
+                                    </a>
+                            </div>
+                            <div class="col-xs-3 center pull-middle">
+                                    <a href="http://www.cleanenergyresourceteams.org/" target="_blank">
+                                        <img src="assets/images/certs.png" class="logo">
+                                    </a>
+                            </div>
+                            <div class="col-xs-3 center pull-middle">
+                                    <a href="http://www.esri.com" target="_blank">
+                                        <img src="assets/images/powered-by-esri-logo-med.png" class="logo" style="margin-left:-25px;padding-top:7px;">
+                                    </a>
+                            </div>
+                        </div><!-- /.row -->
+                    </div>
+                    <div class="col-sm-3 top-lg">
+                        <div id="solarLogo">
+                            <img src="assets/images/solar-app-transparent220x235.png">
+                        </div>
+                        <div id="website">
+                            <h4>QUESTIONS? Contact:</h4>
+                             <a href="mailto:energy.info@state.mn.us?subject=mn.gov/solarapp" style="color:#ff7400">energy.info@state.mn.us</a>
+                            <h4>LEARN MORE:</h4>
+                            <a href="<%= learnMoreAboutSolar %>" target="_blank" style="color:#ff7400">MN.gov Solar</a> |
+                            <a href="http://solar.maps.umn.edu/" target="_blank" style="color:#ff7400">UMN Solar</a>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-body -->
+
+            <div class="modal-footer docModal-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="dontShow pull-right">
+                            <label for="dontShowCheckBox">
+                                <span class="dontShowText">Do not show this again for 30 days</span>
+                                <input type="checkbox" id="dontShowCheckBox" class="dontShowCheckBox pull-right">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-footer -->
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

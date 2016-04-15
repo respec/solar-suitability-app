@@ -53,7 +53,8 @@ define([
           averageSystemCost: app.reportModel.get('averageCostSystem'),
           averageCostSystemAsCurrency: app.reportModel.get('averageCostSystemAsCurrency'),
           mimPayback: app.reportModel.get('paybackWithMim'),
-          nonMimPayback: app.reportModel.get('paybackWithTaxCredit')
+          nonMimPayback: app.reportModel.get('paybackWithTaxCredit'),
+          chartToolTip: config.chartToolTip
         };
 
         this.$el.html(template(options));
@@ -100,10 +101,10 @@ define([
 
         $('#finishedNearbySolarButton').on('click', function() {
           resultsSmallController.returnFromNearby();
-
         });
+        $('[data-toggle="popover"]').popover();
       }
-      
+
     });
     return resultsSmall;
   });

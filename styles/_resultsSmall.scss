@@ -48,7 +48,7 @@ a.madeInMn:hover {
 #closeResults {
   margin-top:10px;
 }
- 
+
 /* Preview results drawer column formatting */
 
 #resultsSmall {
@@ -114,6 +114,13 @@ a.madeInMn:hover {
   color: $link-color;
   font-weight: bold;
   font-size: 18px;
+}
+
+.helpTooltip {
+  color: $link-color;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: help;
 }
 
 /* Progress bar */
@@ -252,24 +259,12 @@ a.madeInMn:hover {
   z-index:1
 }
 
-// .chart .bar {
-//   fill:#ff7400
-// }
-
 .chart .bar:hover {
   fill:#ff4500
 }
-
-// .chart .backgroundBar {
-//   fill:#808080
-// }
 
 .chart text {
   fill:#fff;
   font:10px sans-serif;
   text-anchor:end
-}
-
-.chart {
-  margin-left: 50px;
 }
