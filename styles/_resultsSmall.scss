@@ -21,6 +21,10 @@ a.madeInMn:hover {
   margin-top:20px;
 }
 
+#chartToolTip {
+  display: inline-block;
+}
+
 #resultsSmall button a{
   color: $text-color;
   text-decoration: none;
@@ -97,9 +101,9 @@ a.madeInMn:hover {
     text-align:center;
   }
 
-  .chartTitle{
-    padding-left: 50px;
-  }
+  // .chartTitle{
+  //   padding-left: 50px;
+  // }
 
   .resultHeader{
     font-weight: bold;

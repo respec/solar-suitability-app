@@ -24,7 +24,7 @@ html {
 .top-xl { margin-top:30px; }
 
 /* Media Queries for Responsiveness */
-@media(max-width:767px){
+@media(max-width:992px){
   .logo {
     max-height: 30px;
   }
@@ -39,6 +39,7 @@ html {
   }
   .barChart {
     margin-top:20px;
+    margin-left: 10px;
   }
   .flyover {
     width: 92% !important;
@@ -52,14 +53,14 @@ html {
   }
 }
 
-@media(min-width:768px){
-  .closeResultsTop {
-    display: inline;
-  }
-  .closeResultsRight {
-    display: none;
-  }
-}
+// @media(min-width:768px){
+//   .closeResultsTop {
+//     display: inline;
+//   }
+//   .closeResultsRight {
+//     display: none;
+//   }
+// }
 
 @media(min-width:992px){
   .closeResultsTop {
@@ -69,7 +70,15 @@ html {
     display: inline;
   }
 }
-//@media(min-width:1200px){}
+
+@media(min-width:1200px){
+  .chartTitle{
+    padding-left: 50px;
+  }
+  #sunHrsHisto {
+    padding-left: 50px;
+  }
+}
 //Increase text size on retina phone displays
 // @media screen and (
 // -webkit-min-device-pixel-ratio: 2){
