@@ -75,7 +75,7 @@ define([
                             to_name: '',
                             from: $('#dataIssuesEmail').val(),
                             from_name: $('#dataIssuesName').val(),
-                            subject: 'Solar Suitability Data Issue',
+                            subject: config.applicationTitle + ' Data Issue',
                             body: emailBody,
                             skey: config.appEmailKey
                           };

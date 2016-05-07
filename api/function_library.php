@@ -57,11 +57,13 @@ function isBadEmail($mail)
  */
 function send_email($to, $to_name, $body, $subject, $fromaddress="", $fromname="", $replytoaddress="", $replytoname="", $cc="", $bcc="", $attachments=false)
 {
+		$email_config = parse_ini_file("email_config.ini");
+		$email_config = parse_ini_file("email_config.ini");
 
-		$from = ($fromaddress == "" ? "mnsolarsuitability@gmail.com" : $fromaddress);
-		$fromname = ($fromname == "" ? "mn.gov/solarapp" : $fromname);
-		$replytoaddress = ($replytoaddress == "" ? "energy.info@state.mn.us" : $replytoaddress);
-		$replytoname = ($replytoname == "" ? "Solar Info" : $replytoname);
+		$from = ($fromaddress == "" ? $email_config["from"] : $fromaddress);
+		$fromname = ($fromname == "" ? $email_config["fromname"] : $fromname);
+		$replytoaddress = ($replytoaddress == "" ? $email_config["replytoaddress"] : $replytoaddress);
+		$replytoname = ($replytoname == "" ? $email_config["replytoname"] : $replytoname);
 
 	  //error_reporting(E_ALL);
 		error_reporting(E_STRICT);
@@ -77,19 +79,12 @@ function send_email($to, $to_name, $body, $subject, $fromaddress="", $fromname="
 		//$mail->SMTPDebug  = 2;      // enables SMTP debug information (for testing)
 												   				// 1 = errors and messages
 												   				// 2 = messages only
-		$mail->SMTPAuth   = true;                  // enable SMTP authentication
-		$mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-		$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-		$mail->Port       = 465;                   // set the SMTP port for the GMAIL server
-		$mail->Username   = "mnsolarsuitability@gmail.com";  // GMAIL username
-		$mail->Password   = "4sendingemailonly";            // GMAIL password
-
-		// $mail->SMTPAuth   = true;                  // enable SMTP authentication
-		// $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-		// $mail->Host       = "edge.ead.state.mn.us";// sets state as the SMTP server
-		// $mail->Port       = 465;                   // set the SMTP port for the server
-		// $mail->Username   = "energyinfo";  				// username
-		// $mail->Password   = "$Ei10485";            // password
+		$mail->SMTPAuth   = $email_config["SMTPAuth"];                  // enable SMTP authentication
+		$mail->SMTPSecure = $email_config["SMTPSecure"];                 // sets the prefix to the servier
+		$mail->Host       = $email_config["Host"];      // sets GMAIL as the SMTP server
+		$mail->Port       = $email_config["Port"];                   // set the SMTP port for the GMAIL server
+		$mail->Username   = $email_config["Username"];  // GMAIL username
+		$mail->Password   = $email_config["Password"];            // GMAIL password
 
 		$mail->SetFrom($from, $fromname);
 		$mail->AddReplyTo($replytoaddress, $replytoname);
