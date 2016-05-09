@@ -1,29 +1,20 @@
-.geocoder-container{
-  position: absolute;
-  top: 70px;
-  left: 60px;
+/**
+ * _geocoder.scss
+ * Style search bar for geocoding addresses
+ */
+
+.geocoder-container {
+    position: absolute;
+    top: 70px;
+    left: 60px;
 }
 
-// #searchBar {
-//   height: 40px;
-//   width: 100%;
-// }
+#searchBar_input {}
 
-#searchBar_input {
-  //width:90%
-  // !important;
-}
+.simpleGeocoder#searchBar .esriGeocoderContainer {}
 
-.simpleGeocoder#searchBar .esriGeocoderContainer{
-  //width:100%;
-  //max-width: 600px;
-  //min-width: 500px;
-}
+.esriGeocoder, .esriGeocoderResults {}
 
-.esriGeocoder, .esriGeocoderResults {
-  // width:600px!important;
-}
-
-.esriGeocoderContainer{
-  z-index:100!important;
+.esriGeocoderContainer {
+    z-index: 100 !important;
 }
