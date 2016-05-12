@@ -1,3 +1,8 @@
+/**
+ * _geocoder.scss
+ * Style search bar for geocoding addresses
+ */
+
 #headerBar {
     height: 50px;
     width: 100%;
@@ -91,8 +96,6 @@ ul.dropdown-menu li {
 .menuSmallTopic {
     height: 30px;
     color: $text-color;
-
-    // font-size: 16px;
 }
 
 .menuTopic {
@@ -120,9 +123,7 @@ ul.dropdown-menu li {
     text-decoration: none;
 }
 
-#helpImageContainer {
-    // display:inline-block
-}
+#helpImageContainer {}
 
 .helpImage img {
     height: 30px;

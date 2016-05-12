@@ -1,3 +1,16 @@
+"""
+@Title: Solar Point Query with Ideal Value Output
+@Description: Geoprocessing tool which runs ArcGIS Spatial Analyst's PointsSolarRadiation
+on a given point and DSM tile that outputs both actual and ideal insolation
+@Author: Andy Walz <dev@andywalz.com>
+
+@Params: longitude, latitude, DSM Tile Filename
+
+@Notes: This tool is not used by the initial release version of the solarapp
+Ideal solar (no shade, 45 deg tilt, 180 deg azimuth) values were incorporated in
+several early versions of the app but did not make the final cut due to lack or correlation
+with Solar Pathfinder reports.
+"""
 import sys, os, arcpy
 from arcpy import env
 from arcpy.sa import *
@@ -7,14 +20,9 @@ arcpy.CheckOutExtension("spatial")
 arcpy.env.overwriteOutput = True
 
 ### Parameters supplied by the map click query component in the app
-pointX = arcpy.GetParameter(0)   # pointx = -94.6479228437483
-pointY = arcpy.GetParameter(1)		# pointy = 45.6275948974094
+pointX = arcpy.GetParameter(0)   # pointX = -94.6479228437483
+pointY = arcpy.GetParameter(1)		# pointY = 45.6275948974094
 filename = arcpy.GetParameter(2)	# filename = "3526-11-44_1231.img"
-
-### Sample data for testing
-#pointX = -94.6479228437483
-#pointY = 45.6275948974094
-#filename = "3526-11-44_1231.img"
 
 #import pdb; pdb.set_trace()  # debug if need be
 
@@ -27,7 +35,6 @@ arcpy.env.addOutputsToMap = False
 # Set Environment Workspace
 arcpy.env.scratchWorkspace = r'C:\Temp'
 ws = arcpy.env.scratchGDB
-#ws = "\\\\files.umn.edu\\US\\GIS\\U-Spatial\\SolarResourceData\\gpTool\\ideal\\results.gdb"
 
 ### Insolation and Duration tables
 output = os.path.join(ws,"actualInsolation")
@@ -43,13 +50,11 @@ outputDirect = os.path.join(ws,"idealDirect")
 
 ### Create a Table to Store input point and ideal tilt/azimuth
 arcpy.CreateTable_management(ws, in_name)
-
 ### Add fields
 arcpy.AddField_management(inTable, "x", "FLOAT")
 arcpy.AddField_management(inTable, "y", "FLOAT")
 arcpy.AddField_management(inTable, "slope", "FLOAT")
 arcpy.AddField_management(inTable, "aspect", "FLOAT")
-
 ### Make a tuple of fields to update
 fieldsToUpdate = ("x", "y", "slope", "aspect")
 

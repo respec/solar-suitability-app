@@ -1,116 +1,83 @@
+/**
+ * _helpSplash.scss
+ * Style help/splash screen modal that displays on initial load
+ */
+
 .appHelpModal {
-  width: 80%;
-  height: auto;
-  max-height: 75%;
-  margin: auto;
-  max-width: 840px;
+    width: 80%;
+    height: auto;
+    max-height: 75%;
+    margin: auto;
+    max-width: 840px;
 }
+
 /* Important part */
-.modal-dialog{
-    overflow-y: initial !important
+.modal-dialog {
+    overflow-y: initial !important;
 }
-.helpModal-body{
+
+.helpModal-body {
     height: 50vh;
     max-height: 432px;
     overflow-x: hidden;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 5px;
-    // background-image: url("../images/solar-app-transparent220x235.png");
-    // background-repeat: no-repeat;
-    // background-attachment: fixed;
-    // background-position: center;
 }
 
 .appHelp {
-  // background-color:$overlay;
-  color: $text-color;
+    color: $text-color;
 }
 
-.appHelpFooter {
+.appHelpFooter {}
 
-}
-
-.closeSplash {
-
-}
+.closeSplash {}
 
 .dontShowText {
-  margin-right: 15px;
+    margin-right: 15px;
 }
 
 #colorRamp {
-  text-align: left;
-  padding: 10px;
+    text-align: left;
+    padding: 10px;
 }
 
 .logo {
-  max-height: 50px;
-  max-width: 90%;
-  display:inline-block;
+    max-height: 50px;
+    max-width: 90%;
+    display: inline-block;
 }
 
 .logo-doc {
-  max-height: 65px;
-  display:inline-block;
+    max-height: 65px;
+    display: inline-block;
 }
 
+@media (max-width: 800px) {
+    .modal-dialog {
+        margin: 0px;
+        min-width: 333px;
+    }
 
-@media(max-width:800px){
-  .modal-dialog {
-    margin:0px;
-    min-width: 333px;
-  }
-  .appHelpModal {
-    width: 95%;
-    max-height: 95%;
-    margin: auto;
-    max-width: 840px;
-  }
-  .helpModal-body{
-    height: 65vh;
-    max-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  #solarLogo {
-    text-align:center;
-  }
-  #website {
-    text-align:center;
-  }
+    .appHelpModal {
+        width: 95%;
+        max-height: 95%;
+        margin: auto;
+        max-width: 840px;
+    }
+
+    .helpModal-body {
+        height: 65vh;
+        max-height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #solarLogo {
+        text-align: center;
+    }
+
+    #website {
+        text-align: center;
+    }
 }
-
-.pull-middle {
-    // display: inline-block;
-    // vertical-align: middle;
-    // float: none;
-}
-
-// #colorRamp img {
-//     width:auto;
-//     display:relative;
-//     top:-10px;
-//     height:100%;
-//     display:block;
-//     margin:auto
-// }
-
-// #helpScreen{
-//     // display:none;
-//     position:absolute;
-//     padding-top:5px;
-//     padding-left:60px;
-//     padding-right:20px;
-//     padding-bottom:5px;
-//     height:322px;
-//     z-index:101;
-//     font-family:TrebuchetMS,arial;
-//     color:#fff;
-//     border-top:3px solid #fff;
-//     border-right:3px solid #fff;
-//     border-bottom:3px solid #fff;
-//     border-radius:0 40px 40px 0;
-//     background:#474343;
-//     line-height:30px
-// }
