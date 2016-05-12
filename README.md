@@ -18,15 +18,15 @@ First, clone this repository onto your webserver:
 git clone git@github.com:respec/solar-suitability-app.git
 
 Next run these build commands:
-  npm install
-  grunt -V (check version)
-  bower install (if wanting full libraries)
+* npm install
+* grunt -V (check version)
+* bower install (if wanting full libraries)
 
 Use the following Grunt tasks for development:
-  grunt watch
-    -sass compiling
-  grunt release
-    -copies all (only) files required to run the application into a directory named /release. Useful for copying files to production enviroment if not using Git
+* grunt watch
+** sass compiling
+* grunt release
+** copies all (only) files required to run the application into a directory named /release. Useful for copying files to production enviroment if not using Git
 
 
 ## Setup
@@ -50,9 +50,8 @@ The application is dependent on the following services:
 
 
 ## Authors
-
-Andy Walz <dev@andywalz.com> (651) 504-2230
-Chris Martin <cmartin616@gmail.com>
+* Andy Walz <dev@andywalz.com> (651) 504-2230
+* Chris Martin <cmartin616@gmail.com>
 
 
 ## Bug Reporting
