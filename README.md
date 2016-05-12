@@ -2,28 +2,31 @@
 
 ## Synopsis
 
-Solar Site Suitability Application built on the statewide surface model and solar model produced by the University of Minnesota Solar Suitability Analysis Team (http://solar.maps.umn.edu/). This application allows users search and address (or locate a site on a map) and report information on solar potential at that location.
+Solar Site Suitability Application built on the statewide surface model and solar model produced by the University of Minnesota Solar Suitability Analysis Team (http://solar.maps.umn.edu/). This application allows users to search an address (or locate a site on a map) and report information on solar potential at that location.
 
 
 ## Motivation
 
 The core motivation for this project is to promote the awareness and use of solar energy with ultimate goal of mitigating climate change. Solar technology is quickly becoming more efficient and cost effective but getting started can be intimidating and tedious. Currently, to determine site suitability and ideal solar panel placement, an on-site analysis must be completed by a professional solar installer. For homeowners and businesses potentially interested in a PV solar system, there is a demand for more detailed information before reaching the step of hiring a solar installer.
 
-The UMN Solar Suitability Analysis Team recently produced a high resolution solar suitability model using publicly available LiDAR data for the state of Minnesota. This app brings that data to users by allowing them to locate their home, current location, or point of interest and report on potential for photovoltaic systems (solar panels) and make informed decisions about solar resources. With this data, and the services provided through this application homeowners can identify the solar potential of their property, solar installers can more efficiently provide site assessments, energy companies can site large industrial arrays that integrate with their current network, planners can identify measure solar as resource for neighborhoods, cities, and counties… from anywhere, without the upfront need for costly, and sometimes hazardous (e.g. climbing on rooftops in winter), on-site analysis.
+The UMN Solar Suitability Analysis Team produced a high resolution solar suitability model using publicly available LiDAR data for the state of Minnesota. This app brings that data to users by allowing them to locate their home, current location, or point of interest and report on potential for photovoltaic systems (solar panels) and make informed decisions about solar resources. With this data, and the services provided through this application homeowners can identify the solar potential of their property, solar installers can more efficiently provide site assessments, energy companies can site large industrial arrays that integrate with their current network, planners can identify measure solar as resource for neighborhoods, cities, and counties… from anywhere, without the upfront need for costly, and sometimes hazardous (e.g. climbing on rooftops in winter), on-site analysis.
 
 
 ## Installation
 
-Build commands:
+First, clone this repository onto your webserver:
+git clone git@github.com:respec/solar-suitability-app.git
+
+Next run these build commands:
   npm install
   grunt -V (check version)
   bower install (if wanting full libraries)
 
-Grunt tasks:
+Use the following Grunt tasks for development:
   grunt watch
     -sass compiling
   grunt release
-    -copies all (only) files required to run the application into a directory named /release
+    -copies all (only) files required to run the application into a directory named /release. Useful for copying files to production enviroment if not using Git
 
 
 ## Setup
