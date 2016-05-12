@@ -45,7 +45,7 @@ The application is dependent on the following services:
 * MN Solar Model - ArcGIS Image Service - MnSolarRef (Source: Solar Raster Mosaic Dataset) UMN Url: http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/
 * MN Digital Surface Model - ArcGIS Image Service - MnDSMRef (Source: Digital Surface Model Mosaic Dataset) UMN Url: https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnDSMRef/ImageServer
 * Vector Data for Canada Mask, MN Counties, Water, Bare earth only lidar counties, Lidar collect dates - ArcGIS Map Service - UMN Url: https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer
-* Electric Utility Service Areas (EUSA) - ArcGIS Map Service - State URL: 'http://geoserver.state.mn.us/arcgis/rest/services/EUSA/EUSA/MapServer/0',
+* Electric Utility Service Areas (EUSA) - ArcGIS Map Service - State URL: http://geoserver.state.mn.us/arcgis/rest/services/EUSA/EUSA/MapServer/0
 * Existing Solar Installations - GeoRSS XML source - CERTS Url: http://www.cleanenergyprojectbuilder.org/solar-projects.xml
 
 
