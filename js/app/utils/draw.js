@@ -1,4 +1,7 @@
-/* global define, app*/
+/**
+ * @fileOverview  Map graphic functions
+ * @author Chris Martin <cmartin616@gmail.com>
+ */
 define([
     'app/config',
 

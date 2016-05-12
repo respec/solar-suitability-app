@@ -1,4 +1,7 @@
-/* global define, Backbone, _ */
+/**
+ * @fileOverview  Initialize Backbone
+ * @link  http://backbonejs.org/
+ */
 define([
     'dojo/text!../templates/LayoutViewTemplate.html',
   ],

@@ -4,6 +4,11 @@ define([],
 
   return {
 
+    /**
+     * Convert a month number to text month name or abbreviation
+     * @param  {number}   Month number zero-based (0 = January)
+     * @return {Object[]}
+     */
     getMonth: function(val) {
       var month;
       switch (val) {

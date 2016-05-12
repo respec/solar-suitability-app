@@ -183,18 +183,6 @@ module.exports = function(grunt) {
             dest: 'C:/Users/Chris/Documents/GitHub/SolarApp2.0/styles/',
             flatten: false
           }
-          // {
-          //   cwd: 'bower_components/bootstrap/fonts/',
-          //   src: ['**'],
-          //   dest: 'assets/fonts',
-          //   expand: true
-          // },
-          // {
-          //   cwd: 'bower_components/fontawesome/fonts/',
-          //   src: ['**'],
-          //   dest: 'assets/fonts',
-          //   expand: true
-          // }
         ]
 
       }
@@ -252,7 +240,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('init',['clean', 'shell:bowerInstall', 'copy:bower', 'copy:stylesAndFonts', 'copy:initStyles']);
-  // grunt.registerTask('build',['clean', 'copy']);
   grunt.registerTask('release', ['clean', 'copy:release']);
   grunt.registerTask('git', ['copy:git']);
 };

@@ -1,4 +1,11 @@
-﻿/*global define*/
+﻿/**
+ * @fileOverview ArcGIS Map thumbnail builder extended to accomodate ImageServer
+ * Converts ArcGIS map object to canvas drawing to facilitate printing/pdfing
+ * @link 	https://github.com/WSDOT-GIS/arcgis-map-thumbnail-builder
+ *
+ * @author Jeff Jacobson <https://github.com/JeffJacobson>
+ * @author Andy Walz <dev@andywalz.com>
+ */
 define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 
 	/**
@@ -33,7 +40,7 @@ define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 		// Set the canvas's size to match that of the map.
 		canvas.width = map.width;
 		canvas.height = map.height;
-		
+
 		// This array will contain Deferreds indicating when the images have loaded.
 		requests = [];
 
