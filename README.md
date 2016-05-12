@@ -15,7 +15,7 @@ The UMN Solar Suitability Analysis Team produced a high resolution solar suitabi
 ## Installation
 
 First, clone this repository onto your webserver:
-git clone git@github.com:respec/solar-suitability-app.git
+* git clone git@github.com:respec/solar-suitability-app.git
 
 Next run these build commands:
 * npm install
@@ -24,18 +24,18 @@ Next run these build commands:
 
 Use the following Grunt tasks for development:
 * grunt watch
-** sass compiling
+  * sass compiling
 * grunt release
-** copies all (only) files required to run the application into a directory named /release. Useful for copying files to production enviroment if not using Git
+  * copies all (only) files required to run the application into a directory named /release. Useful for copying files to production enviroment if not using Git
 
 
 ## Setup
 
 Configure settings for email delivery of solar reports, bug/issues, etc here:
-api/email_config.ini
+* api/email_config.ini
 
 All other settings (e.g. service urls, cacluation constants, list of MiM service providers, etc) here:
-js/app/config.js
+* js/app/config.js
 
 
 ## Data Requirements
