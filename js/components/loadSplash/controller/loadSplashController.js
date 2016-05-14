@@ -1,4 +1,9 @@
-/* global window */
+/**
+ * @file    Animated "Calculating..." Loader Controller
+ *
+ * @author  Andy Walz <dev@andywalz.com>
+ * @author  Chris Martin <cmartin616@gmail.com>
+ */
 
 define([],
 
@@ -18,8 +23,7 @@ define([],
         loader.css('top', verticalOffset);
         loader.css('left', horizOffset);
         loader.show();
-        // $('#resultsSmall-container').hide();
-        // $('#resultsHeader').hide();
+
       },
 
       showLoader: function(){

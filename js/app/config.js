@@ -112,7 +112,7 @@ define(
       // Existing solar installations GeoRSS xml source
       certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',
 
-      // Made in Minnesota counties
+      // Made in Minnesota service providers
       madeInMnCounties: ['XCEL', 'Minnesota Power', 'Otter Tail Power'],
 
       // Color for bar fill

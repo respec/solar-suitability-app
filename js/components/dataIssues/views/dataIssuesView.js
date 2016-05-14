@@ -1,4 +1,10 @@
-/* global define, Backbone, _ */
+/**
+ * @file              Data Errors Reporting Modal View
+ * @return {Object}   Backbone View
+ *
+ * @author  Andy Walz <dev@andywalz.com>
+ * @author  Chris Martin <cmartin616@gmail.com>
+ */
 define([
     'app/config',
 

@@ -1,4 +1,9 @@
-/* global define, Cookies*/
+/**
+ * @file    Help (Splash) Modal Controller
+ *
+ * @author  Andy Walz <dev@andywalz.com>
+ * @author  Chris Martin <cmartin616@gmail.com>
+ */
 define([],
 
   function() {

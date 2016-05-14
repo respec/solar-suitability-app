@@ -1,4 +1,9 @@
-/* global define, app, alert, esri, d3, _ */
+/**
+ * @file    Solar Point Query Controller
+ *
+ * @author  Andy Walz <dev@andywalz.com>
+ * @author  Chris Martin <cmartin616@gmail.com>
+ */
 
 define([
     'app/config',
@@ -38,11 +43,11 @@ define([
     return {
 
       pixelQuery: function(e) {
+        // Handle the DOM
         resultsSmallController.hideResults();
         loadSplashController.placeLoader();
         loadSplashController.showLoader();
         this.processClick(e);
-        //resultsSmallController.buildLink();
       },
 
       processClick: function(e) {
@@ -53,7 +58,7 @@ define([
         app.query.latLngPt = mp;
         app.model.set('latLngPt', mp);
         app.reportModel.set('latLngPt', mp);
-        //console.log(mp);
+
         var myTitle = "Solar Report for " + mp.y + ", " + mp.x;
         var myUrl = "?lat=" + mp.y + "&long=" + mp.x;
         history.pushState(null, myTitle, myUrl);

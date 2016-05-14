@@ -1,4 +1,10 @@
-/* global define*/
+/**
+ * @file    Email Report Modal Controller
+ *
+ * @author  Andy Walz <dev@andywalz.com>
+ * @author  Chris Martin <cmartin616@gmail.com>
+ */
+
 define([
 
   'app/config'

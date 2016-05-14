@@ -1,4 +1,10 @@
-/* global define*/
+/**
+ * @file    Data Errors Reporting Modal Controller
+ *
+ * @author  Andy Walz <dev@andywalz.com>
+ * @author  Chris Martin <cmartin616@gmail.com>
+ */
+
 define([
   'dojo/_base/lang',
   'esri/toolbars/draw',

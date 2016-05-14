@@ -1,4 +1,9 @@
-/* global define, app, Backbone, _ */
+/**
+ * @file    Geocoder Search Box View
+ *
+ * @author  Andy Walz <dev@andywalz.com>
+ * @author  Chris Martin <cmartin616@gmail.com>
+ */
 define([
     'app/config',
     'app/utils/draw',

@@ -1,4 +1,10 @@
-/* global navigator, alert, define, app, Backbone, _ */
+/**
+ * @file    Navbar and Hamburger Menu View
+ *
+ * @author  Andy Walz <dev@andywalz.com>
+ * @author  Chris Martin <cmartin616@gmail.com>
+ */
+
 define([
     'app/config',
     'app/utils/draw',
@@ -52,7 +58,7 @@ define([
           app.map.centerAndZoom(new Point([config.centerLng, config.centerLat]), config.defaultZoom);
         });
 
-        // Find Me button       
+        // Find Me button
         $('.findMe').click(function() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
@@ -158,7 +164,7 @@ define([
         $('.appIssues').on('click', function(){
           $('.appIssuesModal').modal('show');
         });
-        
+
         // enable toggles
         $('.vectorToggle').bootstrapToggle();
 
@@ -186,7 +192,7 @@ define([
 
           // handle toggle in other menu
           otherToggle.bootstrapToggle('toggle');
-          
+
           //get layer from app.map
           var mapLayer = app.map.getLayer(layerName);
           //check visibility and hide/show

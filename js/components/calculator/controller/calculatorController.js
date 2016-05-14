@@ -1,4 +1,9 @@
-/* global define, window*/
+/**
+ * @file   Full Report Solar Calculator Controller
+ *
+ * @author Andy Walz <dev@andywalz.com>
+ * @author Chris Martin <cmartin616@gmail.com>
+ */
 define([],
 
   function() {
@@ -18,10 +23,8 @@ define([],
     },
 
     setHeight: function(){
-      var windowHeight = $(window).height() - $('.navbar-container').height() - $('.bottomBar-container').height() - 300 -1;
-      // console.log($(window).height());
-      // console.log($('.navbar-container').height());
-      // console.log($('.bottomBar-container').height());
+      var windowHeight = $(window).height() - $('.navbar-container').height() - 300 -1;
+
       $('#calculator').height(windowHeight);
     }
   };

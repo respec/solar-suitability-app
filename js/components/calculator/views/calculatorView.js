@@ -1,4 +1,10 @@
-/* global define, app, Backbone, _, window */
+/**
+ * @file              Full Report Solar Calculator View
+ * @return {Object}   Backbone View
+ *
+ * @author  Andy Walz <dev@andywalz.com>
+ * @author  Chris Martin <cmartin616@gmail.com>
+ */
 define([
     'app/config',
 
