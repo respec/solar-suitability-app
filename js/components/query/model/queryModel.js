@@ -1,9 +1,7 @@
 /**
- * @file    Solar Point Query Model
- * @return {Object} Backbone Model
+ * Solar Point Query Model
  *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ * @return {Object} Backbone Model
  */
 
 define([

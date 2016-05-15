@@ -1,4 +1,6 @@
-/* global define, app, _*/
+/**
+ * Results Preview (i.e. the drawer that slides up after querying point) Controller
+ */
 define([
 
   'app/config'
@@ -64,7 +66,7 @@ define([
 
         // Return nav bar
         $('.finishedNearbySolarRow').hide();
-        
+
         // Return results
         $('#resultsSmall').show();
 

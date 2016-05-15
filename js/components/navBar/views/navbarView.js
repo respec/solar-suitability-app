@@ -1,8 +1,5 @@
 /**
- * @file    Navbar and Hamburger Menu View
- *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ *  Navbar and Hamburger Menu View
  */
 
 define([

@@ -1,8 +1,5 @@
 /**
- * @file    Geocoder Search Box View
- *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ *  Geocoder Search Box View
  */
 define([
     'app/config',

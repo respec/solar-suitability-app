@@ -1,8 +1,5 @@
 /**
- * @file    Help (Splash) Modal View
- *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ *  Help (Splash) Modal View
  */
 define([
     'app/config',

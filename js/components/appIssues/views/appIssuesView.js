@@ -1,9 +1,7 @@
 /**
- * @file              Report Errors/Bugs Modal View
- * @return {Object}   Backbone View
+ * Report Errors/Bugs Modal View
  *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ * @return {Object}   Backbone View
  */
 define([
     'app/config',

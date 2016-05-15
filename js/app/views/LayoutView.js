@@ -1,5 +1,5 @@
 /**
- * @fileOverview  Initialize Backbone
+ * Initialize Backbone
  * @link  http://backbonejs.org/
  */
 define([

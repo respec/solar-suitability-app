@@ -1,4 +1,8 @@
-/* global define, app, Backbone, _ */
+/**
+ * Main Template for Full Report
+ *
+ * @return  {Object} Backbone Model
+ */
 define([
   'app/config',
 
@@ -199,7 +203,7 @@ define([
       // },
 
       // ,
-      
+
       saveSiteDetails: function(){
         var siteDetails = $('.siteDetailsValue');
 

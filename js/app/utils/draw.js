@@ -1,5 +1,5 @@
 /**
- * @fileOverview  Map graphic functions
+ * Map graphic functions
  * @author Chris Martin <cmartin616@gmail.com>
  */
 define([

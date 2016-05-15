@@ -1,8 +1,5 @@
 /**
- * @file    Animated "Calculating..." Loader View
- *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ *  Animated "Calculating..." Loader View
  */
 define([
     'app/config',

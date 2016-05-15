@@ -1,8 +1,5 @@
 /**
- * @file    Data Errors Reporting Modal Controller
- *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ *  Data Errors Reporting Modal Controller
  */
 
 define([

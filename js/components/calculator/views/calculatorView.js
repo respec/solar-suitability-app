@@ -1,9 +1,7 @@
 /**
- * @file              Full Report Solar Calculator View
- * @return {Object}   Backbone View
+ * Full Report Solar Calculator View
  *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ * @return {Object}   Backbone View
  */
 define([
     'app/config',

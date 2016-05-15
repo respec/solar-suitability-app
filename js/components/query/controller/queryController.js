@@ -1,8 +1,5 @@
 /**
- * @file    Solar Point Query Controller
- *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ *  Solar Point Query Controller
  */
 
 define([

@@ -1,4 +1,8 @@
-/* global define, app, Backbone, _ */
+/**
+ * Template for top user-customizable site details section of full report
+ *
+ * @return  {Object} Backbone Model
+ */
 define([
     'app/config',
 

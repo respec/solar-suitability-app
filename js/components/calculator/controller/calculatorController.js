@@ -1,8 +1,5 @@
 /**
- * @file   Full Report Solar Calculator Controller
- *
- * @author Andy Walz <dev@andywalz.com>
- * @author Chris Martin <cmartin616@gmail.com>
+ *  Full Report Solar Calculator Controller
  */
 define([],
 

@@ -1,4 +1,8 @@
-/* global define, Backbone, _ */
+/**
+ * Results Preview (i.e. the drawer that slides up after querying point) View
+ *
+ * @return  {Object} Backbone Model
+ */
 define([
     'app/config',
 

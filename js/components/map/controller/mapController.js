@@ -1,8 +1,5 @@
 /**
- * @file    Map Controller
- *
- * @author  Andy Walz <dev@andywalz.com>
- * @author  Chris Martin <cmartin616@gmail.com>
+ *  Map Controller
  */
 
 define([

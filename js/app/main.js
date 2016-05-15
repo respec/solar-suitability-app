@@ -1,5 +1,5 @@
 /**
- * @fileOverview Initialize the solar app, the map, and setup helper functions
+ * Initialize the solar app, the map, and setup helper functions
  *
  * @author Andy Walz <dev@andywalz.com>
  * @author Chris Martin <cmartin616@gmail.com>
