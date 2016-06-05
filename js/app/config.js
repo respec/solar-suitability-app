@@ -43,11 +43,13 @@ define(
 
     return {
 
+      // Title which displays next to logo and throughout app
       applicationTitle: 'mn.gov/solarapp',
-      apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
+
+      // Master repo location
       gitHub: 'https://github.com/respec/solar-suitability-app',
 
-      // Live App Baseurl:
+      // Live App Baseurl
       appDomain: 'http://mn.gov/solarapp',
 
       // Contact Us Email Address (Note forms also submit notifications here):
