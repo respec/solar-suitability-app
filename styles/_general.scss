@@ -55,6 +55,10 @@ html {
         display: none;
     }
 
+    #resultsSmall {
+        overflow-y: scroll !important;
+    }
+
     .barChart {
         margin-top: 20px;
         margin-left: 10px;

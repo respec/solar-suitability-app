@@ -51,11 +51,7 @@ define(
       appDomain: 'http://mn.gov/solarapp',
 
       // Contact Us Email Address (Note forms also submit notifications here):
-      //appEmail: 'energy.info@state.mn.us',
-
-      // Development Debugging:
-      appEmail: 'andywalz@gmail.com',
-      //appDomain: 'http://solar.maps.umn.edu/app',
+      appEmail: 'energy.info@state.mn.us',
 
       // Solar Calculator Defaults
       systemLife: 25,
