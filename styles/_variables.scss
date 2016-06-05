@@ -1,22 +1,35 @@
+/**
+ * _variables.scss
+ * Set Sass variables here
+ */
+
 /* Original branding */
 // charcoal
 $primary-color: #474343;
+
 // white
 $secondary-color: #fff;
-// orange
-$link-color: #ff7400; //or #F65D23 ?
+
+// orange or #F65D23
+$link-color: #ff7400;
+
 //white
 $border-color: #fff;
+
 //white
 $text-color: #fff;
 $active-color: #C0C0C0;
+
 // black 85% opacity;
-$overlay: rgba(0,0,0,.75);
+$overlay: rgba(0, 0, 0, 0.75);
+
 // font
 $font: Trebuchet MS;
 
 // doc
-$doc-green: #003f6b;  // actuall now new blue color
+$doc-green: #003f6b;
+
+// actually now new blue color, DOC branding changed
 $doc-gray: #616161;
 $doc-blue: #3b84b8;
 
@@ -26,20 +39,3 @@ $close-color: #fff;
 $headHeight: 85px;
 $footHeight: 60px;
 $modalHeight: 90vh;
-
-/* Made in Minnesota Branding */
-// Green
-// $primary-color: #549125;
-
-// $secondary-color: #fff;
-
-// $border-color: #fff;
-
-// $text-color: #fff;
-
-// $active-color: #C0C0C0;
-// // Green
-// $overlay: rgba(84,145,37,.85);
-// // 
-// // $text-color: #fff
-// $font: elvetica, Arial, sans-serif;

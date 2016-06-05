@@ -1,3 +1,8 @@
+/**
+ * _resultsSmall.scss
+ * Style the results preview drawer
+ */
+
 /* Links and buttons */
 
 #viewReport a:visited, #viewReport a:hover, #viewReport a:link, #viewReport a:active{
@@ -19,6 +24,10 @@ a.madeInMn:hover {
 .reportControls {
   width:130px;
   margin-top:20px;
+}
+
+#chartToolTip {
+  display: inline-block;
 }
 
 #resultsSmall button a{
@@ -48,7 +57,7 @@ a.madeInMn:hover {
 #closeResults {
   margin-top:10px;
 }
- 
+
 /* Preview results drawer column formatting */
 
 #resultsSmall {
@@ -61,7 +70,7 @@ a.madeInMn:hover {
   width:100%;
   position:absolute;
   bottom: 0;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .resultsPreview1 {
@@ -97,9 +106,9 @@ a.madeInMn:hover {
     text-align:center;
   }
 
-  .chartTitle{
-    padding-left: 50px;
-  }
+  // .chartTitle{
+  //   padding-left: 50px;
+  // }
 
   .resultHeader{
     font-weight: bold;
@@ -114,6 +123,13 @@ a.madeInMn:hover {
   color: $link-color;
   font-weight: bold;
   font-size: 18px;
+}
+
+.helpTooltip {
+  color: $link-color;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: help;
 }
 
 /* Progress bar */
@@ -252,24 +268,12 @@ a.madeInMn:hover {
   z-index:1
 }
 
-// .chart .bar {
-//   fill:#ff7400
-// }
-
 .chart .bar:hover {
   fill:#ff4500
 }
-
-// .chart .backgroundBar {
-//   fill:#808080
-// }
 
 .chart text {
   fill:#fff;
   font:10px sans-serif;
   text-anchor:end
-}
-
-.chart {
-  margin-left: 50px;
 }

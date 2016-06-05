@@ -1,4 +1,6 @@
-/* global define, app, Backbone, _ */
+/**
+ *  Animated "Calculating..." Loader View
+ */
 define([
     'app/config',
 
@@ -35,7 +37,7 @@ define([
       },
 
       initComponents: function() {
-        
+
 
       },
 

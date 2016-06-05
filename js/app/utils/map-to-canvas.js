@@ -1,4 +1,11 @@
-﻿/*global define*/
+﻿/**
+ * ArcGIS Map thumbnail builder extended to accomodate ImageServer
+ * Converts ArcGIS map object to canvas drawing to facilitate printing/pdfing
+ * @link 	https://github.com/WSDOT-GIS/arcgis-map-thumbnail-builder
+ *
+ * @author Jeff Jacobson <https://github.com/JeffJacobson>
+ * @author Andy Walz <dev@andywalz.com>
+ */
 define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 
 	/**
@@ -33,7 +40,7 @@ define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 		// Set the canvas's size to match that of the map.
 		canvas.width = map.width;
 		canvas.height = map.height;
-		
+
 		// This array will contain Deferreds indicating when the images have loaded.
 		requests = [];
 
@@ -50,7 +57,7 @@ define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 
 				if(layer.url.search("ImageServer") > 0){
 					// Handle Image Service such as:
-	//http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/exportImage?f=image&size=400%2C400&bbox=-10464673.23355842%2C5553260.881672794%2C-10464553.80070176%2C5553380.3145294525&bboxSR=102100&format=png&transparent=true&renderingRule={%22rasterFunction%22%20:%20%22solarColorRamp%22}
+					//http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/exportImage?f=image&size=400%2C400&bbox=-10464673.23355842%2C5553260.881672794%2C-10464553.80070176%2C5553380.3145294525&bboxSR=102100&format=png&transparent=true&renderingRule={%22rasterFunction%22%20:%20%22solarColorRamp%22}
 
 					exportParams = {
 						f: "image",
@@ -102,7 +109,7 @@ define(["dojo/Deferred", "dojo/promise/all"], function (Deferred, all) {
 				});
 				// Set the image's src attribute. This will begin the image loading.
 				image.src = url;
-				console.log("layer: " + layerId + " " +url);
+				// console.log("layer: " + layerId + " " +url);
 			} else {
 				// If the layer doesn't have a URL property, log info to console.
 				console.log("No URL for layer: " + layerId);

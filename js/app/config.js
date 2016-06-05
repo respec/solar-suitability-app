@@ -1,3 +1,9 @@
+/**
+ * Global app configuration and settings (e.g. solar calculator defaults, service urls, etc)
+ *
+ * @author Andy Walz <dev@andywalz.com>
+ * @author Chris Martin <cmartin616@gmail.com>
+ */
 define(
   [
   'esri/Color',
@@ -36,18 +42,18 @@ define(
   );
 
     return {
-      
+
+      // Title which displays next to logo and throughout app
       applicationTitle: 'mn.gov/solarapp',
-      apiKey: 'AIzaSyCI5rFXoNNM-IGDP-BZ1opjXTtB9wZalEI',
-      gitHub: 'https://github.com/flatrockgeo/solar-suitability-app',
 
-      // Live App:
+      // Master repo location
+      gitHub: 'https://github.com/respec/solar-suitability-app',
+
+      // Live App Baseurl
+      appDomain: 'http://mn.gov/solarapp',
+
+      // Contact Us Email Address (Note forms also submit notifications here):
       appEmail: 'energy.info@state.mn.us',
-      //appDomain: 'http://mn.gov/solarapp',
-
-      // Development Debugging:
-      //appEmail: 'andywalz@gmail.com',
-      appDomain: 'http://solar.maps.umn.edu/dev',
 
       // Solar Calculator Defaults
       systemLife: 25,
@@ -61,7 +67,10 @@ define(
       highCostPerkWh: 6060,
 
       // External links used throughout app
+
+      // Zip search disabled 2/2/2016 due to bug in dsire site
       //mnIncentives: 'http://programs.dsireusa.org/system/program?zip=',
+
       mnIncentives: 'http://programs.dsireusa.org/system/program?state=MN&',
       mnCertsSolarGardens: 'http://mncerts.org/solargardens',
       mnInstallers: 'http://www.cleanenergyprojectbuilder.org/directory?title=&field_category_tid=208&field_geofield_distance%5Borigin%5D=',
@@ -76,15 +85,15 @@ define(
       // Esri defaults
       geometryService: 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer',
 
-      // Solar data
-      //gpTool: 'http://us-dspatialgis.oit.umn.edu:6080/arcgis/rest/services/solar/SolarPointQuery_fast/GPServer/Script',
-      //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPointQueryOldTiles/GPServer/SolarPointQueryV2',
-      gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
+      // Solar App Required Services:
 
-      /* Solar raster - query */
-      // solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/',
+      gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarPoint250kTileQuery/GPServer/SolarPoint250kTileQuery',
+      //gpTool: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/SolarappGPTool/GPServer/SolarPointQueryWithIdeal',
+
       solarImageryUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/',
       dsmImageryUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnDSMRef/ImageServer',
+      mnGeoUrl: 'http://geoserver.state.mn.us',
+
       //solar data for querying insolation
       // imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/mn_solar/ImageServer/identify',
       imgIdentifyUrl: 'http://gis.uspatial.umn.edu/arcgis/rest/services/solar/MnSolarRef/ImageServer/identify',
@@ -94,26 +103,19 @@ define(
       countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/1',
       waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/2',
       bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/3',
-      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/4',
+      eusaUrl: 'http://geoserver.state.mn.us/arcgis/rest/services/EUSA/EUSA/MapServer/0',
+      //      eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/4',
       countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MNVectorDataForSolarApp/MapServer/5',
 
       // Existing solar installations GeoRSS xml source
       certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',
 
-      // Made in Minnesota counties
+      // Made in Minnesota service providers
       madeInMnCounties: ['XCEL', 'Minnesota Power', 'Otter Tail Power'],
 
       // Color for bar fill
       barColor: '#ff7400',
       backgroundBarColor: '#808080',
-
-      //OLD SERVICE:
-      // waterUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/1',
-      // eusaUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/2',
-      // bareEarthCountyUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/3',
-      // countiesUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/4',
-      // countyLidarUrl: 'https://gis.uspatial.umn.edu/arcgis/rest/services/solar/MN_Solar_Vector_Data/MapServer/5',
-      // certsGeoRssUrl: 'http://www.cleanenergyprojectbuilder.org/solar-projects.xml',
 
       /*MPLS*/
       // centerLat: 44.971795,
@@ -130,7 +132,29 @@ define(
       solarPanelSymbol: solarPanelSymbol,
       installationSymbol: installationSymbol,
 
-      appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq'
+      appEmailKey: 'Vdb2PwCgMQsEVV3jWfLvqEMLeXchevqq',
+
+      chartToolTip: 'This chart displays the amount of solar radiation (insolation) received each month at the point you have selected. Hover over orange bars to see the percentage of the maximum possible solar insolation reaching the selected point. The reduction from 100% is the amount of shading the selected location has. For example, if the bar indicates 90% that would mean that there is 10% shading at that point.',
+
+      // Max Possible Actual Insolation in each Month
+      // These values were determined by sampling the solar mosaic's "hotest" spots
+      // in MN's 44-46ª latitude range
+      // UPDATE 4/5/2016: May lowered 1% from 171500 to 169800
+      // UPDATE 4/5/2016: Sept raised 1% from 116000 to 117200
+      maxActualInsolationByMonth: {
+        Jan: 32700,
+        Feb: 54300,
+        Mar: 103000,
+        Apr: 139500,
+        May: 169800,
+        Jun: 175000,
+        Jul: 176000,
+        Aug: 155000,
+        Sep: 117200,
+        Oct: 69200,
+        Nov: 36800,
+        Dec: 26000
+      }
 
     };
   });

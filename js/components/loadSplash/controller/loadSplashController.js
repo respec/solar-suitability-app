@@ -1,4 +1,6 @@
-/* global window */
+/**
+ *  Animated "Calculating..." Loader Controller
+ */
 
 define([],
 
@@ -18,8 +20,7 @@ define([],
         loader.css('top', verticalOffset);
         loader.css('left', horizOffset);
         loader.show();
-        // $('#resultsSmall-container').hide();
-        // $('#resultsHeader').hide();
+
       },
 
       showLoader: function(){

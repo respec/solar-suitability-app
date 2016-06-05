@@ -14,22 +14,11 @@
 
                             <!-- XS collapsed menu -->
                             <div class="visible-xs-block">
-                                <div class="menuTopic">Tools</div>
-                                <li role="seperator" class="divider"></li>
-                                <li role="presentation" class="menuItem homeButton">
-                                    <div class="helpMenu">
-                                        <a role="menuitem" tabindex="-1" href="#">Home</a>
-                                    </div>
-                                </li>
-                                <li role="presentation" class="menuItem findMe">
-                                    <div class="helpMenu">
-                                        <a role="menuitem" tabindex="-1" href="#">Find Me</a>
-                                    </div>
-                                </li>
+
                                 <li role="seperator" class="divider"></li>
 
                                 <!-- Basemaps -->
-                                <div class="menuTopic">Basemaps:</div>
+                                <div class="menuTopic">Map</div>
                                 <li role="seperator" class="divider"></li>
 
                                 <!-- <li role="presentation" class="menuItem solarButton activeButton">
@@ -39,7 +28,7 @@
                                 </li> -->
                                 <li role="presentation" class="menuItem aerialButton activeButton">
                                     <div class="helpMenu">
-                                        <a role="menuitem" tabindex="-1" href="#">Aerial</a>
+                                        <a role="menuitem" tabindex="-1" href="#">Aerial Photos</a>
                                     </div>
                                 </li>
                                 <li role="presentation" class="menuItem streetButton">
@@ -50,9 +39,7 @@
 
                                 <li role="seperator" class="divider"></li>
 
-                                <!-- Vector -->
-                                <div class="menuTopic">Map Layers:</div>
-                                <li role="seperator" class="divider"></li>
+                                <!-- Vector Data -->
 
                                 <li role="presentation" class="menuItem solarButton">
                                     <div class="helpMenu menuSmallTopic">
@@ -94,34 +81,39 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!-- <li role="presentation" class="menuItem solarButton">
-                                    <div class="helpMenu">
-                                        Solar
-                                        <div class="pull-right">
-                                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="solar" data-size="mini" class="vectorToggle pull-right" id="solarToggleSmall">
-                                        </div>
-                                    </div>
-                                </li> -->
 
+                                <li role="seperator" class="divider"></li>
+
+                                <li role="presentation" class="menuItem homeButton">
+                                    <div class="helpMenu">
+                                        <a role="menuitem" tabindex="-1" href="#">Reset Map</a>
+                                    </div>
+                                </li>
+                                <li role="presentation" class="menuItem findMe">
+                                    <div class="helpMenu">
+                                        <a role="menuitem" tabindex="-1" href="#">Locate Me</a>
+                                    </div>
+                                </li>
                                 <li role="seperator" class="divider"></li>
                             </div>
 
                             <!-- Default menu -->
-                            <div class="menuTopic">Information</div>
+                            <div class="menuTopic">Contact Us</div>
                             <li role="seperator" class="divider"></li>
                             <li role="presentation" class="menuItem helpMenu">
                                 <div class="appHelp">
-                                    <a role="menuitem" tabindex="-1" href="#">How to use the app?</a>
+                                    <a role="menuitem" tabindex="-1" href="#">Help</a>
                                 </div>
                                 <div class="dataIssues">
-                                    <a role="menuitem" tabindex="-1" href="#">Issues with the data?</a>
+                                    <a role="menuitem" tabindex="-1" href="#">Report Data Issues</a>
                                 </div>
                                 <div class="appIssues">
-                                    <a role="menuitem" tabindex="-1" href="#">Issues with the app?</a>
+                                    <a role="menuitem" tabindex="-1" href="#">Report Errors/Bugs</a>
                                 </div>
                             </li>
+
                             <li role="seperator" class="divider"></li>
-                            <div class="menuTopic">Credits</div>
+                            <div class="menuTopic">Learn More</div>
                             <li role="seperator" class="divider"></li>
                             <li role="presentation" class="menuItem helpMenu">
                                 <div>
@@ -148,20 +140,22 @@
                                 </div>
                             </li>
                             <li role="seperator" class="divider"></li>
-                            <li role="presentation" class="menuItem">
-                                <div class="helpImage pull-left">
-                                    
+                            <div class="menuTopic">
+                                <div class="text-center">
+
                                     <a href="http://mn.gov/commerce/" target="_blank">
-                                        <img src="assets/images/doc_logo.png" height="40">
+                                        <img src="assets/images/doc_logo.png" height="70">
                                     </a>
-                                    <a href="http://www.esri.com" target="_blank">
-                                        <img src="assets/images/powered-by-esri-logo-med.png">
-                                    </a>
+
                                 </div>
-                                <div class="helpImage pull-left">
-                                    
+                                <div class="helpImage text-center top-lg">
+
                                     <a href="http://www.umn.edu" target="_blank">
                                         <img src="assets/images/UMN_M_white.gif">
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a href="http://www.esri.com" target="_blank">
+                                        <img src="assets/images/powered-by-esri-logo-med.png">
                                     </a>
                                     &nbsp;&nbsp;
                                     <a href="http://respec.com/" target="_blank">
@@ -169,11 +163,11 @@
                                     </a>
 
                                 </div>
-                            </li>
-                            
+                            </div>
+
                         </ul>
                     </div>
-                    
+
 
                     <button type="button" class="btn btn-default menuButton appButton iconButton homeButton hidden-xs" id="" data-toggle="tooltip" data-placement="right" title="Re-center map">
                         <i class="fa fa-home fa-2x"></i>
@@ -344,7 +338,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li> 
+                            </li>
                         </ul>
                     </div>
 

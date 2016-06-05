@@ -1,52 +1,49 @@
+/**
+ * _appIssues.scss
+ * Style modal dialog and form used for submitting bugs/issues with the application
+ */
+
 .appIssuesModal {
-  width: 80%;
-  height: auto;
-  max-height: 75%;
-  max-width: 625px;
-  margin: auto;
+    width: 80%;
+    height: auto;
+    max-height: 75%;
+    max-width: 625px;
+    margin: auto;
 }
 
-.appIssuesBody{
+.appIssuesBody {
     height: 50vh;
     max-height: 545px;
     overflow-y: auto;
 }
+
 .appIssues {
-  // background-color:$overlay;
-  color: $text-color;
+    color: $text-color;
 }
 
 .appIssuesForm {
-  width:100%;
-  background-color: #fff;
-  // border-radius: 30px;
-  // margin-left: auto;
-  // margin-right: auto;
-  // margin-top:20px;
-  // padding-top:20px;
-  padding-bottom: 20px;
-  
+    width: 100%;
+    background-color: #fff;
+    padding-bottom: 20px;
 }
 
-.appIssuesForm .control-group{
-  color: #000;
-  padding-left:30px;
-  padding-right:30px;
+.appIssuesForm .control-group {
+    color: #000;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #appIssuesName, #appIssuesEmail, #appIssuesDescription {
-  width:100%;
-  margin-left: 15px;
+    width: 100%;
+    margin-left: 15px;
 }
 
 #appIssuesDescription {
-  height:200px;
+    height: 200px;
 }
 
 #appIssuesSubmit {
-  margin-left: 15px;
+    margin-left: 15px;
 }
 
-.appIssuesFooter {
-
-}
+.appIssuesFooter {}

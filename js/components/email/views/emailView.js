@@ -1,4 +1,6 @@
-/* global define, Backbone, _ */
+/**
+ *  Email Report Modal View
+ */
 define([
     'app/config',
 
@@ -30,7 +32,7 @@ define([
 
         var template = _.template(viewTemplate);
         var options = {
-          
+
         };
 
         this.$el.html(template(options));
@@ -62,18 +64,18 @@ define([
                           };
 
           $.post('api/email.php', emailData, function(data){
-            //console.log(data);
+
             if( 'success' in data) {
               $('.emailModal').modal('hide');
-              app.showAlert("success","Success!","Your email has been sent.");
+              app.showAlert("success","Success!","Your email has been sent.",3600);
             } else {
               $('.modal-body').prepend("<p>Error: " + data.error + "<br>Please correct input and try again.</p>");
               $('.emailSubmit').html('Try Again');
             }
-            
+
           });
         });
-        
+
       },
 
       handleEmailToMe: function(){

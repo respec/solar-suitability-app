@@ -1,4 +1,9 @@
-/* global define, Backbone, _ */
+/**
+ * Solar Point Query Model
+ *
+ * @return {Object} Backbone Model
+ */
+
 define([
   'app/config',
 ],

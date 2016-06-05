@@ -1,4 +1,7 @@
-/* global define*/
+/**
+ *  Email Report Modal Controller
+ */
+
 define([
 
   'app/config'

@@ -1,88 +1,84 @@
+/**
+ * _dataIssues.scss
+ * Style modal dialog and form used for submitting issues with the solar data
+ */
+
 .dataIssuesModal {
-  width: 60%;
-  height: auto;
-  max-height: 75%;
-  max-width: 625px;
-  margin: auto;
+    width: 60%;
+    height: auto;
+    max-height: 75%;
+    max-width: 625px;
+    margin: auto;
 }
 
 /* Important part */
-.modal-dialog{
-    overflow-y: initial !important
+.modal-dialog {
+    overflow-y: initial !important;
 }
 
 .dataIssues {
-  // background-color:$overlay;
-  color: $text-color;
+    color: $text-color;
 }
 
 .dataIssuesBody {
-  height: 50vh;
+    height: 50vh;
     max-height: 345px;
     overflow-y: auto;
 }
 
 .dataIssuesForm {
-  width:100%;
-  background-color: #fff;
-  // border-radius: 30px;
-  // margin-left: auto;
-  // margin-right: auto;
-  // margin-top:20px;
-  // padding-top:20px;
-  padding-bottom: 20px;
-  
+    width: 100%;
+    background-color: #fff;
+    padding-bottom: 20px;
 }
 
-.dataIssuesForm .control-group{
-  color: #000;
-  padding-left:30px;
-  padding-right:30px;
+.dataIssuesForm .control-group {
+    color: #000;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #dataIssuesName, #dataIssuesEmail, #dataIssuesDescription, #dataIssuesLocation {
-  width:100%;
-  margin-left: 15px;
+    width: 100%;
+    margin-left: 15px;
 }
 
 .messageDisplay {
-  margin-left:15px;
+    margin-left: 15px;
 }
 
 .messageIcon {
-  float:left;
-  padding-right: 5px;
+    float: left;
+    padding-right: 5px;
 }
 
 .selectBadDataWarningIcon {
-  color: yellow;
+    color: yellow;
 }
 
 .selectBadDataSuccessIcon {
-  color: green;
+    color: green;
 }
 
 .selectBadDataErrorIcon {
-  color: red;
+    color: red;
 }
 
 #dataIssuesDescription {
-  height:115px;
+    height: 115px;
 }
 
 .dataIssuesLocationGroup, .selectBadDataSuccess, .selectBadDataWarning, .selectBadDataError {
-  display:none;
+    display: none;
 }
 
 #dataIssuesSubmit {
-  margin-left: 15px;
-} 
-
-.dataIssuesFooter {
-
+    margin-left: 15px;
 }
 
+.dataIssuesFooter {}
+
 .selectBadData {
-  margin-left: 15px;
-  width: 50%
+    margin-left: 15px;
+    width: 50%;
 }

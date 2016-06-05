@@ -1,4 +1,8 @@
-/* global define, Backbone, _ */
+/**
+ * Full Report Model
+ *
+ * @return  {Object} Backbone Model
+ */
 define([
   'app/config',
 ],

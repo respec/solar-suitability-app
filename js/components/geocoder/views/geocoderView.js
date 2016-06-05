@@ -1,4 +1,6 @@
-/* global define, app, Backbone, _ */
+/**
+ *  Geocoder Search Box View
+ */
 define([
     'app/config',
     'app/utils/draw',

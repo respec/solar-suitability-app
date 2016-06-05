@@ -1,4 +1,6 @@
-/* global define, Cookies*/
+/**
+ *  Help (Splash) Modal Controller
+ */
 define([],
 
   function() {

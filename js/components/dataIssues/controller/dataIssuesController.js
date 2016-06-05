@@ -1,4 +1,7 @@
-/* global define*/
+/**
+ *  Data Errors Reporting Modal Controller
+ */
+
 define([
   'dojo/_base/lang',
   'esri/toolbars/draw',

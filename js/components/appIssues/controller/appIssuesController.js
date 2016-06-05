@@ -1,4 +1,7 @@
-/* global define*/
+/**
+ * Report Errors/Bugs Modal Controller
+ */
+
 define([
 
   'app/config'

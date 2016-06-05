@@ -1,4 +1,6 @@
-/* global define, window*/
+/**
+ *  Full Report Solar Calculator Controller
+ */
 define([],
 
   function() {
@@ -18,10 +20,8 @@ define([],
     },
 
     setHeight: function(){
-      var windowHeight = $(window).height() - $('.navbar-container').height() - $('.bottomBar-container').height() - 300 -1;
-      // console.log($(window).height());
-      // console.log($('.navbar-container').height());
-      // console.log($('.bottomBar-container').height());
+      var windowHeight = $(window).height() - $('.navbar-container').height() - 300 -1;
+
       $('#calculator').height(windowHeight);
     }
   };

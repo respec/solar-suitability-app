@@ -1,4 +1,8 @@
-/* global define, app, Backbone, _ */
+/**
+ * Template for Electric Service Utility Section of Full Report
+ *
+ * @return  {Object} Backbone Model
+ */
 define([
     'app/config',
 

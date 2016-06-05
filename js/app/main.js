@@ -1,4 +1,10 @@
-/* global define, app:true*/
+/**
+ * Initialize the solar app, the map, and setup helper functions
+ *
+ * @author Andy Walz <dev@andywalz.com>
+ * @author Chris Martin <cmartin616@gmail.com>
+ */
+
 define([
   'app/config',
   'app/views/LayoutView',
@@ -29,6 +35,8 @@ define([
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/ImageServiceParameters',
   'esri/layers/RasterFunction',
+  'esri/layers/LabelClass',
+  "esri/symbols/TextSymbol",
   'esri/map',
   'esri/geometry/Point',
   'esri/geometry/webMercatorUtils',
@@ -48,7 +56,7 @@ define([
 
     QueryModel, ReportModel,
 
-    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, Map, Point, webMercatorUtils, SpatialReference,
+    esriBasemaps, esriConfig, FeatureLayer, GeoRSSLayer, GraphicsLayer, TiledLayer, ImageLayer, ImageParams, RasterFunction, LabelClass, TextSymbol, Map, Point, webMercatorUtils, SpatialReference,
 
     lang
 
@@ -65,6 +73,7 @@ define([
         this.initLayout();
         var corsEnabledServers = esriConfig.defaults.io.corsEnabledServers;
         corsEnabledServers.push(config.solarImageryUrl);
+        //corsEnabledServers.push(config.mnGeoUrl);
       },
 
       /**
@@ -96,6 +105,9 @@ define([
         app.reportModel = this.model;
       },
 
+      /**
+       * Kick-off the map
+       */
       initMap: function() {
 
         // Remove pan delay
@@ -142,8 +154,7 @@ define([
           opacity: 1.0
         });
 
-        // NOT QUITE WORKING YET
-        // NEED TO TAKE RASTER OFFLINE TO TEST
+        // Check to make sure solar service is available
         solarLayer.on('error', function(err){
           console.log('oops -', err);
         });
@@ -170,10 +181,25 @@ define([
 
         var eusaLayer = new FeatureLayer(config.eusaUrl, {
           id: 'eusa',
+          outFields: ["*"],
           showLabels : true
         });
         eusaLayer.hide();
         eusaLayer.setOpacity(0.65);
+
+        // create a text symbol to define the style of labels
+        var eusaLabel = new TextSymbol();
+        eusaLabel.font.setSize("14pt");
+        eusaLabel.font.setFamily("arial");
+
+        //create instance of LabelClass (note: multiple LabelClasses can be passed in as an array)
+        var labelClass = new LabelClass({
+          minScale: 3000000,
+          "labelExpressionInfo": {"value": "{FULL_NAME}"}
+        });
+        labelClass.symbol = eusaLabel; // symbol also can be set in LabelClass' json
+        eusaLayer.setLabelingInfo([ labelClass ]);
+
 
         var waterLayer = new FeatureLayer(config.waterUrl, {
           id: 'water',
@@ -248,12 +274,15 @@ define([
             app.map.getLayer('solar').show();
             $('#solarToggle').bootstrapToggle('on');
           }
-         
+
         });
 
         this.initComponents();
       },
 
+      /**
+       * Initialize all the core components of the app
+       */
       initComponents: function() {
         // Initialize query object to hold data
         app.query = {};
@@ -305,6 +334,9 @@ define([
 
       },
 
+      /**
+       * Setup map to listen for clicks and check for location supplied via url
+       */
       mapController: function() {
         var self = this;
         app.map.resize();
@@ -316,16 +348,16 @@ define([
         });
         app.map.on('load', function(){
           self.checkUrlParams();
-          //self.buildToolTip();
-          //self.showAlert("success","Notice:","Click anywhere on the map to view solar potential.");
         });
-        
+
       },
 
+      /**
+       * Attach a tooltip to mouse cursor that provides hint on how to fire solar query
+       *
+       * @deprecated This feature was cut because it isn't compatible with mobile
+       */
       buildToolTip: function(){
-        
-        // dojo.connect(this.map, 'onLoad', function() {
-          // dojo.connect(dijit.byId('map'), 'resize', this.map, this.map.resize);
 
           // create node for the tooltip
           var tip = 'Click to view solar potential.';
@@ -346,33 +378,45 @@ define([
               py = evt.clientY + dojo.body().scrollTop - dojo.body().clientTop;
             }
 
-              // dojo.style(tooltip, 'display', 'none');
-              // tooltip.style.display = 'none';
-              dojo.style(tooltip, {
-                left: (px + 15) + 'px',
-                top: (py) + 'px'
-              });
-              // dojo.style(tooltip, 'display', ');
-              tooltip.style.display = '';
+            dojo.style(tooltip, {
+              left: (px + 15) + 'px',
+              top: (py) + 'px'
+            });
+
+            tooltip.style.display = '';
           });
 
           // hide the tooltip the cursor isn't over the map
           dojo.connect(app.map, 'onMouseOut', function(evt) {
             tooltip.style.display = 'none';
           });
-        // });
+
       },
 
-      // Show a floating fade in/out alert message, a duration of 0 forces the user to dismiss the alert
+      /**
+       * Show a floating fade in/out alert message, a duration of 0 forces the user to dismiss the alert
+       * @link http://v4-alpha.getbootstrap.com/components/alerts/
+       *
+       * @param  {string}   alertType   bootstrap alert type
+       * @param  {string}   headline    h2 text headline
+       * @param  {string}   message     h3 detailed message
+       * @param  {number}  duration    milleseconds before message is automatically dismissed, 0 forces user to dismiss, default is 3700
+       * @return {N/A}
+       */
       showAlert: function(alertType, headline, message, duration) {
           alertDuration = duration || 3700;
-          $('#myAlert').html('<div class="alert alert-' + alertType + ' flyover flyover-centered" id="alert"><span data-dismiss="alert" class="flyover-close pull-right" type="button"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
+          $('#myAlert').html('<div data-dismiss="alert" class="alert alert-' + alertType + ' flyover flyover-centered" id="alert" onclick="this.alert(\'close\')"><span data-dismiss="alert" class="flyover-close pull-right" type="button" aria-label="close"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
           $('#alert').addClass('in');
           if (duration > 0){
-            window.setTimeout(function () { $('#alert').removeClass('in'); }, alertDuration);
+            //window.setTimeout(function () { $('#alert').removeClass('in'); }, alertDuration);
           }
         },
 
+      /**
+       * Format number as US Currency prefixed with $
+       * @param  {number}   nStr   amount of money
+       * @return {string}
+       */
       formatMoney: function(nStr) {
           nStr += '';
           x = nStr.split('.');
@@ -385,23 +429,25 @@ define([
           return '$' + x1;
         },
 
+      /**
+      * Check supplied URL to see if location (lat/long) was provided, if yes zoom to it a fire query
+      */
       checkUrlParams: function(){
 
         function getParameterByName(name) {
           name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-          
+
           var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
           results = regex.exec(decodeURIComponent(unescape(location.search)));
-          
+
           return results === null ? '' : results[1].replace(/\+/g, ' ');
         }
 
         var lng = parseFloat(getParameterByName('long'));
         var lat = parseFloat(getParameterByName('lat'));
-        
+
         if (lng && lat){
-          //$('.appHelpModal').modal('hide');
-          
+
           app.map.centerAndZoom([lng, lat - 0.0003], 19);
           var point = new Point (lng, lat, app.map.spatialReference);
           var mp = webMercatorUtils.geographicToWebMercator(point);

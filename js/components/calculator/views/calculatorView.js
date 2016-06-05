@@ -1,4 +1,8 @@
-/* global define, app, Backbone, _, window */
+/**
+ * Full Report Solar Calculator View
+ *
+ * @return {Object}   Backbone View
+ */
 define([
     'app/config',
 
