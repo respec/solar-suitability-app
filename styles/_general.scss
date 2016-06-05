@@ -47,6 +47,7 @@ html {
         border-radius: 30px !important;
     }
 
+    /* Adjust Results Preview on Small Screens */
     .closeResultsTop {
         display: inline;
     }
@@ -59,6 +60,7 @@ html {
         overflow-y: scroll !important;
     }
 
+    /* Adjust Report on Small Screens */
     .barChart {
         margin-top: 20px;
         margin-left: 10px;
@@ -77,15 +79,6 @@ html {
         overflow-x: auto !important;
     }
 }
-
-// @media(min-width:768px){
-//   .closeResultsTop {
-//     display: inline;
-//   }
-//   .closeResultsRight {
-//     display: none;
-//   }
-// }
 
 @media (min-width: 992px) {
     .closeResultsTop {
@@ -155,6 +148,7 @@ a:visited {
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
+    font-size: 175%;
     text-decoration: inherit;
     background-color: transparent;
     box-shadow: none;
@@ -203,6 +197,7 @@ button.close {
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
+    font-size: 125%;
     text-decoration: inherit;
 }
 

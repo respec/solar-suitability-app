@@ -1,5 +1,5 @@
 /**
- * Global app settings (e.g. solar calculator defaults, service urls, etc)
+ * Global app configuration and settings (e.g. solar calculator defaults, service urls, etc)
  *
  * @author Andy Walz <dev@andywalz.com>
  * @author Chris Martin <cmartin616@gmail.com>
