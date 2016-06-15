@@ -32,7 +32,7 @@ Use the following Grunt tasks for development:
 ## Setup
 
 Configure settings for email delivery of solar reports, bug/issues, etc here:
-* api/email_config.ini
+* api/email_config.ini  (Note: rename email_config_SAMPLE.ini to email_config.ini and it will be ignored by Git)
 
 All other settings (e.g. service urls, cacluation constants, list of MiM service providers, etc) here:
 * js/app/config.js
