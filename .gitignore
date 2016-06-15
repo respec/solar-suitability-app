@@ -53,3 +53,4 @@ desktop.ini
 *.css
 *.css.map
 lib/arcgis_js_v314_api/*
+api/email_config.ini
