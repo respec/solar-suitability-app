@@ -24,7 +24,7 @@ define([],
       },
 
       showLoader: function(){
-        $("#alert").removeClass('in');
+        $("#messageFlash").removeClass('in');
         $('#loader').show();
         $('#resultsButton').show();
       },

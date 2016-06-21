@@ -404,12 +404,16 @@ define([
        * @return {N/A}
        */
       showAlert: function(alertType, headline, message, duration) {
-          alertDuration = duration || 3700;
+          if (duration !== undefined && duration === 0){
+            alertDuration = 0;
+          } else {
+            alertDuration = 3700;
+          }
           $('#myAlert').html('<div data-dismiss="alert" class="alert alert-' + alertType + ' flyover flyover-centered" id="messageFlash"><span data-dismiss="alert" class="flyover-close pull-right" type="button" aria-label="close"></span><h2>' + headline + '</h2><h3>' + message + '</h3></div>');
           $('#messageFlash').addClass('in');
           $('#messageFlash').on('click',function(){ $('#messageFlash').alert('close'); });
-          if (duration > 0){
-            window.setTimeout(function () { $('#alert').removeClass('in'); }, alertDuration);
+          if (alertDuration > 0){
+            window.setTimeout(function () { $('#messageFlash').removeClass('in'); }, alertDuration);
           }
         },
 
