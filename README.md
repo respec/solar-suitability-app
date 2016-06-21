@@ -37,6 +37,9 @@ Configure settings for email delivery of solar reports, bug/issues, etc here:
 All other settings (e.g. service urls, cacluation constants, list of MiM service providers, etc) here:
 * js/app/config.js
 
+Change full paths to favicons in index.html to your base domain:
+* replace http://solar.maps.umn.edu/app/ in index.html with http://yourdomain.com
+
 
 ## Data Requirements
 
